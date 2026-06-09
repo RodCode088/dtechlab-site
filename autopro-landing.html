@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoPro — El sistema operativo de tu taller mecánico</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Crect x='1' y='1' width='30' height='30' rx='8' stroke='%235B6AFF' stroke-width='1.5'/%3E%3Crect x='8' y='8' width='7' height='7' rx='1.5' fill='%235B6AFF'/%3E%3Crect x='17' y='8' width='7' height='7' rx='1.5' fill='rgba(91,106,255,0.45)'/%3E%3Crect x='8' y='17' width='7' height='7' rx='1.5' fill='rgba(91,106,255,0.45)'/%3E%3Crect x='17' y='17' width='7' height='7' rx='1.5' fill='%235B6AFF'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --void: #050508;
+    --deep: #090C18;
+    --surface: #0F1525;
+    --panel: #141928;
+    --border: rgba(255,255,255,0.07);
+    --border-lit: rgba(99,102,241,0.3);
+    --signal: #6366F1;
+    --signal-dim: rgba(99,102,241,0.12);
+    --signal-glow: rgba(99,102,241,0.35);
+    --arc: #22D3EE;
+    --plasma: #8B5CF6;
+    --gold: #F59E0B;
+    --green: #10B981;
+    --red: #EF4444;
+    --text: #F8FAFC;
+    --muted: #64748B;
+    --subtle: #94A3B8;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* App light palette (matches screenshots) */
+    --app-bg: #F1F5F9;
+    --app-card: #FFFFFF;
+    --app-sidebar: #0A0E1A;
+    --app-sidebar-text: #94A3B8;
+    --app-sidebar-active: #F8FAFC;
+    --app-border: #E2E8F0;
+    --app-text: #1E293B;
+    --app-muted: #64748B;
+    --app-signal: #6366F1;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    background: var(--void);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    border-bottom: 1px solid transparent;
+    transition: background 0.4s var(--ease), border-color 0.4s var(--ease);
+  }
+  nav.scrolled {
+    background: rgba(5,5,8,0.9);
+    backdrop-filter: blur(20px);
+    border-bottom-color: var(--border);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; color: var(--text);
+  }
+  .nav-logo-mark {
+    width: 30px; height: 30px; border-radius: 7px;
+    border: 1.5px solid rgba(99,102,241,0.6);
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(99,102,241,0.08);
+  }
+  .nav-logo-text {
+    font-size: 17px; font-weight: 700; letter-spacing: -0.3px;
+  }
+  .nav-logo-text span { color: var(--signal); }
+  .nav-by { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a { font-size: 14px; color: var(--subtle); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { display: flex; align-items: center; gap: 12px; }
+  .btn-ghost {
+    font-size: 14px; color: var(--subtle); background: none; border: none;
+    cursor: pointer; padding: 8px 16px; border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .btn-ghost:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+  .btn-primary {
+    font-size: 14px; font-weight: 600; color: #fff;
+    background: var(--signal); border: none; cursor: pointer;
+    padding: 9px 20px; border-radius: 8px;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 120px 48px 80px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg { position: absolute; inset: 0; pointer-events: none; }
+  .hero-glow {
+    position: absolute; width: 900px; height: 900px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(99,102,241,0.10) 0%, transparent 65%);
+    top: 50%; left: 50%; transform: translate(-50%, -55%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 0%, transparent 100%);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--signal-dim); border: 1px solid var(--border-lit);
+    border-radius: 100px; padding: 6px 16px;
+    font-size: 12px; font-weight: 500; color: var(--signal);
+    letter-spacing: 0.5px; margin-bottom: 32px;
+    opacity: 0; animation: fadeUp 0.8s var(--ease) 0.3s forwards;
+  }
+  .hero-badge-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--signal); animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+  .hero h1 {
+    font-size: clamp(44px, 6vw, 78px); font-weight: 800;
+    line-height: 1.05; letter-spacing: -3px; max-width: 900px;
+    opacity: 0; animation: fadeUp 0.9s var(--ease) 0.5s forwards;
+  }
+  .hero h1 em { font-style: normal; color: var(--signal); }
+  .hero-sub {
+    font-size: 18px; color: var(--subtle); max-width: 520px; line-height: 1.65;
+    margin-top: 24px;
+    opacity: 0; animation: fadeUp 0.9s var(--ease) 0.7s forwards;
+  }
+  .hero-actions {
+    display: flex; align-items: center; gap: 16px; margin-top: 40px;
+    opacity: 0; animation: fadeUp 0.9s var(--ease) 0.9s forwards;
+  }
+  .btn-lg {
+    font-size: 15px; font-weight: 600; color: #fff; background: var(--signal);
+    border: none; cursor: pointer; padding: 14px 28px; border-radius: 10px;
+    transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-lg:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(99,102,241,0.35); }
+  .btn-outline {
+    font-size: 15px; font-weight: 500; color: var(--subtle);
+    background: none; border: 1px solid var(--border); cursor: pointer;
+    padding: 14px 28px; border-radius: 10px;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { color: var(--text); border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.03); }
+  .hero-note {
+    margin-top: 16px; font-size: 13px; color: var(--muted);
+    opacity: 0; animation: fadeUp 0.9s var(--ease) 1.1s forwards;
+  }
+
+  /* ── APP MOCKUP ── */
+  .hero-visual {
+    margin-top: 64px; width: 100%; max-width: 1120px;
+    opacity: 0; animation: fadeUp 1s var(--ease) 1.1s forwards;
+    position: relative;
+  }
+  .hero-visual::after {
+    content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 120px;
+    background: linear-gradient(to top, var(--void), transparent);
+    pointer-events: none;
+  }
+  .app-frame {
+    border-radius: 14px; overflow: hidden;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06);
+    background: var(--app-bg);
+  }
+  .app-titlebar {
+    background: #0A0E1A; height: 40px;
+    display: flex; align-items: center; padding: 0 16px; gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .app-dot { width: 11px; height: 11px; border-radius: 50%; }
+  .app-dot.r { background: #FF5F57; }
+  .app-dot.y { background: #FEBC2E; }
+  .app-dot.g { background: #28C840; }
+  .app-url-bar {
+    flex: 1; height: 22px; background: rgba(255,255,255,0.05);
+    border-radius: 4px; margin: 0 16px;
+    display: flex; align-items: center; padding: 0 10px;
+    font-size: 10px; color: rgba(255,255,255,0.3); font-family: monospace;
+  }
+  .app-body {
+    display: grid; grid-template-columns: 200px 1fr;
+    height: 480px;
+  }
+
+  /* Sidebar — dark, matches screenshots */
+  .app-sidebar {
+    background: var(--app-sidebar);
+    border-right: 1px solid rgba(255,255,255,0.06);
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .app-sidebar-header {
+    padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .app-brand {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .app-brand-icon {
+    width: 26px; height: 26px; border-radius: 6px;
+    background: var(--signal);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .app-brand-name { font-size: 14px; font-weight: 700; color: #fff; }
+  .app-sidebar-icon { width: 16px; height: 16px; opacity: 0.3; }
+  .sidebar-section {
+    padding: 12px 12px 4px;
+    font-size: 9px; font-weight: 700; letter-spacing: 1.2px;
+    color: rgba(255,255,255,0.25); text-transform: uppercase;
+  }
+  .app-nav-item {
+    display: flex; align-items: center; gap: 9px;
+    padding: 7px 12px; margin: 0 4px; border-radius: 7px;
+    font-size: 12px; color: var(--app-sidebar-text);
+    cursor: pointer; position: relative;
+  }
+  .app-nav-item.active {
+    background: rgba(99,102,241,0.15); color: #fff;
+  }
+  .app-nav-item.active::before {
+    content: ''; position: absolute; left: -4px; top: 50%; transform: translateY(-50%);
+    width: 3px; height: 18px; background: var(--signal); border-radius: 0 3px 3px 0;
+  }
+  .app-nav-badge {
+    margin-left: auto; background: var(--signal); color: #fff;
+    font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 8px;
+  }
+  .app-sidebar-bottom {
+    margin-top: auto; padding: 12px; border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .supabase-status {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 10px; color: rgba(255,255,255,0.3);
+  }
+  .supabase-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+  /* Content — light, matches screenshots */
+  .app-content {
+    background: var(--app-bg); overflow: hidden; display: flex; flex-direction: column;
+  }
+  .app-topbar {
+    background: var(--app-card); border-bottom: 1px solid var(--app-border);
+    height: 52px; display: flex; align-items: center; padding: 0 20px; gap: 12px;
+    flex-shrink: 0;
+  }
+  .app-topbar-title { font-size: 14px; font-weight: 600; color: var(--app-text); flex: 1; }
+  .app-search {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--app-bg); border: 1px solid var(--app-border);
+    border-radius: 7px; padding: 5px 12px; font-size: 11px; color: var(--app-muted);
+    width: 180px;
+  }
+  .app-topbar-actions { display: flex; align-items: center; gap: 8px; }
+  .app-branch-pill {
+    display: flex; align-items: center; gap: 5px;
+    background: var(--app-bg); border: 1px solid var(--app-border);
+    border-radius: 7px; padding: 5px 10px; font-size: 11px; color: var(--app-muted);
+  }
+  .app-branch-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--signal); }
+  .app-btn-sm {
+    background: var(--signal); color: #fff; border: none; cursor: pointer;
+    font-size: 11px; font-weight: 600; padding: 6px 12px; border-radius: 7px;
+  }
+  .app-user {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #CBD5E1; display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: var(--app-text);
+  }
+
+  .app-main { padding: 20px; overflow: hidden; flex: 1; }
+  .app-page-header {
+    display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px;
+  }
+  .app-page-title { font-size: 22px; font-weight: 700; color: var(--app-text); }
+  .app-page-sub { font-size: 12px; color: var(--app-muted); margin-top: 2px; }
+  .app-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 16px; }
+  .app-stat {
+    background: var(--app-card); border: 1px solid var(--app-border);
+    border-radius: 10px; padding: 14px 16px;
+    display: flex; align-items: flex-start; justify-content: space-between;
+  }
+  .app-stat-body { }
+  .app-stat-label { font-size: 11px; color: var(--app-muted); margin-bottom: 8px; }
+  .app-stat-value { font-size: 24px; font-weight: 700; color: var(--app-text); }
+  .app-stat-delta { font-size: 10px; color: var(--green); margin-top: 4px; }
+  .app-stat-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .app-stat-icon.green { background: rgba(16,185,129,0.1); }
+  .app-stat-icon.blue { background: rgba(99,102,241,0.1); }
+  .app-stat-icon.purple { background: rgba(139,92,246,0.1); }
+  .app-stat-icon.amber { background: rgba(245,158,11,0.1); }
+
+  .app-bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .app-card {
+    background: var(--app-card); border: 1px solid var(--app-border);
+    border-radius: 10px; padding: 14px;
+  }
+  .app-card-title { font-size: 12px; font-weight: 600; color: var(--app-text); margin-bottom: 4px; }
+  .app-card-sub { font-size: 10px; color: var(--app-muted); margin-bottom: 10px; }
+  .app-chart-bars { display: flex; align-items: flex-end; gap: 3px; height: 90px; }
+  .app-bar {
+    flex: 1; border-radius: 3px 3px 0 0; background: #E2E8F0;
+  }
+  .app-bar.hi { background: var(--signal); }
+  .app-bar.med { background: #818CF8; }
+
+  .app-today-list { display: flex; flex-direction: column; gap: 0; }
+  .app-today-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 7px 0; border-bottom: 1px solid var(--app-border);
+    font-size: 11px;
+  }
+  .app-today-row:last-child { border-bottom: none; }
+  .app-today-label { color: var(--app-muted); }
+  .app-today-sub { font-size: 10px; color: #94A3B8; }
+  .app-badge {
+    font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 4px;
+  }
+  .badge-warn { background: #FEF3C7; color: #92400E; }
+  .badge-ok { background: #D1FAE5; color: #065F46; }
+  .badge-err { background: #FEE2E2; color: #991B1B; }
+  .badge-info { background: #EDE9FE; color: #5B21B6; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+  section { padding: 100px 0; }
+
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    color: var(--signal); text-transform: uppercase; margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: clamp(32px, 4vw, 52px); font-weight: 800;
+    letter-spacing: -2px; line-height: 1.1; margin-bottom: 20px;
+  }
+  .section-sub {
+    font-size: 17px; color: var(--subtle); line-height: 1.65; max-width: 540px;
+  }
+
+  /* ── STATS STRIP ── */
+  .stats-strip {
+    background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 56px 0;
+  }
+  .stats-inner {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 0;
+  }
+  .kpi {
+    text-align: center; padding: 0 40px;
+    border-right: 1px solid var(--border);
+  }
+  .kpi:last-child { border-right: none; }
+  .kpi-num {
+    font-size: 48px; font-weight: 800; letter-spacing: -2px;
+    color: var(--text);
+  }
+  .kpi-num.accent {
+    background: linear-gradient(135deg, var(--signal), var(--plasma));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .kpi-label { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+
+  /* ── PROBLEM ── */
+  .problem-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 56px; }
+  .problem-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 32px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .problem-card:hover { border-color: rgba(239,68,68,0.25); transform: translateY(-4px); }
+  .problem-icon-wrap {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.15);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+  }
+  .problem-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+  .problem-card p { font-size: 14px; color: var(--subtle); line-height: 1.65; }
+
+  /* ── FEATURES ── */
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border);
+    border-radius: 20px; overflow: hidden; margin-top: 56px;
+  }
+  .feature-cell {
+    background: var(--deep); padding: 36px 32px;
+    transition: background 0.3s; position: relative; overflow: hidden;
+  }
+  .feature-cell::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--signal-dim) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .feature-cell:hover { background: var(--surface); }
+  .feature-cell:hover::after { opacity: 1; }
+  .feature-icon-box {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--signal-dim); border: 1px solid rgba(99,102,241,0.2);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px; position: relative; z-index: 1;
+  }
+  .feature-cell h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; position: relative; z-index: 1; }
+  .feature-cell p { font-size: 13px; color: var(--subtle); line-height: 1.65; position: relative; z-index: 1; }
+  .feature-tag {
+    display: inline-block; margin-top: 12px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+    color: var(--signal); background: var(--signal-dim);
+    border: 1px solid rgba(99,102,241,0.2);
+    padding: 3px 8px; border-radius: 4px; position: relative; z-index: 1;
+  }
+
+  /* ── ROLES ── */
+  .roles-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 56px; }
+  .role-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 40px 32px; position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .role-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .role-card.admin::before { background: var(--signal); }
+  .role-card.secretaria::before { background: var(--plasma); }
+  .role-card.mecanico::before { background: var(--gold); }
+  .role-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+  .role-card.admin:hover { border-color: rgba(99,102,241,0.3); }
+  .role-card.secretaria:hover { border-color: rgba(139,92,246,0.3); }
+  .role-card.mecanico:hover { border-color: rgba(245,158,11,0.3); }
+  .role-mark {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px; font-size: 13px; font-weight: 800; letter-spacing: -0.5px;
+  }
+  .role-card.admin .role-mark { background: rgba(99,102,241,0.12); color: var(--signal); }
+  .role-card.secretaria .role-mark { background: rgba(139,92,246,0.12); color: var(--plasma); }
+  .role-card.mecanico .role-mark { background: rgba(245,158,11,0.12); color: var(--gold); }
+  .role-name { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+  .role-desc { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.5; }
+  .role-perms { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .role-perms li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--subtle); }
+  .perm-dot { width: 5px; height: 5px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .role-card.admin .perm-dot { background: var(--signal); }
+  .role-card.secretaria .perm-dot { background: var(--plasma); }
+  .role-card.mecanico .perm-dot { background: var(--gold); }
+
+  /* ── MULTI ── */
+  .multi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .branch-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 22px; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 14px;
+    transition: border-color 0.3s;
+  }
+  .branch-card:hover { border-color: var(--border-lit); }
+  .branch-indicator { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .branch-indicator.s { background: var(--signal); box-shadow: 0 0 6px var(--signal); }
+  .branch-indicator.p { background: var(--plasma); box-shadow: 0 0 6px var(--plasma); }
+  .branch-indicator.g { background: var(--green); box-shadow: 0 0 6px var(--green); }
+  .branch-info { flex: 1; }
+  .branch-name { font-size: 14px; font-weight: 600; }
+  .branch-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .branch-rev { text-align: right; }
+  .branch-amount { font-size: 16px; font-weight: 700; color: var(--green); }
+  .branch-period { font-size: 10px; color: var(--muted); }
+
+  /* ── AI ── */
+  .ai-wrap {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 24px; padding: 80px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  .ai-wrap::before {
+    content: ''; position: absolute;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%);
+    right: -100px; top: 50%; transform: translateY(-50%);
+    pointer-events: none;
+  }
+  .ai-terminal {
+    background: var(--deep); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden;
+  }
+  .ai-terminal-bar {
+    background: var(--panel); padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .ai-avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--signal), var(--plasma));
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .ai-header-info { flex: 1; }
+  .ai-header-name { font-size: 12px; font-weight: 700; }
+  .ai-header-status { font-size: 10px; color: var(--green); }
+  .ai-beta-tag {
+    font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 4px;
+    background: var(--signal-dim); color: var(--signal);
+    border: 1px solid rgba(99,102,241,0.2);
+  }
+  .ai-messages { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .ai-msg {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 14px;
+    font-size: 13px; line-height: 1.6; color: var(--subtle);
+  }
+  .ai-msg.user {
+    background: var(--signal-dim); border-color: rgba(99,102,241,0.2);
+    color: var(--text); text-align: right; align-self: flex-end;
+    max-width: 85%;
+  }
+  .ai-chips {
+    padding: 0 16px 16px; display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .ai-chip {
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    border-radius: 6px; padding: 5px 10px;
+    font-size: 11px; color: var(--subtle); cursor: pointer;
+    transition: all 0.2s;
+  }
+  .ai-chip:hover { color: var(--text); border-color: var(--border-lit); background: var(--signal-dim); }
+  .ai-check-list { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+  .ai-check {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; color: var(--subtle);
+  }
+  .ai-check-mark {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+
+  /* ── PRICING ── */
+  .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 56px; }
+  .price-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 40px 32px; position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .price-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px rgba(0,0,0,0.4); }
+  .price-card.featured {
+    background: rgba(99,102,241,0.06); border-color: rgba(99,102,241,0.25);
+    box-shadow: 0 0 60px rgba(99,102,241,0.08);
+  }
+  .price-popular {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--signal); color: white;
+    font-size: 11px; font-weight: 700; padding: 4px 14px; border-radius: 100px;
+    white-space: nowrap;
+  }
+  .price-plan { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .price-amount { display: flex; align-items: baseline; gap: 4px; margin-bottom: 8px; }
+  .price-currency { font-size: 20px; color: var(--subtle); }
+  .price-num { font-size: 52px; font-weight: 800; letter-spacing: -3px; }
+  .price-period { font-size: 14px; color: var(--muted); }
+  .price-desc { font-size: 14px; color: var(--subtle); line-height: 1.55; margin-bottom: 28px; }
+  .price-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
+  .price-features { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 32px; }
+  .price-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--subtle); }
+  .price-check { color: var(--green); flex-shrink: 0; margin-top: 1px; font-size: 13px; }
+  .price-cta {
+    width: 100%; font-size: 15px; font-weight: 600;
+    padding: 14px; border-radius: 10px; cursor: pointer;
+    border: none; transition: opacity 0.2s, transform 0.2s;
+  }
+  .price-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+  .price-cta.filled { background: var(--signal); color: white; }
+  .price-cta.border { background: transparent; color: var(--subtle); border: 1px solid var(--border); }
+  .price-cta.border:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+  /* ── CTA ── */
+  .cta-section {
+    text-align: center; padding: 120px 48px;
+    position: relative; overflow: hidden;
+  }
+  .cta-glow {
+    position: absolute; width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(99,102,241,0.09) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .cta-section h2 {
+    font-size: clamp(36px, 5vw, 64px); font-weight: 800;
+    letter-spacing: -2px; line-height: 1.1; margin-bottom: 20px; position: relative;
+  }
+  .cta-section p {
+    font-size: 17px; color: var(--subtle); max-width: 480px;
+    margin: 0 auto 40px; line-height: 1.65; position: relative;
+  }
+  .cta-actions { display: flex; align-items: center; justify-content: center; gap: 16px; position: relative; }
+  .cta-note { margin-top: 20px; font-size: 13px; color: var(--muted); position: relative; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border); padding: 36px 48px;
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-brand { font-size: 14px; color: var(--muted); }
+  .footer-brand strong { color: var(--text); }
+  .footer-brand strong span { color: var(--signal); }
+  .footer-by { font-size: 13px; color: var(--muted); }
+  .footer-by a { color: var(--signal); text-decoration: none; }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--subtle); }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── STATUS BADGE ── */
+  .status-badge {
+    position: fixed; bottom: 20px; right: 20px; z-index: 50;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 7px 12px;
+    display: flex; align-items: center; gap: 7px;
+    font-size: 11px; color: var(--muted);
+  }
+  .status-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    nav, footer { padding-left: 20px; padding-right: 20px; }
+    .nav-links { display: none; }
+    .container { padding: 0 20px; }
+    section { padding: 60px 0; }
+    .hero { padding: 100px 20px 60px; }
+    .problem-grid, .features-grid, .roles-grid, .pricing-grid { grid-template-columns: 1fr; }
+    .multi-grid, .ai-wrap { grid-template-columns: 1fr; gap: 40px; }
+    .ai-wrap { padding: 40px; }
+    .stats-inner { grid-template-columns: repeat(2,1fr); }
+    .app-body { grid-template-columns: 1fr; }
+    .app-sidebar { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z" fill="rgba(99,102,241,0.5)" stroke="rgba(99,102,241,0.9)" stroke-width="1"/>
+      </svg>
+    </div>
+    <div>
+      <div class="nav-logo-text">Auto<span>Pro</span></div>
+      <div class="nav-by">by DTechLab</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Funciones</a>
+    <a href="#roles">Roles</a>
+    <a href="#multi">Multi-sucursal</a>
+    <a href="#precios">Precios</a>
+  </div>
+  <div class="nav-cta">
+    <button class="btn-ghost">Iniciar sesión</button>
+    <button class="btn-primary">Comenzar gratis</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg">
+    <div class="hero-glow"></div>
+    <div class="hero-grid"></div>
+  </div>
+
+  <div class="hero-badge">
+    <div class="hero-badge-dot"></div>
+    MVP 1.0 — Ya disponible
+  </div>
+
+  <h1>El sistema <em>operativo</em><br>de tu taller mecánico.</h1>
+  <p class="hero-sub">Órdenes de trabajo, clientes, inventario, finanzas y mecánicos — todo conectado. Multi-sucursal desde el primer día.</p>
+
+  <div class="hero-actions">
+    <button class="btn-lg">Comenzar gratis</button>
+    <button class="btn-outline">Ver demo</button>
+  </div>
+  <p class="hero-note">Sin tarjeta de crédito · Configuración en 5 minutos · Soporte en español</p>
+
+  <!-- App mockup fiel a los screenshots -->
+  <div class="hero-visual">
+    <div class="app-frame">
+      <div class="app-titlebar">
+        <div class="app-dot r"></div>
+        <div class="app-dot y"></div>
+        <div class="app-dot g"></div>
+        <div class="app-url-bar">app.autopro.com · dashboard</div>
+      </div>
+      <div class="app-body">
+
+        <!-- Sidebar oscuro — igual a los screenshots -->
+        <div class="app-sidebar">
+          <div class="app-sidebar-header">
+            <div class="app-brand">
+              <div class="app-brand-icon">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z" fill="rgba(255,255,255,0.9)" stroke="white" stroke-width="0.5"/>
+                </svg>
+              </div>
+              <span class="app-brand-name">AutoPro</span>
+            </div>
+            <svg class="app-sidebar-icon" viewBox="0 0 16 16" fill="currentColor">
+              <rect x="2" y="2" width="12" height="2" rx="1" fill="currentColor"/>
+              <rect x="2" y="7" width="8" height="2" rx="1" fill="currentColor"/>
+              <rect x="2" y="12" width="10" height="2" rx="1" fill="currentColor"/>
+            </svg>
+          </div>
+
+          <div class="sidebar-section">Operación</div>
+          <div class="app-nav-item active">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="color:#fff;opacity:0.9">
+              <rect x="1" y="1" width="6" height="6" rx="1.5" fill="currentColor"/>
+              <rect x="9" y="1" width="6" height="6" rx="1.5" fill="currentColor"/>
+              <rect x="1" y="9" width="6" height="6" rx="1.5" fill="currentColor"/>
+              <rect x="9" y="9" width="6" height="6" rx="1.5" fill="currentColor"/>
+            </svg>
+            Dashboard
+          </div>
+          <div class="app-nav-item">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor">
+              <rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <path d="M5 2v3M11 2v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <rect x="4" y="8" width="4" height="1.5" rx="0.75" fill="currentColor"/>
+              <rect x="4" y="11" width="6" height="1.5" rx="0.75" fill="currentColor"/>
+            </svg>
+            Órdenes de trabajo
+            <span class="app-nav-badge">6</span>
+          </div>
+          <div class="app-nav-item">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M13 11c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V6a2 2 0 012-2h6a2 2 0 012 2v5z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <circle cx="8" cy="8.5" r="1.5" fill="currentColor"/>
+              <path d="M6 4.5V3a1 1 0 011-1h2a1 1 0 011 1v1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            </svg>
+            Ingreso de vehículos
+          </div>
+          <div class="app-nav-item">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M3 10L6 7l3 3 4-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            </svg>
+            Panel del mecánico
+          </div>
+
+          <div class="sidebar-section">CRM</div>
+          <div class="app-nav-item">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor">
+              <circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <path d="M2 13c0-2.8 2.7-5 6-5s6 2.2 6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            </svg>
+            Clientes
+          </div>
+          <div class="app-nav-item">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M13 9.5c0 1.1-.9 2-2 2H5L2 14V5a2 2 0 012-2h7a2 2 0 012 2v4.5z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <circle cx="6" cy="6.5" r="0.8" fill="currentColor"/>
+              <circle cx="8" cy="6.5" r="0.8" fill="currentColor"/>
+              <circle cx="10" cy="6.5" r="0.8" fill="currentColor"/>
+            </svg>
+            Vehículos
+          </div>
+          <div class="app-nav-item">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor">
+              <rect x="2" y="2" width="12" height="13" rx="1.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Cotizador
+          </div>
+
+          <div class="sidebar-section">Gestión</div>
+          <div class="app-nav-item">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor">
+              <rect x="3" y="3" width="4" height="4" rx="0.8" fill="currentColor" opacity="0.6"/>
+              <rect x="9" y="3" width="4" height="4" rx="0.8" fill="currentColor"/>
+              <rect x="3" y="9" width="4" height="4" rx="0.8" fill="currentColor"/>
+              <rect x="9" y="9" width="4" height="4" rx="0.8" fill="currentColor" opacity="0.6"/>
+            </svg>
+            Inventario
+          </div>
+          <div class="app-nav-item">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor">
+              <circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <path d="M8 5v3l2 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            </svg>
+            Finanzas
+          </div>
+
+          <div class="sidebar-section">Inteligencia</div>
+          <div class="app-nav-item">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 2a5 5 0 014.5 7.2L14 13l-3.8-1.5A5 5 0 118 2z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <circle cx="6" cy="8" r="0.8" fill="currentColor"/>
+              <circle cx="8" cy="8" r="0.8" fill="currentColor"/>
+              <circle cx="10" cy="8" r="0.8" fill="currentColor"/>
+            </svg>
+            Asistente IA
+            <span style="margin-left:4px; font-size:8px; background:rgba(139,92,246,0.2); color:#C4B5FD; border:1px solid rgba(139,92,246,0.2); padding:1px 5px; border-radius:4px;">Beta</span>
+          </div>
+
+          <div class="app-sidebar-bottom">
+            <div class="supabase-status">
+              <div class="supabase-dot"></div>
+              Supabase conectado
+            </div>
+          </div>
+        </div>
+
+        <!-- Content — fondo claro como en los screenshots -->
+        <div class="app-content">
+          <div class="app-topbar">
+            <div class="app-topbar-title">Dashboard</div>
+            <div class="app-search">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <circle cx="7" cy="7" r="5" stroke="#94A3B8" stroke-width="1.5"/>
+                <path d="M11 11l3 3" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              Buscar o navegar...
+            </div>
+            <div class="app-topbar-actions">
+              <div class="app-branch-pill">
+                <div class="app-branch-dot"></div>
+                Todas las sucursales
+              </div>
+              <button class="app-btn-sm">+ Registrar ingreso</button>
+              <div class="app-user">CG</div>
+            </div>
+          </div>
+
+          <div class="app-main">
+            <div class="app-page-header">
+              <div>
+                <div class="app-page-title">Hola, Carlos</div>
+                <div class="app-page-sub">Todas las sucursales · viernes, 29 de mayo</div>
+              </div>
+            </div>
+
+            <div class="app-stats">
+              <div class="app-stat">
+                <div class="app-stat-body">
+                  <div class="app-stat-label">Ingresos del mes</div>
+                  <div class="app-stat-value">$4.232</div>
+                  <div class="app-stat-delta">+ 235% vs. semana pasada</div>
+                </div>
+                <div class="app-stat-icon green">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 11L6 7l3 3 5-7" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="app-stat">
+                <div class="app-stat-body">
+                  <div class="app-stat-label">Órdenes activas</div>
+                  <div class="app-stat-value">6</div>
+                  <div class="app-stat-delta" style="color:#94A3B8">de 16 órdenes</div>
+                </div>
+                <div class="app-stat-icon blue">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <rect x="2" y="3" width="12" height="11" rx="1.5" stroke="#6366F1" stroke-width="1.5"/>
+                    <path d="M5 2v3M11 2v3" stroke="#6366F1" stroke-width="1.5" stroke-linecap="round"/>
+                    <rect x="4" y="8" width="4" height="1.5" rx="0.75" fill="#6366F1"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="app-stat">
+                <div class="app-stat-body">
+                  <div class="app-stat-label">Clientes</div>
+                  <div class="app-stat-value">10</div>
+                  <div class="app-stat-delta">+4 nuevos este mes</div>
+                </div>
+                <div class="app-stat-icon purple">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="5" r="3" stroke="#8B5CF6" stroke-width="1.5"/>
+                    <path d="M2 13c0-2.8 2.7-5 6-5s6 2.2 6 5" stroke="#8B5CF6" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="app-stat">
+                <div class="app-stat-body">
+                  <div class="app-stat-label">Vehículos en taller</div>
+                  <div class="app-stat-value">5</div>
+                  <div class="app-stat-delta" style="color:#94A3B8">con orden activa</div>
+                </div>
+                <div class="app-stat-icon amber">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 10L5 6h6l2 4H3z" stroke="#F59E0B" stroke-width="1.5" stroke-linejoin="round"/>
+                    <circle cx="5.5" cy="11.5" r="1.5" stroke="#F59E0B" stroke-width="1.5"/>
+                    <circle cx="10.5" cy="11.5" r="1.5" stroke="#F59E0B" stroke-width="1.5"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="app-bottom-grid">
+              <div class="app-card">
+                <div class="app-card-title">Ingresos del taller</div>
+                <div class="app-card-sub">Total: $4.058,00</div>
+                <div class="app-chart-bars" id="appBars">
+                  <div class="app-bar" style="height:15%"></div>
+                  <div class="app-bar" style="height:20%"></div>
+                  <div class="app-bar" style="height:12%"></div>
+                  <div class="app-bar" style="height:18%"></div>
+                  <div class="app-bar med" style="height:22%"></div>
+                  <div class="app-bar" style="height:10%"></div>
+                  <div class="app-bar" style="height:16%"></div>
+                  <div class="app-bar" style="height:8%"></div>
+                  <div class="app-bar" style="height:14%"></div>
+                  <div class="app-bar" style="height:11%"></div>
+                  <div class="app-bar med" style="height:19%"></div>
+                  <div class="app-bar" style="height:25%"></div>
+                  <div class="app-bar hi" style="height:90%"></div>
+                  <div class="app-bar" style="height:40%"></div>
+                </div>
+              </div>
+              <div class="app-card">
+                <div class="app-card-title">Operación de hoy</div>
+                <div class="app-today-list">
+                  <div class="app-today-row">
+                    <div>
+                      <div class="app-card-title" style="font-size:12px">3 Órdenes pendientes</div>
+                      <div class="app-today-sub">Esperan iniciar diagnóstico</div>
+                    </div>
+                    <span class="app-badge badge-warn">Pendiente</span>
+                  </div>
+                  <div class="app-today-row">
+                    <div>
+                      <div class="app-card-title" style="font-size:12px">3 Listas para entregar</div>
+                      <div class="app-today-sub">Avisar al cliente</div>
+                    </div>
+                    <span class="app-badge badge-ok">Listo</span>
+                  </div>
+                  <div class="app-today-row">
+                    <div>
+                      <div class="app-card-title" style="font-size:12px">6 Productos stock bajo</div>
+                      <div class="app-today-sub">Reordenar pronto</div>
+                    </div>
+                    <span class="app-badge badge-err">Urgente</span>
+                  </div>
+                  <div class="app-today-row">
+                    <div>
+                      <div class="app-card-title" style="font-size:12px">1 Cotización en borrador</div>
+                      <div class="app-today-sub">Por enviar al cliente</div>
+                    </div>
+                    <span class="app-badge badge-info">Borrador</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="kpi reveal">
+        <div class="kpi-num accent">2 min</div>
+        <div class="kpi-label">Para ingresar un vehículo</div>
+      </div>
+      <div class="kpi reveal">
+        <div class="kpi-num">100%</div>
+        <div class="kpi-label">Operación en tiempo real</div>
+      </div>
+      <div class="kpi reveal">
+        <div class="kpi-num accent">3</div>
+        <div class="kpi-label">Roles configurados por sucursal</div>
+      </div>
+      <div class="kpi reveal">
+        <div class="kpi-num">Sin límite</div>
+        <div class="kpi-label">De sucursales en el plan Pro</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section>
+  <div class="container">
+    <div class="section-label reveal">El problema</div>
+    <h2 class="section-title reveal">Los talleres pierden dinero<br>por falta de sistema.</h2>
+    <p class="section-sub reveal">Cuadernos, WhatsApp, hojas de cálculo. Información dispersa, errores humanos, decisiones a ciegas.</p>
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <div class="problem-icon-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="17" rx="2"/>
+            <path d="M16 2v4M8 2v4M3 10h18"/>
+            <path d="M8 14h2M8 18h4"/>
+          </svg>
+        </div>
+        <h3>Órdenes sin trazabilidad</h3>
+        <p>¿Dónde está ese vehículo? ¿Quién lo tiene? ¿Qué le falta? Sin sistema, nadie sabe nada con certeza.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="problem-icon-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 8V21H3V8"/>
+            <path d="M23 3H1v5h22V3z"/>
+            <path d="M10 12h4"/>
+          </svg>
+        </div>
+        <h3>Inventario descontrolado</h3>
+        <p>Compras duplicadas, piezas agotadas en el peor momento, dinero inmovilizado en productos que no rotan.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="problem-icon-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <h3>Finanzas opacas</h3>
+        <p>¿Cuánto entró este mes? ¿Cuánto salió? ¿Cuál sucursal rinde más? Sin datos no hay decisión posible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom:56px;">
+      <div class="section-label" style="display:inline-block">Todo incluido</div>
+      <h2 class="section-title">Cada módulo que<br>tu taller necesita.</h2>
+      <p class="section-sub" style="margin:0 auto">No son apps separadas. Es un sistema integrado donde todo se conecta.</p>
+    </div>
+    <div class="features-grid reveal">
+      <div class="feature-cell">
+        <div class="feature-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(99,102,241,0.9)" stroke-width="1.8" stroke-linecap="round">
+            <rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><rect x="7" y="14" width="4" height="4" rx="0.5"/>
+          </svg>
+        </div>
+        <h3>Órdenes de trabajo</h3>
+        <p>Crea, asigna y sigue cada orden desde el ingreso hasta la entrega. Estados claros en tiempo real para todo el equipo.</p>
+        <span class="feature-tag">Pendiente · Diagnóstico · Entregado</span>
+      </div>
+      <div class="feature-cell">
+        <div class="feature-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(99,102,241,0.9)" stroke-width="1.8" stroke-linecap="round">
+            <path d="M19 17H5a2 2 0 01-2-2V9a7 7 0 0114 0v6a2 2 0 01-2 2z"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="17.5" r="2.5"/>
+          </svg>
+        </div>
+        <h3>Ingreso de vehículos</h3>
+        <p>Wizard de 4 pasos: cliente, vehículo, detalles del servicio y confirmación. En menos de 2 minutos.</p>
+        <span class="feature-tag">Clientes nuevos o existentes</span>
+      </div>
+      <div class="feature-cell">
+        <div class="feature-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(99,102,241,0.9)" stroke-width="1.8" stroke-linecap="round">
+            <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </div>
+        <h3>Panel del mecánico</h3>
+        <p>Vista simplificada para cada mecánico. Solo ve sus órdenes asignadas y actualiza el estado con un clic.</p>
+        <span class="feature-tag">Rol específico · Sin acceso extra</span>
+      </div>
+      <div class="feature-cell">
+        <div class="feature-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(99,102,241,0.9)" stroke-width="1.8" stroke-linecap="round">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+        </div>
+        <h3>CRM de clientes</h3>
+        <p>Historial completo por cliente: vehículos, órdenes, cotizaciones. Toda la relación en una sola vista.</p>
+        <span class="feature-tag">Historial · Vehículos · Contacto</span>
+      </div>
+      <div class="feature-cell">
+        <div class="feature-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(99,102,241,0.9)" stroke-width="1.8" stroke-linecap="round">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <h3>Cotizador</h3>
+        <p>Genera presupuestos profesionales en segundos, descárgalos en PDF y envíalos directo al cliente.</p>
+        <span class="feature-tag">PDF · Borrador · Enviada</span>
+      </div>
+      <div class="feature-cell">
+        <div class="feature-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(99,102,241,0.9)" stroke-width="1.8" stroke-linecap="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <h3>Inventario inteligente</h3>
+        <p>Stock por sucursal, alertas de mínimo y valor total en inventario. Sabe cuándo reordenar antes de quedarte sin piezas.</p>
+        <span class="feature-tag">Alertas automáticas</span>
+      </div>
+      <div class="feature-cell">
+        <div class="feature-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(99,102,241,0.9)" stroke-width="1.8" stroke-linecap="round">
+            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+          </svg>
+        </div>
+        <h3>Finanzas en tiempo real</h3>
+        <p>Ingresos, egresos y balance del taller. Flujo de caja diario. Sin necesitar al contador para entender los números.</p>
+        <span class="feature-tag">Ingresos · Egresos · Balance</span>
+      </div>
+      <div class="feature-cell">
+        <div class="feature-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(99,102,241,0.9)" stroke-width="1.8" stroke-linecap="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <h3>Multi-sucursal</h3>
+        <p>Administra múltiples talleres desde una sola cuenta. Vista consolidada o por sucursal, en tiempo real.</p>
+        <span class="feature-tag">Sin límite de sucursales</span>
+      </div>
+      <div class="feature-cell">
+        <div class="feature-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(99,102,241,0.9)" stroke-width="1.8" stroke-linecap="round">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            <circle cx="9" cy="10" r="0.5" fill="rgba(99,102,241,0.9)"/>
+            <circle cx="12" cy="10" r="0.5" fill="rgba(99,102,241,0.9)"/>
+            <circle cx="15" cy="10" r="0.5" fill="rgba(99,102,241,0.9)"/>
+          </svg>
+        </div>
+        <h3>Asistente IA</h3>
+        <p>Pregunta en lenguaje natural sobre tu operación. Respuestas basadas en los datos reales de tu taller en segundos.</p>
+        <span class="feature-tag">Beta · Powered by AutoPro AI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROLES -->
+<section id="roles">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="section-label reveal">Acceso por rol</div>
+      <h2 class="section-title reveal">Cada persona ve<br>lo que necesita.</h2>
+      <p class="section-sub reveal" style="margin:0 auto">Tres roles configurados desde el inicio. Cada uno accede solo a su área. Sin confusión, sin errores.</p>
+    </div>
+    <div class="roles-grid">
+      <div class="role-card admin reveal">
+        <div class="role-mark">ADM</div>
+        <div class="role-name">Administrador</div>
+        <div class="role-desc">Control total del sistema y todas las sucursales.</div>
+        <ul class="role-perms">
+          <li><div class="perm-dot"></div>Dashboard completo y multi-sucursal</li>
+          <li><div class="perm-dot"></div>Reportes de finanzas e ingresos</li>
+          <li><div class="perm-dot"></div>Gestión de usuarios y roles</li>
+          <li><div class="perm-dot"></div>Inventario y configuración</li>
+          <li><div class="perm-dot"></div>Acceso al Asistente IA</li>
+        </ul>
+      </div>
+      <div class="role-card secretaria reveal">
+        <div class="role-mark">SEC</div>
+        <div class="role-name">Secretaria</div>
+        <div class="role-desc">Atención al cliente e ingreso de vehículos de su sucursal.</div>
+        <ul class="role-perms">
+          <li><div class="perm-dot"></div>Ingreso de vehículos y clientes</li>
+          <li><div class="perm-dot"></div>Gestión de órdenes de trabajo</li>
+          <li><div class="perm-dot"></div>Cotizador y envío de presupuestos</li>
+          <li><div class="perm-dot"></div>Inventario de su sucursal</li>
+          <li><div class="perm-dot"></div>CRM de clientes y vehículos</li>
+        </ul>
+      </div>
+      <div class="role-card mecanico reveal">
+        <div class="role-mark">MEC</div>
+        <div class="role-name">Mecánico</div>
+        <div class="role-desc">Vista enfocada exclusivamente en sus órdenes asignadas.</div>
+        <ul class="role-perms">
+          <li><div class="perm-dot"></div>Panel personal con órdenes asignadas</li>
+          <li><div class="perm-dot"></div>Actualización de estado de orden</li>
+          <li><div class="perm-dot"></div>Notas técnicas por orden</li>
+          <li><div class="perm-dot"></div>Sin acceso a finanzas ni inventario</li>
+          <li><div class="perm-dot"></div>Interfaz ultra-simplificada</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MULTI-SUCURSAL -->
+<section id="multi">
+  <div class="container">
+    <div class="multi-grid">
+      <div class="reveal">
+        <div class="section-label">Multi-sucursal</div>
+        <h2 class="section-title">Un taller o diez.<br>Mismo sistema.</h2>
+        <p class="section-sub">Cada sucursal opera de forma independiente — su propio equipo, inventario y finanzas. Tú lo ves todo desde arriba en tiempo real.</p>
+        <br><br>
+        <button class="btn-lg" style="display:inline-block">Ver demo multi-sucursal</button>
+      </div>
+      <div class="reveal">
+        <div class="branch-card">
+          <div class="branch-indicator s"></div>
+          <div class="branch-info">
+            <div class="branch-name">Taller La Pulida</div>
+            <div class="branch-meta">4 mecánicos · 8 órdenes activas</div>
+          </div>
+          <div class="branch-rev">
+            <div class="branch-amount">$2.840</div>
+            <div class="branch-period">este mes</div>
+          </div>
+        </div>
+        <div class="branch-card">
+          <div class="branch-indicator p"></div>
+          <div class="branch-info">
+            <div class="branch-name">Taller 12 de Octubre</div>
+            <div class="branch-meta">3 mecánicos · 6 órdenes activas</div>
+          </div>
+          <div class="branch-rev">
+            <div class="branch-amount">$1.392</div>
+            <div class="branch-period">este mes</div>
+          </div>
+        </div>
+        <div class="branch-card" style="border-style:dashed; opacity:0.5">
+          <div class="branch-indicator g"></div>
+          <div class="branch-info">
+            <div class="branch-name">+ Nueva sucursal</div>
+            <div class="branch-meta">Se agrega sin costo adicional</div>
+          </div>
+          <div class="branch-rev">
+            <div class="branch-amount" style="color:var(--signal)">Gratis</div>
+            <div class="branch-period">en plan Pro</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI -->
+<div class="container" style="padding-bottom:100px">
+  <div class="ai-wrap reveal">
+    <div>
+      <div class="section-label">Inteligencia artificial</div>
+      <h2 class="section-title" style="font-size:clamp(28px,3vw,42px)">Tu taller habla.<br>AutoPro entiende.</h2>
+      <p class="section-sub">El Asistente IA conoce tu operación completa. Pregúntale en lenguaje natural — sin buscar reportes, sin filtros.</p>
+      <div class="ai-check-list">
+        <div class="ai-check">
+          <div class="ai-check-mark">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          Respuestas basadas en datos reales de tu taller
+        </div>
+        <div class="ai-check">
+          <div class="ai-check-mark">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          Contexto de todas las sucursales simultáneamente
+        </div>
+        <div class="ai-check">
+          <div class="ai-check-mark">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          Disponible 24/7, sin tiempo de espera
+        </div>
+      </div>
+    </div>
+    <div class="ai-terminal">
+      <div class="ai-terminal-bar">
+        <div class="ai-avatar">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+            <path d="M8 2a5 5 0 014.5 7.2L14 13l-3.8-1.5A5 5 0 118 2z" stroke="white" stroke-width="1.5" fill="none"/>
+            <circle cx="6" cy="8" r="0.7" fill="white"/>
+            <circle cx="8" cy="8" r="0.7" fill="white"/>
+            <circle cx="10" cy="8" r="0.7" fill="white"/>
+          </svg>
+        </div>
+        <div class="ai-header-info">
+          <div class="ai-header-name">AutoPro AI</div>
+          <div class="ai-header-status">· En línea · responde en segundos</div>
+        </div>
+        <span class="ai-beta-tag">Beta</span>
+      </div>
+      <div class="ai-messages">
+        <div class="ai-msg user">¿Cuántas órdenes activas hay y qué productos tienen stock bajo?</div>
+        <div class="ai-msg">
+          Tienes <strong style="color:var(--text)">6 órdenes activas</strong> entre ambas sucursales: 3 en diagnóstico, 2 en reparación y 1 esperando piezas.<br><br>
+          En inventario, <strong style="color:var(--gold)">6 productos están bajo el mínimo</strong>: baterías 12V, pastillas de freno, filtros de aire y limpiaparabrisas. Recomiendo reordenar antes del fin de semana.
+        </div>
+      </div>
+      <div class="ai-chips">
+        <div class="ai-chip">Dame un resumen del taller hoy</div>
+        <div class="ai-chip">¿Cuánto ingresó este mes?</div>
+        <div class="ai-chip">¿Cuál mecánico tiene más órdenes?</div>
+        <div class="ai-chip">¿Qué servicio es el más vendido?</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section id="precios">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="section-label reveal">Precios</div>
+      <h2 class="section-title reveal">Simple, claro, sin sorpresas.</h2>
+      <p class="section-sub reveal" style="margin:0 auto">Comienza gratis. Escala cuando lo necesites. Sin contratos anuales obligatorios.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div class="price-plan">Starter</div>
+        <div class="price-amount">
+          <span class="price-currency">$</span>
+          <span class="price-num">0</span>
+          <span class="price-period">/mes</span>
+        </div>
+        <p class="price-desc">Para talleres que están comenzando. Sin límite de tiempo, gratis para siempre.</p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><span class="price-check">✓</span> 1 sucursal</li>
+          <li><span class="price-check">✓</span> Hasta 50 órdenes/mes</li>
+          <li><span class="price-check">✓</span> CRM de clientes y vehículos</li>
+          <li><span class="price-check">✓</span> Órdenes de trabajo</li>
+          <li><span class="price-check">✓</span> Inventario básico</li>
+          <li><span class="price-check" style="color:var(--muted)">—</span> <span style="color:var(--muted)">Asistente IA</span></li>
+          <li><span class="price-check" style="color:var(--muted)">—</span> <span style="color:var(--muted)">Multi-sucursal</span></li>
+        </ul>
+        <button class="price-cta border">Comenzar gratis</button>
+      </div>
+      <div class="price-card featured reveal">
+        <div class="price-popular">Más popular</div>
+        <div class="price-plan">Pro</div>
+        <div class="price-amount">
+          <span class="price-currency">$</span>
+          <span class="price-num">49</span>
+          <span class="price-period">/mes</span>
+        </div>
+        <p class="price-desc">Para talleres establecidos que quieren control total de su operación.</p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><span class="price-check">✓</span> Sucursales ilimitadas</li>
+          <li><span class="price-check">✓</span> Órdenes ilimitadas</li>
+          <li><span class="price-check">✓</span> CRM completo</li>
+          <li><span class="price-check">✓</span> Cotizador con PDF</li>
+          <li><span class="price-check">✓</span> Finanzas y reportes</li>
+          <li><span class="price-check">✓</span> Asistente IA incluido</li>
+          <li><span class="price-check">✓</span> Soporte prioritario</li>
+        </ul>
+        <button class="price-cta filled">Comenzar con Pro</button>
+      </div>
+      <div class="price-card reveal">
+        <div class="price-plan">Enterprise</div>
+        <div class="price-amount">
+          <span class="price-num" style="font-size:36px; letter-spacing:-1px">A medida</span>
+        </div>
+        <p class="price-desc">Para cadenas de talleres con necesidades específicas de integración o escala.</p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><span class="price-check">✓</span> Todo lo de Pro</li>
+          <li><span class="price-check">✓</span> Onboarding dedicado</li>
+          <li><span class="price-check">✓</span> Integraciones personalizadas</li>
+          <li><span class="price-check">✓</span> SLA garantizado</li>
+          <li><span class="price-check">✓</span> Soporte 24/7</li>
+          <li><span class="price-check">✓</span> Capacitación del equipo</li>
+        </ul>
+        <button class="price-cta border">Hablar con ventas</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<div class="cta-section">
+  <div class="cta-glow"></div>
+  <h2 class="reveal">Tu taller merece<br>un sistema real.</h2>
+  <p class="reveal">Deja de perder tiempo y dinero con procesos manuales. AutoPro transforma tu operación desde el primer día.</p>
+  <div class="cta-actions reveal">
+    <button class="btn-lg">Comenzar gratis</button>
+    <button class="btn-outline">Agendar demo</button>
+  </div>
+  <p class="cta-note reveal">Sin tarjeta de crédito · Configuración en 5 minutos · Soporte en español</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <strong>Auto<span>Pro</span></strong> — Sistema operativo para talleres mecánicos
+    </div>
+    <div class="footer-by">Construido por <a href="#">DTechLab</a></div>
+    <div class="footer-links">
+      <a href="#">Privacidad</a>
+      <a href="#">Términos</a>
+      <a href="#">Contacto</a>
+    </div>
+  </div>
+</footer>
+
+<div class="status-badge">
+  <div class="status-badge-dot"></div>
+  AutoPro · MVP 1.0
+</div>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40));
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // AI chips
+  document.querySelectorAll('.ai-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelector('.ai-msg.user').textContent = chip.textContent;
+    });
+  });
+</script>
+</body>
+</html>

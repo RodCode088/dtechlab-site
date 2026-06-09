@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DTechLab Studio — Galería de Templates</title>
+<meta name="description" content="Ejemplos visuales del estándar de diseño DTechLab Studio para distintas industrias y tipos de proyecto.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Crect x='1' y='1' width='30' height='30' rx='8' stroke='%235B6AFF' stroke-width='1.5'/%3E%3Crect x='8' y='8' width='7' height='7' rx='1.5' fill='%235B6AFF'/%3E%3Crect x='17' y='8' width='7' height='7' rx='1.5' fill='rgba(91,106,255,0.45)'/%3E%3Crect x='8' y='17' width='7' height='7' rx='1.5' fill='rgba(91,106,255,0.45)'/%3E%3Crect x='17' y='17' width='7' height='7' rx='1.5' fill='%235B6AFF'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--void:#050507;--abyss:#0A0A0F;--graphite:#111118;--slate:#1A1A24;--pure:#fff;--fog:#E8E8F0;--ghost:#9898A8;--whisper:#4A4A5C;--signal:#5B6AFF;--ice:#A8B4FF;--arc:#22D3EE;--plasma:#8B5CF6;--gold:#FBB324;--hairline:rgba(255,255,255,.06);--hairline2:rgba(255,255,255,.10);--glass:rgba(255,255,255,.03)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--void);color:var(--fog);font-family:'Inter',-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
+html{scroll-behavior:smooth}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 56px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,7,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--hairline)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-text{font-size:15px;font-weight:500;color:var(--pure);letter-spacing:-.02em}
+.nav-logo-text .div{color:var(--signal);font-weight:400;font-size:13px;margin-left:6px;letter-spacing:.04em;text-transform:uppercase;font-family:'Courier New',monospace}
+.nav-back{font-size:13px;color:var(--ghost);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav-back:hover{color:var(--pure)}
+.nav-cta{font-size:13px;padding:8px 18px;background:var(--signal);color:#fff;border-radius:6px;text-decoration:none;font-weight:500}
+
+/* HEADER */
+.page-head{padding:140px 56px 60px;text-align:center;border-bottom:1px solid var(--hairline);position:relative;overflow:hidden}
+.page-head::before{content:'';position:absolute;top:30%;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(91,106,255,.06) 0%,transparent 70%);pointer-events:none}
+.page-eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--signal);font-family:'Courier New',monospace;margin-bottom:18px}
+.page-title{font-size:clamp(36px,5vw,72px);font-weight:200;letter-spacing:-.04em;color:var(--pure);line-height:1.05;margin-bottom:18px}
+.page-title strong{font-weight:500}
+.page-sub{font-size:17px;color:var(--ghost);max-width:640px;margin:0 auto;line-height:1.78;font-weight:300}
+
+/* FILTER */
+.filters{padding:32px 56px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;border-bottom:1px solid var(--hairline);position:sticky;top:60px;background:rgba(5,5,7,.92);backdrop-filter:blur(18px);z-index:90}
+.filter-btn{padding:8px 16px;font-size:12px;font-weight:500;color:var(--ghost);background:transparent;border:1px solid var(--hairline);border-radius:100px;cursor:pointer;font-family:inherit;transition:all .15s;letter-spacing:.02em}
+.filter-btn:hover{color:var(--fog);border-color:var(--hairline2)}
+.filter-btn.active{background:var(--signal);color:#fff;border-color:var(--signal)}
+
+/* GALLERY */
+.gallery{padding:60px 56px 100px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1400px;margin:0 auto}
+.tpl{background:var(--graphite);border:1px solid var(--hairline);border-radius:16px;overflow:hidden;transition:transform .3s cubic-bezier(.16,1,.3,1),border-color .25s,box-shadow .3s;display:flex;flex-direction:column}
+.tpl:hover{transform:translateY(-6px);border-color:var(--hairline2);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.tpl-preview{height:300px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--hairline)}
+.tpl-frame{width:84%;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden;box-shadow:0 16px 50px rgba(0,0,0,.6)}
+.tpl-bar{height:22px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;padding:0 10px;gap:5px}
+.tpl-dot{width:6px;height:6px;border-radius:50%;opacity:.55}
+.tpl-body{padding:18px 16px;display:flex;flex-direction:column;gap:8px;min-height:200px}
+.tpl-headline{height:9px;background:rgba(255,255,255,.22);border-radius:4px;width:70%}
+.tpl-sub{height:5px;background:rgba(255,255,255,.08);border-radius:3px;width:90%}
+.tpl-sub.s{width:55%}
+.tpl-acc{height:5px;background:var(--signal);border-radius:3px;opacity:.7}
+.tpl-cta{display:flex;gap:6px;margin-top:6px}
+.tpl-pill{height:18px;width:60px;background:var(--signal);border-radius:5px}
+.tpl-pill.g{background:rgba(255,255,255,.1);width:50px}
+.tpl-hero-img{height:54px;background:linear-gradient(135deg,rgba(91,106,255,.2),rgba(34,211,238,.1));border-radius:6px;margin:6px 0}
+.tpl-grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:4px 0}
+.tpl-grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:4px 0}
+.tpl-block{height:42px;background:rgba(255,255,255,.05);border-radius:5px}
+.tpl-block.acc{background:rgba(91,106,255,.18)}
+.tpl-block.arc{background:rgba(34,211,238,.14)}
+.tpl-block.plasma{background:rgba(139,92,246,.16)}
+.tpl-stats{display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);margin-top:4px}
+.tpl-stat{text-align:center}
+.tpl-stat-v{height:8px;width:24px;background:var(--pure);opacity:.8;border-radius:3px;margin:0 auto 3px}
+.tpl-stat-l{height:3px;width:30px;background:rgba(255,255,255,.15);border-radius:2px}
+
+/* preview backgrounds per template */
+.bg-corp{background:linear-gradient(135deg,#0A0F1A 0%,#141B2E 100%)}
+.bg-shop{background:linear-gradient(135deg,#0B0F1E 0%,#1B1530 100%)}
+.bg-resto{background:linear-gradient(135deg,#160A05 0%,#2A1810 100%)}
+.bg-clinic{background:linear-gradient(135deg,#040E16 0%,#082030 100%)}
+.bg-saas{background:linear-gradient(135deg,#0D0A1F 0%,#1F0F38 100%)}
+.bg-services{background:linear-gradient(135deg,#0A1208 0%,#102018 100%)}
+.bg-realestate{background:linear-gradient(135deg,#161005 0%,#221608 100%)}
+.bg-edu{background:linear-gradient(135deg,#0A0F18 0%,#161E30 100%)}
+.bg-fitness{background:linear-gradient(135deg,#100506 0%,#22090C 100%)}
+
+.tpl-meta{padding:24px 26px;display:flex;flex-direction:column;gap:8px;flex:1}
+.tpl-industry{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--signal);font-family:'Courier New',monospace}
+.tpl-name{font-size:18px;font-weight:500;color:var(--pure);letter-spacing:-.02em;margin-top:4px}
+.tpl-desc{font-size:13px;font-weight:300;color:var(--ghost);line-height:1.7;margin-top:6px;flex:1}
+.tpl-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.tpl-tag{font-size:10px;padding:4px 9px;background:rgba(255,255,255,.04);border:1px solid var(--hairline);color:var(--ghost);border-radius:4px;font-family:'Courier New',monospace;letter-spacing:.06em}
+.tpl-foot{padding:16px 26px;background:var(--abyss);border-top:1px solid var(--hairline);display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.06em}
+.tpl-foot strong{color:var(--ghost);font-weight:500}
+
+/* CTA at bottom */
+.gallery-cta{padding:80px 56px;text-align:center;background:var(--abyss);border-top:1px solid var(--hairline)}
+.cta-title{font-size:clamp(28px,3.5vw,44px);font-weight:200;color:var(--pure);letter-spacing:-.03em;margin-bottom:16px;line-height:1.15}
+.cta-title strong{font-weight:500}
+.cta-sub{font-size:15px;color:var(--ghost);max-width:540px;margin:0 auto 32px;line-height:1.75;font-weight:300}
+.cta-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:var(--signal);color:#fff;font-size:14px;font-weight:500;border-radius:8px;text-decoration:none;transition:all .15s}
+.btn-primary:hover{background:#6B7AFF;transform:translateY(-1px);box-shadow:0 0 28px rgba(91,106,255,.35)}
+.btn-ghost{display:inline-flex;align-items:center;gap:6px;padding:13px 22px;background:transparent;border:1px solid var(--hairline2);color:var(--fog);font-size:14px;border-radius:8px;text-decoration:none;transition:all .15s}
+.btn-ghost:hover{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.25)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--hairline);padding:32px 56px;display:flex;justify-content:space-between;font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.06em}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .gallery{grid-template-columns:1fr 1fr;padding:60px 32px 100px}
+  .page-head,nav,.filters,.gallery-cta,footer{padding-left:32px;padding-right:32px}
+}
+@media(max-width:768px){
+  nav{padding:0 20px;height:56px}
+  .nav-back{display:none}
+  .gallery{grid-template-columns:1fr;padding:48px 20px 80px;gap:20px}
+  .page-head{padding:110px 20px 48px}
+  .filters{padding:20px;gap:6px}
+  .filter-btn{padding:6px 12px;font-size:11px}
+  .gallery-cta{padding:60px 20px}
+  footer{padding:24px 20px;flex-direction:column;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="dtechlab-studio.html" class="nav-logo">
+    <svg width="26" height="26" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
+    <span class="nav-logo-text">DTechLab<span class="div">Templates</span></span>
+  </a>
+  <a href="dtechlab-studio.html" class="nav-back">← Volver a Studio</a>
+  <a href="dtechlab-studio.html#cotizador" class="nav-cta">Cotizar</a>
+</nav>
+
+<div class="page-head">
+  <div class="page-eyebrow">Galería · Estándar de diseño</div>
+  <h1 class="page-title">9 templates de referencia. <strong>Para que veas el estándar.</strong></h1>
+  <p class="page-sub">Ningún proyecto es igual al otro — siempre diseñamos desde cero. Estos son ejemplos del estilo, calidad y nivel de detalle que entregamos en cada industria.</p>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" data-cat="all">Todos</button>
+  <button class="filter-btn" data-cat="corp">Corporativo</button>
+  <button class="filter-btn" data-cat="shop">E-commerce</button>
+  <button class="filter-btn" data-cat="hosp">Hospitalidad</button>
+  <button class="filter-btn" data-cat="health">Salud</button>
+  <button class="filter-btn" data-cat="saas">SaaS / Tech</button>
+  <button class="filter-btn" data-cat="services">Servicios</button>
+  <button class="filter-btn" data-cat="realestate">Inmobiliaria</button>
+  <button class="filter-btn" data-cat="edu">Educación</button>
+</div>
+
+<div class="gallery" id="gallery">
+
+  <!-- 01 — Corporativo -->
+  <div class="tpl" data-cat="corp">
+    <div class="tpl-preview bg-corp">
+      <div class="tpl-frame">
+        <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
+        <div class="tpl-body">
+          <div class="tpl-acc" style="width:30%"></div>
+          <div class="tpl-headline"></div>
+          <div class="tpl-sub"></div>
+          <div class="tpl-sub s"></div>
+          <div class="tpl-cta"><div class="tpl-pill"></div><div class="tpl-pill g"></div></div>
+          <div class="tpl-hero-img"></div>
+          <div class="tpl-stats">
+            <div class="tpl-stat"><div class="tpl-stat-v"></div><div class="tpl-stat-l"></div></div>
+            <div class="tpl-stat"><div class="tpl-stat-v"></div><div class="tpl-stat-l"></div></div>
+            <div class="tpl-stat"><div class="tpl-stat-v"></div><div class="tpl-stat-l"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tpl-meta">
+      <div class="tpl-industry">Corporativo · B2B</div>
+      <div class="tpl-name">Bufete · Firma profesional</div>
+      <div class="tpl-desc">Para abogados, consultoras, contadores, arquitectos. Comunica autoridad sin sentirse acartonado. Servicios, equipo, casos seleccionados y contacto calificado.</div>
+      <div class="tpl-tags"><span class="tpl-tag">5–7 págs</span><span class="tpl-tag">Multi-idioma</span><span class="tpl-tag">CMS</span></div>
+    </div>
+    <div class="tpl-foot"><span>tpl-corp-01</span><span><strong>2–3 sem</strong></span></div>
+  </div>
+
+  <!-- 02 — E-commerce -->
+  <div class="tpl" data-cat="shop">
+    <div class="tpl-preview bg-shop">
+      <div class="tpl-frame">
+        <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
+        <div class="tpl-body">
+          <div class="tpl-headline" style="width:50%"></div>
+          <div class="tpl-grid2">
+            <div class="tpl-block acc"></div>
+            <div class="tpl-block"></div>
+          </div>
+          <div class="tpl-grid3">
+            <div class="tpl-block plasma"></div>
+            <div class="tpl-block"></div>
+            <div class="tpl-block acc"></div>
+          </div>
+          <div class="tpl-cta"><div class="tpl-pill"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="tpl-meta">
+      <div class="tpl-industry">E-commerce · Retail</div>
+      <div class="tpl-name">Tienda online · Catálogo + Pagos</div>
+      <div class="tpl-desc">Catálogo con filtros, carrito, pasarela de pago (Yappy, Stripe), panel admin para gestionar productos y órdenes. Integración con redes sociales.</div>
+      <div class="tpl-tags"><span class="tpl-tag">Pasarela</span><span class="tpl-tag">Admin</span><span class="tpl-tag">SEO</span></div>
+    </div>
+    <div class="tpl-foot"><span>tpl-shop-01</span><span><strong>4–6 sem</strong></span></div>
+  </div>
+
+  <!-- 03 — Restaurante -->
+  <div class="tpl" data-cat="hosp">
+    <div class="tpl-preview bg-resto">
+      <div class="tpl-frame">
+        <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
+        <div class="tpl-body">
+          <div class="tpl-hero-img" style="background:linear-gradient(135deg,rgba(251,179,36,.22),rgba(249,115,22,.08))"></div>
+          <div class="tpl-acc" style="background:#FBB324;width:35%"></div>
+          <div class="tpl-headline"></div>
+          <div class="tpl-grid3">
+            <div class="tpl-block" style="background:rgba(251,179,36,.16)"></div>
+            <div class="tpl-block"></div>
+            <div class="tpl-block" style="background:rgba(251,179,36,.16)"></div>
+          </div>
+          <div class="tpl-cta"><div class="tpl-pill" style="background:#FBB324"></div><div class="tpl-pill g"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="tpl-meta">
+      <div class="tpl-industry">Restaurante · Cafetería · Bar</div>
+      <div class="tpl-name">Menú digital + reservas + pedidos</div>
+      <div class="tpl-desc">Menú actualizable desde panel propio, sistema de reservas con calendario, pedidos online y conexión directa a WhatsApp para órdenes.</div>
+      <div class="tpl-tags"><span class="tpl-tag">Menú QR</span><span class="tpl-tag">Reservas</span><span class="tpl-tag">WhatsApp</span></div>
+    </div>
+    <div class="tpl-foot"><span>tpl-resto-01</span><span><strong>2–4 sem</strong></span></div>
+  </div>
+
+  <!-- 04 — Clínica -->
+  <div class="tpl" data-cat="health">
+    <div class="tpl-preview bg-clinic">
+      <div class="tpl-frame">
+        <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
+        <div class="tpl-body">
+          <div class="tpl-acc" style="background:#22D3EE;width:25%"></div>
+          <div class="tpl-headline"></div>
+          <div class="tpl-sub"></div>
+          <div class="tpl-cta"><div class="tpl-pill" style="background:#22D3EE"></div></div>
+          <div class="tpl-grid2">
+            <div class="tpl-block arc"></div>
+            <div class="tpl-block"></div>
+          </div>
+          <div class="tpl-grid2">
+            <div class="tpl-block"></div>
+            <div class="tpl-block arc"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tpl-meta">
+      <div class="tpl-industry">Salud · Clínica · Wellness</div>
+      <div class="tpl-name">Sitio clínico + agenda online</div>
+      <div class="tpl-desc">Especialidades, equipo médico, ubicaciones, blog de salud y agenda online integrada a calendario (Google Cal / Outlook). Mensajes seguros con el equipo.</div>
+      <div class="tpl-tags"><span class="tpl-tag">Agenda</span><span class="tpl-tag">Blog</span><span class="tpl-tag">Multi-sede</span></div>
+    </div>
+    <div class="tpl-foot"><span>tpl-clinic-01</span><span><strong>3–5 sem</strong></span></div>
+  </div>
+
+  <!-- 05 — SaaS -->
+  <div class="tpl" data-cat="saas">
+    <div class="tpl-preview bg-saas">
+      <div class="tpl-frame">
+        <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
+        <div class="tpl-body">
+          <div class="tpl-acc" style="background:#8B5CF6;width:35%"></div>
+          <div class="tpl-headline"></div>
+          <div class="tpl-headline" style="width:60%"></div>
+          <div class="tpl-sub"></div>
+          <div class="tpl-cta"><div class="tpl-pill" style="background:#8B5CF6"></div><div class="tpl-pill g"></div></div>
+          <div class="tpl-grid3">
+            <div class="tpl-block plasma"></div>
+            <div class="tpl-block plasma"></div>
+            <div class="tpl-block plasma"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tpl-meta">
+      <div class="tpl-industry">SaaS · Startup tecnológica</div>
+      <div class="tpl-name">Landing de producto + waitlist</div>
+      <div class="tpl-desc">Hero cinematográfico, features animados, pricing, testimonios y waitlist conectada a tu CRM o lista de email. Ideal para lanzamientos.</div>
+      <div class="tpl-tags"><span class="tpl-tag">Animado</span><span class="tpl-tag">Pricing</span><span class="tpl-tag">Waitlist</span></div>
+    </div>
+    <div class="tpl-foot"><span>tpl-saas-01</span><span><strong>2–3 sem</strong></span></div>
+  </div>
+
+  <!-- 06 — Servicios / Taller -->
+  <div class="tpl" data-cat="services">
+    <div class="tpl-preview bg-services">
+      <div class="tpl-frame">
+        <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
+        <div class="tpl-body">
+          <div class="tpl-acc" style="width:32%"></div>
+          <div class="tpl-headline"></div>
+          <div class="tpl-grid2">
+            <div class="tpl-block acc"></div>
+            <div class="tpl-block"></div>
+          </div>
+          <div class="tpl-sub"></div>
+          <div class="tpl-cta"><div class="tpl-pill"></div></div>
+          <div class="tpl-hero-img"></div>
+        </div>
+      </div>
+    </div>
+    <div class="tpl-meta">
+      <div class="tpl-industry">Servicios · Taller · Constructora</div>
+      <div class="tpl-name">Sitio operacional + cotización</div>
+      <div class="tpl-desc">Servicios, portafolio, proceso, formulario de cotización inteligente y vínculo directo a WhatsApp. Pensado para captar leads de inmediato.</div>
+      <div class="tpl-tags"><span class="tpl-tag">Cotizador</span><span class="tpl-tag">Portafolio</span><span class="tpl-tag">WA</span></div>
+    </div>
+    <div class="tpl-foot"><span>tpl-services-01</span><span><strong>3–4 sem</strong></span></div>
+  </div>
+
+  <!-- 07 — Inmobiliaria -->
+  <div class="tpl" data-cat="realestate">
+    <div class="tpl-preview bg-realestate">
+      <div class="tpl-frame">
+        <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
+        <div class="tpl-body">
+          <div class="tpl-hero-img" style="background:linear-gradient(135deg,rgba(251,179,36,.22),rgba(245,158,11,.08))"></div>
+          <div class="tpl-acc" style="background:#FBB324;width:28%"></div>
+          <div class="tpl-headline"></div>
+          <div class="tpl-grid3">
+            <div class="tpl-block" style="background:rgba(251,179,36,.16)"></div>
+            <div class="tpl-block" style="background:rgba(251,179,36,.16)"></div>
+            <div class="tpl-block" style="background:rgba(251,179,36,.16)"></div>
+          </div>
+          <div class="tpl-sub"></div>
+        </div>
+      </div>
+    </div>
+    <div class="tpl-meta">
+      <div class="tpl-industry">Inmobiliaria · Real Estate</div>
+      <div class="tpl-name">Catálogo de propiedades + filtros</div>
+      <div class="tpl-desc">Listado de propiedades con filtros avanzados (precio, ubicación, tipo), fichas detalladas con galería, mapas, tour virtual y captura de leads.</div>
+      <div class="tpl-tags"><span class="tpl-tag">Filtros</span><span class="tpl-tag">Mapas</span><span class="tpl-tag">CRM</span></div>
+    </div>
+    <div class="tpl-foot"><span>tpl-realestate-01</span><span><strong>4–6 sem</strong></span></div>
+  </div>
+
+  <!-- 08 — Educación -->
+  <div class="tpl" data-cat="edu">
+    <div class="tpl-preview bg-edu">
+      <div class="tpl-frame">
+        <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
+        <div class="tpl-body">
+          <div class="tpl-acc" style="width:40%"></div>
+          <div class="tpl-headline"></div>
+          <div class="tpl-sub"></div>
+          <div class="tpl-grid2">
+            <div class="tpl-block acc"></div>
+            <div class="tpl-block acc"></div>
+          </div>
+          <div class="tpl-grid2">
+            <div class="tpl-block"></div>
+            <div class="tpl-block"></div>
+          </div>
+          <div class="tpl-cta"><div class="tpl-pill"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="tpl-meta">
+      <div class="tpl-industry">Educación · Academia</div>
+      <div class="tpl-name">Sitio académico + inscripciones</div>
+      <div class="tpl-desc">Programas y carreras, calendario académico, blog educativo, formulario de inscripción y portal de estudiantes / padres con login.</div>
+      <div class="tpl-tags"><span class="tpl-tag">Portal</span><span class="tpl-tag">Inscripción</span><span class="tpl-tag">Blog</span></div>
+    </div>
+    <div class="tpl-foot"><span>tpl-edu-01</span><span><strong>4–7 sem</strong></span></div>
+  </div>
+
+  <!-- 09 — Fitness / Gym -->
+  <div class="tpl" data-cat="services">
+    <div class="tpl-preview bg-fitness">
+      <div class="tpl-frame">
+        <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
+        <div class="tpl-body">
+          <div class="tpl-hero-img" style="background:linear-gradient(135deg,rgba(239,68,68,.22),rgba(91,106,255,.08))"></div>
+          <div class="tpl-acc" style="background:#EF4444;width:35%"></div>
+          <div class="tpl-headline"></div>
+          <div class="tpl-cta"><div class="tpl-pill" style="background:#EF4444"></div><div class="tpl-pill g"></div></div>
+          <div class="tpl-grid3">
+            <div class="tpl-block" style="background:rgba(239,68,68,.16)"></div>
+            <div class="tpl-block" style="background:rgba(239,68,68,.16)"></div>
+            <div class="tpl-block" style="background:rgba(239,68,68,.16)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tpl-meta">
+      <div class="tpl-industry">Fitness · Gym · Coaching</div>
+      <div class="tpl-name">Membresía + clases + reservas</div>
+      <div class="tpl-desc">Planes de membresía con pago recurrente, horario de clases, reservas online, perfil del coach y portal de seguimiento del cliente.</div>
+      <div class="tpl-tags"><span class="tpl-tag">Suscripción</span><span class="tpl-tag">Reservas</span><span class="tpl-tag">App</span></div>
+    </div>
+    <div class="tpl-foot"><span>tpl-fitness-01</span><span><strong>4–6 sem</strong></span></div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="gallery-cta">
+  <h2 class="cta-title">Tu industria no aparece. <strong>No importa.</strong></h2>
+  <p class="cta-sub">Cada proyecto se diseña desde cero. Estos son sólo ejemplos del nivel de detalle que esperar. Cuéntanos qué necesitas y armamos algo único para ti.</p>
+  <div class="cta-actions">
+    <a href="dtechlab-studio.html#cotizador" class="btn-primary">Cotizar mi proyecto →</a>
+    <a href="https://api.whatsapp.com/send?phone=50769837286&text=Hola%20Rodolfo%2C%20vi%20la%20galer%C3%ADa%20de%20templates%20y%20quiero%20conversar.%20%F0%9F%91%8B" target="_blank" class="btn-ghost">Hablar por WhatsApp</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 DTechLab Studio · Panamá</span>
+  <span>tpl-gallery · v1.0.0</span>
+</footer>
+
+<script>
+const filterBtns = document.querySelectorAll('.filter-btn');
+const tpls = document.querySelectorAll('.tpl');
+filterBtns.forEach(b=>{
+  b.addEventListener('click',()=>{
+    filterBtns.forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const cat = b.dataset.cat;
+    tpls.forEach(t=>{
+      t.style.display = (cat==='all' || t.dataset.cat===cat) ? '' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>

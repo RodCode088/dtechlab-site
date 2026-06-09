@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>DTechLab flyer web services CUADRADO</title>
+<defs>
+  <radialGradient id="bgGlow" cx="50%" cy="16%" r="72%">
+    <stop offset="0%" stop-color="#5B6AFF" stop-opacity="0.24"/>
+    <stop offset="42%" stop-color="#8B5CF6" stop-opacity="0.07"/>
+    <stop offset="100%" stop-color="#050507" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="bezel" x1="0" y1="0" x2="1" y2="1">
+    <stop stop-color="#2B2B38"/><stop offset="0.48" stop-color="#08080D"/><stop offset="1" stop-color="#1A1A24"/>
+  </linearGradient>
+  <linearGradient id="stand" x1="0" y1="0" x2="0" y2="1">
+    <stop stop-color="#242433"/><stop offset="1" stop-color="#0A0A0F"/>
+  </linearGradient>
+  <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
+    <stop stop-color="#303041"/><stop offset="1" stop-color="#111118"/>
+  </linearGradient>
+  <linearGradient id="screenSheen" x1="0" y1="0" x2="1" y2="1">
+    <stop stop-color="#FFFFFF" stop-opacity="0.24"/><stop offset="0.34" stop-color="#FFFFFF" stop-opacity="0.03"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="priceFill" x1="0" y1="0" x2="1" y2="1">
+    <stop stop-color="#5B6AFF"/><stop offset="1" stop-color="#22D3EE"/>
+  </linearGradient>
+  <pattern id="dotGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+    <circle cx="1" cy="1" r="1" fill="#FFFFFF" opacity="0.055"/>
+  </pattern>
+  <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+    <feDropShadow dx="0" dy="28" stdDeviation="42" flood-color="#000000" flood-opacity="0.45"/>
+  </filter>
+  <style>
+    text { font-family: Inter, Geist, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .mono { font-family: "JetBrains Mono", "Courier New", monospace; }
+  </style>
+</defs>
+
+<rect width="1080" height="1080" fill="#050507"/>
+<rect width="1080" height="1080" fill="url(#bgGlow)"/>
+<rect width="1080" height="1080" fill="url(#dotGrid)" opacity="0.8"/>
+<path d="M0 194.4 C345.6 108, 561.6 334.8, 1080 216" stroke="#5B6AFF" stroke-opacity="0.16" stroke-width="1"/>
+<path d="M75.60000000000001 86.4 H1004.4000000000001" stroke="#FFFFFF" stroke-opacity="0.06"/>
+
+
+  <g transform="translate(70 58) scale(1.14)" class="brand-lockup">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/>
+      <rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/>
+      <rect x="17" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF" opacity="0.4"/>
+      <rect x="8" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF" opacity="0.4"/>
+      <rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/>
+    </svg>
+    <text x="44" y="22" fill="#FFFFFF" font-size="22" font-weight="500" letter-spacing="-0.4">DTechLab</text>
+  </g>
+<text x="1010" y="82" text-anchor="end" fill="#9898A8" font-size="18" letter-spacing="2.8" class="mono">STUDIO / WEB SYSTEMS</text>
+
+<g filter="url(#softShadow)">
+  <g class="premium-monitor">
+    <ellipse cx="540" cy="614.86" rx="282.9" ry="27.88" fill="#000" opacity="0.42"/>
+    <path d="M444.88 537.7800000000001 L635.12 537.7800000000001 L664.64 618.1400000000001 L415.36 618.1400000000001Z" fill="url(#stand)" stroke="rgba(255,255,255,0.08)" stroke-width="0.9839999999999999"/>
+    <rect x="374.36" y="609.94" width="331.28" height="19.68" rx="9.84" fill="url(#base)" stroke="rgba(255,255,255,0.08)" stroke-width="0.9839999999999999"/>
+    <rect x="228.40000000000003" y="157.3" width="623.1999999999999" height="385.4" rx="24.599999999999998" fill="url(#bezel)" stroke="rgba(255,255,255,0.16)" stroke-width="1.23"/>
+    <rect x="244.80000000000004" y="173.70000000000002" width="590.4" height="352.59999999999997" rx="14.76" fill="#050507"/>
+    <g transform="scale(0.82)">
+      
+  <g transform="translate(316.53658536585374 229.82926829268294)" class="website-screen">
+    <defs>
+      <linearGradient id="screen317230684Hero" x1="0" y1="0" x2="1" y2="1">
+        <stop stop-color="#080A14"/>
+        <stop offset="0.58" stop-color="#111827"/>
+        <stop offset="1" stop-color="#2636A8"/>
+      </linearGradient>
+      <radialGradient id="screen317230684Photo" cx="50%" cy="38%" r="68%">
+        <stop stop-color="#F8FAFC"/>
+        <stop offset="0.28" stop-color="#A8B4FF"/>
+        <stop offset="0.62" stop-color="#5B6AFF"/>
+        <stop offset="1" stop-color="#111827"/>
+      </radialGradient>
+      <linearGradient id="screen317230684Gold" x1="0" y1="0" x2="1" y2="1">
+        <stop stop-color="#FEF3C7"/>
+        <stop offset="1" stop-color="#F59E0B"/>
+      </linearGradient>
+      <clipPath id="screen317230684Clip"><rect width="683.9999999999999" height="394" rx="12"/></clipPath>
+      <clipPath id="screen317230684PhotoClip"><rect x="396.7199999999999" y="78" width="232.55999999999997" height="197" rx="18"/></clipPath>
+    </defs>
+
+    <g clip-path="url(#screen317230684Clip)">
+      <rect width="683.9999999999999" height="394" fill="#F8FAFC"/>
+      <rect width="683.9999999999999" height="46" fill="#FFFFFF"/>
+      <circle cx="24" cy="23" r="4" fill="#E2E8F0"/><circle cx="40" cy="23" r="4" fill="#E2E8F0"/><circle cx="56" cy="23" r="4" fill="#E2E8F0"/>
+      <rect x="88" y="17" width="92" height="10" rx="5" fill="#0F172A"/>
+      <rect x="435.9999999999999" y="17" width="38" height="8" rx="4" fill="#CBD5E1"/>
+      <rect x="489.9999999999999" y="17" width="38" height="8" rx="4" fill="#CBD5E1"/>
+      <rect x="543.9999999999999" y="17" width="38" height="8" rx="4" fill="#CBD5E1"/>
+      <rect x="613.9999999999999" y="12" width="48" height="20" rx="7" fill="#5B6AFF"/>
+
+      <rect x="0" y="46" width="683.9999999999999" height="267.92" fill="url(#screen317230684Hero)"/>
+      <circle cx="533.52" cy="164" r="150" fill="#5B6AFF" opacity="0.22"/>
+      <circle cx="383.03999999999996" cy="304" r="120" fill="#22D3EE" opacity="0.09"/>
+      <path d="M0 231.17999999999998 C191.51999999999998 199.66, 389.8799999999999 286.34000000000003, 683.9999999999999 231.17999999999998 V313.92 H0Z" fill="#F8FAFC"/>
+
+      <g transform="translate(36 80)">
+        <rect width="122" height="20" rx="10" fill="#5B6AFF" opacity="0.18"/>
+        <text x="16" y="14" fill="#A8B4FF" font-size="10" font-weight="700" letter-spacing="1.4" class="mono">NUEVA COLECCION</text>
+        <text x="0" y="66" fill="#FFFFFF" font-size="34" font-weight="740" letter-spacing="-1.1">Luma Studio</text>
+        <text x="0" y="101" fill="#FFFFFF" font-size="34" font-weight="740" letter-spacing="-1.1">Reserva en línea</text>
+        <rect x="0" y="132" width="273.59999999999997" height="9" rx="5" fill="#CBD5E1" opacity="0.72"/>
+        <rect x="0" y="151" width="212.03999999999996" height="9" rx="5" fill="#CBD5E1" opacity="0.5"/>
+        <rect x="0" y="184" width="122" height="34" rx="10" fill="#FFFFFF"/>
+        <text x="24" y="206" fill="#0F172A" font-size="13" font-weight="700">Reservar ahora</text>
+        <rect x="142" y="184" width="104" height="34" rx="10" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)"/>
+        <text x="164" y="206" fill="#FFFFFF" font-size="13" font-weight="560">Ver galería</text>
+      </g>
+
+      <g clip-path="url(#screen317230684PhotoClip)">
+        <rect x="396.7199999999999" y="78" width="232.55999999999997" height="197" fill="url(#screen317230684Photo)"/>
+        <circle cx="512.9999999999999" cy="178" r="74" fill="#FFFFFF" opacity="0.18"/>
+        <path d="M424.0799999999999 264 C471.95999999999987 214, 547.1999999999999 214, 608.7599999999999 264 V296 H424.0799999999999Z" fill="#FFFFFF" opacity="0.94"/>
+        <rect x="451.43999999999994" y="282" width="116.27999999999999" height="10" rx="5" fill="#111827"/>
+        <circle cx="588.2399999999999" cy="116" r="24" fill="url(#screen317230684Gold)"/>
+        <path d="M403.5599999999999 81 L629.28 276" stroke="#FFFFFF" stroke-opacity="0.14" stroke-width="18"/>
+      </g>
+
+      <g transform="translate(355.67999999999995 260)">
+        <rect width="136" height="62" rx="14" fill="rgba(255,255,255,0.92)"/>
+        <text x="16" y="23" fill="#64748B" font-size="10" font-weight="700" letter-spacing="1" class="mono">CONVERSION</text>
+        <text x="16" y="50" fill="#0F172A" font-size="24" font-weight="800">+38%</text>
+        <path d="M88 43 C100 24, 114 34, 124 18" stroke="#5B6AFF" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <g transform="translate(34 266)">
+        <rect width="615.9999999999999" height="94" rx="15" fill="#FFFFFF"/>
+        <text x="22" y="29" fill="#0F172A" font-size="16" font-weight="760">Sistema listo para vender</text>
+        <rect x="22" y="48" width="118" height="9" rx="5" fill="#94A3B8"/>
+        <rect x="22" y="66" width="88" height="9" rx="5" fill="#CBD5E1"/>
+        <g transform="translate(266.76 18)">
+          <rect width="80" height="58" rx="12" fill="#EEF2FF"/>
+          <text x="16" y="26" fill="#5B6AFF" font-size="18" font-weight="800">24/7</text>
+          <text x="16" y="44" fill="#64748B" font-size="9" font-weight="650">CONTACTO</text>
+        </g>
+        <g transform="translate(383.03999999999996 18)">
+          <rect width="80" height="58" rx="12" fill="#ECFEFF"/>
+          <text x="16" y="26" fill="#0891B2" font-size="18" font-weight="800">SEO</text>
+          <text x="16" y="44" fill="#64748B" font-size="9" font-weight="650">GOOGLE</text>
+        </g>
+        <g transform="translate(499.3199999999999 18)">
+          <rect width="80" height="58" rx="12" fill="#F5F3FF"/>
+          <text x="16" y="26" fill="#8B5CF6" font-size="18" font-weight="800">WA</text>
+          <text x="16" y="44" fill="#64748B" font-size="9" font-weight="650">VENTAS</text>
+        </g>
+      </g>
+    </g>
+  </g>
+    </g>
+    <rect x="244.80000000000004" y="173.70000000000002" width="590.4" height="352.59999999999997" rx="14.76" fill="url(#screenSheen)" opacity="0.45"/>
+  </g></g>
+
+<text x="70" y="605" fill="#FFFFFF" font-size="58" font-weight="260" letter-spacing="-3.2" class="">
+    <tspan x="70" dy="0">Tu negocio merece</tspan><tspan x="70" dy="54.519999999999996">una web que venda.</tspan>
+  </text>
+
+<text x="74" y="733" fill="#9898A8" font-size="29" font-weight="360" letter-spacing="0" class="">
+    <tspan x="74" dy="0">Diseños modernos, rápidos y optimizados</tspan><tspan x="74" dy="41">para convertir visitantes en clientes.</tspan>
+  </text>
+
+<g transform="translate(70 830)">
+  <rect width="430" height="92" rx="14" fill="rgba(91,106,255,0.13)" stroke="rgba(91,106,255,0.36)"/>
+  <text x="28" y="38" fill="#A8B4FF" font-size="22" font-weight="520" letter-spacing="2.2" class="mono">PLANES DESDE</text>
+  <text x="27" y="82" fill="url(#priceFill)" font-size="58" font-weight="780" letter-spacing="-2">$199</text>
+</g>
+
+<g class="benefits" font-size="18" font-weight="380" fill="#E8E8F0">
+    <g transform="translate(520 842)">
+        <circle cx="12" cy="-8" r="11" fill="#5B6AFF" opacity="0.16"/>
+        <path d="M6 -8 L10 -4 L18 -15" stroke="#22D3EE" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="34" y="0">Diseño profesional</text>
+      </g><g transform="translate(820 842)">
+        <circle cx="12" cy="-8" r="11" fill="#5B6AFF" opacity="0.16"/>
+        <path d="M6 -8 L10 -4 L18 -15" stroke="#22D3EE" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="34" y="0">Adaptable a celulares</text>
+      </g><g transform="translate(520 884)">
+        <circle cx="12" cy="-8" r="11" fill="#5B6AFF" opacity="0.16"/>
+        <path d="M6 -8 L10 -4 L18 -15" stroke="#22D3EE" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="34" y="0">Optimizada para Google</text>
+      </g><g transform="translate(820 884)">
+        <circle cx="12" cy="-8" r="11" fill="#5B6AFF" opacity="0.16"/>
+        <path d="M6 -8 L10 -4 L18 -15" stroke="#22D3EE" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="34" y="0">Formularios de contacto</text>
+      </g><g transform="translate(520 926)">
+        <circle cx="12" cy="-8" r="11" fill="#5B6AFF" opacity="0.16"/>
+        <path d="M6 -8 L10 -4 L18 -15" stroke="#22D3EE" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="34" y="0">Integración con WhatsApp</text>
+      </g><g transform="translate(820 926)">
+        <circle cx="12" cy="-8" r="11" fill="#5B6AFF" opacity="0.16"/>
+        <path d="M6 -8 L10 -4 L18 -15" stroke="#22D3EE" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="34" y="0">Entrega rápida</text>
+      </g>
+  </g>
+
+<g transform="translate(70 944)">
+  <rect width="500" height="64" rx="10" fill="#5B6AFF"/>
+  <text x="250" y="41" text-anchor="middle" fill="#FFFFFF" font-size="21" font-weight="700" letter-spacing="1.2">SOLICITA TU COTIZACIÓN</text>
+  <text x="532" y="40" fill="#9898A8" font-size="20" font-weight="360">Cupos limitados para nuevos proyectos</text>
+</g>
+
+<text x="70" y="1032" fill="#4A4A5C" font-size="15" letter-spacing="2.4" class="mono">DTECHLAB.SYSTEMS</text>
+<text x="1010" y="1032" text-anchor="end" fill="#4A4A5C" font-size="15" letter-spacing="2.4" class="mono">BUILD.2026 / PREMIUM WEB</text>
+</svg>

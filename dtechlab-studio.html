@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DTechLab Studio — Diseño y desarrollo de sistemas digitales premium</title>
+<meta name="description" content="DTechLab Studio diseña y construye sitios web, plataformas digitales, sistemas de automatización y experiencias premium para empresas que operan a un estándar diferente.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Crect x='1' y='1' width='30' height='30' rx='8' stroke='%235B6AFF' stroke-width='1.5'/%3E%3Crect x='8' y='8' width='7' height='7' rx='1.5' fill='%235B6AFF'/%3E%3Crect x='17' y='8' width='7' height='7' rx='1.5' fill='rgba(91,106,255,0.45)'/%3E%3Crect x='8' y='17' width='7' height='7' rx='1.5' fill='rgba(91,106,255,0.45)'/%3E%3Crect x='17' y='17' width='7' height='7' rx='1.5' fill='%235B6AFF'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void:#050507; --abyss:#0A0A0F; --graphite:#111118; --slate:#1A1A24;
+  --pure:#FFFFFF; --fog:#E8E8F0; --ghost:#9898A8; --whisper:#4A4A5C;
+  --signal:#5B6AFF; --ice:#A8B4FF; --plasma:#8B5CF6; --arc:#22D3EE;
+  --green:#10B981; --amber:#F59E0B;
+  --hairline:rgba(255,255,255,.06); --hairline2:rgba(255,255,255,.10);
+  --glass:rgba(255,255,255,.03);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--fog);font-family:'Inter',-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
+
+/* DOT GRID */
+.dot-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(circle,rgba(255,255,255,.022) 1px,transparent 1px);background-size:32px 32px;opacity:0;transition:opacity 1s ease}
+.dot-grid.on{opacity:1}
+
+/* ─── LOADER (barras de inicio como el home) ─── */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--void);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;transition:opacity .6s,visibility .6s}
+#loader.out{opacity:0;visibility:hidden}
+.ld-logo{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.ld-logo-text{font-size:15px;font-weight:600;color:var(--fog);letter-spacing:-.01em}
+.ld-sub{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--whisper);font-family:'Courier New',monospace;margin-bottom:16px}
+.ld-rows{display:flex;flex-direction:column;gap:7px}
+.ld-row{display:flex;align-items:center;gap:14px;width:280px;opacity:0;transition:opacity .25s}
+.ld-row.show{opacity:1}
+.ld-lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--whisper);font-family:'Courier New',monospace;width:170px;flex-shrink:0}
+.ld-lbl.active{color:var(--signal)}
+.ld-lbl.done{color:var(--ghost)}
+.ld-bar{flex:1;height:1px;background:var(--hairline);overflow:hidden}
+.ld-fill{height:100%;width:0%;background:var(--signal);transition:width .55s cubic-bezier(.16,1,.3,1)}
+
+/* ─── NAV ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 56px;display:flex;align-items:center;justify-content:space-between;transition:background .3s,border .3s}
+nav.scrolled{background:rgba(5,5,7,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--hairline)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-text{font-size:15px;font-weight:500;color:var(--pure);letter-spacing:-.02em}
+.nav-logo-text .div{color:var(--signal);font-weight:400;font-size:13px;margin-left:6px;letter-spacing:.04em;text-transform:uppercase;font-family:'Courier New',monospace}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:13px;color:var(--ghost);text-decoration:none;letter-spacing:.01em;transition:color .15s}
+.nav-links a:hover{color:var(--pure)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-cta{font-size:13px;padding:8px 18px;background:var(--signal);border:1px solid var(--signal);color:#fff;border-radius:6px;cursor:pointer;text-decoration:none;transition:all .15s;font-weight:500}
+.nav-cta:hover{background:#6B7AFF;transform:translateY(-1px);box-shadow:0 0 24px rgba(91,106,255,.3)}
+
+/* ─── HERO ─── */
+#hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:140px 80px 100px;overflow:hidden;text-align:center}
+.hero-glow{position:absolute;top:30%;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,rgba(91,106,255,.08) 0%,transparent 70%);pointer-events:none}
+.hero-content{max-width:920px;position:relative;z-index:2}
+.hero-label{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ghost);font-family:'Courier New',monospace;margin-bottom:32px;opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s;padding:6px 14px;border:1px solid var(--hairline2);border-radius:100px;background:var(--glass)}
+.hero-label.in{opacity:1;transform:translateY(0)}
+.hero-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--signal);animation:blink 2.2s infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.75)}}
+.hero-headline{font-size:clamp(44px,7vw,96px);font-weight:200;line-height:1;letter-spacing:-.04em;color:var(--pure);margin-bottom:32px}
+.hero-headline .line{display:block;overflow:hidden}
+.hero-headline .li{display:block;transform:translateY(105%);transition:transform .75s cubic-bezier(.16,1,.3,1)}
+.hero-headline .li.in{transform:translateY(0)}
+.hero-headline .acc{background:linear-gradient(100deg,var(--signal),var(--arc) 70%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:18px;line-height:1.78;color:var(--ghost);max-width:640px;margin:0 auto 44px;opacity:0;transform:translateY(16px);transition:opacity .6s .3s,transform .6s .3s;font-weight:300}
+.hero-sub.in{opacity:1;transform:translateY(0)}
+.hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;opacity:0;transform:translateY(16px);transition:opacity .6s .45s,transform .6s .45s}
+.hero-actions.in{opacity:1;transform:translateY(0)}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--signal);color:#fff;font-size:14px;font-weight:500;border-radius:8px;text-decoration:none;border:none;cursor:pointer;transition:all .15s;font-family:inherit;letter-spacing:-.01em}
+.btn-primary:hover{background:#6B7AFF;transform:translateY(-1px);box-shadow:0 0 32px rgba(91,106,255,.4)}
+.btn-primary .arr{transition:transform .15s}
+.btn-primary:hover .arr{transform:translateX(3px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:6px;padding:14px 24px;background:transparent;border:1px solid var(--hairline2);color:var(--fog);font-size:14px;border-radius:8px;text-decoration:none;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn-ghost:hover{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.04)}
+.btn-wa{display:inline-flex;align-items:center;gap:8px;padding:14px 22px;background:#25D366;color:#fff;font-size:14px;font-weight:500;border-radius:8px;text-decoration:none;border:none;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn-wa:hover{background:#20BD5A;transform:translateY(-1px)}
+
+.hero-meta{display:flex;justify-content:center;gap:48px;margin-top:64px;padding-top:32px;border-top:1px solid var(--hairline);flex-wrap:wrap;opacity:0;transition:opacity .6s .6s}
+.hero-meta.in{opacity:1}
+.hero-meta-item{text-align:center}
+.hero-meta-val{font-size:22px;font-weight:300;letter-spacing:-.02em;color:var(--pure);font-family:'Courier New',monospace}
+.hero-meta-lbl{font-size:11px;color:var(--ghost);margin-top:4px;letter-spacing:.08em;text-transform:uppercase;font-family:'Courier New',monospace}
+
+/* ─── SECTION BASE ─── */
+section{position:relative;z-index:1;padding:96px 80px}
+.dark-sec{background:var(--abyss);border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+.sec-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ghost);font-family:'Courier New',monospace;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.sec-eyebrow::before{content:'';width:20px;height:1px;background:var(--signal)}
+.sec-title{font-size:clamp(28px,3.5vw,48px);font-weight:200;letter-spacing:-.035em;color:var(--pure);line-height:1.05;margin-bottom:18px}
+.sec-title strong{font-weight:600}
+.sec-sub{font-size:16px;font-weight:300;color:var(--ghost);max-width:600px;line-height:1.78;margin-bottom:56px}
+.center-sec{text-align:center}
+.center-sec .sec-eyebrow{justify-content:center}
+.center-sec .sec-eyebrow::before{display:none}
+.center-sec .sec-sub{margin-left:auto;margin-right:auto}
+
+/* ─── SERVICES (profundo) ─── */
+.svc-deep-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.svc-deep-card{background:var(--graphite);border:1px solid var(--hairline);border-radius:14px;padding:36px 32px;display:flex;flex-direction:column;gap:18px;transition:background .25s,border-color .25s,transform .25s}
+.svc-deep-card:hover{background:var(--slate);border-color:var(--hairline2);transform:translateY(-3px)}
+.svc-deep-card.featured{border-top:1px solid rgba(91,106,255,.4);background:linear-gradient(180deg,rgba(91,106,255,.04),transparent 70%)}
+.svc-deep-icon{width:42px;height:42px;border-radius:11px;background:rgba(91,106,255,.1);border:1px solid rgba(91,106,255,.18);display:flex;align-items:center;justify-content:center}
+.svc-deep-icon svg{width:22px;height:22px;stroke:var(--signal);fill:none;stroke-width:1.5}
+.svc-deep-tier{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ghost);font-family:'Courier New',monospace}
+.svc-deep-name{font-size:22px;font-weight:300;letter-spacing:-.02em;color:var(--pure)}
+.svc-deep-desc{font-size:14px;font-weight:300;color:var(--ghost);line-height:1.75}
+.svc-deep-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.svc-deep-list li{font-size:13px;font-weight:300;color:var(--fog);display:flex;align-items:flex-start;gap:9px}
+.svc-deep-list li::before{content:'→';color:var(--signal);font-family:'Courier New',monospace;flex-shrink:0;margin-top:1px}
+.svc-deep-range{margin-top:18px;padding-top:18px;border-top:1px solid var(--hairline);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.06em}
+.svc-deep-range strong{color:var(--ghost);font-weight:500}
+
+/* ─── TEMPLATES SHOWCASE ─── */
+.tpl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tpl-card{background:var(--graphite);border:1px solid var(--hairline);border-radius:14px;overflow:hidden;cursor:default;transition:transform .25s cubic-bezier(.16,1,.3,1),border-color .25s,box-shadow .25s}
+.tpl-card:hover{transform:translateY(-5px);border-color:var(--hairline2);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.tpl-preview{height:240px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.tpl-mockup{width:78%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;overflow:hidden}
+.tpl-bar{height:18px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;padding:0 8px;gap:4px}
+.tpl-dot{width:5px;height:5px;border-radius:50%;opacity:.5}
+.tpl-mock-body{padding:14px 12px;display:flex;flex-direction:column;gap:6px}
+.tpl-line{height:5px;border-radius:3px;background:rgba(255,255,255,.07)}
+.tpl-line.acc{background:var(--signal);opacity:.65}
+.tpl-line.w70{width:70%}.tpl-line.w50{width:50%}.tpl-line.w90{width:90%}.tpl-line.w40{width:40%}
+.tpl-img{height:48px;background:linear-gradient(135deg,rgba(91,106,255,.15),rgba(34,211,238,.08));border-radius:5px;margin:6px 0}
+.tpl-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:4px}
+.tpl-mini-block{height:28px;border-radius:4px;background:rgba(255,255,255,.05)}
+.tpl-mini-block.acc{background:rgba(91,106,255,.18)}
+.tpl-bg-1{background:linear-gradient(135deg,#0D0F2E,#1A1040)}
+.tpl-bg-2{background:linear-gradient(135deg,#041018,#0A2030)}
+.tpl-bg-3{background:linear-gradient(135deg,#100A08,#201508)}
+.tpl-bg-4{background:linear-gradient(135deg,#050E12,#081A20)}
+.tpl-bg-5{background:linear-gradient(135deg,#0F0A20,#1E0A35)}
+.tpl-bg-6{background:linear-gradient(135deg,#0A1008,#102018)}
+.tpl-info{padding:22px 24px}
+.tpl-industry{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--signal);font-family:'Courier New',monospace;margin-bottom:8px}
+.tpl-name{font-size:16px;font-weight:500;color:var(--pure);margin-bottom:6px;letter-spacing:-.01em}
+.tpl-desc{font-size:13px;font-weight:300;color:var(--ghost);line-height:1.65}
+.tpl-footer{padding:14px 24px;border-top:1px solid var(--hairline);display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.06em}
+.tpl-footer .meta{display:flex;gap:14px}
+
+/* ─── PROCESS TIMELINE ─── */
+.proc-row{display:grid;grid-template-columns:repeat(4,1fr);position:relative;gap:0}
+.proc-row::before{content:'';position:absolute;top:25px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,rgba(91,106,255,.3),transparent)}
+.proc-step{text-align:center;padding:0 20px}
+.proc-num{width:50px;height:50px;border-radius:50%;background:var(--abyss);border:1px solid rgba(91,106,255,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:14px;font-weight:600;color:var(--signal);box-shadow:0 0 0 8px var(--abyss);font-family:'Courier New',monospace}
+.proc-step h3{font-size:15px;font-weight:500;color:var(--pure);margin-bottom:10px;letter-spacing:-.01em}
+.proc-step p{font-size:13px;font-weight:300;color:var(--ghost);line-height:1.7}
+.proc-step .day{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--signal);font-family:'Courier New',monospace;margin-top:10px}
+
+/* ─── QUOTER (cotizador inteligente) ─── */
+.quoter{background:var(--graphite);border:1px solid var(--hairline);border-radius:18px;overflow:hidden;max-width:920px;margin:0 auto;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.quoter-top{padding:24px 36px;border-bottom:1px solid var(--hairline);background:var(--abyss);display:flex;justify-content:space-between;align-items:center}
+.quoter-title{font-size:13px;font-weight:500;color:var(--fog);letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.quoter-title::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--signal);animation:blink 2s infinite}
+.quoter-step-lbl{font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.08em}
+.quoter-progress{height:2px;background:var(--hairline);position:relative}
+.quoter-progress-fill{height:100%;background:linear-gradient(90deg,var(--signal),var(--arc));width:20%;transition:width .5s cubic-bezier(.16,1,.3,1)}
+.quoter-body{padding:48px 56px;min-height:420px;display:flex;flex-direction:column;justify-content:space-between}
+.q-step{display:none;animation:fadein .4s ease}
+.q-step.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.q-question{font-size:24px;font-weight:300;letter-spacing:-.02em;color:var(--pure);margin-bottom:8px;line-height:1.25}
+.q-hint{font-size:14px;color:var(--ghost);margin-bottom:32px;font-weight:300}
+.q-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.q-options.col-1{grid-template-columns:1fr}
+.q-options.col-3{grid-template-columns:repeat(3,1fr)}
+.q-opt{background:var(--slate);border:1px solid var(--hairline);border-radius:10px;padding:18px 20px;cursor:pointer;transition:all .15s;display:flex;align-items:flex-start;gap:12px;text-align:left;font-family:inherit;color:var(--fog)}
+.q-opt:hover{border-color:var(--hairline2);background:rgba(255,255,255,.04)}
+.q-opt.selected{border-color:var(--signal);background:rgba(91,106,255,.07);box-shadow:0 0 0 1px rgba(91,106,255,.2)}
+.q-opt-mark{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--hairline2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;transition:all .15s}
+.q-opt.selected .q-opt-mark{background:var(--signal);border-color:var(--signal)}
+.q-opt.selected .q-opt-mark::after{content:'✓';color:#fff;font-size:11px;font-weight:700}
+.q-opt-content{flex:1}
+.q-opt-name{font-size:14px;font-weight:500;color:var(--pure);margin-bottom:3px;letter-spacing:-.01em}
+.q-opt-desc{font-size:12px;font-weight:300;color:var(--ghost);line-height:1.5}
+.q-input-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.q-fg{display:flex;flex-direction:column;gap:8px}
+.q-fg.full{grid-column:span 2}
+.q-fg label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--whisper);font-family:'Courier New',monospace}
+.q-fg input,.q-fg textarea,.q-fg select{background:rgba(255,255,255,.03);border:1px solid var(--hairline);border-radius:8px;color:var(--fog);font-size:14px;font-weight:300;padding:12px 14px;outline:none;transition:all .15s;font-family:inherit}
+.q-fg input::placeholder,.q-fg textarea::placeholder{color:var(--whisper)}
+.q-fg input:focus,.q-fg textarea:focus,.q-fg select:focus{border-color:rgba(91,106,255,.5);box-shadow:0 0 0 3px rgba(91,106,255,.08)}
+.q-fg textarea{resize:vertical;min-height:90px}
+.q-fg select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239898A8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.q-fg select option{background:#1A1A24}
+.quoter-foot{padding:22px 36px;border-top:1px solid var(--hairline);background:var(--abyss);display:flex;justify-content:space-between;align-items:center}
+.btn-back{background:transparent;border:1px solid var(--hairline2);color:var(--ghost);padding:10px 20px;border-radius:7px;font-size:13px;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-back:hover{color:var(--fog);border-color:rgba(255,255,255,.2)}
+.btn-back:disabled{opacity:.35;cursor:not-allowed}
+.btn-next{background:var(--signal);border:none;color:#fff;padding:11px 24px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:8px;transition:all .15s}
+.btn-next:hover{background:#6B7AFF;transform:translateY(-1px);box-shadow:0 4px 20px rgba(91,106,255,.3)}
+.btn-next:disabled{background:var(--whisper);cursor:not-allowed;transform:none;box-shadow:none}
+
+/* RESULT */
+.q-result{text-align:center;padding:20px 0}
+.q-result-eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--signal);font-family:'Courier New',monospace;margin-bottom:14px}
+.q-result-title{font-size:28px;font-weight:300;color:var(--pure);margin-bottom:10px;letter-spacing:-.02em}
+.q-result-sub{font-size:14px;color:var(--ghost);margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.75;font-weight:300}
+.q-range-card{background:var(--abyss);border:1px solid rgba(91,106,255,.3);border-radius:14px;padding:36px;margin:0 auto 28px;max-width:480px;box-shadow:0 0 60px rgba(91,106,255,.08)}
+.q-range-lbl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ghost);font-family:'Courier New',monospace;margin-bottom:14px}
+.q-range-val{font-size:42px;font-weight:300;color:var(--pure);letter-spacing:-.03em;font-family:'Courier New',monospace}
+.q-range-val span{color:var(--signal)}
+.q-range-time{font-size:12px;color:var(--whisper);margin-top:12px;font-family:'Courier New',monospace;letter-spacing:.08em}
+.q-result-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.q-disclaimer{font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.04em;margin-top:24px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7}
+
+/* ─── CASES (mini) ─── */
+.cases-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hairline);border:1px solid var(--hairline);border-radius:14px;overflow:hidden}
+.case-cell{background:var(--graphite);padding:32px 28px;transition:background .2s}
+.case-cell:hover{background:var(--slate)}
+.case-tag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--signal);font-family:'Courier New',monospace;margin-bottom:12px}
+.case-name{font-size:18px;font-weight:400;color:var(--pure);margin-bottom:10px;letter-spacing:-.01em}
+.case-desc{font-size:13px;font-weight:300;color:var(--ghost);line-height:1.7;margin-bottom:18px}
+.case-metric{font-size:13px;color:var(--fog);padding-top:14px;border-top:1px solid var(--hairline)}
+.case-metric strong{color:var(--arc);font-family:'Courier New',monospace;font-weight:500}
+
+/* ─── ADDON STRIP (lo extra que se puede vender) ─── */
+.addon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hairline);border:1px solid var(--hairline);border-radius:14px;overflow:hidden}
+.addon-cell{background:var(--graphite);padding:28px 24px;display:flex;flex-direction:column;gap:10px;transition:background .2s}
+.addon-cell:hover{background:var(--slate)}
+.addon-ico{width:32px;height:32px;border-radius:8px;background:rgba(91,106,255,.1);display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+.addon-ico svg{width:16px;height:16px;stroke:var(--signal);fill:none;stroke-width:1.5}
+.addon-name{font-size:14px;font-weight:500;color:var(--pure);letter-spacing:-.01em}
+.addon-desc{font-size:12px;font-weight:300;color:var(--ghost);line-height:1.6}
+
+/* ─── FAQ ─── */
+.faq-wrap{max-width:720px;display:flex;flex-direction:column;gap:6px;margin:0 auto}
+.faq-item{background:var(--glass);border:1px solid var(--hairline);border-radius:10px;overflow:hidden}
+.faq-q{width:100%;background:none;border:none;color:var(--fog);text-align:left;padding:20px 24px;font-size:14px;font-weight:400;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:inherit;transition:background .15s}
+.faq-q:hover{background:rgba(255,255,255,.02)}
+.faq-ico{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:1px solid var(--hairline2);display:flex;align-items:center;justify-content:center;transition:all .25s;font-size:15px;color:var(--ghost);line-height:1}
+.faq-item.open .faq-ico{transform:rotate(45deg);border-color:var(--signal);color:var(--signal)}
+.faq-a{display:none;padding:0 24px 22px;font-size:13.5px;font-weight:300;color:var(--ghost);line-height:1.78;border-top:1px solid var(--hairline);padding-top:18px}
+.faq-item.open .faq-a{display:block}
+
+/* ─── FOOTER ─── */
+footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;z-index:1}
+.footer-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;align-items:start}
+.footer-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.footer-name{font-size:14px;font-weight:500;color:var(--fog);letter-spacing:-.01em}
+.footer-tagline{font-size:12px;font-weight:300;color:var(--whisper);letter-spacing:.04em;font-family:'Courier New',monospace;margin-top:2px}
+.footer-col-title{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ghost);font-family:'Courier New',monospace;margin-bottom:14px}
+.footer-links{display:flex;flex-direction:column;gap:9px}
+.footer-links a{font-size:13px;font-weight:300;color:var(--ghost);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:var(--fog)}
+.footer-copy{margin-top:36px;padding-top:24px;border-top:1px solid var(--hairline);display:flex;justify-content:space-between;font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.04em}
+
+/* WA FLOAT */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:200;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(37,211,102,.35);text-decoration:none;transition:all .2s}
+.wa-float:hover{background:#20BD5A;transform:scale(1.08)}
+.wa-float svg{width:26px;height:26px}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+.reveal.in{opacity:1;transform:none}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1180px){
+  nav{padding:0 36px}
+  #hero{padding:130px 36px 80px}
+  section{padding:80px 36px}
+  footer{padding:48px 36px}
+  .svc-deep-grid{grid-template-columns:1fr}
+  .tpl-grid{grid-template-columns:1fr 1fr}
+  .addon-grid{grid-template-columns:1fr 1fr}
+  .cases-strip{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:32px}
+}
+@media(max-width:768px){
+  nav{padding:0 20px;height:56px}
+  .nav-links{display:none}
+  .nav-cta{padding:7px 14px;font-size:12px}
+  #hero{padding:110px 20px 60px}
+  .hero-headline{font-size:clamp(38px,9vw,56px)}
+  .hero-sub{font-size:15px}
+  section{padding:56px 20px}
+  .sec-title{font-size:clamp(24px,7vw,36px)}
+  .sec-sub{font-size:14px;margin-bottom:40px}
+  footer{padding:36px 20px}
+  .tpl-grid{grid-template-columns:1fr}
+  .addon-grid{grid-template-columns:1fr 1fr}
+  .proc-row{grid-template-columns:1fr 1fr;gap:32px 16px}
+  .proc-row::before{display:none}
+  .quoter-body{padding:32px 24px}
+  .quoter-top,.quoter-foot{padding:18px 24px}
+  .q-question{font-size:20px}
+  .q-options{grid-template-columns:1fr}
+  .q-options.col-3{grid-template-columns:1fr}
+  .q-input-grid{grid-template-columns:1fr}
+  .q-fg.full{grid-column:auto}
+  .q-range-val{font-size:32px}
+  .footer-inner{grid-template-columns:1fr;gap:32px}
+  .footer-copy{flex-direction:column;gap:8px}
+  .wa-float{bottom:20px;right:20px;width:48px;height:48px}
+  .wa-float svg{width:22px;height:22px}
+}
+</style>
+</head>
+<body>
+
+<div class="dot-grid" id="dotgrid"></div>
+
+<!-- WA FLOAT -->
+<a href="https://api.whatsapp.com/send?phone=50769837286&text=Hola%20Rodolfo%2C%20vi%20DTechLab%20Studio%20y%20quiero%20arrancar%20un%20proyecto.%20%F0%9F%91%8B" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- LOADER (barritas como el home) -->
+<div id="loader">
+  <div class="ld-logo">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
+    <span class="ld-logo-text">DTechLab</span>
+  </div>
+  <div class="ld-sub">Studio · v1.0</div>
+  <div class="ld-rows">
+    <div class="ld-row" id="lr1"><span class="ld-lbl" id="ll1">cargando estudio</span><div class="ld-bar"><div class="ld-fill" id="lf1"></div></div></div>
+    <div class="ld-row" id="lr2"><span class="ld-lbl" id="ll2">preparando servicios</span><div class="ld-bar"><div class="ld-fill" id="lf2"></div></div></div>
+    <div class="ld-row" id="lr3"><span class="ld-lbl" id="ll3">activando cotizador</span><div class="ld-bar"><div class="ld-fill" id="lf3"></div></div></div>
+    <div class="ld-row" id="lr4"><span class="ld-lbl" id="ll4">studio listo</span><div class="ld-bar"><div class="ld-fill" id="lf4"></div></div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="dtechlab-homepage.html" class="nav-logo">
+    <svg width="26" height="26" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
+    <span class="nav-logo-text">DTechLab<span class="div">Studio</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#templates">Templates</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#cotizador">Cotizador</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#cotizador" class="nav-cta">Cotizar proyecto</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-label" id="hero-label">DTechLab Studio · Diseño + Ingeniería</div>
+    <div class="hero-headline">
+      <div class="line"><div class="li" id="hl1">Sistemas digitales</div></div>
+      <div class="line"><div class="li" id="hl2">diseñados con precisión.</div></div>
+      <div class="line"><div class="li acc" id="hl3">Construidos para escalar.</div></div>
+    </div>
+    <p class="hero-sub" id="hero-sub">Estudio de diseño y desarrollo enfocado en empresas que merecen una presencia digital al nivel de su ambición. Sitios web, plataformas, automatización y software a medida — bajo un único estándar de ingeniería.</p>
+    <div class="hero-actions" id="hero-actions">
+      <a href="#cotizador" class="btn-primary">
+        Cotizar mi proyecto <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="https://api.whatsapp.com/send?phone=50769837286&text=Hola%20Rodolfo%2C%20vi%20DTechLab%20Studio%20y%20quiero%20arrancar%20un%20proyecto.%20%F0%9F%91%8B" class="btn-wa" target="_blank">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp directo
+      </a>
+      <a href="#templates" class="btn-ghost">Ver templates</a>
+    </div>
+    <div class="hero-meta" id="hero-meta">
+      <div class="hero-meta-item"><div class="hero-meta-val">21d</div><div class="hero-meta-lbl">Primera versión en vivo</div></div>
+      <div class="hero-meta-item"><div class="hero-meta-val">100%</div><div class="hero-meta-lbl">Código tuyo</div></div>
+      <div class="hero-meta-item"><div class="hero-meta-val">30d</div><div class="hero-meta-lbl">Soporte post-lanzamiento</div></div>
+      <div class="hero-meta-item"><div class="hero-meta-val">PA</div><div class="hero-meta-lbl">Base Panamá · Latam</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS PROFUNDOS -->
+<section class="dark-sec" id="servicios">
+  <div class="sec-eyebrow reveal">Qué construimos</div>
+  <h2 class="sec-title reveal">Cinco líneas de servicio. <strong>Una sola arquitectura.</strong></h2>
+  <p class="sec-sub reveal">Cada proyecto se diseña como un sistema. No hay "el web" suelto, "la automatización" suelta y "el CRM" suelto — todo se piensa como parte de una infraestructura coherente.</p>
+
+  <div class="svc-deep-grid">
+
+    <div class="svc-deep-card featured reveal">
+      <div class="svc-deep-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18"/><circle cx="6" cy="6" r=".8" fill="currentColor"/><circle cx="9" cy="6" r=".8" fill="currentColor"/></svg></div>
+      <div class="svc-deep-tier">01 · Studio</div>
+      <h3 class="svc-deep-name">Sitios y plataformas web</h3>
+      <p class="svc-deep-desc">Sitios web cinematográficos, landing pages que convierten y plataformas a medida. Diseño propio, código real, sin templates genéricas de WordPress.</p>
+      <ul class="svc-deep-list">
+        <li>Landing pages de alto impacto</li>
+        <li>Sitios corporativos multi-idioma</li>
+        <li>Plataformas y portales a medida</li>
+        <li>E-commerce con pasarela de pago</li>
+        <li>CMS para que actualices sin depender de nadie</li>
+        <li>Optimización móvil y performance</li>
+      </ul>
+      <div class="svc-deep-range">
+        <span>Tiempo: <strong>2–6 semanas</strong></span>
+        <span>Acceso: <strong>Disponible</strong></span>
+      </div>
+    </div>
+
+    <div class="svc-deep-card reveal">
+      <div class="svc-deep-icon"><svg viewBox="0 0 24 24"><polyline points="4 17 8 13 12 15 16 9 20 11"/><circle cx="4" cy="17" r="1.5"/><circle cx="8" cy="13" r="1.5"/><circle cx="12" cy="15" r="1.5"/><circle cx="16" cy="9" r="1.5"/><circle cx="20" cy="11" r="1.5"/></svg></div>
+      <div class="svc-deep-tier">02 · Studio</div>
+      <h3 class="svc-deep-name">Automatización + integraciones</h3>
+      <p class="svc-deep-desc">Conectamos tus herramientas (correo, CRM, WhatsApp, Sheets, formularios, pagos) para que el negocio fluya solo. Cero trabajo manual donde no debe haberlo.</p>
+      <ul class="svc-deep-list">
+        <li>Automatización de procesos internos</li>
+        <li>Integración entre apps (Make, n8n, Zapier o nativo)</li>
+        <li>Bots de WhatsApp inteligentes</li>
+        <li>Notificaciones automáticas y enrutamiento de leads</li>
+        <li>Facturación, contratos y onboarding automáticos</li>
+      </ul>
+      <div class="svc-deep-range">
+        <span>Tiempo: <strong>1–4 semanas</strong></span>
+        <span>Acceso: <strong>Disponible</strong></span>
+      </div>
+    </div>
+
+    <div class="svc-deep-card reveal">
+      <div class="svc-deep-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+      <div class="svc-deep-tier">03 · Studio</div>
+      <h3 class="svc-deep-name">CRM y dashboards a medida</h3>
+      <p class="svc-deep-desc">Sistemas internos para ver y operar tu negocio en tiempo real. Datos donde los necesitas, no enterrados en hojas de cálculo.</p>
+      <ul class="svc-deep-list">
+        <li>CRM personalizado a tu pipeline real</li>
+        <li>Dashboards de ventas, finanzas u operaciones</li>
+        <li>Sistemas multi-sucursal y multi-usuario</li>
+        <li>Reportes automáticos diarios/semanales</li>
+        <li>Acceso desde web y mobile</li>
+      </ul>
+      <div class="svc-deep-range">
+        <span>Tiempo: <strong>3–8 semanas</strong></span>
+        <span>Acceso: <strong>Disponible</strong></span>
+      </div>
+    </div>
+
+    <div class="svc-deep-card reveal">
+      <div class="svc-deep-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/><line x1="6" y1="6.5" x2="9.5" y2="11"/><line x1="18" y1="6.5" x2="14.5" y2="11"/></svg></div>
+      <div class="svc-deep-tier">04 · Studio</div>
+      <h3 class="svc-deep-name">IA aplicada al negocio</h3>
+      <p class="svc-deep-desc">Integramos IA donde tiene sentido operacional — no como gimmick. Asistentes, búsqueda inteligente de documentos, clasificación de leads, generación de contenido y agentes que ejecutan tareas reales.</p>
+      <ul class="svc-deep-list">
+        <li>Asistentes de IA entrenados con tus datos</li>
+        <li>Búsqueda inteligente en tus documentos</li>
+        <li>Clasificación automática de tickets / leads</li>
+        <li>Generación de contenido y propuestas asistida</li>
+        <li>Integración con OpenAI / Anthropic / modelos open</li>
+      </ul>
+      <div class="svc-deep-range">
+        <span>Tiempo: <strong>2–6 semanas</strong></span>
+        <span>Acceso: <strong>Disponible</strong></span>
+      </div>
+    </div>
+
+    <div class="svc-deep-card reveal" style="grid-column:span 2">
+      <div class="svc-deep-icon"><svg viewBox="0 0 24 24"><path d="M12 3l2.2 4.5 4.8.7-3.5 3.4.8 4.8L12 14l-4.3 2.4.8-4.8L5 8.2l4.8-.7z"/></svg></div>
+      <div class="svc-deep-tier">05 · Studio</div>
+      <h3 class="svc-deep-name">Identidad visual + marca</h3>
+      <p class="svc-deep-desc">Si tu marca todavía no proyecta el nivel del negocio que estás construyendo, podemos diseñarla desde cero o evolucionarla. Logo, sistema de color, tipografía, voz y aplicaciones. No es maquillaje — es arquitectura visual.</p>
+      <ul class="svc-deep-list">
+        <li>Logo y sistema de marca completo</li>
+        <li>Paleta, tipografía y reglas de uso</li>
+        <li>Plantillas para redes, propuestas y documentos</li>
+        <li>Manual de marca (PDF profesional)</li>
+        <li>Aplicado al sitio web del mismo proyecto si se contrata en conjunto</li>
+      </ul>
+      <div class="svc-deep-range">
+        <span>Tiempo: <strong>2–4 semanas</strong></span>
+        <span>Acceso: <strong>Disponible</strong></span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TEMPLATES -->
+<section id="templates">
+  <div class="sec-eyebrow reveal">Cómo se ve un proyecto DTechLab</div>
+  <h2 class="sec-title reveal">Templates de referencia. <strong>El estándar visual.</strong></h2>
+  <p class="sec-sub reveal">Cada cliente recibe un diseño propio — no se reciclan templates. Pero estos son ejemplos del nivel y estilo que puedes esperar, adaptados a distintas industrias.</p>
+
+  <div class="tpl-grid">
+
+    <div class="tpl-card reveal">
+      <div class="tpl-preview tpl-bg-1">
+        <div class="tpl-mockup">
+          <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
+          <div class="tpl-mock-body">
+            <div class="tpl-line acc w40"></div>
+            <div class="tpl-line w90"></div>
+            <div class="tpl-line w70"></div>
+            <div class="tpl-img"></div>
+            <div class="tpl-mini-grid"><div class="tpl-mini-block acc"></div><div class="tpl-mini-block"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="tpl-info">
+        <div class="tpl-industry">Corporativo · B2B</div>
+        <h3 class="tpl-name">Bufete · Consultora · Firma profesional</h3>
+        <p class="tpl-desc">Presencia digital de autoridad. Servicios, equipo, casos y formulario de contacto calificado.</p>
+      </div>
+      <div class="tpl-footer">
+        <span>tpl-corporate</span>
+        <span class="meta"><span>5–7 páginas</span><span>2–3 semanas</span></span>
+      </div>
+    </div>
+
+    <div class="tpl-card reveal">
+      <div class="tpl-preview tpl-bg-2">
+        <div class="tpl-mockup">
+          <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
+          <div class="tpl-mock-body">
+            <div class="tpl-line acc w50"></div>
+            <div class="tpl-mini-grid"><div class="tpl-mini-block"></div><div class="tpl-mini-block"></div></div>
+            <div class="tpl-mini-grid"><div class="tpl-mini-block acc"></div><div class="tpl-mini-block"></div></div>
+            <div class="tpl-line w70"></div>
+            <div class="tpl-line w40"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tpl-info">
+        <div class="tpl-industry">E-commerce</div>
+        <h3 class="tpl-name">Tienda online · Catálogo + pasarela</h3>
+        <p class="tpl-desc">Catálogo de productos, carrito, pasarela de pago (Yappy / Stripe) y panel de administración.</p>
+      </div>
+      <div class="tpl-footer">
+        <span>tpl-shop</span>
+        <span class="meta"><span>10+ páginas</span><span>4–6 semanas</span></span>
+      </div>
+    </div>
+
+    <div class="tpl-card reveal">
+      <div class="tpl-preview tpl-bg-3">
+        <div class="tpl-mockup">
+          <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
+          <div class="tpl-mock-body">
+            <div class="tpl-img"></div>
+            <div class="tpl-line acc w70"></div>
+            <div class="tpl-line w50"></div>
+            <div class="tpl-line w90"></div>
+            <div class="tpl-line w40"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tpl-info">
+        <div class="tpl-industry">Restaurante · Cafetería</div>
+        <h3 class="tpl-name">Menú digital + reservas + pedidos</h3>
+        <p class="tpl-desc">Menú actualizable, sistema de reservas, pedidos online y conexión con WhatsApp.</p>
+      </div>
+      <div class="tpl-footer">
+        <span>tpl-resto</span>
+        <span class="meta"><span>4–6 páginas</span><span>2–4 semanas</span></span>
+      </div>
+    </div>
+
+    <div class="tpl-card reveal">
+      <div class="tpl-preview tpl-bg-4">
+        <div class="tpl-mockup">
+          <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
+          <div class="tpl-mock-body">
+            <div class="tpl-line acc w40"></div>
+            <div class="tpl-line w70"></div>
+            <div class="tpl-img"></div>
+            <div class="tpl-mini-grid"><div class="tpl-mini-block"></div><div class="tpl-mini-block acc"></div></div>
+            <div class="tpl-line w50"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tpl-info">
+        <div class="tpl-industry">Salud · Clínica · Wellness</div>
+        <h3 class="tpl-name">Sitio clínico + agenda online</h3>
+        <p class="tpl-desc">Especialidades, equipo médico, ubicaciones y sistema de agenda integrado a calendario.</p>
+      </div>
+      <div class="tpl-footer">
+        <span>tpl-clinic</span>
+        <span class="meta"><span>6–8 páginas</span><span>3–5 semanas</span></span>
+      </div>
+    </div>
+
+    <div class="tpl-card reveal">
+      <div class="tpl-preview tpl-bg-5">
+        <div class="tpl-mockup">
+          <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
+          <div class="tpl-mock-body">
+            <div class="tpl-line acc w70"></div>
+            <div class="tpl-line w90"></div>
+            <div class="tpl-line w40"></div>
+            <div class="tpl-mini-grid"><div class="tpl-mini-block acc"></div><div class="tpl-mini-block"></div></div>
+            <div class="tpl-line w50"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tpl-info">
+        <div class="tpl-industry">SaaS · Startup tecnológica</div>
+        <h3 class="tpl-name">Landing de producto + waitlist</h3>
+        <p class="tpl-desc">Hero animado, features, pricing, testimonios y waitlist conectada a tu CRM.</p>
+      </div>
+      <div class="tpl-footer">
+        <span>tpl-saas</span>
+        <span class="meta"><span>1–3 páginas</span><span>2–3 semanas</span></span>
+      </div>
+    </div>
+
+    <div class="tpl-card reveal">
+      <div class="tpl-preview tpl-bg-6">
+        <div class="tpl-mockup">
+          <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
+          <div class="tpl-mock-body">
+            <div class="tpl-line acc w50"></div>
+            <div class="tpl-mini-grid"><div class="tpl-mini-block"></div><div class="tpl-mini-block acc"></div></div>
+            <div class="tpl-img"></div>
+            <div class="tpl-line w70"></div>
+            <div class="tpl-line w40"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tpl-info">
+        <div class="tpl-industry">Servicios · Taller · Constructora</div>
+        <h3 class="tpl-name">Sitio operacional + cotización</h3>
+        <p class="tpl-desc">Servicios, portafolio, proceso, formulario de cotización y vínculo directo a WhatsApp.</p>
+      </div>
+      <div class="tpl-footer">
+        <span>tpl-services</span>
+        <span class="meta"><span>5–8 páginas</span><span>3–4 semanas</span></span>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:40px" class="reveal">
+    <a href="studio-templates-gallery.html" class="btn-ghost">Ver galería completa <span style="margin-left:6px">→</span></a>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section class="dark-sec" id="proceso">
+  <div class="sec-eyebrow reveal">Cómo trabajamos</div>
+  <h2 class="sec-title reveal">Un proceso claro. <strong>Sin sorpresas.</strong></h2>
+  <p class="sec-sub reveal">Cuatro fases, cero zonas grises. Cada fase tiene un entregable visible y un punto de aprobación. Tú siempre sabes en qué etapa está tu proyecto.</p>
+
+  <div class="proc-row reveal">
+    <div class="proc-step">
+      <div class="proc-num">01</div>
+      <h3>Diagnóstico</h3>
+      <p>Mapeamos qué necesitas, qué tienes hoy y qué tiene sentido construir primero. Sin compromiso.</p>
+      <span class="day">Día 0 · Gratis</span>
+    </div>
+    <div class="proc-step">
+      <div class="proc-num">02</div>
+      <h3>Arquitectura</h3>
+      <p>Propuesta formal, alcance y blueprint del sistema. Aprobación + 50% para iniciar.</p>
+      <span class="day">Día 1–3</span>
+    </div>
+    <div class="proc-step">
+      <div class="proc-num">03</div>
+      <h3>Ingeniería</h3>
+      <p>Diseñamos y construimos. Demos semanales. Acceso a la versión en desarrollo todo el tiempo.</p>
+      <span class="day">Semana 1–6</span>
+    </div>
+    <div class="proc-step">
+      <div class="proc-num">04</div>
+      <h3>Despliegue</h3>
+      <p>Lanzamos en producción, capacitamos a tu equipo y damos 30 días de soporte incluido.</p>
+      <span class="day">Última semana + 30d</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COTIZADOR INTELIGENTE ─── -->
+<section id="cotizador" class="center-sec">
+  <div class="sec-eyebrow reveal">Cotizador inteligente</div>
+  <h2 class="sec-title reveal">Estima tu proyecto <strong>en 60 segundos.</strong></h2>
+  <p class="sec-sub reveal">Responde 5 preguntas y obtén un rango estimado al instante. No es una cotización formal — pero te da una idea clara antes de hablar.</p>
+
+  <div class="quoter reveal">
+    <div class="quoter-top">
+      <div class="quoter-title">Cotizador DTechLab Studio</div>
+      <div class="quoter-step-lbl" id="qStepLbl">Paso 1 de 5</div>
+    </div>
+    <div class="quoter-progress"><div class="quoter-progress-fill" id="qProgress"></div></div>
+    <div class="quoter-body">
+
+      <!-- PASO 1: tipo de proyecto -->
+      <div class="q-step active" data-step="1">
+        <div class="q-question">¿Qué tipo de proyecto necesitas?</div>
+        <div class="q-hint">Elige el que más se parezca. Lo afinamos después.</div>
+        <div class="q-options">
+          <button class="q-opt" data-name="ptype" data-val="landing" data-base="800">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Landing page</div><div class="q-opt-desc">Una sola página de alto impacto. Producto, evento o servicio.</div></div>
+          </button>
+          <button class="q-opt" data-name="ptype" data-val="corporate" data-base="1500">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Sitio corporativo</div><div class="q-opt-desc">5–10 páginas. Empresa, servicios, equipo, contacto.</div></div>
+          </button>
+          <button class="q-opt" data-name="ptype" data-val="ecommerce" data-base="3000">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Tienda online</div><div class="q-opt-desc">Catálogo, carrito, pasarela de pago, panel admin.</div></div>
+          </button>
+          <button class="q-opt" data-name="ptype" data-val="platform" data-base="5500">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Plataforma / portal</div><div class="q-opt-desc">Software a medida con login, usuarios y lógica de negocio.</div></div>
+          </button>
+          <button class="q-opt" data-name="ptype" data-val="dashboard" data-base="4000">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">CRM / Dashboard</div><div class="q-opt-desc">Sistema interno para operar el negocio en tiempo real.</div></div>
+          </button>
+          <button class="q-opt" data-name="ptype" data-val="automation" data-base="2200">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Automatización</div><div class="q-opt-desc">Integraciones, bots, flujos de trabajo sin sitio web nuevo.</div></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 2: alcance -->
+      <div class="q-step" data-step="2">
+        <div class="q-question">¿Qué tan extenso es?</div>
+        <div class="q-hint">Aproximado. Lo confirmamos en la propuesta formal.</div>
+        <div class="q-options">
+          <button class="q-opt" data-name="scope" data-val="small" data-mod="0">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Pequeño · Esencial</div><div class="q-opt-desc">Lo justo y necesario. 1 idioma, sin secciones extra.</div></div>
+          </button>
+          <button class="q-opt" data-name="scope" data-val="medium" data-mod="600">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Mediano · Completo</div><div class="q-opt-desc">Páginas adicionales, blog, secciones a medida.</div></div>
+          </button>
+          <button class="q-opt" data-name="scope" data-val="large" data-mod="1400">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Grande · A medida total</div><div class="q-opt-desc">Multi-idioma, secciones avanzadas, animaciones cinematográficas.</div></div>
+          </button>
+          <button class="q-opt" data-name="scope" data-val="enterprise" data-mod="2800">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Empresarial · Multi-módulo</div><div class="q-opt-desc">Múltiples sistemas conectados, escala enterprise.</div></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 3: funcionalidades extra (multi-select) -->
+      <div class="q-step" data-step="3">
+        <div class="q-question">¿Qué necesita tu proyecto?</div>
+        <div class="q-hint">Selecciona todas las que apliquen.</div>
+        <div class="q-options">
+          <button class="q-opt q-multi" data-name="feat" data-val="cms" data-mod="400">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">CMS / panel para editar</div><div class="q-opt-desc">Que actualices contenido sin programador.</div></div>
+          </button>
+          <button class="q-opt q-multi" data-name="feat" data-val="multilang" data-mod="500">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Multi-idioma (ES/EN/+)</div><div class="q-opt-desc">2+ idiomas con switcher.</div></div>
+          </button>
+          <button class="q-opt q-multi" data-name="feat" data-val="payments" data-mod="1200">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Pasarela de pago</div><div class="q-opt-desc">Yappy / Stripe / tarjeta de crédito.</div></div>
+          </button>
+          <button class="q-opt q-multi" data-name="feat" data-val="auth" data-mod="900">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Login + usuarios</div><div class="q-opt-desc">Registro, perfiles, roles.</div></div>
+          </button>
+          <button class="q-opt q-multi" data-name="feat" data-val="integration" data-mod="650">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Integraciones (CRM, email, WA)</div><div class="q-opt-desc">Conectar con tus herramientas actuales.</div></div>
+          </button>
+          <button class="q-opt q-multi" data-name="feat" data-val="ai" data-mod="700">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">IA / asistente inteligente</div><div class="q-opt-desc">Chat, búsqueda inteligente, automatización con IA.</div></div>
+          </button>
+          <button class="q-opt q-multi" data-name="feat" data-val="branding" data-mod="800">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Branding desde cero</div><div class="q-opt-desc">Logo, paleta, tipografía, manual de marca.</div></div>
+          </button>
+          <button class="q-opt q-multi" data-name="feat" data-val="copy" data-mod="450">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Redacción + estrategia de contenido</div><div class="q-opt-desc">Si no tienes los textos hechos.</div></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 4: timeline -->
+      <div class="q-step" data-step="4">
+        <div class="q-question">¿Para cuándo lo necesitas?</div>
+        <div class="q-hint">Lo urgente cuesta más. Lo flexible cuesta menos.</div>
+        <div class="q-options col-3">
+          <button class="q-opt" data-name="timeline" data-val="urgent" data-mod="1000" data-timefactor="1">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Urgente</div><div class="q-opt-desc">En menos de 3 semanas.</div></div>
+          </button>
+          <button class="q-opt" data-name="timeline" data-val="normal" data-mod="0" data-timefactor="0">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Normal</div><div class="q-opt-desc">3–8 semanas (recomendado).</div></div>
+          </button>
+          <button class="q-opt" data-name="timeline" data-val="flex" data-mod="-400" data-timefactor="-1">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Flexible</div><div class="q-opt-desc">Cuando esté bien hecho.</div></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 5: datos -->
+      <div class="q-step" data-step="5">
+        <div class="q-question">Para enviarte el estimado…</div>
+        <div class="q-hint">Tus datos. Sin spam — sólo para mandar el resumen y conversar.</div>
+        <div class="q-input-grid">
+          <div class="q-fg"><label>Tu nombre</label><input type="text" id="qNombre" placeholder="Ej. Rodolfo García"></div>
+          <div class="q-fg"><label>Empresa (opcional)</label><input type="text" id="qEmpresa" placeholder="Ej. Mi Empresa S.A."></div>
+          <div class="q-fg"><label>Email</label><input type="email" id="qEmail" placeholder="rodolfo@empresa.com"></div>
+          <div class="q-fg"><label>WhatsApp</label><input type="tel" id="qWhats" placeholder="+507 6000-0000"></div>
+          <div class="q-fg full"><label>Cuéntanos qué quieres construir</label><textarea id="qMensaje" placeholder="Describe brevemente el proyecto, tu industria, lo que ya tienes hoy y a dónde quieres llegar."></textarea></div>
+        </div>
+      </div>
+
+      <!-- RESULTADO -->
+      <div class="q-step" data-step="6">
+        <div class="q-result">
+          <div class="q-result-eyebrow">Estimación inicial</div>
+          <h3 class="q-result-title">Rango estimado para tu proyecto</h3>
+          <p class="q-result-sub">Este es un cálculo automático basado en tus respuestas. El precio final puede ser menor o mayor según el detalle real del trabajo. Lo confirmamos en la propuesta formal después de conversar.</p>
+          <div class="q-range-card">
+            <div class="q-range-lbl">Inversión estimada (USD)</div>
+            <div class="q-range-val"><span id="qRangeLow">$0</span> — <span id="qRangeHigh">$0</span></div>
+            <div class="q-range-time" id="qRangeTime">Tiempo estimado: —</div>
+          </div>
+          <div class="q-result-actions">
+            <a href="#" id="qWaLink" target="_blank" class="btn-wa">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Continuar por WhatsApp
+            </a>
+            <a href="#" id="qMailLink" class="btn-primary">Enviar resumen por email <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+          <p class="q-disclaimer">Esta estimación es indicativa, no una cotización formal. Para una propuesta vinculante necesitamos una conversación corta (15 min) para entender el alcance real.</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="quoter-foot">
+      <button class="btn-back" id="qBack" disabled>← Atrás</button>
+      <button class="btn-next" id="qNext">Siguiente →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CASES MINI -->
+<section id="casos">
+  <div class="sec-eyebrow reveal">Trabajo real</div>
+  <h2 class="sec-title reveal">Sistemas que ya están <strong>operando.</strong></h2>
+  <p class="sec-sub reveal">No prometemos. Mostramos.</p>
+
+  <div class="cases-strip">
+    <div class="case-cell reveal">
+      <div class="case-tag">Taller mecánico · Panamá</div>
+      <h3 class="case-name">AutoPro — Sistema operativo del taller</h3>
+      <p class="case-desc">Órdenes de trabajo, CRM, inventario, finanzas y multi-sucursal en una sola plataforma.</p>
+      <div class="case-metric"><strong>80%</strong> reducción de carga administrativa</div>
+    </div>
+    <div class="case-cell reveal">
+      <div class="case-tag">Logística · Pendiente publicar</div>
+      <h3 class="case-name">Plataforma de procesamiento de pedidos</h3>
+      <p class="case-desc">Sistema de orquestación end-to-end: recepción, calificación, asignación y entrega.</p>
+      <div class="case-metric">De <strong>4 horas</strong> a <strong>11 minutos</strong> por orden</div>
+    </div>
+    <div class="case-cell reveal">
+      <div class="case-tag">SaaS B2B · Pendiente publicar</div>
+      <h3 class="case-name">CRM con pipeline inteligente</h3>
+      <p class="case-desc">Reemplazo de CRM heredado por sistema con scoring de IA y recomendaciones de próxima acción.</p>
+      <div class="case-metric">Ciclo de venta acortado <strong>34%</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ADDONS -->
+<section class="dark-sec" id="addons">
+  <div class="sec-eyebrow reveal">Servicios complementarios</div>
+  <h2 class="sec-title reveal">Más allá del lanzamiento. <strong>Lo que sigue importa.</strong></h2>
+  <p class="sec-sub reveal">Lo que ofrecemos después del proyecto inicial para que el sistema crezca contigo.</p>
+
+  <div class="addon-grid">
+    <div class="addon-cell reveal">
+      <div class="addon-ico"><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="6"/><path d="M9 5v4l2.5 1.5"/></svg></div>
+      <div class="addon-name">Mantenimiento mensual</div>
+      <p class="addon-desc">Actualizaciones, seguridad, monitoreo, soporte y ajustes pequeños. Plan mensual o por horas.</p>
+    </div>
+    <div class="addon-cell reveal">
+      <div class="addon-ico"><svg viewBox="0 0 18 18"><polyline points="3 11 7 7 11 9 15 4"/></svg></div>
+      <div class="addon-name">SEO y posicionamiento</div>
+      <p class="addon-desc">Optimización técnica, palabras clave, contenidos y métricas para que tu sitio aparezca arriba.</p>
+    </div>
+    <div class="addon-cell reveal">
+      <div class="addon-ico"><svg viewBox="0 0 18 18"><rect x="3" y="3" width="12" height="12" rx="2"/><path d="M3 7h12"/></svg></div>
+      <div class="addon-name">Ads y campañas digitales</div>
+      <p class="addon-desc">Configuración de Meta Ads + Google Ads, audiencias y seguimiento de conversiones.</p>
+    </div>
+    <div class="addon-cell reveal">
+      <div class="addon-ico"><svg viewBox="0 0 18 18"><rect x="2" y="3" width="14" height="10" rx="2"/><path d="M2 13l4-4 4 3 4-5 2 2"/></svg></div>
+      <div class="addon-name">Fotografía y contenido</div>
+      <p class="addon-desc">Coordinación de sesión fotográfica, retoque y producción de contenido para el sitio y redes.</p>
+    </div>
+    <div class="addon-cell reveal">
+      <div class="addon-ico"><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="6"/><path d="M3 9h12M9 3v12"/></svg></div>
+      <div class="addon-name">Multi-idioma posterior</div>
+      <p class="addon-desc">Agregar más idiomas a un sitio ya hecho. Traducción profesional + implementación.</p>
+    </div>
+    <div class="addon-cell reveal">
+      <div class="addon-ico"><svg viewBox="0 0 18 18"><path d="M3 3h12v12H3z"/><path d="M3 8h12M8 3v12"/></svg></div>
+      <div class="addon-name">Migración + hosting gestionado</div>
+      <p class="addon-desc">Mudarse de WordPress / Wix a un sistema propio. Setup de dominio, hosting y email.</p>
+    </div>
+    <div class="addon-cell reveal">
+      <div class="addon-ico"><svg viewBox="0 0 18 18"><path d="M9 2l2 4 4 .6-3 3 .7 4L9 12l-3.7 1.6.7-4-3-3 4-.6z"/></svg></div>
+      <div class="addon-name">Auditoría de sistemas</div>
+      <p class="addon-desc">Revisamos tu stack actual, identificamos brechas y entregamos un blueprint de mejora.</p>
+    </div>
+    <div class="addon-cell reveal">
+      <div class="addon-ico"><svg viewBox="0 0 18 18"><circle cx="9" cy="6" r="3"/><path d="M3 16c0-3 2.5-5 6-5s6 2 6 5"/></svg></div>
+      <div class="addon-name">Capacitación a equipos</div>
+      <p class="addon-desc">Sesiones para que tu equipo aproveche las herramientas, automatice tareas y use IA en su día a día.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="sec-eyebrow reveal">Preguntas frecuentes</div>
+  <h2 class="sec-title reveal">Todo lo que necesitas <strong>saber.</strong></h2>
+
+  <div class="faq-wrap reveal">
+    <div class="faq-item"><button class="faq-q"><span>¿Cuánto cuesta un sitio con DTechLab Studio?</span><span class="faq-ico">+</span></button><div class="faq-a">Depende del alcance. Los rangos típicos en Panamá: landing $800–$1,500. Sitio corporativo $1,500–$3,500. Tienda online $3,000–$6,500. Plataforma a medida $5,500–$15,000+. CRM/Dashboard $4,000–$12,000. Usa el cotizador para una estimación más precisa según tus necesidades.</div></div>
+    <div class="faq-item"><button class="faq-q"><span>¿Cómo son los pagos?</span><span class="faq-ico">+</span></button><div class="faq-a">50% al firmar el acuerdo (apartas la fecha y empezamos), 50% al entregar el proyecto funcionando. Para proyectos grandes (sobre $6,000) podemos dividir en 3 pagos. Aceptamos transferencia, Yappy, ACH, tarjeta y PayPal.</div></div>
+    <div class="faq-item"><button class="faq-q"><span>¿Qué incluye el precio?</span><span class="faq-ico">+</span></button><div class="faq-a">Diseño, desarrollo, integración con tus herramientas actuales, optimización mobile, despliegue en producción, capacitación a tu equipo y 30 días de soporte gratuito post-lanzamiento. NO incluye: dominio propio (~$15/año), hosting mensual si lo necesitas (~$10–20/mes), contenido y fotografías del negocio.</div></div>
+    <div class="faq-item"><button class="faq-q"><span>¿En cuánto tiempo está listo?</span><span class="faq-ico">+</span></button><div class="faq-a">Landing pages: 2–3 semanas. Sitios corporativos: 3–5 semanas. E-commerce: 4–6 semanas. Plataformas a medida: 5–10 semanas. La primera versión funcional sale en menos de 21 días desde el inicio.</div></div>
+    <div class="faq-item"><button class="faq-q"><span>¿Necesito tener listo el contenido y las fotos?</span><span class="faq-ico">+</span></button><div class="faq-a">No tienes que tenerlo todo perfecto al iniciar, pero idealmente sí. Si no tienes textos, ofrecemos servicio de redacción. Si no tienes fotos, coordinamos sesión fotográfica como servicio aparte. Lo importante es que sepas qué quieres comunicar.</div></div>
+    <div class="faq-item"><button class="faq-q"><span>¿El código es mío?</span><span class="faq-ico">+</span></button><div class="faq-a">Sí. Al finalizar el proyecto te entregamos todo el código fuente. No te amarramos a una plataforma que cobre mensualidad forzosa. Lo que construimos vive en tu hosting y crece contigo.</div></div>
+    <div class="faq-item"><button class="faq-q"><span>¿Trabajan con clientes fuera de Panamá?</span><span class="faq-ico">+</span></button><div class="faq-a">Sí. Trabajamos 100% remoto con clientes en toda Latinoamérica. Tenemos procesos claros que funcionan bien a distancia: reuniones por video, demo semanal y acceso siempre al avance.</div></div>
+    <div class="faq-item"><button class="faq-q"><span>¿Qué pasa después de los 30 días de soporte?</span><span class="faq-ico">+</span></button><div class="faq-a">Tres opciones: (1) no hacer nada — el sitio sigue funcionando, tú lo administras; (2) plan de mantenimiento mensual desde $90/mes que cubre actualizaciones, monitoreo y ajustes; (3) pagar por horas cuando necesites algo puntual.</div></div>
+    <div class="faq-item"><button class="faq-q"><span>¿Pueden hacer mantenimiento de un sitio que no construyeron ustedes?</span><span class="faq-ico">+</span></button><div class="faq-a">Depende del estado. Si el sitio está bien construido sí. Si está en mal estado o en una plataforma muy limitada, te recomendaremos rehacerlo. Hacemos auditoría gratuita.</div></div>
+    <div class="faq-item"><button class="faq-q"><span>¿Cómo empieza un proyecto?</span><span class="faq-ico">+</span></button><div class="faq-a">Usa el cotizador, escríbenos por WhatsApp o envíanos un email. Agendamos una llamada de 20–30 minutos para entender qué necesitas. Si hace sentido para ambos, te enviamos una propuesta formal en 2–3 días.</div></div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="dark-sec center-sec" id="contacto" style="padding:120px 80px">
+  <div class="sec-eyebrow reveal">Empieza hoy</div>
+  <h2 class="sec-title reveal">Tu negocio merece <strong>mejor infraestructura digital.</strong></h2>
+  <p class="sec-sub reveal">Conversemos. La primera llamada es sin costo y sin compromiso.</p>
+  <div class="hero-actions reveal in" style="justify-content:center">
+    <a href="#cotizador" class="btn-primary">Cotizar mi proyecto <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="https://api.whatsapp.com/send?phone=50769837286&text=Hola%20Rodolfo%2C%20vi%20DTechLab%20Studio%20y%20quiero%20arrancar%20un%20proyecto.%20%F0%9F%91%8B" class="btn-wa" target="_blank">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Hablar por WhatsApp
+    </a>
+  </div>
+  <div style="margin-top:24px;font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.08em">
+    rodophybusiness08@gmail.com · +507 6983-7286 · Panamá
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="dtechlab-homepage.html" class="footer-brand">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
+        <div><div class="footer-name">DTechLab Studio</div><div class="footer-tagline">diseño + ingeniería · panamá · latam</div></div>
+      </a>
+    </div>
+    <div>
+      <div class="footer-col-title">Studio</div>
+      <div class="footer-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#templates">Templates</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#cotizador">Cotizador</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Ecosistema</div>
+      <div class="footer-links">
+        <a href="dtechlab-homepage.html">DTechLab</a>
+        <a href="autopro-landing.html">AutoPro</a>
+        <a href="nexus-landing.html">Nexus OS</a>
+        <a href="dtechlab-store.html">Store</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>© 2026 DTechLab Studio · Panamá</span>
+    <span>build.2026.06.08 · v1.0.0</span>
+  </div>
+</footer>
+
+<script>
+// ─── LOADER ───
+window.addEventListener('load',()=>{
+  const steps=[{r:'lr1',f:'lf1',l:'ll1'},{r:'lr2',f:'lf2',l:'ll2'},{r:'lr3',f:'lf3',l:'ll3'},{r:'lr4',f:'lf4',l:'ll4'}];
+  function run(i){
+    if(i>=steps.length){
+      setTimeout(()=>{
+        document.getElementById('loader').classList.add('out');
+        document.getElementById('dotgrid').classList.add('on');
+        animHero();
+      },280);
+      return;
+    }
+    const s=steps[i];
+    document.getElementById(s.r).classList.add('show');
+    document.getElementById(s.l).classList.add('active');
+    setTimeout(()=>{document.getElementById(s.f).style.width='100%';},60);
+    setTimeout(()=>{
+      document.getElementById(s.l).classList.remove('active');
+      document.getElementById(s.l).classList.add('done');
+      run(i+1);
+    },680);
+  }
+  setTimeout(()=>run(0),200);
+});
+
+// ─── HERO ANIMATIONS ───
+function animHero(){
+  setTimeout(()=>document.getElementById('hero-label').classList.add('in'),100);
+  setTimeout(()=>document.querySelectorAll('.li').forEach(e=>e.classList.add('in')),250);
+  setTimeout(()=>document.getElementById('hero-sub').classList.add('in'),600);
+  setTimeout(()=>document.getElementById('hero-actions').classList.add('in'),750);
+  setTimeout(()=>document.getElementById('hero-meta').classList.add('in'),900);
+}
+
+// ─── NAV SCROLL ───
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40));
+
+// ─── REVEAL ON SCROLL ───
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target);}}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ─── FAQ ───
+document.querySelectorAll('.faq-q').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.closest('.faq-item'),open=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+    if(!open)item.classList.add('open');
+  });
+});
+
+// ─── COTIZADOR INTELIGENTE ───
+const Q = {
+  step: 1,
+  total: 5,
+  data: { ptype:null, base:0, scope:null, scopeMod:0, feat:[], featMod:0, timeline:null, timeMod:0, timeFactor:0 },
+};
+
+const qSteps = document.querySelectorAll('.q-step');
+const qNext = document.getElementById('qNext');
+const qBack = document.getElementById('qBack');
+const qStepLbl = document.getElementById('qStepLbl');
+const qProgress = document.getElementById('qProgress');
+
+function showStep(n){
+  qSteps.forEach(s=>s.classList.toggle('active', parseInt(s.dataset.step)===n));
+  qBack.disabled = n===1 || n===6;
+  if(n===6){
+    qNext.style.display='none';
+    qBack.style.display='none';
+    qStepLbl.textContent = 'Estimación lista';
+    qProgress.style.width = '100%';
+  } else {
+    qNext.style.display='';
+    qBack.style.display='';
+    qStepLbl.textContent = `Paso ${n} de ${Q.total}`;
+    qProgress.style.width = (n/Q.total*100) + '%';
+    qNext.innerHTML = n===Q.total ? 'Ver estimación →' : 'Siguiente →';
+  }
+}
+
+// option selection
+document.querySelectorAll('.q-opt').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const name = btn.dataset.name;
+    if(btn.classList.contains('q-multi')){
+      btn.classList.toggle('selected');
+      const val = btn.dataset.val;
+      const mod = parseInt(btn.dataset.mod || 0);
+      if(btn.classList.contains('selected')){
+        Q.data.feat.push({val,mod});
+      } else {
+        Q.data.feat = Q.data.feat.filter(f=>f.val!==val);
+      }
+      Q.data.featMod = Q.data.feat.reduce((s,f)=>s+f.mod,0);
+    } else {
+      // single-select within name group
+      document.querySelectorAll(`.q-opt[data-name="${name}"]`).forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      if(name==='ptype'){
+        Q.data.ptype = btn.dataset.val;
+        Q.data.base = parseInt(btn.dataset.base);
+      } else if(name==='scope'){
+        Q.data.scope = btn.dataset.val;
+        Q.data.scopeMod = parseInt(btn.dataset.mod);
+      } else if(name==='timeline'){
+        Q.data.timeline = btn.dataset.val;
+        Q.data.timeMod = parseInt(btn.dataset.mod);
+        Q.data.timeFactor = parseInt(btn.dataset.timefactor);
+      }
+    }
+  });
+});
+
+function validateStep(n){
+  if(n===1) return !!Q.data.ptype;
+  if(n===2) return !!Q.data.scope;
+  if(n===3) return true; // multi optional
+  if(n===4) return !!Q.data.timeline;
+  if(n===5){
+    return document.getElementById('qNombre').value.trim() &&
+           document.getElementById('qEmail').value.trim() &&
+           document.getElementById('qWhats').value.trim();
+  }
+  return true;
+}
+
+qNext.addEventListener('click', ()=>{
+  if(!validateStep(Q.step)){
+    qNext.style.background = '#F97316';
+    qNext.textContent = 'Completa este paso';
+    setTimeout(()=>{ qNext.style.background=''; qNext.innerHTML = Q.step===Q.total ? 'Ver estimación →' : 'Siguiente →'; }, 1500);
+    return;
+  }
+  if(Q.step < Q.total){
+    Q.step++;
+    showStep(Q.step);
+  } else {
+    // calculate
+    calculateAndShow();
+    Q.step = 6;
+    showStep(6);
+  }
+});
+
+qBack.addEventListener('click', ()=>{
+  if(Q.step>1){
+    Q.step--;
+    showStep(Q.step);
+  }
+});
+
+function calculateAndShow(){
+  const subtotal = Q.data.base + Q.data.scopeMod + Q.data.featMod + Q.data.timeMod;
+  // range +/- 18%
+  const low = Math.max(500, Math.round(subtotal * 0.88 / 50) * 50);
+  const high = Math.round(subtotal * 1.22 / 50) * 50;
+  document.getElementById('qRangeLow').textContent = '$' + low.toLocaleString('en-US');
+  document.getElementById('qRangeHigh').textContent = '$' + high.toLocaleString('en-US');
+
+  // tiempo estimado
+  const baseTime = { landing:[2,3], corporate:[3,5], ecommerce:[4,6], platform:[6,10], dashboard:[5,8], automation:[2,4] };
+  let [tLow, tHigh] = baseTime[Q.data.ptype] || [3,6];
+  if(Q.data.scope==='medium') tHigh += 1;
+  if(Q.data.scope==='large'){ tLow += 1; tHigh += 2; }
+  if(Q.data.scope==='enterprise'){ tLow += 2; tHigh += 3; }
+  if(Q.data.timeFactor===1){ tLow = Math.max(2, tLow-1); tHigh = Math.max(tLow+1, tHigh-1); }
+  if(Q.data.timeFactor===-1){ tHigh += 2; }
+  document.getElementById('qRangeTime').textContent = `Tiempo estimado: ${tLow}–${tHigh} semanas`;
+
+  // build summary
+  const nombre = document.getElementById('qNombre').value;
+  const empresa = document.getElementById('qEmpresa').value;
+  const email = document.getElementById('qEmail').value;
+  const whats = document.getElementById('qWhats').value;
+  const msg = document.getElementById('qMensaje').value;
+  const featNames = Q.data.feat.map(f=>f.val).join(', ') || '(ninguna)';
+
+  const ptypeNames = { landing:'Landing page', corporate:'Sitio corporativo', ecommerce:'Tienda online', platform:'Plataforma/portal', dashboard:'CRM/Dashboard', automation:'Automatización' };
+  const scopeNames = { small:'Pequeño · Esencial', medium:'Mediano · Completo', large:'Grande · A medida total', enterprise:'Empresarial · Multi-módulo' };
+  const timelineNames = { urgent:'Urgente (<3 semanas)', normal:'Normal (3–8 semanas)', flex:'Flexible' };
+
+  const summary = `Nuevo cotizador DTechLab Studio
+─────────────────────────────────
+Nombre: ${nombre}
+Empresa: ${empresa || '(sin especificar)'}
+Email: ${email}
+WhatsApp: ${whats}
+
+Proyecto: ${ptypeNames[Q.data.ptype]}
+Alcance: ${scopeNames[Q.data.scope]}
+Funcionalidades: ${featNames}
+Timeline: ${timelineNames[Q.data.timeline]}
+
+Estimación: $${low.toLocaleString('en-US')} – $${high.toLocaleString('en-US')} USD
+Tiempo: ${tLow}–${tHigh} semanas
+
+Mensaje del cliente:
+${msg || '(sin mensaje)'}`;
+
+  // mailto link
+  const mailLink = document.getElementById('qMailLink');
+  mailLink.href = 'mailto:rodophybusiness08@gmail.com?subject=' + encodeURIComponent(`Cotizador Studio — ${nombre} — ${ptypeNames[Q.data.ptype]}`) + '&body=' + encodeURIComponent(summary);
+
+  // WhatsApp link
+  const waMsg = `Hola Rodolfo, completé el cotizador de DTechLab Studio:\n\n` +
+                `• Proyecto: ${ptypeNames[Q.data.ptype]}\n` +
+                `• Alcance: ${scopeNames[Q.data.scope]}\n` +
+                `• Funcionalidades: ${featNames}\n` +
+                `• Timeline: ${timelineNames[Q.data.timeline]}\n` +
+                `• Estimación: $${low.toLocaleString('en-US')} – $${high.toLocaleString('en-US')} USD\n\n` +
+                `Me llamo ${nombre}${empresa? ' de ' + empresa : ''}. ¿Cuándo conversamos?`;
+  const waLink = document.getElementById('qWaLink');
+  waLink.href = 'https://api.whatsapp.com/send?phone=50769837286&text=' + encodeURIComponent(waMsg);
+}
+</script>
+</body>
+</html>

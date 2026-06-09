@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DTechLab Studio — Pack de Promoción Social</title>
+<meta name="description" content="Flyers, stories y reels animados listos para WhatsApp, Instagram y TikTok. Captura cada uno con screenshot y compártelo.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Crect x='1' y='1' width='30' height='30' rx='8' stroke='%235B6AFF' stroke-width='1.5'/%3E%3Crect x='8' y='8' width='7' height='7' rx='1.5' fill='%235B6AFF'/%3E%3Crect x='17' y='8' width='7' height='7' rx='1.5' fill='rgba(91,106,255,0.45)'/%3E%3Crect x='8' y='17' width='7' height='7' rx='1.5' fill='rgba(91,106,255,0.45)'/%3E%3Crect x='17' y='17' width='7' height='7' rx='1.5' fill='%235B6AFF'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--void:#050507;--abyss:#0A0A0F;--graphite:#111118;--slate:#1A1A24;--pure:#fff;--fog:#E8E8F0;--ghost:#9898A8;--whisper:#4A4A5C;--signal:#5B6AFF;--ice:#A8B4FF;--arc:#22D3EE;--plasma:#8B5CF6;--green:#10B981;--gold:#F59E0B;--hairline:rgba(255,255,255,.06)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--abyss);color:var(--fog);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;padding:60px 40px 100px;min-height:100vh}
+
+/* Page Head */
+.head{max-width:1280px;margin:0 auto 56px;text-align:center}
+.head-eye{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--signal);font-family:'Courier New',monospace;margin-bottom:14px}
+.head-title{font-size:clamp(28px,4vw,48px);font-weight:200;letter-spacing:-.03em;color:var(--pure);line-height:1.1;margin-bottom:12px}
+.head-title strong{font-weight:600}
+.head-sub{font-size:15px;color:var(--ghost);max-width:640px;margin:0 auto;line-height:1.7;font-weight:300}
+.head-instructions{margin-top:24px;font-size:12px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.04em;padding:14px 20px;background:rgba(91,106,255,.06);border:1px solid rgba(91,106,255,.18);border-radius:8px;display:inline-block}
+
+/* Section */
+.sec{max-width:1280px;margin:0 auto 80px}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;border-bottom:1px solid var(--hairline);padding-bottom:18px}
+.sec-name{font-size:18px;font-weight:500;color:var(--pure);letter-spacing:-.01em}
+.sec-name span{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--whisper);font-family:'Courier New',monospace;margin-top:4px}
+.sec-spec{font-size:11px;color:var(--ghost);font-family:'Courier New',monospace;letter-spacing:.06em}
+
+/* Card display strip */
+.strip{display:flex;gap:32px;overflow-x:auto;padding-bottom:24px;scrollbar-color:var(--signal) var(--graphite)}
+.strip::-webkit-scrollbar{height:8px}
+.strip::-webkit-scrollbar-track{background:var(--graphite);border-radius:4px}
+.strip::-webkit-scrollbar-thumb{background:var(--signal);border-radius:4px}
+.card-wrap{flex-shrink:0;display:flex;flex-direction:column;gap:10px}
+.card-label{font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.06em;text-align:center}
+
+/* ─── FLYER SQUARE (Instagram feed 1080x1080) ─── */
+.fl-sq{width:540px;height:540px;background:var(--void);border-radius:18px;overflow:hidden;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.5);font-family:'Inter',sans-serif}
+.fl-sq-grid{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px;opacity:.8}
+.fl-sq-glow{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(91,106,255,.13) 0%,transparent 60%);pointer-events:none}
+
+/* Flyer variants */
+.fl-content{position:absolute;inset:0;padding:48px;display:flex;flex-direction:column;justify-content:space-between;z-index:2}
+.fl-top{display:flex;justify-content:space-between;align-items:center}
+.fl-brand{display:flex;align-items:center;gap:10px}
+.fl-brand svg{width:28px;height:28px}
+.fl-brand-name{font-size:15px;font-weight:600;color:var(--pure);letter-spacing:-.01em}
+.fl-tag{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ghost);font-family:'Courier New',monospace;padding:5px 10px;border:1px solid rgba(255,255,255,.1);border-radius:100px}
+.fl-tag.live::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--green);margin-right:6px;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.fl-center{display:flex;flex-direction:column;gap:14px;margin:20px 0}
+.fl-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--signal);font-family:'Courier New',monospace}
+.fl-title{font-size:42px;font-weight:200;letter-spacing:-.03em;line-height:1.05;color:var(--pure)}
+.fl-title strong{font-weight:600}
+.fl-title .acc{background:linear-gradient(100deg,var(--signal),var(--arc) 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.fl-sub{font-size:14px;color:var(--ghost);font-weight:300;line-height:1.6;max-width:380px}
+.fl-bottom{display:flex;justify-content:space-between;align-items:flex-end}
+.fl-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;background:var(--signal);color:#fff;border-radius:8px;font-size:13px;font-weight:500;letter-spacing:-.01em}
+.fl-url{font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.06em}
+.fl-meta{display:flex;gap:24px}
+.fl-meta-v{font-size:22px;font-weight:300;letter-spacing:-.02em;color:var(--pure);font-family:'Courier New',monospace}
+.fl-meta-l{font-size:9px;color:var(--ghost);font-family:'Courier New',monospace;letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+
+/* ─── STORY VERTICAL (Instagram/TikTok 1080x1920 → 360x640) ─── */
+.fl-st{width:360px;height:640px;background:var(--void);border-radius:22px;overflow:hidden;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.5);font-family:'Inter',sans-serif}
+.fl-st-grid{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px;opacity:.8}
+.fl-st-glow{position:absolute;top:35%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(91,106,255,.16) 0%,transparent 60%);pointer-events:none}
+.fl-st-content{position:absolute;inset:0;padding:44px 32px;display:flex;flex-direction:column;justify-content:space-between;z-index:2}
+.fl-st-eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--signal);font-family:'Courier New',monospace;margin-bottom:14px}
+.fl-st-title{font-size:38px;font-weight:200;letter-spacing:-.03em;line-height:1.05;color:var(--pure);margin-bottom:18px}
+.fl-st-title strong{font-weight:600}
+.fl-st-sub{font-size:15px;color:var(--ghost);font-weight:300;line-height:1.6}
+.fl-st-bottom-block{padding:20px;background:rgba(91,106,255,.06);border:1px solid rgba(91,106,255,.22);border-radius:12px}
+.fl-st-arrow{font-size:11px;color:var(--signal);font-family:'Courier New',monospace;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.fl-st-arrow::after{content:'';flex:1;height:1px;background:rgba(91,106,255,.3)}
+.fl-st-cta{font-size:18px;font-weight:500;color:var(--pure);letter-spacing:-.01em}
+.fl-st-link{font-size:11px;color:var(--ghost);font-family:'Courier New',monospace;margin-top:6px;letter-spacing:.04em}
+
+/* ─── REEL animado 1080x1920 (animation) ─── */
+.fl-reel{width:360px;height:640px;background:var(--void);border-radius:22px;overflow:hidden;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.5);font-family:'Inter',sans-serif}
+.fl-reel-content{position:absolute;inset:0;padding:44px 32px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;z-index:2}
+.fl-reel-anim{font-size:48px;font-weight:200;letter-spacing:-.04em;line-height:1.05;color:var(--pure);min-height:200px;display:flex;align-items:center;justify-content:center}
+.fl-reel-anim .word{display:inline-block;animation:cycleword 9s infinite;opacity:0}
+.fl-reel-anim .word:nth-child(1){animation-delay:0s}
+.fl-reel-anim .word:nth-child(2){animation-delay:3s}
+.fl-reel-anim .word:nth-child(3){animation-delay:6s}
+@keyframes cycleword{
+  0%,30%{opacity:1;transform:translateY(0)}
+  35%,100%{opacity:0;transform:translateY(-20px)}
+}
+.fl-reel-bottom{position:absolute;bottom:44px;left:32px;right:32px;text-align:center}
+.fl-reel-brand{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;font-size:11px;color:var(--fog);font-weight:500}
+.fl-reel-line{position:absolute;height:2px;background:linear-gradient(90deg,transparent,var(--signal),transparent);left:0;right:0;animation:scan 3s linear infinite}
+.fl-reel-line.l1{top:30%}
+.fl-reel-line.l2{top:60%;animation-delay:1.5s}
+@keyframes scan{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+@keyframes fillbar{0%{width:0%}100%{width:100%}}
+
+/* ─── WHATSAPP square more compact (1080x1080 also, but text-heavy for WA share) ─── */
+.fl-wa{width:480px;height:480px;background:linear-gradient(165deg,var(--graphite) 0%,var(--abyss) 100%);border:1px solid var(--hairline);border-radius:18px;overflow:hidden;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.5);font-family:'Inter',sans-serif;padding:42px;display:flex;flex-direction:column;justify-content:space-between}
+.fl-wa-glow{position:absolute;top:0;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(91,106,255,.12) 0%,transparent 60%);pointer-events:none}
+.fl-wa-eye{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--signal);font-family:'Courier New',monospace;margin-bottom:16px}
+.fl-wa-title{font-size:30px;font-weight:300;letter-spacing:-.02em;line-height:1.15;color:var(--pure);margin-bottom:18px;position:relative;z-index:2}
+.fl-wa-title strong{font-weight:600}
+.fl-wa-list{position:relative;z-index:2;display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.fl-wa-item{font-size:14px;color:var(--fog);font-weight:300;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+.fl-wa-item::before{content:'→';color:var(--signal);font-weight:500;flex-shrink:0;font-family:'Courier New',monospace}
+.fl-wa-foot{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;padding-top:18px;border-top:1px solid var(--hairline)}
+.fl-wa-brand-mini{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--fog);font-weight:500}
+.fl-wa-contact{font-size:11px;color:var(--ghost);font-family:'Courier New',monospace;letter-spacing:.04em;text-align:right}
+
+/* ─── Color variants for flyers ─── */
+.var-primary .fl-title .acc, .var-primary .fl-st-title .acc{background:linear-gradient(100deg,var(--signal),var(--arc))}
+.var-arc .fl-title .acc{background:linear-gradient(100deg,var(--arc),var(--ice))}
+.var-arc .fl-cta{background:var(--arc);color:#001016}
+.var-plasma .fl-title .acc{background:linear-gradient(100deg,var(--plasma),var(--signal))}
+.var-plasma .fl-cta{background:var(--plasma)}
+.var-plasma .fl-eyebrow{color:var(--plasma)}
+
+/* ─── Capture instructions / actions ─── */
+.actions{max-width:1280px;margin:60px auto 0;padding:32px;background:var(--graphite);border:1px solid var(--hairline);border-radius:14px}
+.actions-title{font-size:14px;font-weight:500;color:var(--pure);margin-bottom:14px;letter-spacing:-.01em}
+.actions-list{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+.action{background:var(--abyss);border:1px solid var(--hairline);border-radius:10px;padding:18px}
+.action-num{font-size:10px;color:var(--signal);font-family:'Courier New',monospace;letter-spacing:.12em;margin-bottom:8px}
+.action-t{font-size:14px;font-weight:500;color:var(--pure);margin-bottom:6px}
+.action-d{font-size:12px;color:var(--ghost);line-height:1.6;font-weight:300}
+
+@media print{
+  body{padding:0;background:#fff}
+  .head,.actions,.sec-head{display:none}
+  .strip{flex-direction:column;gap:60px;page-break-after:always}
+  .sec{margin:0;page-break-after:always}
+}
+
+@media(max-width:768px){
+  body{padding:32px 16px 80px}
+  .fl-sq{width:360px;height:360px}
+  .fl-sq .fl-content{padding:32px}
+  .fl-sq .fl-title{font-size:28px}
+  .fl-sq .fl-sub{font-size:12px}
+  .fl-sq .fl-cta{padding:9px 14px;font-size:11px}
+  .fl-wa{width:320px;height:320px;padding:28px}
+  .fl-wa-title{font-size:22px}
+  .fl-wa-item{font-size:12px}
+  .fl-st,.fl-reel{width:280px;height:498px}
+  .fl-st-content,.fl-reel-content{padding:32px 22px}
+  .fl-st-title{font-size:28px}
+  .fl-reel-anim{font-size:34px}
+  .actions-list{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div class="head-eye">DTechLab Studio · Pack social</div>
+  <h1 class="head-title">Flyers, stories y reels <strong>listos para compartir.</strong></h1>
+  <p class="head-sub">Cada pieza está dimensionada para Instagram, WhatsApp y TikTok. Captura con screenshot (Win + Shift + S) o usa una extensión como "Full Page Screen Capture" — y compártelo.</p>
+  <div class="head-instructions">💡 Tip: para capturar 1:1 a tamaño nativo, abre la pieza en una pestaña y haz zoom hasta 100%, screenshot.</div>
+</div>
+
+<!-- ─── SECCIÓN 1: FLYERS CUADRADOS INSTAGRAM FEED ─── -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-name">Flyers cuadrados <span>Instagram feed · Facebook · 1080×1080</span></div>
+    <div class="sec-spec">4 variantes · azul / arc / plasma / corporativo</div>
+  </div>
+  <div class="strip">
+
+    <!-- Flyer 1: Anuncio principal -->
+    <div class="card-wrap">
+      <div class="fl-sq var-primary">
+        <div class="fl-sq-grid"></div><div class="fl-sq-glow"></div>
+        <div class="fl-content">
+          <div class="fl-top">
+            <div class="fl-brand">
+              <svg viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
+              <div class="fl-brand-name">DTechLab Studio</div>
+            </div>
+            <div class="fl-tag live">Abierto</div>
+          </div>
+          <div class="fl-center">
+            <div class="fl-eyebrow">Lanzamiento · 2026</div>
+            <div class="fl-title">Sistemas digitales<br><span class="acc">diseñados con precisión.</span></div>
+            <div class="fl-sub">Sitios web, plataformas, automatización y software a medida para empresas que operan a un estándar diferente.</div>
+          </div>
+          <div class="fl-bottom">
+            <div class="fl-cta">Cotizar mi proyecto →</div>
+            <div class="fl-url">dtechlab.io/studio</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-label">flyer-01 · Anuncio principal</div>
+    </div>
+
+    <!-- Flyer 2: Servicios -->
+    <div class="card-wrap">
+      <div class="fl-sq">
+        <div class="fl-sq-grid"></div><div class="fl-sq-glow"></div>
+        <div class="fl-content">
+          <div class="fl-top">
+            <div class="fl-brand">
+              <svg viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
+              <div class="fl-brand-name">DTechLab Studio</div>
+            </div>
+            <div class="fl-tag">5 servicios</div>
+          </div>
+          <div class="fl-center">
+            <div class="fl-eyebrow">Qué construimos</div>
+            <div class="fl-title">Cinco líneas.<br>Una <span class="acc">arquitectura.</span></div>
+            <div class="fl-sub">Sitios web · Automatización · CRM &amp; Dashboards · IA aplicada · Identidad de marca.</div>
+          </div>
+          <div class="fl-bottom">
+            <div class="fl-cta">Ver servicios →</div>
+            <div class="fl-url">dtechlab.io/studio</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-label">flyer-02 · Servicios</div>
+    </div>
+
+    <!-- Flyer 3: Cotizador -->
+    <div class="card-wrap">
+      <div class="fl-sq var-arc">
+        <div class="fl-sq-grid"></div>
+        <div class="fl-sq-glow" style="background:radial-gradient(circle,rgba(34,211,238,.18) 0%,transparent 60%)"></div>
+        <div class="fl-content">
+          <div class="fl-top">
+            <div class="fl-brand">
+              <svg viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#22D3EE" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#22D3EE"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(34,211,238,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(34,211,238,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#22D3EE"/></svg>
+              <div class="fl-brand-name">DTechLab Studio</div>
+            </div>
+            <div class="fl-tag" style="color:var(--arc);border-color:rgba(34,211,238,.3)">60 segundos</div>
+          </div>
+          <div class="fl-center">
+            <div class="fl-eyebrow" style="color:var(--arc)">Nuevo · Cotizador inteligente</div>
+            <div class="fl-title">Estima tu proyecto<br><span class="acc">en 60 segundos.</span></div>
+            <div class="fl-sub">5 preguntas. Rango de inversión + tiempo estimado al instante. Sin formularios eternos.</div>
+          </div>
+          <div class="fl-bottom">
+            <div class="fl-cta">Probar ahora →</div>
+            <div class="fl-url">dtechlab.io/studio</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-label">flyer-03 · Cotizador (arc)</div>
+    </div>
+
+    <!-- Flyer 4: IA / Premium -->
+    <div class="card-wrap">
+      <div class="fl-sq var-plasma">
+        <div class="fl-sq-grid"></div>
+        <div class="fl-sq-glow" style="background:radial-gradient(circle,rgba(139,92,246,.18) 0%,transparent 60%)"></div>
+        <div class="fl-content">
+          <div class="fl-top">
+            <div class="fl-brand">
+              <svg viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#8B5CF6" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#8B5CF6"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(139,92,246,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(139,92,246,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#8B5CF6"/></svg>
+              <div class="fl-brand-name">DTechLab Studio</div>
+            </div>
+            <div class="fl-tag" style="color:#C4B5FD;border-color:rgba(139,92,246,.3)">IA aplicada</div>
+          </div>
+          <div class="fl-center">
+            <div class="fl-eyebrow">IA en tu negocio</div>
+            <div class="fl-title">La IA sin infraestructura<br>es solo una <span class="acc">característica.</span></div>
+            <div class="fl-sub">Integramos IA donde tiene sentido operacional. Asistentes, búsqueda inteligente y agentes que ejecutan tareas reales.</div>
+          </div>
+          <div class="fl-bottom">
+            <div class="fl-cta">Conocer más →</div>
+            <div class="fl-url">dtechlab.io/studio</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-label">flyer-04 · IA aplicada (plasma)</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ─── SECCIÓN 2: STORIES VERTICALES ─── -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-name">Stories verticales <span>Instagram Stories · WhatsApp Status · TikTok · 1080×1920</span></div>
+    <div class="sec-spec">3 variantes · cinematográficas</div>
+  </div>
+  <div class="strip">
+
+    <div class="card-wrap">
+      <div class="fl-st">
+        <div class="fl-st-grid"></div><div class="fl-st-glow"></div>
+        <div class="fl-st-content">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:28px">
+              <svg width="22" height="22" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
+              <span style="font-size:13px;font-weight:600;color:var(--pure)">DTechLab Studio</span>
+            </div>
+            <div class="fl-st-eyebrow">Lanzamiento · 2026</div>
+            <div class="fl-st-title">Sistemas digitales<br><span class="acc" style="background:linear-gradient(100deg,#5B6AFF,#22D3EE);-webkit-background-clip:text;-webkit-text-fill-color:transparent">para empresas que operan a un estándar diferente.</span></div>
+          </div>
+          <div>
+            <div class="fl-st-bottom-block">
+              <div class="fl-st-arrow">Desliza · estima tu proyecto</div>
+              <div class="fl-st-cta">Cotizar en 60 segundos</div>
+              <div class="fl-st-link">dtechlab.io/studio</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-label">story-01 · Anuncio</div>
+    </div>
+
+    <div class="card-wrap">
+      <div class="fl-st">
+        <div class="fl-st-grid"></div>
+        <div class="fl-st-glow" style="background:radial-gradient(circle,rgba(34,211,238,.18) 0%,transparent 60%)"></div>
+        <div class="fl-st-content">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:28px">
+              <svg width="22" height="22" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#22D3EE" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#22D3EE"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(34,211,238,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(34,211,238,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#22D3EE"/></svg>
+              <span style="font-size:13px;font-weight:600;color:var(--pure)">DTechLab Studio</span>
+            </div>
+            <div class="fl-st-eyebrow" style="color:var(--arc)">Pregunta del día</div>
+            <div class="fl-st-title">¿Tu negocio<br>opera todavía<br>con <span class="acc" style="background:linear-gradient(100deg,#22D3EE,#A8B4FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent">hojas de cálculo?</span></div>
+            <div class="fl-st-sub" style="margin-top:18px">Hay una mejor manera. Te ayudamos a llegar ahí.</div>
+          </div>
+          <div>
+            <div class="fl-st-bottom-block" style="background:rgba(34,211,238,.07);border-color:rgba(34,211,238,.25)">
+              <div class="fl-st-arrow" style="color:var(--arc)">Ver cómo lo hacemos →</div>
+              <div class="fl-st-cta">Hablar con Studio</div>
+              <div class="fl-st-link">dtechlab.io/studio</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-label">story-02 · Engagement</div>
+    </div>
+
+    <div class="card-wrap">
+      <div class="fl-st">
+        <div class="fl-st-grid"></div><div class="fl-st-glow"></div>
+        <div class="fl-st-content">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:28px">
+              <svg width="22" height="22" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
+              <span style="font-size:13px;font-weight:600;color:var(--pure)">DTechLab Studio</span>
+            </div>
+            <div class="fl-st-eyebrow">Promo de lanzamiento</div>
+            <div class="fl-st-title">Primeros<br><span class="acc" style="background:linear-gradient(100deg,#5B6AFF,#22D3EE);-webkit-background-clip:text;-webkit-text-fill-color:transparent">3 clientes</span><br>del mes.</div>
+            <div class="fl-st-sub" style="margin-top:18px">Auditoría de sistemas gratuita + 10% de descuento en el proyecto.</div>
+          </div>
+          <div>
+            <div class="fl-st-bottom-block">
+              <div class="fl-st-arrow">WhatsApp directo</div>
+              <div class="fl-st-cta">+507 6983-7286</div>
+              <div class="fl-st-link">dtechlab.io/studio</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-label">story-03 · Promo</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ─── SECCIÓN 3: REELS ANIMADOS (TIKTOK / IG REELS) ─── -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-name">Reels animados <span>TikTok · Instagram Reels · 1080×1920 · graba pantalla mientras se reproduce</span></div>
+    <div class="sec-spec">Animación CSS · graba con OBS o pantalla del teléfono</div>
+  </div>
+  <div class="strip">
+
+    <!-- Reel 1: tres palabras cíclicas -->
+    <div class="card-wrap">
+      <div class="fl-reel">
+        <div class="fl-st-grid"></div>
+        <div class="fl-st-glow"></div>
+        <div class="fl-reel-line l1"></div>
+        <div class="fl-reel-line l2"></div>
+        <div class="fl-reel-content">
+          <div style="font-size:11px;color:var(--signal);font-family:'Courier New',monospace;letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px">Construimos</div>
+          <div class="fl-reel-anim">
+            <span class="word">Sistemas.</span>
+            <span class="word" style="background:linear-gradient(100deg,#5B6AFF,#22D3EE);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Plataformas.</span>
+            <span class="word">Infraestructura.</span>
+          </div>
+        </div>
+        <div class="fl-reel-bottom">
+          <div class="fl-reel-brand">
+            <svg width="18" height="18" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
+            DTechLab Studio
+          </div>
+        </div>
+      </div>
+      <div class="card-label">reel-01 · Loop tipográfico</div>
+    </div>
+
+    <!-- Reel 2: declaración fuerte -->
+    <div class="card-wrap">
+      <div class="fl-reel">
+        <div class="fl-st-grid"></div>
+        <div class="fl-st-glow" style="top:50%"></div>
+        <div class="fl-reel-content" style="justify-content:flex-start;text-align:left;padding-top:120px">
+          <div style="font-size:10px;color:var(--signal);font-family:'Courier New',monospace;letter-spacing:.2em;text-transform:uppercase;margin-bottom:22px;align-self:flex-start">DTechLab Studio · Principio 01</div>
+          <div style="font-size:36px;font-weight:200;letter-spacing:-.03em;line-height:1.1;color:var(--pure);text-align:left;align-self:flex-start">
+            La IA sin<br>infraestructura<br>es solo una<br><strong style="font-weight:600;background:linear-gradient(100deg,#5B6AFF,#22D3EE);-webkit-background-clip:text;-webkit-text-fill-color:transparent">característica.</strong>
+          </div>
+          <div style="font-size:14px;color:var(--ghost);font-weight:300;margin-top:24px;text-align:left;align-self:flex-start;line-height:1.6">Las empresas que ganarán la próxima década no son las que tienen la mejor IA — son aquellas cuyas operaciones están construidas para ejecutarla.</div>
+        </div>
+        <div class="fl-reel-bottom">
+          <div class="fl-reel-brand">
+            <svg width="18" height="18" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
+            DTechLab Studio · dtechlab.io
+          </div>
+        </div>
+      </div>
+      <div class="card-label">reel-02 · Manifiesto</div>
+    </div>
+
+    <!-- Reel 3: barra de progreso (proceso) -->
+    <div class="card-wrap">
+      <div class="fl-reel">
+        <div class="fl-st-grid"></div><div class="fl-st-glow"></div>
+        <div class="fl-reel-content" style="justify-content:flex-start;padding-top:90px">
+          <div style="font-size:10px;color:var(--signal);font-family:'Courier New',monospace;letter-spacing:.2em;text-transform:uppercase;margin-bottom:18px">Cómo trabajamos</div>
+          <div style="font-size:30px;font-weight:200;letter-spacing:-.03em;line-height:1.1;color:var(--pure);margin-bottom:36px">De idea a producción<br>en <strong style="font-weight:600;background:linear-gradient(100deg,#5B6AFF,#22D3EE);-webkit-background-clip:text;-webkit-text-fill-color:transparent">21 días.</strong></div>
+          <div style="width:100%;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:center;gap:10px"><div style="font-size:10px;color:#fff;width:50px;font-family:'Courier New',monospace;font-weight:600">01</div><div style="flex:1;height:2px;background:rgba(255,255,255,.06);overflow:hidden"><div style="height:100%;background:var(--signal);width:0%;animation:fillbar 4s ease-out forwards"></div></div><div style="font-size:11px;color:var(--ghost);width:70px">Diagnóstico</div></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="font-size:10px;color:#fff;width:50px;font-family:'Courier New',monospace;font-weight:600">02</div><div style="flex:1;height:2px;background:rgba(255,255,255,.06);overflow:hidden"><div style="height:100%;background:var(--signal);width:0%;animation:fillbar 4s ease-out 0.5s forwards"></div></div><div style="font-size:11px;color:var(--ghost);width:70px">Arquitectura</div></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="font-size:10px;color:#fff;width:50px;font-family:'Courier New',monospace;font-weight:600">03</div><div style="flex:1;height:2px;background:rgba(255,255,255,.06);overflow:hidden"><div style="height:100%;background:var(--signal);width:0%;animation:fillbar 4s ease-out 1s forwards"></div></div><div style="font-size:11px;color:var(--ghost);width:70px">Ingeniería</div></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="font-size:10px;color:var(--arc);width:50px;font-family:'Courier New',monospace;font-weight:600">04</div><div style="flex:1;height:2px;background:rgba(255,255,255,.06);overflow:hidden"><div style="height:100%;background:var(--arc);width:0%;animation:fillbar 4s ease-out 1.5s forwards"></div></div><div style="font-size:11px;color:var(--arc);width:70px">Despliegue</div></div>
+          </div>
+        </div>
+        <div class="fl-reel-bottom">
+          <div class="fl-reel-brand">
+            <svg width="18" height="18" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
+            DTechLab Studio
+          </div>
+        </div>
+      </div>
+      <div class="card-label">reel-03 · Proceso animado</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ─── SECCIÓN 4: WHATSAPP CARDS (compartir como imagen en chats) ─── -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-name">Tarjetas WhatsApp <span>Compartir en chats, status, grupos · 1080×1080 cuadrado</span></div>
+    <div class="sec-spec">2 variantes · texto-fuerte para legibilidad en chat</div>
+  </div>
+  <div class="strip">
+
+    <!-- WA 1: lista de servicios -->
+    <div class="card-wrap">
+      <div class="fl-wa">
+        <div class="fl-wa-glow"></div>
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <svg width="26" height="26" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
+              <span style="font-size:15px;font-weight:600;color:var(--pure)">DTechLab Studio</span>
+            </div>
+            <div class="fl-tag live">Disponible</div>
+          </div>
+          <div class="fl-wa-eye">Qué ofrecemos</div>
+          <div class="fl-wa-title">Sistemas digitales para empresas <strong>en Panamá y Latam.</strong></div>
+          <div class="fl-wa-list">
+            <div class="fl-wa-item">Sitios web premium &amp; landing pages</div>
+            <div class="fl-wa-item">E-commerce con pasarela de pago</div>
+            <div class="fl-wa-item">Automatización + integraciones</div>
+            <div class="fl-wa-item">CRM &amp; dashboards a medida</div>
+            <div class="fl-wa-item">IA aplicada al negocio</div>
+          </div>
+        </div>
+        <div class="fl-wa-foot">
+          <div class="fl-wa-brand-mini">dtechlab.io/studio</div>
+          <div class="fl-wa-contact">+507 6983-7286<br>WhatsApp directo</div>
+        </div>
+      </div>
+      <div class="card-label">wa-01 · Lista de servicios</div>
+    </div>
+
+    <!-- WA 2: call-to-action -->
+    <div class="card-wrap">
+      <div class="fl-wa">
+        <div class="fl-wa-glow"></div>
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <svg width="26" height="26" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
+              <span style="font-size:15px;font-weight:600;color:var(--pure)">DTechLab Studio</span>
+            </div>
+          </div>
+          <div class="fl-wa-eye">Cotizador inteligente</div>
+          <div class="fl-wa-title">Estima tu proyecto en <strong>60 segundos.</strong></div>
+          <div class="fl-wa-list">
+            <div class="fl-wa-item">5 preguntas, rango de inversión al instante</div>
+            <div class="fl-wa-item">Sin formularios eternos</div>
+            <div class="fl-wa-item">Auditoría de sistemas <strong>gratuita</strong></div>
+            <div class="fl-wa-item">Primera versión en vivo en <strong>21 días</strong></div>
+          </div>
+        </div>
+        <div class="fl-wa-foot">
+          <div class="fl-wa-brand-mini">→ dtechlab.io/studio</div>
+          <div class="fl-wa-contact">WhatsApp<br>+507 6983-7286</div>
+        </div>
+      </div>
+      <div class="card-label">wa-02 · CTA cotizador</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ─── INSTRUCCIONES ─── -->
+<div class="actions">
+  <div class="actions-title">🎬 Cómo capturar y publicar cada pieza</div>
+  <div class="actions-list">
+    <div class="action">
+      <div class="action-num">01 · IG FEED & WA</div>
+      <div class="action-t">Captura cuadrada (1:1)</div>
+      <div class="action-d">Haz zoom al 100%, posiciona el cuadrado en el centro de tu pantalla, screenshot (Win+Shift+S). Para máxima resolución usa extensión "GoFullPage" en Chrome.</div>
+    </div>
+    <div class="action">
+      <div class="action-num">02 · STORIES & TIKTOK</div>
+      <div class="action-t">Captura vertical (9:16)</div>
+      <div class="action-d">Igual al anterior pero capturando el rectángulo vertical. Tamaño nativo es 1080×1920 — si tu pantalla no es tan alta, usa la opción "captura desplazable" del navegador.</div>
+    </div>
+    <div class="action">
+      <div class="action-num">03 · REELS ANIMADOS</div>
+      <div class="action-t">Graba la pantalla</div>
+      <div class="action-d">Los reels tienen animación. Graba con OBS Studio (gratis), Xbox Game Bar (Win+G en Windows) o QuickTime. 7–10 segundos de loop son suficientes para un reel.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

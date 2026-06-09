@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DTechLab — Brand Identity System</title>
+<style>
+  :root {
+    --void: #050507; --abyss: #0A0A0F; --graphite: #111118; --slate: #1A1A24;
+    --pure: #FFFFFF; --fog: #E8E8F0; --ghost: #9898A8; --whisper: #4A4A5C;
+    --signal: #5B6AFF; --ice: #A8B4FF; --plasma: #8B5CF6; --arc: #22D3EE;
+    --hairline: rgba(255,255,255,0.06);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--abyss); color: var(--fog); font-family: 'Inter', -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 1200px; margin: 0 auto; padding: 80px 60px; }
+  .section { margin-bottom: 100px; }
+  .section-label {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--signal); font-family: 'Courier New', monospace;
+    margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--hairline); }
+  .section-title { font-size: 36px; font-weight: 200; letter-spacing: -0.03em; color: var(--pure); margin-bottom: 40px; }
+
+  /* HEADER */
+  .doc-header {
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: 48px; margin-bottom: 80px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .doc-meta { }
+  .doc-meta-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--whisper); font-family: 'Courier New', monospace; margin-bottom: 8px; }
+  .doc-meta-title { font-size: 28px; font-weight: 200; letter-spacing: -0.03em; color: var(--pure); }
+  .doc-meta-sub { font-size: 14px; color: var(--ghost); margin-top: 6px; }
+  .doc-version { font-size: 11px; font-family: 'Courier New', monospace; color: var(--whisper); text-align: right; }
+
+  /* LOGO */
+  .logo-showcase {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px; background: var(--hairline);
+    border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .logo-variant {
+    padding: 60px 40px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 20px;
+  }
+  .logo-variant:nth-child(1) { background: var(--void); }
+  .logo-variant:nth-child(2) { background: var(--graphite); }
+  .logo-variant:nth-child(3) { background: var(--pure); }
+  .logo-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-family: 'Courier New', monospace; }
+  .logo-variant:nth-child(3) .logo-label { color: #999; }
+  .logo-variant:nth-child(3) .logo-inline-text { color: #111; }
+  .logo-inline { display: flex; align-items: center; gap: 12px; }
+  .logo-inline-text { font-size: 22px; font-weight: 500; color: var(--pure); letter-spacing: -0.02em; }
+  .logo-mark-display { }
+
+  /* COLOR SYSTEM */
+  .color-groups { display: flex; flex-direction: column; gap: 32px; }
+  .color-group-title { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ghost); font-family: 'Courier New', monospace; margin-bottom: 16px; }
+  .color-row { display: flex; gap: 10px; }
+  .color-swatch {
+    flex: 1; border-radius: 8px; overflow: hidden;
+    border: 1px solid var(--hairline);
+  }
+  .swatch-color { height: 80px; }
+  .swatch-info { padding: 10px 12px; background: var(--graphite); }
+  .swatch-name { font-size: 12px; font-weight: 500; color: var(--fog); margin-bottom: 3px; }
+  .swatch-hex { font-size: 11px; font-family: 'Courier New', monospace; color: var(--whisper); }
+
+  /* TYPOGRAPHY */
+  .type-specimens { display: flex; flex-direction: column; gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden; }
+  .type-specimen { background: var(--graphite); padding: 28px 32px; display: flex; align-items: center; gap: 32px; }
+  .type-meta { min-width: 160px; }
+  .type-meta-name { font-size: 12px; font-weight: 500; color: var(--ghost); margin-bottom: 4px; }
+  .type-meta-spec { font-size: 10px; font-family: 'Courier New', monospace; color: var(--whisper); }
+  .type-divider { width: 1px; height: 40px; background: var(--hairline); }
+  .type-sample { color: var(--pure); }
+  .ts-display { font-size: 56px; font-weight: 200; letter-spacing: -0.04em; line-height: 1; }
+  .ts-heading { font-size: 28px; font-weight: 300; letter-spacing: -0.02em; }
+  .ts-body { font-size: 16px; font-weight: 400; line-height: 1.6; color: var(--ghost); }
+  .ts-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ghost); }
+  .ts-mono { font-family: 'Courier New', monospace; font-size: 14px; color: var(--arc); }
+
+  /* SPACING */
+  .spacing-row { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+  .space-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .space-block { background: rgba(91,106,255,0.25); border: 1px solid rgba(91,106,255,0.3); border-radius: 3px; width: 20px; }
+  .space-label { font-size: 10px; font-family: 'Courier New', monospace; color: var(--whisper); text-align: center; }
+  .space-value { font-size: 10px; font-family: 'Courier New', monospace; color: var(--ghost); }
+
+  /* COMPONENTS */
+  .components-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .component-block { background: var(--graphite); border: 1px solid var(--hairline); border-radius: 10px; padding: 32px; }
+  .component-block-title { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ghost); font-family: 'Courier New', monospace; margin-bottom: 20px; }
+  .btn-showcase { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .btn { display: inline-flex; align-items: center; gap: 7px; border: none; cursor: default; font-size: 13px; font-weight: 500; border-radius: 6px; }
+  .btn-p { background: var(--signal); color: white; padding: 10px 20px; }
+  .btn-s { background: transparent; border: 1px solid rgba(255,255,255,0.12); color: var(--fog); padding: 10px 20px; }
+  .btn-d { background: transparent; border: 1px solid rgba(249,115,22,0.3); color: #F97316; padding: 10px 20px; }
+  .card-showcase { display: flex; flex-direction: column; gap: 8px; }
+  .mini-card { background: var(--slate); border: 1px solid var(--hairline); border-radius: 8px; padding: 14px; }
+  .mini-card.featured { border-top: 1px solid rgba(91,106,255,0.4); }
+  .mini-card-title { font-size: 13px; font-weight: 500; color: var(--pure); margin-bottom: 4px; }
+  .mini-card-desc { font-size: 12px; color: var(--ghost); }
+  .badge-showcase { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .badge { font-size: 10px; padding: 3px 9px; border-radius: 4px; font-family: 'Courier New', monospace; letter-spacing: 0.08em; text-transform: uppercase; }
+  .badge-sys { background: rgba(255,255,255,0.06); border: 1px solid var(--hairline); color: var(--ghost); }
+  .badge-signal { background: rgba(91,106,255,0.15); border: 1px solid rgba(91,106,255,0.25); color: var(--ice); }
+  .badge-arc { background: rgba(34,211,238,0.1); border: 1px solid rgba(34,211,238,0.2); color: var(--arc); }
+  .badge-ok { background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.2); color: #4ade80; }
+  .input-showcase { display: flex; flex-direction: column; gap: 14px; }
+  .input-group { display: flex; flex-direction: column; gap: 6px; }
+  .input-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ghost); font-family: 'Courier New', monospace; }
+  .input-field { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 7px; padding: 9px 12px; font-size: 13px; color: var(--ghost); }
+  .input-field.focused { border-color: rgba(91,106,255,0.5); color: var(--fog); }
+
+  /* MOTION */
+  .motion-examples { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .motion-card {
+    background: var(--graphite); border: 1px solid var(--hairline); border-radius: 10px; padding: 24px;
+    text-align: center;
+  }
+  .motion-demo {
+    height: 60px; display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .motion-dot {
+    width: 10px; height: 10px; border-radius: 50%; background: var(--signal);
+  }
+  .motion-dot.pulse-anim { animation: pulse-dot 1.5s ease-in-out infinite; }
+  @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+  .motion-bar {
+    width: 80px; height: 4px; background: var(--hairline); border-radius: 2px; overflow: hidden;
+  }
+  .motion-bar-fill { height: 100%; background: var(--signal); border-radius: 2px; animation: fill-bar 2s ease-in-out infinite; }
+  @keyframes fill-bar { 0%{width:0%} 60%{width:100%} 100%{width:100%;opacity:0} }
+  .motion-glow-dot {
+    width: 12px; height: 12px; border-radius: 50%; background: var(--arc);
+    box-shadow: 0 0 0 rgba(34,211,238,0.4);
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+  @keyframes glow-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(34,211,238,0.4)} 50%{box-shadow:0 0 0 8px rgba(34,211,238,0)} }
+  .motion-name { font-size: 13px; font-weight: 500; color: var(--pure); margin-bottom: 4px; }
+  .motion-spec { font-size: 11px; font-family: 'Courier New', monospace; color: var(--whisper); }
+
+  /* VOICE */
+  .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .voice-card { background: var(--graphite); border: 1px solid var(--hairline); border-radius: 10px; padding: 28px; }
+  .voice-card.good { border-top: 1px solid rgba(74,222,128,0.3); }
+  .voice-card.bad { border-top: 1px solid rgba(249,115,22,0.3); }
+  .voice-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-family: 'Courier New', monospace; }
+  .voice-card.good .voice-card-header { color: #4ade80; }
+  .voice-card.bad .voice-card-header { color: #F97316; }
+  .voice-examples { display: flex; flex-direction: column; gap: 10px; }
+  .voice-ex { font-size: 13px; line-height: 1.6; color: var(--ghost); padding: 10px 12px; background: rgba(255,255,255,0.03); border-radius: 6px; }
+  .voice-card.good .voice-ex { color: var(--fog); }
+
+  /* PRODUCTS IDENTITY */
+  .products-identity { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; }
+  .product-identity-card { border-radius: 10px; padding: 20px; border: 1px solid var(--hairline); }
+  .pid-orbit { background: linear-gradient(135deg, rgba(91,106,255,0.12), rgba(91,106,255,0.04)); }
+  .pid-nexus { background: linear-gradient(135deg, rgba(34,211,238,0.1), rgba(34,211,238,0.03)); }
+  .pid-atlas { background: linear-gradient(135deg, rgba(251,179,36,0.1), rgba(251,179,36,0.03)); }
+  .pid-pulse { background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(139,92,246,0.04)); }
+  .pid-meridian { background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); }
+  .pid-mark { font-size: 20px; font-weight: 600; font-family: 'Courier New', monospace; margin-bottom: 12px; }
+  .pid-orbit .pid-mark { color: var(--signal); }
+  .pid-nexus .pid-mark { color: var(--arc); }
+  .pid-atlas .pid-mark { color: #FBB324; }
+  .pid-pulse .pid-mark { color: #C4B5FD; }
+  .pid-meridian .pid-mark { color: var(--ghost); }
+  .pid-name { font-size: 15px; font-weight: 500; color: var(--pure); margin-bottom: 4px; }
+  .pid-type { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-family: 'Courier New', monospace; color: var(--whisper); margin-bottom: 10px; }
+  .pid-tagline { font-size: 12px; color: var(--ghost); line-height: 1.5; }
+
+  @media (max-width: 900px) {
+    .page { padding: 40px 24px; }
+    .logo-showcase, .components-grid, .motion-examples, .voice-grid, .products-identity, .color-row { grid-template-columns: 1fr; }
+    .products-identity { grid-template-columns: repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="doc-meta">
+      <div class="doc-meta-label">Brand Identity System</div>
+      <div class="doc-meta-title">DTechLab</div>
+      <div class="doc-meta-sub">Visual Identity & Design Language — v1.0</div>
+    </div>
+    <div class="doc-version">
+      Classification: Internal<br>
+      Version: 1.0.0<br>
+      Date: 2026.05.29
+    </div>
+  </div>
+
+  <!-- LOGO -->
+  <div class="section">
+    <div class="section-label">01 — Logo System</div>
+    <div class="section-title">The Mark</div>
+    <div class="logo-showcase">
+      <!-- Dark variant -->
+      <div class="logo-variant">
+        <div class="logo-inline">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/>
+            <rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/>
+            <rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.4)"/>
+            <rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.4)"/>
+            <rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/>
+          </svg>
+          <span class="logo-inline-text">DTechLab</span>
+        </div>
+        <div class="logo-label" style="color:var(--whisper)">On black / Primary</div>
+      </div>
+      <!-- Graphite variant -->
+      <div class="logo-variant">
+        <div>
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none">
+            <rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/>
+            <rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/>
+            <rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.4)"/>
+            <rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.4)"/>
+            <rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/>
+          </svg>
+        </div>
+        <div class="logo-label" style="color:var(--whisper)">Mark only / Icon use</div>
+      </div>
+      <!-- Light variant -->
+      <div class="logo-variant">
+        <div class="logo-inline">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect x="1" y="1" width="30" height="30" rx="8" stroke="#3A4AFF" stroke-width="1.5"/>
+            <rect x="8" y="8" width="7" height="7" rx="1.5" fill="#3A4AFF"/>
+            <rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(58,74,255,0.4)"/>
+            <rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(58,74,255,0.4)"/>
+            <rect x="17" y="17" width="7" height="7" rx="1.5" fill="#3A4AFF"/>
+          </svg>
+          <span class="logo-inline-text">DTechLab</span>
+        </div>
+        <div class="logo-label">On white / Reversed</div>
+      </div>
+    </div>
+
+    <!-- Logo anatomy -->
+    <div style="background:var(--graphite);border:1px solid var(--hairline);border-radius:10px;padding:28px 32px;display:flex;gap:48px;align-items:flex-start;margin-top:20px;">
+      <div>
+        <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ghost);font-family:'Courier New',monospace;margin-bottom:12px;">Logo anatomy</div>
+        <div style="display:flex;gap:24px;align-items:center;">
+          <div style="text-align:center;">
+            <svg width="40" height="40" viewBox="0 0 32 32" fill="none" style="display:block;margin:0 auto 8px;">
+              <rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/>
+              <rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/>
+              <rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.4)"/>
+              <rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.4)"/>
+              <rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/>
+            </svg>
+            <div style="font-size:10px;color:var(--whisper);font-family:'Courier New',monospace;">Mark</div>
+          </div>
+          <div style="font-size:24px;font-weight:200;color:var(--pure);">+</div>
+          <div style="text-align:center;">
+            <div style="font-size:20px;font-weight:500;color:var(--pure);letter-spacing:-0.02em;margin-bottom:8px;">DTechLab</div>
+            <div style="font-size:10px;color:var(--whisper);font-family:'Courier New',monospace;">Wordmark</div>
+          </div>
+          <div style="font-size:24px;font-weight:200;color:var(--pure);">→</div>
+          <div style="text-align:center;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+                <rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/>
+                <rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/>
+                <rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.4)"/>
+                <rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.4)"/>
+                <rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/>
+              </svg>
+              <span style="font-size:15px;font-weight:500;color:var(--pure);">DTechLab</span>
+            </div>
+            <div style="font-size:10px;color:var(--whisper);font-family:'Courier New',monospace;">Lockup</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ghost);font-family:'Courier New',monospace;margin-bottom:12px;">Usage rules</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:12px;color:var(--ghost);">✓ Use on dark backgrounds only (primary)</div>
+          <div style="font-size:12px;color:var(--ghost);">✓ Minimum size: 24px mark height</div>
+          <div style="font-size:12px;color:var(--ghost);">✓ Clear space: 1× mark height on all sides</div>
+          <div style="font-size:12px;color:var(--whisper);">✗ Do not recolor the mark</div>
+          <div style="font-size:12px;color:var(--whisper);">✗ Do not stretch or distort</div>
+          <div style="font-size:12px;color:var(--whisper);">✗ Do not add effects or shadows</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLOR SYSTEM -->
+  <div class="section">
+    <div class="section-label">02 — Color System</div>
+    <div class="section-title">Color Architecture</div>
+    <div class="color-groups">
+      <div>
+        <div class="color-group-title">Background Scale</div>
+        <div class="color-row">
+          <div class="color-swatch">
+            <div class="swatch-color" style="background:#050507;border-bottom:1px solid rgba(255,255,255,0.08);"></div>
+            <div class="swatch-info"><div class="swatch-name">Void</div><div class="swatch-hex">#050507</div></div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-color" style="background:#0A0A0F;border-bottom:1px solid rgba(255,255,255,0.08);"></div>
+            <div class="swatch-info"><div class="swatch-name">Abyss</div><div class="swatch-hex">#0A0A0F</div></div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-color" style="background:#111118;border-bottom:1px solid rgba(255,255,255,0.08);"></div>
+            <div class="swatch-info"><div class="swatch-name">Graphite</div><div class="swatch-hex">#111118</div></div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-color" style="background:#1A1A24;border-bottom:1px solid rgba(255,255,255,0.08);"></div>
+            <div class="swatch-info"><div class="swatch-name">Slate</div><div class="swatch-hex">#1A1A24</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="color-group-title">Text Scale</div>
+        <div class="color-row">
+          <div class="color-swatch">
+            <div class="swatch-color" style="background:#FFFFFF;"></div>
+            <div class="swatch-info"><div class="swatch-name">Pure</div><div class="swatch-hex">#FFFFFF</div></div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-color" style="background:#E8E8F0;"></div>
+            <div class="swatch-info"><div class="swatch-name">Fog</div><div class="swatch-hex">#E8E8F0</div></div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-color" style="background:#9898A8;"></div>
+            <div class="swatch-info"><div class="swatch-name">Ghost</div><div class="swatch-hex">#9898A8</div></div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-color" style="background:#4A4A5C;"></div>
+            <div class="swatch-info"><div class="swatch-name">Whisper</div><div class="swatch-hex">#4A4A5C</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="color-group-title">Accent System</div>
+        <div class="color-row">
+          <div class="color-swatch">
+            <div class="swatch-color" style="background:#5B6AFF;"></div>
+            <div class="swatch-info"><div class="swatch-name">Signal</div><div class="swatch-hex">#5B6AFF — Primary CTA</div></div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-color" style="background:#A8B4FF;"></div>
+            <div class="swatch-info"><div class="swatch-name">Ice</div><div class="swatch-hex">#A8B4FF — Hover/soft</div></div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-color" style="background:#8B5CF6;"></div>
+            <div class="swatch-info"><div class="swatch-name">Plasma</div><div class="swatch-hex">#8B5CF6 — AI elements</div></div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-color" style="background:#22D3EE;"></div>
+            <div class="swatch-info"><div class="swatch-name">Arc</div><div class="swatch-hex">#22D3EE — Data/live</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="section">
+    <div class="section-label">03 — Typography</div>
+    <div class="section-title">Type System</div>
+    <div class="type-specimens">
+      <div class="type-specimen">
+        <div class="type-meta">
+          <div class="type-meta-name">Display / Hero</div>
+          <div class="type-meta-spec">Inter · Weight 200<br>-0.04em tracking</div>
+        </div>
+        <div class="type-divider"></div>
+        <div class="type-sample ts-display">The future of business infrastructure.</div>
+      </div>
+      <div class="type-specimen">
+        <div class="type-meta">
+          <div class="type-meta-name">Heading</div>
+          <div class="type-meta-spec">Inter · Weight 300<br>-0.02em tracking</div>
+        </div>
+        <div class="type-divider"></div>
+        <div class="type-sample ts-heading">Engineered for precision and scale.</div>
+      </div>
+      <div class="type-specimen">
+        <div class="type-meta">
+          <div class="type-meta-name">Body</div>
+          <div class="type-meta-spec">Inter · Weight 400<br>1.75 line-height</div>
+        </div>
+        <div class="type-divider"></div>
+        <div class="type-sample ts-body">We engineer AI systems, automation infrastructure, and digital platforms for companies operating at a different standard. Built for scale. Built to last.</div>
+      </div>
+      <div class="type-specimen">
+        <div class="type-meta">
+          <div class="type-meta-name">Label / UI</div>
+          <div class="type-meta-spec">Inter · Weight 400<br>+0.12em · Uppercase</div>
+        </div>
+        <div class="type-divider"></div>
+        <div class="type-sample ts-label">System Status · Active · Infrastructure Layer</div>
+      </div>
+      <div class="type-specimen">
+        <div class="type-meta">
+          <div class="type-meta-name">Monospace / Data</div>
+          <div class="type-meta-spec">Courier New · Weight 400<br>Data, code, metrics</div>
+        </div>
+        <div class="type-divider"></div>
+        <div class="type-sample ts-mono">sys.version: 1.0.0 · uptime: 99.99% · requests: 2,847,332</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPONENTS -->
+  <div class="section">
+    <div class="section-label">04 — UI Components</div>
+    <div class="section-title">Component Library</div>
+    <div class="components-grid">
+      <div class="component-block">
+        <div class="component-block-title">Buttons</div>
+        <div class="btn-showcase">
+          <button class="btn btn-p">Start a project →</button>
+          <button class="btn btn-s">View our work</button>
+          <button class="btn btn-d">Delete system</button>
+        </div>
+      </div>
+      <div class="component-block">
+        <div class="component-block-title">Badges & Status</div>
+        <div class="badge-showcase">
+          <span class="badge badge-sys">Infrastructure</span>
+          <span class="badge badge-signal">AI System</span>
+          <span class="badge badge-arc">● Live</span>
+          <span class="badge badge-ok">● Operational</span>
+          <span class="badge badge-sys">Beta</span>
+        </div>
+      </div>
+      <div class="component-block">
+        <div class="component-block-title">Cards</div>
+        <div class="card-showcase">
+          <div class="mini-card featured">
+            <div class="mini-card-title">Featured Card</div>
+            <div class="mini-card-desc">Signal blue luminous top border indicates priority content.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-title">Standard Card</div>
+            <div class="mini-card-desc">Base dark surface with hairline border.</div>
+          </div>
+        </div>
+      </div>
+      <div class="component-block">
+        <div class="component-block-title">Inputs</div>
+        <div class="input-showcase">
+          <div class="input-group">
+            <div class="input-label">Project name</div>
+            <div class="input-field">Nexus OS Automation</div>
+          </div>
+          <div class="input-group">
+            <div class="input-label">System endpoint</div>
+            <div class="input-field focused">api.dtechlab.io/v1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOTION -->
+  <div class="section">
+    <div class="section-label">05 — Motion Language</div>
+    <div class="section-title">Animation System</div>
+    <div class="motion-examples">
+      <div class="motion-card">
+        <div class="motion-demo"><div class="motion-dot pulse-anim"></div></div>
+        <div class="motion-name">Status Pulse</div>
+        <div class="motion-spec">1.5s · ease-in-out · infinite<br>Live indicators, active states</div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-demo"><div class="motion-bar"><div class="motion-bar-fill"></div></div></div>
+        <div class="motion-name">Progress Load</div>
+        <div class="motion-spec">2s · ease-in-out · infinite<br>Loading states, progress</div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-demo"><div class="motion-glow-dot"></div></div>
+        <div class="motion-name">Glow Pulse</div>
+        <div class="motion-spec">2s · ease-in-out · infinite<br>Arc color for data indicators</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;padding:20px 24px;background:var(--graphite);border:1px solid var(--hairline);border-radius:10px;">
+      <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ghost);font-family:'Courier New',monospace;margin-bottom:14px;">Duration scale</div>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;">
+        <div><span style="font-family:'Courier New',monospace;font-size:13px;color:var(--arc);">80ms</span><span style="font-size:12px;color:var(--whisper);margin-left:8px;">Micro — button states</span></div>
+        <div><span style="font-family:'Courier New',monospace;font-size:13px;color:var(--arc);">200ms</span><span style="font-size:12px;color:var(--whisper);margin-left:8px;">Short — hover effects</span></div>
+        <div><span style="font-family:'Courier New',monospace;font-size:13px;color:var(--arc);">300ms</span><span style="font-size:12px;color:var(--whisper);margin-left:8px;">Medium — panel transitions</span></div>
+        <div><span style="font-family:'Courier New',monospace;font-size:13px;color:var(--arc);">500ms</span><span style="font-size:12px;color:var(--whisper);margin-left:8px;">Long — page sections</span></div>
+        <div><span style="font-family:'Courier New',monospace;font-size:13px;color:var(--arc);">800ms+</span><span style="font-size:12px;color:var(--whisper);margin-left:8px;">Cinematic — hero entry</span></div>
+      </div>
+      <div style="margin-top:14px;"><span style="font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;">Primary easing: cubic-bezier(0.16, 1, 0.3, 1) — fast out, natural settle</span></div>
+    </div>
+  </div>
+
+  <!-- VOICE -->
+  <div class="section">
+    <div class="section-label">06 — Brand Voice</div>
+    <div class="section-title">Language & Tone</div>
+    <div class="voice-grid">
+      <div class="voice-card good">
+        <div class="voice-card-header">✓ DTechLab voice</div>
+        <div class="voice-examples">
+          <div class="voice-ex">"We engineer the infrastructure layer that makes modern operations possible."</div>
+          <div class="voice-ex">"Order processing: from 4 hours to 11 minutes."</div>
+          <div class="voice-ex">"AI without infrastructure is just a feature."</div>
+          <div class="voice-ex">"Built for the companies that operate at a different standard."</div>
+        </div>
+      </div>
+      <div class="voice-card bad">
+        <div class="voice-card-header">✗ Never write this</div>
+        <div class="voice-examples">
+          <div class="voice-ex">"We build amazing websites and powerful chatbots!"</div>
+          <div class="voice-ex">"Our revolutionary AI solutions transform your business."</div>
+          <div class="voice-ex">"We leverage synergies to disrupt your workflow."</div>
+          <div class="voice-ex">"Affordable digital marketing for small businesses."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="section">
+    <div class="section-label">07 — Product Identities</div>
+    <div class="section-title">The DTechLab Product Ecosystem</div>
+    <div class="products-identity">
+      <div class="product-identity-card pid-orbit">
+        <div class="pid-mark">Or</div>
+        <div class="pid-name">Orbit</div>
+        <div class="pid-type">CRM · Indigo</div>
+        <div class="pid-tagline">Know your relationships. Own your pipeline.</div>
+      </div>
+      <div class="product-identity-card pid-nexus">
+        <div class="pid-mark">Nx</div>
+        <div class="pid-name">Nexus OS</div>
+        <div class="pid-type">Automation · Cyan</div>
+        <div class="pid-tagline">Your business, running itself.</div>
+      </div>
+      <div class="product-identity-card pid-atlas">
+        <div class="pid-mark">At</div>
+        <div class="pid-name">Atlas Flow</div>
+        <div class="pid-type">Workflow · Amber</div>
+        <div class="pid-tagline">Every process. Mapped. Running.</div>
+      </div>
+      <div class="product-identity-card pid-pulse">
+        <div class="pid-mark">Pu</div>
+        <div class="pid-name">Pulse</div>
+        <div class="pid-type">Intelligence · Violet</div>
+        <div class="pid-tagline">Feel your business in real time.</div>
+      </div>
+      <div class="product-identity-card pid-meridian">
+        <div class="pid-mark">Me</div>
+        <div class="pid-name">Meridian</div>
+        <div class="pid-type">Portal · Neutral</div>
+        <div class="pid-tagline">The professional face of your operations.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="border-top:1px solid var(--hairline);padding-top:24px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:12px;color:var(--whisper);font-family:'Courier New',monospace;">DTechLab Brand Identity System · v1.0.0 · 2026</div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--whisper);font-family:'Courier New',monospace;">
+      <div style="width:6px;height:6px;border-radius:50%;background:#4ade80;"></div>
+      Brand system active
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

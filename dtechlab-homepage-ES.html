@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DTechLab — Empresa de Sistemas Digitales</title>
+<style>
+  :root {
+    --void: #050507;
+    --abyss: #0A0A0F;
+    --graphite: #111118;
+    --slate: #1A1A24;
+    --pure: #FFFFFF;
+    --fog: #E8E8F0;
+    --ghost: #9898A8;
+    --whisper: #4A4A5C;
+    --signal: #5B6AFF;
+    --ice: #A8B4FF;
+    --plasma: #8B5CF6;
+    --arc: #22D3EE;
+    --hairline: rgba(255,255,255,0.06);
+    --glass: rgba(255,255,255,0.03);
+    --glow: rgba(91,106,255,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--fog);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* LOADER */
+  #loader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--void);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 16px;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  #loader.hidden { opacity: 0; visibility: hidden; }
+  .loader-logo {
+    font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--ghost); font-family: 'Courier New', monospace;
+  }
+  .loader-bar {
+    width: 120px; height: 1px; background: var(--hairline); overflow: hidden;
+  }
+  .loader-fill {
+    height: 100%; width: 0%; background: var(--signal);
+    transition: width 1.2s cubic-bezier(0.16,1,0.3,1);
+  }
+  .loader-status {
+    font-size: 11px; letter-spacing: 0.15em; color: var(--whisper);
+    font-family: 'Courier New', monospace; text-transform: uppercase;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 48px;
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: background 0.3s ease, border-bottom 0.3s ease;
+  }
+  nav.scrolled {
+    background: rgba(5,5,7,0.88);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 28px; height: 28px;
+    position: relative;
+  }
+  .nav-logo-mark svg { width: 100%; height: 100%; }
+  .nav-logo-text {
+    font-size: 15px; font-weight: 500; color: var(--pure);
+    letter-spacing: -0.02em;
+  }
+  .nav-links {
+    display: flex; gap: 32px; list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px; color: var(--ghost); text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 0.15s ease;
+  }
+  .nav-links a:hover { color: var(--pure); }
+  .nav-cta {
+    font-size: 13px; padding: 8px 18px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--fog); border-radius: 6px;
+    cursor: pointer; text-decoration: none;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .nav-cta:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.2);
+    color: var(--pure);
+  }
+
+  /* DOT GRID */
+  .dot-grid {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 32px 32px;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  .dot-grid.visible { opacity: 1; }
+
+  /* HERO */
+  #hero {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; align-items: flex-end;
+    padding: 0 80px 100px;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    top: 20%; right: 5%;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(91,106,255,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-glow-2 {
+    position: absolute;
+    bottom: 0; left: 30%;
+    width: 500px; height: 400px;
+    background: radial-gradient(circle, rgba(139,92,246,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { max-width: 680px; position: relative; }
+  .hero-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ghost); font-family: 'Courier New', monospace;
+    margin-bottom: 32px;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .hero-label.visible { opacity: 1; transform: translateY(0); }
+  .hero-label::before {
+    content: '';
+    display: inline-block; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--signal);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .hero-headline {
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 200;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: var(--pure);
+    margin-bottom: 28px;
+  }
+  .hero-headline .line {
+    display: block; overflow: hidden;
+  }
+  .hero-headline .line-inner {
+    display: block;
+    transform: translateY(100%);
+    transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  }
+  .hero-headline .line-inner.visible { transform: translateY(0); }
+  .hero-sub {
+    font-size: 17px; line-height: 1.75;
+    color: var(--ghost); max-width: 460px;
+    margin-bottom: 48px;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+  }
+  .hero-sub.visible { opacity: 1; transform: translateY(0); }
+  .hero-actions {
+    display: flex; gap: 16px; align-items: center;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.6s ease 0.45s, transform 0.6s ease 0.45s;
+  }
+  .hero-actions.visible { opacity: 1; transform: translateY(0); }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 24px; background: var(--signal);
+    color: white; font-size: 14px; font-weight: 500;
+    border-radius: 7px; text-decoration: none; border: none; cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  }
+  .btn-primary:hover {
+    background: #6B7AFF;
+    box-shadow: 0 0 32px rgba(91,106,255,0.35);
+    transform: translateY(-1px);
+  }
+  .btn-primary .arrow {
+    transition: transform 0.15s ease;
+  }
+  .btn-primary:hover .arrow { transform: translateX(3px); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 12px 20px;
+    background: transparent;
+    border: 1px solid var(--hairline);
+    color: var(--ghost); font-size: 14px;
+    border-radius: 7px; text-decoration: none; cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+  .btn-ghost:hover {
+    color: var(--fog);
+    border-color: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.03);
+  }
+
+  /* DASHBOARD VISUAL */
+  .hero-visual {
+    position: absolute;
+    right: -40px; top: 50%;
+    transform: translateY(-50%);
+    width: 52vw; max-width: 780px;
+    opacity: 0;
+    transition: opacity 1s ease 0.8s;
+  }
+  .hero-visual.visible { opacity: 1; }
+  .dashboard-frame {
+    background: var(--graphite);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.6), 0 0 80px rgba(91,106,255,0.06);
+  }
+  .dashboard-topbar {
+    height: 40px; background: var(--abyss);
+    border-bottom: 1px solid var(--hairline);
+    display: flex; align-items: center; padding: 0 16px; gap: 6px;
+  }
+  .topbar-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .topbar-dot:nth-child(1) { background: rgba(255,95,87,0.5); }
+  .topbar-dot:nth-child(2) { background: rgba(255,189,46,0.5); }
+  .topbar-dot:nth-child(3) { background: rgba(40,201,64,0.5); }
+  .topbar-label {
+    margin-left: auto; font-size: 11px; font-family: 'Courier New', monospace;
+    color: var(--whisper); letter-spacing: 0.08em;
+  }
+  .dashboard-body {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    height: 360px;
+  }
+  .dash-sidebar {
+    background: var(--abyss);
+    border-right: 1px solid var(--hairline);
+    padding: 20px 0;
+  }
+  .dash-sidebar-logo {
+    padding: 0 16px 16px;
+    font-size: 12px; font-weight: 500; color: var(--pure);
+    letter-spacing: -0.02em;
+    border-bottom: 1px solid var(--hairline);
+    margin-bottom: 12px;
+  }
+  .dash-nav-item {
+    display: flex; align-items: center; gap: 9px;
+    padding: 8px 16px;
+    font-size: 12px; color: var(--whisper);
+    cursor: default;
+    transition: color 0.15s;
+  }
+  .dash-nav-item.active {
+    color: var(--fog);
+    background: rgba(91,106,255,0.08);
+    border-left: 2px solid var(--signal);
+  }
+  .dash-nav-icon {
+    width: 14px; height: 14px; opacity: 0.6;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .dash-main { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .dash-header-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .dash-title { font-size: 14px; font-weight: 500; color: var(--pure); }
+  .dash-subtitle { font-size: 11px; color: var(--whisper); margin-top: 2px; font-family: 'Courier New', monospace; }
+  .dash-status-badge {
+    font-size: 10px; padding: 3px 8px;
+    background: rgba(34,211,238,0.1);
+    border: 1px solid rgba(34,211,238,0.2);
+    color: var(--arc); border-radius: 4px;
+    font-family: 'Courier New', monospace; letter-spacing: 0.08em;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .status-live-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--arc);
+    animation: pulse-dot 1.5s ease-in-out infinite;
+  }
+  .metrics-row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  }
+  .metric-card {
+    background: var(--slate); border: 1px solid var(--hairline);
+    border-radius: 8px; padding: 12px;
+  }
+  .metric-label {
+    font-size: 10px; color: var(--whisper);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    font-family: 'Courier New', monospace; margin-bottom: 6px;
+  }
+  .metric-value {
+    font-size: 20px; font-weight: 300; color: var(--pure);
+    letter-spacing: -0.03em; font-family: 'Courier New', monospace;
+  }
+  .metric-delta {
+    font-size: 10px; color: #4ade80; margin-top: 3px;
+    font-family: 'Courier New', monospace;
+  }
+  .chart-area {
+    background: var(--slate); border: 1px solid var(--hairline);
+    border-radius: 8px; padding: 14px; flex: 1;
+  }
+  .chart-label { font-size: 10px; color: var(--whisper); letter-spacing: 0.08em; text-transform: uppercase; font-family: 'Courier New', monospace; margin-bottom: 10px; }
+  .chart-bars {
+    display: flex; align-items: flex-end; gap: 5px; height: 70px;
+  }
+  .chart-bar {
+    flex: 1; border-radius: 3px 3px 0 0;
+    background: rgba(91,106,255,0.25);
+    transition: background 0.2s ease;
+    animation: bar-grow 1s cubic-bezier(0.16,1,0.3,1) forwards;
+    transform-origin: bottom;
+  }
+  .chart-bar.active { background: var(--signal); }
+  @keyframes bar-grow {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+  .workflow-row {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .flow-node {
+    padding: 4px 10px; border-radius: 4px; font-size: 10px;
+    font-family: 'Courier New', monospace; letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .flow-node.trigger { background: rgba(91,106,255,0.15); color: var(--ice); border: 1px solid rgba(91,106,255,0.25); }
+  .flow-node.action { background: rgba(139,92,246,0.12); color: #C4B5FD; border: 1px solid rgba(139,92,246,0.2); }
+  .flow-node.output { background: rgba(34,211,238,0.08); color: var(--arc); border: 1px solid rgba(34,211,238,0.15); }
+  .flow-arrow { color: var(--whisper); font-size: 12px; }
+
+  /* SECTION BASE */
+  section { position: relative; z-index: 1; }
+
+  /* PROBLEM SECTION */
+  #problem {
+    padding: 160px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+  .problem-left { position: sticky; top: 120px; height: fit-content; }
+  .problem-eyebrow {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--signal); font-family: 'Courier New', monospace;
+    margin-bottom: 24px;
+  }
+  .problem-statement {
+    font-size: clamp(24px, 3vw, 40px);
+    font-weight: 200; line-height: 1.3;
+    letter-spacing: -0.025em; color: var(--pure);
+  }
+  .problem-right { display: flex; flex-direction: column; gap: 56px; padding-top: 8px; }
+  .problem-item {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .problem-item.visible { opacity: 1; transform: translateY(0); }
+  .problem-number {
+    font-size: 11px; color: var(--signal);
+    font-family: 'Courier New', monospace; letter-spacing: 0.1em;
+    margin-bottom: 14px;
+  }
+  .problem-title {
+    font-size: 19px; font-weight: 400; color: var(--pure);
+    margin-bottom: 10px; line-height: 1.3;
+  }
+  .problem-body {
+    font-size: 15px; line-height: 1.75; color: var(--ghost);
+  }
+  .section-divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--hairline) 20%, var(--hairline) 80%, transparent);
+  }
+
+  /* SERVICES */
+  #services {
+    padding: 120px 80px;
+  }
+  .section-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 56px;
+  }
+  .section-title {
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 200; letter-spacing: -0.03em; color: var(--pure);
+  }
+  .section-meta {
+    font-size: 13px; color: var(--ghost); max-width: 260px;
+    line-height: 1.6; text-align: right;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--hairline);
+    border: 1px solid var(--hairline);
+    border-radius: 12px; overflow: hidden;
+  }
+  .service-card {
+    background: var(--graphite);
+    padding: 32px 24px;
+    display: flex; flex-direction: column; gap: 16px;
+    cursor: default;
+    transition: background 0.2s ease;
+    position: relative;
+  }
+  .service-card:hover { background: var(--slate); }
+  .service-card:hover .service-icon svg { stroke: var(--signal); }
+  .service-icon {
+    width: 36px; height: 36px;
+  }
+  .service-icon svg {
+    width: 100%; height: 100%;
+    stroke: var(--ghost);
+    fill: none;
+    stroke-width: 1.5;
+    transition: stroke 0.2s ease;
+  }
+  .service-name {
+    font-size: 14px; font-weight: 500; color: var(--pure);
+    letter-spacing: -0.01em;
+  }
+  .service-desc {
+    font-size: 13px; line-height: 1.65; color: var(--ghost);
+  }
+  .service-tag {
+    margin-top: auto;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--whisper); font-family: 'Courier New', monospace;
+  }
+
+  /* WORK */
+  #work {
+    padding: 120px 80px;
+  }
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .work-card {
+    background: var(--graphite);
+    border: 1px solid var(--hairline);
+    border-radius: 12px; overflow: hidden;
+    cursor: default;
+    transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .work-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.1);
+  }
+  .work-card:first-child {
+    grid-column: span 2;
+    border-top: 1px solid rgba(91,106,255,0.3);
+  }
+  .work-card-visual {
+    height: 220px;
+    background: var(--slate);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: var(--whisper); font-family: 'Courier New', monospace;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    border-bottom: 1px solid var(--hairline);
+    position: relative; overflow: hidden;
+  }
+  .work-card:first-child .work-card-visual { height: 280px; }
+  .work-visual-bg {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0.15;
+  }
+  .work-card-body { padding: 24px; }
+  .work-card-tags {
+    display: flex; gap: 8px; margin-bottom: 12px;
+  }
+  .work-tag {
+    font-size: 10px; padding: 3px 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--hairline);
+    color: var(--ghost); border-radius: 4px;
+    font-family: 'Courier New', monospace; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .work-card-title {
+    font-size: 18px; font-weight: 400; color: var(--pure);
+    letter-spacing: -0.02em; margin-bottom: 8px;
+  }
+  .work-card-desc { font-size: 13px; color: var(--ghost); line-height: 1.65; }
+  .work-metric {
+    margin-top: 16px; padding-top: 16px;
+    border-top: 1px solid var(--hairline);
+    font-size: 13px; color: var(--fog);
+  }
+  .work-metric span {
+    color: var(--arc); font-family: 'Courier New', monospace; font-weight: 500;
+  }
+
+  /* PRODUCTS */
+  #products {
+    padding: 120px 80px;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 56px;
+  }
+  .product-card {
+    background: var(--graphite);
+    border: 1px solid var(--hairline);
+    border-radius: 10px; padding: 24px 20px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    cursor: default;
+  }
+  .product-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255,255,255,0.1);
+  }
+  .product-mark {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px; font-size: 13px; font-weight: 600;
+    font-family: 'Courier New', monospace;
+  }
+  .product-mark.orbit { background: rgba(91,106,255,0.15); color: var(--signal); }
+  .product-mark.nexus { background: rgba(34,211,238,0.1); color: var(--arc); }
+  .product-mark.atlas { background: rgba(251,191,36,0.1); color: #FBB324; }
+  .product-mark.pulse { background: rgba(139,92,246,0.15); color: #C4B5FD; }
+  .product-mark.meridian { background: rgba(255,255,255,0.06); color: var(--ghost); }
+  .product-mark.autopro { background: rgba(99,102,241,0.15); color: #818CF8; }
+  .product-name {
+    font-size: 15px; font-weight: 500; color: var(--pure);
+    letter-spacing: -0.01em; margin-bottom: 6px;
+  }
+  .product-type {
+    font-size: 10px; color: var(--signal);
+    font-family: 'Courier New', monospace; letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .product-desc { font-size: 12px; color: var(--ghost); line-height: 1.65; }
+  .product-status {
+    margin-top: 14px; font-size: 10px;
+    font-family: 'Courier New', monospace; letter-spacing: 0.08em;
+    color: var(--whisper); text-transform: uppercase;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .product-status::before {
+    content: ''; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--whisper);
+  }
+  .product-status.active { color: #4ade80; }
+  .product-status.active::before { background: #4ade80; }
+  .product-status.beta { color: var(--arc); }
+  .product-status.beta::before { background: var(--arc); }
+
+  /* MANIFESTO */
+  #manifesto {
+    padding: 160px 80px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .manifesto-inner {
+    max-width: 760px; text-align: center;
+  }
+  .manifesto-quote {
+    font-size: clamp(24px, 3.5vw, 48px);
+    font-weight: 200; line-height: 1.35;
+    letter-spacing: -0.03em; color: var(--pure);
+    margin-bottom: 32px;
+  }
+  .manifesto-quote em {
+    color: var(--ghost); font-style: normal;
+  }
+  .manifesto-attr {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--whisper); font-family: 'Courier New', monospace;
+  }
+
+  /* CTA */
+  #cta {
+    padding: 160px 80px;
+    text-align: center;
+    position: relative;
+  }
+  #cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(91,106,255,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .cta-eyebrow {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--signal); font-family: 'Courier New', monospace;
+    margin-bottom: 24px;
+  }
+  .cta-headline {
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 200; line-height: 1.1;
+    letter-spacing: -0.04em; color: var(--pure);
+    margin-bottom: 20px;
+  }
+  .cta-sub {
+    font-size: 16px; color: var(--ghost); line-height: 1.7;
+    max-width: 440px; margin: 0 auto 44px;
+  }
+  .cta-availability {
+    margin-top: 24px;
+    font-size: 12px; color: var(--whisper);
+    font-family: 'Courier New', monospace; letter-spacing: 0.08em;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .cta-availability::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: #4ade80;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--hairline);
+    padding: 48px 80px 32px;
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 40px; margin-bottom: 40px;
+  }
+  .footer-brand { }
+  .footer-logo {
+    font-size: 15px; font-weight: 500; color: var(--pure);
+    letter-spacing: -0.02em; margin-bottom: 8px;
+  }
+  .footer-tagline { font-size: 13px; color: var(--whisper); }
+  .footer-col-title {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ghost); font-family: 'Courier New', monospace;
+    margin-bottom: 16px;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a {
+    font-size: 13px; color: var(--whisper); text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .footer-links a:hover { color: var(--fog); }
+  .footer-bottom {
+    border-top: 1px solid var(--hairline); padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-copy { font-size: 12px; color: var(--whisper); font-family: 'Courier New', monospace; }
+  .footer-status {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; color: var(--whisper); font-family: 'Courier New', monospace;
+  }
+  .footer-status-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #4ade80;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  /* SCROLL ANIMATIONS */
+  .fade-up {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1100px) {
+    nav { padding: 0 32px; }
+    #hero { padding: 0 40px 80px; }
+    .hero-visual { display: none; }
+    #problem { padding: 100px 40px; grid-template-columns: 1fr; }
+    .problem-left { position: static; }
+    #services, #work, #products, #manifesto, #cta, footer { padding-left: 40px; padding-right: 40px; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .work-grid { grid-template-columns: 1fr; }
+    .work-card:first-child { grid-column: span 1; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 680px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    #hero { padding: 0 20px 64px; }
+    #problem, #services, #work, #products, #manifesto, #cta, footer { padding-left: 20px; padding-right: 20px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: 1fr; }
+    .section-header { flex-direction: column; gap: 12px; align-items: flex-start; }
+    .section-meta { text-align: left; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 12px; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">DTechLab</div>
+  <div class="loader-bar"><div class="loader-fill" id="loaderFill"></div></div>
+  <div class="loader-status" id="loaderStatus">inicializando sistemas</div>
+</div>
+
+<!-- DOT GRID -->
+<div class="dot-grid" id="dotGrid"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="26" height="26" rx="7" stroke="#5B6AFF" stroke-width="1.5"/>
+        <rect x="7" y="7" width="6" height="6" rx="1.5" fill="#5B6AFF"/>
+        <rect x="15" y="7" width="6" height="6" rx="1.5" fill="rgba(91,106,255,0.4)"/>
+        <rect x="7" y="15" width="6" height="6" rx="1.5" fill="rgba(91,106,255,0.4)"/>
+        <rect x="15" y="15" width="6" height="6" rx="1.5" fill="#5B6AFF"/>
+      </svg>
+    </div>
+    <span class="nav-logo-text">DTechLab</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Studio</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#work">Trabajo</a></li>
+    <li><a href="#">Lab</a></li>
+    <li><a href="#">Tienda</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Iniciar un proyecto</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="hero-content">
+    <div class="hero-label" id="heroLabel">
+      Empresa de Sistemas Digitales
+    </div>
+    <h1 class="hero-headline">
+      <span class="line"><span class="line-inner" id="heroLine1">El sistema</span></span>
+      <span class="line"><span class="line-inner" id="heroLine2">operativo para el</span></span>
+      <span class="line"><span class="line-inner" id="heroLine3">negocio moderno.</span></span>
+    </h1>
+    <p class="hero-sub" id="heroSub">
+      Diseñamos sistemas de IA, infraestructura de automatización y plataformas digitales para empresas que operan a un estándar diferente.
+    </p>
+    <div class="hero-actions" id="heroActions">
+      <a href="#cta" class="btn-primary">
+        Iniciar un proyecto <span class="arrow">→</span>
+      </a>
+      <a href="#work" class="btn-ghost">Ver nuestro trabajo</a>
+    </div>
+  </div>
+
+  <!-- Dashboard Visual -->
+  <div class="hero-visual" id="heroVisual">
+    <div class="dashboard-frame">
+      <div class="dashboard-topbar">
+        <div class="topbar-dot"></div>
+        <div class="topbar-dot"></div>
+        <div class="topbar-dot"></div>
+        <div class="topbar-label">nexus.dtechlab.io — operaciones</div>
+      </div>
+      <div class="dashboard-body">
+        <div class="dash-sidebar">
+          <div class="dash-sidebar-logo">Nexus OS</div>
+          <div class="dash-nav-item active">
+            <div class="dash-nav-icon">⬡</div> Resumen
+          </div>
+          <div class="dash-nav-item">
+            <div class="dash-nav-icon">↗</div> Flujos de trabajo
+          </div>
+          <div class="dash-nav-item">
+            <div class="dash-nav-icon">◎</div> Automatizaciones
+          </div>
+          <div class="dash-nav-item">
+            <div class="dash-nav-icon">⧖</div> Pipeline
+          </div>
+          <div class="dash-nav-item">
+            <div class="dash-nav-icon">◈</div> Integraciones
+          </div>
+          <div class="dash-nav-item">
+            <div class="dash-nav-icon">≡</div> Reportes
+          </div>
+        </div>
+        <div class="dash-main">
+          <div class="dash-header-row">
+            <div>
+              <div class="dash-title">Resumen Operacional</div>
+              <div class="dash-subtitle">SYSTEM.LIVE — 2026.05.29</div>
+            </div>
+            <div class="dash-status-badge">
+              <div class="status-live-dot"></div> LIVE
+            </div>
+          </div>
+          <div class="metrics-row">
+            <div class="metric-card">
+              <div class="metric-label">Flujos Activos</div>
+              <div class="metric-value" data-count="247">247</div>
+              <div class="metric-delta">↑ +12 hoy</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Tareas Automatizadas</div>
+              <div class="metric-value" data-count="9.4k">9.4k</div>
+              <div class="metric-delta">↑ +340 esta semana</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Tiempo Ahorrado</div>
+              <div class="metric-value" data-count="186h">186h</div>
+              <div class="metric-delta">↑ Este mes</div>
+            </div>
+          </div>
+          <div class="chart-area">
+            <div class="chart-label">Volumen de Automatización — 7D</div>
+            <div class="chart-bars" id="chartBars"></div>
+          </div>
+          <div class="workflow-row">
+            <div class="flow-node trigger">Nuevo Lead</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node action">Calificar IA</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node action">Enrutar CRM</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node output">Auto-asignar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="problem-left">
+    <div class="problem-eyebrow">La brecha de infraestructura</div>
+    <div class="problem-statement">
+      La mayoría de los sistemas empresariales no fueron construidos para hoy. Fueron construidos para otra era.
+    </div>
+  </div>
+  <div class="problem-right">
+    <div class="problem-item" data-scroll>
+      <div class="problem-number">01</div>
+      <div class="problem-title">Las empresas siguen operando de forma manual.</div>
+      <div class="problem-body">Hojas de cálculo. Hilos de email. Traspasos manuales. Decisiones reactivas. Las herramientas existen para automatizar casi todo — pero la mayoría de las empresas no tienen la infraestructura para capturar esa capacidad.</div>
+    </div>
+    <div class="problem-item" data-scroll>
+      <div class="problem-number">02</div>
+      <div class="problem-title">La IA ha cambiado lo que es posible.</div>
+      <div class="problem-body">Pero la IA sin infraestructura es solo una característica. Las empresas que ganen en la próxima década no son las que tienen la mejor IA — son aquellas cuyas operaciones están construidas para ejecutarla.</div>
+    </div>
+    <div class="problem-item" data-scroll>
+      <div class="problem-number">03</div>
+      <div class="problem-title">DTechLab construye la capa de infraestructura.</div>
+      <div class="problem-body">Los sistemas que traducen la capacidad moderna de IA en realidad operacional. No herramientas. No chatbots. La base arquitectónica de cómo operan realmente las empresas modernas.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header fade-up" data-scroll>
+    <h2 class="section-title">Qué construimos</h2>
+    <p class="section-meta">Cinco disciplinas. Un enfoque integrado de infraestructura empresarial.</p>
+  </div>
+  <div class="services-grid fade-up" data-scroll>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="3"/>
+          <circle cx="4" cy="6" r="2"/>
+          <circle cx="20" cy="6" r="2"/>
+          <circle cx="4" cy="18" r="2"/>
+          <circle cx="20" cy="18" r="2"/>
+          <line x1="6" y1="6.5" x2="9.5" y2="11"/>
+          <line x1="18" y1="6.5" x2="14.5" y2="11"/>
+          <line x1="6" y1="17.5" x2="9.5" y2="13"/>
+          <line x1="18" y1="17.5" x2="14.5" y2="13"/>
+        </svg>
+      </div>
+      <div class="service-name">Sistemas de IA</div>
+      <div class="service-desc">Flujos de trabajo inteligentes y lógica empresarial nativa de IA integrada en tu infraestructura.</div>
+      <div class="service-tag">Oferta principal</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="18" height="13" rx="2"/>
+          <line x1="8" y1="21" x2="16" y2="21"/>
+          <line x1="12" y1="16" x2="12" y2="21"/>
+          <line x1="7" y1="8" x2="17" y2="8"/>
+          <line x1="7" y1="11" x2="13" y2="11"/>
+        </svg>
+      </div>
+      <div class="service-name">Plataformas Digitales</div>
+      <div class="service-desc">Plataformas web personalizadas, portales y dashboards operacionales diseñados para escalar.</div>
+      <div class="service-tag">Trabajo de Studio</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="4 17 8 13 12 15 16 9 20 11"/>
+          <circle cx="4" cy="17" r="1.5"/>
+          <circle cx="8" cy="13" r="1.5"/>
+          <circle cx="12" cy="15" r="1.5"/>
+          <circle cx="16" cy="9" r="1.5"/>
+          <circle cx="20" cy="11" r="1.5"/>
+        </svg>
+      </div>
+      <div class="service-name">Automatización</div>
+      <div class="service-desc">Automatización de procesos de extremo a extremo. Desde la entrada hasta la entrega, cero pasos manuales.</div>
+      <div class="service-tag">Infraestructura</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+      </div>
+      <div class="service-name">Inteligencia Empresarial</div>
+      <div class="service-desc">Sistemas CRM, dashboards de analítica y datos en tiempo real para la toma de decisiones.</div>
+      <div class="service-tag">Capa de datos</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="3" width="20" height="14" rx="2"/>
+          <line x1="8" y1="8" x2="8" y2="13"/>
+          <line x1="12" y1="6" x2="12" y2="13"/>
+          <line x1="16" y1="10" x2="16" y2="13"/>
+        </svg>
+      </div>
+      <div class="service-name">Sistemas Internos</div>
+      <div class="service-desc">Herramientas internas, sistemas de administración y software operacional construido para como trabajan los equipos.</div>
+      <div class="service-tag">Operaciones</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-header fade-up" data-scroll>
+    <h2 class="section-title">Proyectos seleccionados</h2>
+    <p class="section-meta">Algunos sistemas que hemos diseñado para empresas modernas.</p>
+  </div>
+  <div class="work-grid">
+    <div class="work-card fade-up" data-scroll>
+      <div class="work-card-visual">
+        <div class="work-visual-bg">
+          <svg width="400" height="200" viewBox="0 0 400 200">
+            <line x1="40" y1="100" x2="120" y2="60" stroke="#5B6AFF" stroke-width="1"/>
+            <line x1="120" y1="60" x2="200" y2="90" stroke="#5B6AFF" stroke-width="1"/>
+            <line x1="200" y1="90" x2="280" y2="40" stroke="#5B6AFF" stroke-width="1"/>
+            <line x1="280" y1="40" x2="360" y2="70" stroke="#5B6AFF" stroke-width="1"/>
+            <circle cx="40" cy="100" r="5" fill="#5B6AFF"/>
+            <circle cx="120" cy="60" r="5" fill="#5B6AFF"/>
+            <circle cx="200" cy="90" r="8" fill="#5B6AFF"/>
+            <circle cx="280" cy="40" r="5" fill="#5B6AFF"/>
+            <circle cx="360" cy="70" r="5" fill="#5B6AFF"/>
+          </svg>
+        </div>
+        <span>Sistema de Automatización Operacional</span>
+      </div>
+      <div class="work-card-body">
+        <div class="work-card-tags">
+          <span class="work-tag">Logistics</span>
+          <span class="work-tag">Automatización</span>
+          <span class="work-tag">AI</span>
+        </div>
+        <div class="work-card-title">Plataforma logística de extremo a extremo</div>
+        <div class="work-card-desc">Construimos un stack de automatización completo para una empresa logística — desde la recepción de pedidos hasta el seguimiento de entrega. Reemplazamos 6 procesos manuales con un solo sistema orquestado.</div>
+        <div class="work-metric">Tiempo de procesamiento reducido de 4 horas a <span>11 minutes</span></div>
+      </div>
+    </div>
+    <div class="work-card fade-up" data-scroll>
+      <div class="work-card-visual">
+        <div class="work-visual-bg">
+          <svg width="260" height="160" viewBox="0 0 260 160">
+            <rect x="20" y="20" width="100" height="120" rx="6" stroke="#5B6AFF" stroke-width="1" fill="none"/>
+            <rect x="140" y="20" width="100" height="55" rx="6" stroke="#8B5CF6" stroke-width="1" fill="none"/>
+            <rect x="140" y="85" width="100" height="55" rx="6" stroke="#22D3EE" stroke-width="1" fill="none"/>
+            <line x1="120" y1="80" x2="140" y2="48" stroke="rgba(91,106,255,0.5)" stroke-width="1"/>
+            <line x1="120" y1="80" x2="140" y2="113" stroke="rgba(91,106,255,0.5)" stroke-width="1"/>
+          </svg>
+        </div>
+        <span>CRM Impulsado por IA</span>
+      </div>
+      <div class="work-card-body">
+        <div class="work-card-tags">
+          <span class="work-tag">SaaS</span>
+          <span class="work-tag">CRM</span>
+        </div>
+        <div class="work-card-title">Pipeline de ventas inteligente para empresa SaaS</div>
+        <div class="work-card-desc">Reemplazamos un CRM heredado con un sistema de pipeline nativo de IA. Puntuación de relaciones, progresión automática de etapas y recomendaciones de próxima acción.</div>
+        <div class="work-metric">Ciclo de ventas acortado en <span>34%</span> en 60 días</div>
+      </div>
+    </div>
+    <div class="work-card fade-up" data-scroll>
+      <div class="work-card-visual">
+        <div class="work-visual-bg">
+          <svg width="260" height="160" viewBox="0 0 260 160">
+            <rect x="20" y="20" width="220" height="30" rx="4" stroke="#22D3EE" stroke-width="1" fill="none"/>
+            <rect x="20" y="60" width="220" height="30" rx="4" stroke="rgba(34,211,238,0.4)" stroke-width="1" fill="none"/>
+            <rect x="20" y="100" width="220" height="30" rx="4" stroke="rgba(34,211,238,0.2)" stroke-width="1" fill="none"/>
+            <circle cx="35" cy="35" r="5" fill="rgba(34,211,238,0.3)"/>
+            <circle cx="35" cy="75" r="5" fill="rgba(34,211,238,0.3)"/>
+            <circle cx="35" cy="115" r="5" fill="rgba(34,211,238,0.3)"/>
+          </svg>
+        </div>
+        <span>Dashboard de Operaciones Internas</span>
+      </div>
+      <div class="work-card-body">
+        <div class="work-card-tags">
+          <span class="work-tag">Healthcare</span>
+          <span class="work-tag">Dashboard</span>
+        </div>
+        <div class="work-card-title">Dashboard de operaciones en tiempo real para red de salud</div>
+        <div class="work-card-desc">Plataforma de inteligencia operacional construida a medida para un proveedor de salud multi-sede. Visibilidad en tiempo real de capacidad, personal y flujo de pacientes.</div>
+        <div class="work-metric">Latencia de decisión reducida de horas a <span>real-time</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-header fade-up" data-scroll>
+    <h2 class="section-title">El ecosistema de productos</h2>
+    <p class="section-meta">Software que diseñamos para empresas que operan a escala.</p>
+  </div>
+  <div class="products-grid">
+    <div class="product-card fade-up" data-scroll>
+      <div class="product-mark autopro">AP</div>
+      <div class="product-name">AutoPro</div>
+      <div class="product-type">Workshop OS</div>
+      <div class="product-desc">El sistema operativo para talleres mecánicos. Órdenes, CRM, inventario, finanzas y multi-sucursal — todo conectado.</div>
+      <div class="product-status active">En vivo</div>
+    </div>
+    <div class="product-card fade-up" data-scroll>
+      <div class="product-mark orbit">Or</div>
+      <div class="product-name">Orbit</div>
+      <div class="product-type">CRM Platform</div>
+      <div class="product-desc">Inteligencia de relaciones. AI-powered pipeline with deal probability modeling and next-action recommendations.</div>
+      <div class="product-status beta">Beta</div>
+    </div>
+    <div class="product-card fade-up" data-scroll>
+      <div class="product-mark nexus">Nx</div>
+      <div class="product-name">Nexus OS</div>
+      <div class="product-type">Automatización OS</div>
+      <div class="product-desc">Automatización empresarial operating system. Connect your entire stack and orchestrate every workflow across it.</div>
+      <div class="product-status active">Active</div>
+    </div>
+    <div class="product-card fade-up" data-scroll>
+      <div class="product-mark atlas">At</div>
+      <div class="product-name">Atlas Flow</div>
+      <div class="product-type">Workflow Builder</div>
+      <div class="product-desc">Visual process orchestration. Map, automate, and monitor every operational workflow in your business.</div>
+      <div class="product-status">En desarrollo</div>
+    </div>
+    <div class="product-card fade-up" data-scroll>
+      <div class="product-mark pulse">Pu</div>
+      <div class="product-name">Pulse</div>
+      <div class="product-type">Intelligence Layer</div>
+      <div class="product-desc">Live business signals. AI anomaly detection and executive briefings that surface what matters before you ask.</div>
+      <div class="product-status">En desarrollo</div>
+    </div>
+    <div class="product-card fade-up" data-scroll>
+      <div class="product-mark meridian">Me</div>
+      <div class="product-name">Meridian</div>
+      <div class="product-type">Client Portal</div>
+      <div class="product-desc">The professional interface between your business and your clients. Branded, intelligent, and fully automated.</div>
+      <div class="product-status beta">Beta</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- MANIFESTO -->
+<section id="manifesto">
+  <div class="manifesto-inner fade-up" data-scroll>
+    <div class="manifesto-quote">
+      "La mejor tecnología desaparece en el fondo.
+      <em> Solo funciona. Solo fluye. Solo sabe.</em>
+      Ese es el estándar al que construimos."
+    </div>
+    <div class="manifesto-attr">— Principios de Ingeniería DTechLab</div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-eyebrow fade-up" data-scroll>Listos para construir</div>
+  <h2 class="cta-headline fade-up" data-scroll>
+    Your business deserves<br>better infrastructure.
+  </h2>
+  <p class="cta-sub fade-up" data-scroll>
+    Mapeemos tus sistemas, identifiquemos las brechas y diseñemos la arquitectura que te pone adelante.
+  </p>
+  <div class="fade-up" data-scroll>
+    <a href="mailto:hello@dtechlab.io" class="btn-primary" style="font-size:15px; padding: 14px 32px; display: inline-flex;">
+      Solicitar una auditoría de sistemas <span class="arrow">→</span>
+    </a>
+  </div>
+  <div class="cta-availability fade-up" data-scroll>
+    Actualmente aceptando 3 nuevos proyectos — Q3 2026
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">DTechLab</div>
+      <div class="footer-tagline">Empresa de Sistemas Digitales</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Studio</div>
+      <ul class="footer-links">
+        <li><a href="#">Sistemas de IA</a></li>
+        <li><a href="#">Plataformas Digitales</a></li>
+        <li><a href="#">Automatización</a></li>
+        <li><a href="#">Dashboards</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Products</div>
+      <ul class="footer-links">
+        <li><a href="#">Orbit CRM</a></li>
+        <li><a href="#">Nexus OS</a></li>
+        <li><a href="#">Atlas Flow</a></li>
+        <li><a href="#">Pulse</a></li>
+        <li><a href="#">Meridian</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">Acerca de</a></li>
+        <li><a href="#">Trabajo</a></li>
+        <li><a href="#">Lab</a></li>
+        <li><a href="#">Tienda</a></li>
+        <li><a href="#">Journal</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 DTechLab · v1.0.0 · build.2026.05.29</div>
+    <div class="footer-status">
+      <div class="footer-status-dot"></div>
+      Todos los sistemas operativos
+    </div>
+  </div>
+</footer>
+
+<script>
+  // LOADER
+  const loader = document.getElementById('loader');
+  const loaderFill = document.getElementById('loaderFill');
+  const loaderStatus = document.getElementById('loaderStatus');
+  const dotGrid = document.getElementById('dotGrid');
+  const statuses = ['inicializando sistemas', 'cargando infraestructura', 'estableciendo conexión', 'sistemas listos'];
+  let si = 0;
+  const statusInterval = setInterval(() => {
+    si++;
+    if (si < statuses.length) loaderStatus.textContent = statuses[si];
+  }, 320);
+
+  setTimeout(() => { loaderFill.style.width = '100%'; }, 50);
+  setTimeout(() => {
+    clearInterval(statusInterval);
+    loaderStatus.textContent = 'sistemas listos';
+  }, 1100);
+  setTimeout(() => {
+    loader.classList.add('hidden');
+    dotGrid.classList.add('visible');
+    startHeroAnimation();
+  }, 1500);
+
+  // HERO ANIMATION
+  function startHeroAnimation() {
+    const label = document.getElementById('heroLabel');
+    const line1 = document.getElementById('heroLine1');
+    const line2 = document.getElementById('heroLine2');
+    const line3 = document.getElementById('heroLine3');
+    const sub = document.getElementById('heroSub');
+    const actions = document.getElementById('heroActions');
+    const visual = document.getElementById('heroVisual');
+
+    setTimeout(() => label.classList.add('visible'), 100);
+    setTimeout(() => line1.classList.add('visible'), 200);
+    setTimeout(() => line2.classList.add('visible'), 320);
+    setTimeout(() => line3.classList.add('visible'), 440);
+    setTimeout(() => sub.classList.add('visible'), 600);
+    setTimeout(() => actions.classList.add('visible'), 750);
+    setTimeout(() => visual.classList.add('visible'), 900);
+  }
+
+  // NAV SCROLL
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('nav');
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // CHART BARS
+  const barHeights = [45, 60, 38, 72, 55, 80, 65];
+  const chartBars = document.getElementById('chartBars');
+  if (chartBars) {
+    barHeights.forEach((h, i) => {
+      const bar = document.createElement('div');
+      bar.className = 'chart-bar' + (i === 6 ? ' active' : '');
+      bar.style.height = h + '%';
+      bar.style.animationDelay = (i * 80) + 'ms';
+      chartBars.appendChild(bar);
+    });
+  }
+
+  // SCROLL ANIMATIONS
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('[data-scroll], .fade-up').forEach(el => observer.observe(el));
+  document.querySelectorAll('.problem-item').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
