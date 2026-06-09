@@ -206,6 +206,16 @@ section{position:relative;z-index:1;padding:96px 80px}
 .q-range-val{font-size:42px;font-weight:300;color:var(--pure);letter-spacing:-.03em;font-family:'Courier New',monospace}
 .q-range-val span{color:var(--signal)}
 .q-range-time{font-size:12px;color:var(--whisper);margin-top:12px;font-family:'Courier New',monospace;letter-spacing:.08em}
+.q-send-status{display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:100px;font-size:13px;font-weight:500;letter-spacing:.01em;margin:0 auto;font-family:inherit;transition:all .3s ease}
+.q-send-status.sending{background:rgba(91,106,255,.08);border:1px solid rgba(91,106,255,.25);color:var(--ice)}
+.q-send-status.success{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:#34D399}
+.q-send-status.error{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.3);color:#FB923C}
+.q-send-spin{width:14px;height:14px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:qspin .8s linear infinite;flex-shrink:0}
+.q-send-status.success .q-send-spin,.q-send-status.error .q-send-spin{display:none;animation:none}
+@keyframes qspin{to{transform:rotate(360deg)}}
+.q-send-status::before{display:none}
+.q-send-status.success::before{content:'✓';display:inline-block;width:18px;height:18px;border-radius:50%;background:#34D399;color:#0A0A0F;font-size:11px;font-weight:700;text-align:center;line-height:18px}
+.q-send-status.error::before{content:'!';display:inline-block;width:18px;height:18px;border-radius:50%;background:#FB923C;color:#0A0A0F;font-size:11px;font-weight:700;text-align:center;line-height:18px}
 .q-result-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
 .q-disclaimer{font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.04em;margin-top:24px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7}
 
@@ -327,7 +337,7 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="dtechlab-homepage.html" class="nav-logo">
+  <a href="dtechlab-studio.html" class="nav-logo" aria-label="DTechLab Studio — inicio">
     <svg width="26" height="26" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
     <span class="nav-logo-text">DTechLab<span class="div">Studio</span></span>
   </a>
@@ -477,155 +487,119 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
 
 <!-- TEMPLATES -->
 <section id="templates">
-  <div class="sec-eyebrow reveal">Cómo se ve un proyecto DTechLab</div>
-  <h2 class="sec-title reveal">Templates de referencia. <strong>El estándar visual.</strong></h2>
-  <p class="sec-sub reveal">Cada cliente recibe un diseño propio — no se reciclan templates. Pero estos son ejemplos del nivel y estilo que puedes esperar, adaptados a distintas industrias.</p>
+  <div class="sec-eyebrow reveal">Templates en vivo</div>
+  <h2 class="sec-title reveal">Diseños reales. <strong>Navegables.</strong></h2>
+  <p class="sec-sub reveal">Seis mini-landings completas y navegables, diseñadas para las industrias con más demanda en Panamá. Cada cliente recibe diseño propio — esto es la barra del estándar.</p>
 
   <div class="tpl-grid">
 
-    <div class="tpl-card reveal">
-      <div class="tpl-preview tpl-bg-1">
-        <div class="tpl-mockup">
-          <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
-          <div class="tpl-mock-body">
-            <div class="tpl-line acc w40"></div>
-            <div class="tpl-line w90"></div>
-            <div class="tpl-line w70"></div>
-            <div class="tpl-img"></div>
-            <div class="tpl-mini-grid"><div class="tpl-mini-block acc"></div><div class="tpl-mini-block"></div></div>
-          </div>
+    <a href="template-bufete.html" target="_blank" rel="noopener" class="tpl-card reveal" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+      <div class="tpl-preview" style="background:linear-gradient(160deg,#FAF8F3 0%,#F4EDDC 100%);overflow:hidden">
+        <div style="width:80%;max-width:240px;background:#FAF8F3;border:1px solid rgba(10,24,40,.1);border-radius:8px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.3)">
+          <div style="height:20px;background:#F4EDDC;display:flex;align-items:center;padding:0 8px;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:rgba(10,24,40,.4)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(10,24,40,.25)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(10,24,40,.15)"></div></div>
+          <div style="padding:14px 12px;display:flex;flex-direction:column;gap:6px"><div style="height:6px;width:35%;background:#C8A35C;border-radius:3px"></div><div style="height:9px;width:75%;background:#0A1828;border-radius:3px"></div><div style="height:5px;width:90%;background:rgba(10,24,40,.15);border-radius:3px"></div><div style="height:5px;width:60%;background:rgba(10,24,40,.15);border-radius:3px"></div><div style="display:flex;gap:5px;margin-top:4px"><div style="height:18px;width:60px;background:#0A1828"></div><div style="height:18px;width:60px;background:transparent;border:1px solid #0A1828"></div></div></div>
         </div>
       </div>
       <div class="tpl-info">
-        <div class="tpl-industry">Corporativo · B2B</div>
-        <h3 class="tpl-name">Bufete · Consultora · Firma profesional</h3>
-        <p class="tpl-desc">Presencia digital de autoridad. Servicios, equipo, casos y formulario de contacto calificado.</p>
+        <div class="tpl-industry">Bufete · Consultora · Firma</div>
+        <h3 class="tpl-name">Vega &amp; Asociados</h3>
+        <p class="tpl-desc">Bufete legal premium. Áreas de práctica, equipo de socios y casos seleccionados con tono de autoridad.</p>
       </div>
       <div class="tpl-footer">
-        <span>tpl-corporate</span>
-        <span class="meta"><span>5–7 páginas</span><span>2–3 semanas</span></span>
+        <span>template-bufete</span>
+        <span class="meta"><span style="color:var(--signal);font-weight:600">Ver en vivo →</span></span>
       </div>
-    </div>
+    </a>
 
-    <div class="tpl-card reveal">
-      <div class="tpl-preview tpl-bg-2">
-        <div class="tpl-mockup">
-          <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
-          <div class="tpl-mock-body">
-            <div class="tpl-line acc w50"></div>
-            <div class="tpl-mini-grid"><div class="tpl-mini-block"></div><div class="tpl-mini-block"></div></div>
-            <div class="tpl-mini-grid"><div class="tpl-mini-block acc"></div><div class="tpl-mini-block"></div></div>
-            <div class="tpl-line w70"></div>
-            <div class="tpl-line w40"></div>
-          </div>
-        </div>
-      </div>
-      <div class="tpl-info">
-        <div class="tpl-industry">E-commerce</div>
-        <h3 class="tpl-name">Tienda online · Catálogo + pasarela</h3>
-        <p class="tpl-desc">Catálogo de productos, carrito, pasarela de pago (Yappy / Stripe) y panel de administración.</p>
-      </div>
-      <div class="tpl-footer">
-        <span>tpl-shop</span>
-        <span class="meta"><span>10+ páginas</span><span>4–6 semanas</span></span>
-      </div>
-    </div>
-
-    <div class="tpl-card reveal">
-      <div class="tpl-preview tpl-bg-3">
-        <div class="tpl-mockup">
-          <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
-          <div class="tpl-mock-body">
-            <div class="tpl-img"></div>
-            <div class="tpl-line acc w70"></div>
-            <div class="tpl-line w50"></div>
-            <div class="tpl-line w90"></div>
-            <div class="tpl-line w40"></div>
-          </div>
+    <a href="template-restaurante.html" target="_blank" rel="noopener" class="tpl-card reveal" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+      <div class="tpl-preview" style="background:linear-gradient(160deg,#FAF5EA 0%,#F4EDDF 100%);overflow:hidden">
+        <div style="width:80%;max-width:240px;background:#FAF5EA;border:1px solid rgba(28,47,42,.1);border-radius:8px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.3)">
+          <div style="height:20px;background:#F4EDDF;display:flex;align-items:center;padding:0 8px;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:rgba(28,47,42,.4)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(28,47,42,.25)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(28,47,42,.15)"></div></div>
+          <div style="padding:14px 12px;display:flex;flex-direction:column;gap:6px"><div style="height:5px;width:30%;background:#C49737;border-radius:3px"></div><div style="height:11px;width:80%;background:#1C2F2A;border-radius:3px"></div><div style="height:5px;width:65%;background:rgba(28,47,42,.15);border-radius:3px"></div><div style="display:flex;gap:5px"><div style="height:18px;width:60px;background:#1C2F2A;border-radius:100px"></div><div style="height:18px;width:50px;border:1px solid #1C2F2A;border-radius:100px"></div></div><div style="height:48px;background:radial-gradient(circle at 30% 30%,#FFF8E8,#E8DCC2);border-radius:6px;margin-top:4px"></div></div>
         </div>
       </div>
       <div class="tpl-info">
         <div class="tpl-industry">Restaurante · Cafetería</div>
-        <h3 class="tpl-name">Menú digital + reservas + pedidos</h3>
-        <p class="tpl-desc">Menú actualizable, sistema de reservas, pedidos online y conexión con WhatsApp.</p>
+        <h3 class="tpl-name">Casa Marítima</h3>
+        <p class="tpl-desc">Restaurante gastronómico con menú de temporada, sistema de reservas, historia y enlace a WhatsApp.</p>
       </div>
       <div class="tpl-footer">
-        <span>tpl-resto</span>
-        <span class="meta"><span>4–6 páginas</span><span>2–4 semanas</span></span>
+        <span>template-restaurante</span>
+        <span class="meta"><span style="color:var(--signal);font-weight:600">Ver en vivo →</span></span>
       </div>
-    </div>
+    </a>
 
-    <div class="tpl-card reveal">
-      <div class="tpl-preview tpl-bg-4">
-        <div class="tpl-mockup">
-          <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
-          <div class="tpl-mock-body">
-            <div class="tpl-line acc w40"></div>
-            <div class="tpl-line w70"></div>
-            <div class="tpl-img"></div>
-            <div class="tpl-mini-grid"><div class="tpl-mini-block"></div><div class="tpl-mini-block acc"></div></div>
-            <div class="tpl-line w50"></div>
-          </div>
+    <a href="template-clinica.html" target="_blank" rel="noopener" class="tpl-card reveal" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+      <div class="tpl-preview" style="background:linear-gradient(160deg,#FDFBF7 0%,#F5F0E8 100%);overflow:hidden">
+        <div style="width:80%;max-width:240px;background:#FDFBF7;border:1px solid rgba(26,40,37,.08);border-radius:8px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.3)">
+          <div style="height:20px;background:#F5F0E8;display:flex;align-items:center;padding:0 8px;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:rgba(26,40,37,.4)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(26,40,37,.25)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(26,40,37,.15)"></div></div>
+          <div style="padding:14px 12px;display:flex;flex-direction:column;gap:6px"><div style="height:5px;width:25%;background:#35786A;border-radius:3px"></div><div style="height:9px;width:75%;background:#1A2825;border-radius:3px"></div><div style="height:5px;width:90%;background:rgba(26,40,37,.1);border-radius:3px"></div><div style="display:flex;gap:5px"><div style="height:18px;width:60px;background:#35786A;border-radius:100px"></div></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-top:4px"><div style="height:36px;background:rgba(53,120,106,.18);border-radius:5px"></div><div style="height:36px;background:rgba(232,165,147,.22);border-radius:5px"></div><div style="height:36px;background:rgba(212,184,136,.2);border-radius:5px"></div></div></div>
         </div>
       </div>
       <div class="tpl-info">
-        <div class="tpl-industry">Salud · Clínica · Wellness</div>
-        <h3 class="tpl-name">Sitio clínico + agenda online</h3>
-        <p class="tpl-desc">Especialidades, equipo médico, ubicaciones y sistema de agenda integrado a calendario.</p>
+        <div class="tpl-industry">Clínica · Médico · Wellness</div>
+        <h3 class="tpl-name">Clínica Aurora</h3>
+        <p class="tpl-desc">Clínica estética con tratamientos categorizados, perfil de doctora y calendario de citas integrado.</p>
       </div>
       <div class="tpl-footer">
-        <span>tpl-clinic</span>
-        <span class="meta"><span>6–8 páginas</span><span>3–5 semanas</span></span>
+        <span>template-clinica</span>
+        <span class="meta"><span style="color:var(--signal);font-weight:600">Ver en vivo →</span></span>
       </div>
-    </div>
+    </a>
 
-    <div class="tpl-card reveal">
-      <div class="tpl-preview tpl-bg-5">
-        <div class="tpl-mockup">
-          <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
-          <div class="tpl-mock-body">
-            <div class="tpl-line acc w70"></div>
-            <div class="tpl-line w90"></div>
-            <div class="tpl-line w40"></div>
-            <div class="tpl-mini-grid"><div class="tpl-mini-block acc"></div><div class="tpl-mini-block"></div></div>
-            <div class="tpl-line w50"></div>
-          </div>
+    <a href="template-tienda.html" target="_blank" rel="noopener" class="tpl-card reveal" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+      <div class="tpl-preview" style="background:linear-gradient(160deg,#1F1D24 0%,#17161A 100%);overflow:hidden">
+        <div style="width:80%;max-width:240px;background:#FAF7F1;border:1px solid rgba(23,22,26,.15);border-radius:8px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.4)">
+          <div style="height:20px;background:#17161A;display:flex;align-items:center;padding:0 8px;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:rgba(224,177,74,.6)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(224,177,74,.3)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(224,177,74,.2)"></div></div>
+          <div style="padding:14px 12px;display:flex;flex-direction:column;gap:6px"><div style="height:5px;width:35%;background:#B8862E;border-radius:3px"></div><div style="height:11px;width:75%;background:#17161A;border-radius:3px"></div><div style="display:flex;gap:5px"><div style="height:18px;width:60px;background:#17161A"></div><div style="height:18px;width:50px;border:1px solid #17161A"></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:4px"><div style="height:36px;background:rgba(184,134,46,.15);border-radius:5px"></div><div style="height:36px;background:radial-gradient(circle at 50% 40%,rgba(224,177,74,.4),rgba(184,134,46,.1));border-radius:5px"></div></div></div>
         </div>
       </div>
       <div class="tpl-info">
-        <div class="tpl-industry">SaaS · Startup tecnológica</div>
-        <h3 class="tpl-name">Landing de producto + waitlist</h3>
-        <p class="tpl-desc">Hero animado, features, pricing, testimonios y waitlist conectada a tu CRM.</p>
+        <div class="tpl-industry">E-commerce · Retail</div>
+        <h3 class="tpl-name">Atelier Oro</h3>
+        <p class="tpl-desc">Joyería contemporánea con colecciones, ficha de producto, carrito y pasarela de pago.</p>
       </div>
       <div class="tpl-footer">
-        <span>tpl-saas</span>
-        <span class="meta"><span>1–3 páginas</span><span>2–3 semanas</span></span>
+        <span>template-tienda</span>
+        <span class="meta"><span style="color:var(--signal);font-weight:600">Ver en vivo →</span></span>
       </div>
-    </div>
+    </a>
 
-    <div class="tpl-card reveal">
-      <div class="tpl-preview tpl-bg-6">
-        <div class="tpl-mockup">
-          <div class="tpl-bar"><div class="tpl-dot" style="background:#FF5F57"></div><div class="tpl-dot" style="background:#FEBC2E"></div><div class="tpl-dot" style="background:#28C840"></div></div>
-          <div class="tpl-mock-body">
-            <div class="tpl-line acc w50"></div>
-            <div class="tpl-mini-grid"><div class="tpl-mini-block"></div><div class="tpl-mini-block acc"></div></div>
-            <div class="tpl-img"></div>
-            <div class="tpl-line w70"></div>
-            <div class="tpl-line w40"></div>
-          </div>
+    <a href="template-inmobiliaria.html" target="_blank" rel="noopener" class="tpl-card reveal" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+      <div class="tpl-preview" style="background:linear-gradient(160deg,#F8F8F5 0%,#EFEEEA 100%);overflow:hidden">
+        <div style="width:80%;max-width:240px;background:#FAFAF7;border:1px solid rgba(20,35,57,.1);border-radius:8px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.3)">
+          <div style="height:20px;background:#F0EFEB;display:flex;align-items:center;padding:0 8px;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:rgba(20,35,57,.4)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(20,35,57,.25)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(20,35,57,.15)"></div></div>
+          <div style="padding:14px 12px;display:flex;flex-direction:column;gap:6px"><div style="height:5px;width:30%;background:#B87333;border-radius:3px"></div><div style="height:11px;width:70%;background:#142339;border-radius:3px"></div><div style="display:flex;gap:5px"><div style="height:18px;width:60px;background:#142339"></div></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-top:4px"><div style="height:42px;background:linear-gradient(135deg,#2D3E5C,#1A2A42);border-radius:4px;position:relative"></div><div style="height:42px;background:linear-gradient(135deg,#3A4A60,#243348);border-radius:4px"></div><div style="height:42px;background:linear-gradient(135deg,#4A5A6E,#34445A);border-radius:4px"></div></div></div>
         </div>
       </div>
       <div class="tpl-info">
-        <div class="tpl-industry">Servicios · Taller · Constructora</div>
-        <h3 class="tpl-name">Sitio operacional + cotización</h3>
-        <p class="tpl-desc">Servicios, portafolio, proceso, formulario de cotización y vínculo directo a WhatsApp.</p>
+        <div class="tpl-industry">Inmobiliaria · Real Estate</div>
+        <h3 class="tpl-name">Lumina Properties</h3>
+        <p class="tpl-desc">Boutique inmobiliaria con buscador filtrable, listings detallados, broker profile y valuación gratuita.</p>
       </div>
       <div class="tpl-footer">
-        <span>tpl-services</span>
-        <span class="meta"><span>5–8 páginas</span><span>3–4 semanas</span></span>
+        <span>template-inmobiliaria</span>
+        <span class="meta"><span style="color:var(--signal);font-weight:600">Ver en vivo →</span></span>
       </div>
-    </div>
+    </a>
+
+    <a href="template-servicios.html" target="_blank" rel="noopener" class="tpl-card reveal" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+      <div class="tpl-preview" style="background:linear-gradient(160deg,#262624 0%,#1A1817 100%);overflow:hidden">
+        <div style="width:80%;max-width:240px;background:#F5F2EC;border:1px solid rgba(26,24,23,.15);border-radius:8px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.4)">
+          <div style="height:20px;background:#262624;display:flex;align-items:center;padding:0 8px;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:rgba(241,128,30,.6)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(241,128,30,.3)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(241,128,30,.2)"></div></div>
+          <div style="padding:14px 12px;display:flex;flex-direction:column;gap:6px"><div style="height:5px;width:35%;background:#F1801E;border-radius:0"></div><div style="height:11px;width:80%;background:#1A1817;border-radius:0"></div><div style="display:flex;gap:5px"><div style="height:18px;width:60px;background:#F1801E"></div><div style="height:18px;width:50px;border:1.5px solid #1A1817"></div></div><div style="height:48px;background:linear-gradient(180deg,rgba(241,128,30,.04) 0%,rgba(241,128,30,.16) 100%);border:1px solid rgba(241,128,30,.4);display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(3,1fr);gap:2px;padding:3px;margin-top:4px"><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div></div></div>
+        </div>
+      </div>
+      <div class="tpl-info">
+        <div class="tpl-industry">Servicios · Constructora · Taller</div>
+        <h3 class="tpl-name">Veridian Construcciones</h3>
+        <p class="tpl-desc">Constructora con servicios categorizados, portafolio de 187 obras, proceso transparente y cotización inicial.</p>
+      </div>
+      <div class="tpl-footer">
+        <span>template-servicios</span>
+        <span class="meta"><span style="color:var(--signal);font-weight:600">Ver en vivo →</span></span>
+      </div>
+    </a>
 
   </div>
 
@@ -687,29 +661,29 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
         <div class="q-question">¿Qué tipo de proyecto necesitas?</div>
         <div class="q-hint">Elige el que más se parezca. Lo afinamos después.</div>
         <div class="q-options">
-          <button class="q-opt" data-name="ptype" data-val="landing" data-base="800">
+          <button class="q-opt" data-name="ptype" data-val="landing" data-base="200">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Landing page</div><div class="q-opt-desc">Una sola página de alto impacto. Producto, evento o servicio.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Landing page</div><div class="q-opt-desc">Una sola página de alto impacto. Producto, evento o servicio. Desde $200.</div></div>
           </button>
-          <button class="q-opt" data-name="ptype" data-val="corporate" data-base="1500">
+          <button class="q-opt" data-name="ptype" data-val="corporate" data-base="700">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Sitio corporativo</div><div class="q-opt-desc">5–10 páginas. Empresa, servicios, equipo, contacto.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Sitio corporativo</div><div class="q-opt-desc">5–10 páginas. Empresa, servicios, equipo, contacto. Desde $700.</div></div>
           </button>
-          <button class="q-opt" data-name="ptype" data-val="ecommerce" data-base="3000">
+          <button class="q-opt" data-name="ptype" data-val="ecommerce" data-base="1500">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Tienda online</div><div class="q-opt-desc">Catálogo, carrito, pasarela de pago, panel admin.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Tienda online</div><div class="q-opt-desc">Catálogo, carrito, pasarela de pago, panel admin. Desde $1,500.</div></div>
           </button>
-          <button class="q-opt" data-name="ptype" data-val="platform" data-base="5500">
+          <button class="q-opt" data-name="ptype" data-val="platform" data-base="3500">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Plataforma / portal</div><div class="q-opt-desc">Software a medida con login, usuarios y lógica de negocio.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Plataforma / portal</div><div class="q-opt-desc">Software a medida con login, usuarios y lógica de negocio. Desde $3,500.</div></div>
           </button>
-          <button class="q-opt" data-name="ptype" data-val="dashboard" data-base="4000">
+          <button class="q-opt" data-name="ptype" data-val="dashboard" data-base="2500">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">CRM / Dashboard</div><div class="q-opt-desc">Sistema interno para operar el negocio en tiempo real.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">CRM / Dashboard</div><div class="q-opt-desc">Sistema interno para operar el negocio en tiempo real. Desde $2,500.</div></div>
           </button>
-          <button class="q-opt" data-name="ptype" data-val="automation" data-base="2200">
+          <button class="q-opt" data-name="ptype" data-val="automation" data-base="800">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Automatización</div><div class="q-opt-desc">Integraciones, bots, flujos de trabajo sin sitio web nuevo.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Automatización</div><div class="q-opt-desc">Integraciones, bots, flujos de trabajo. Desde $800.</div></div>
           </button>
         </div>
       </div>
@@ -723,15 +697,15 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
             <div class="q-opt-mark"></div>
             <div class="q-opt-content"><div class="q-opt-name">Pequeño · Esencial</div><div class="q-opt-desc">Lo justo y necesario. 1 idioma, sin secciones extra.</div></div>
           </button>
-          <button class="q-opt" data-name="scope" data-val="medium" data-mod="600">
+          <button class="q-opt" data-name="scope" data-val="medium" data-mod="400">
             <div class="q-opt-mark"></div>
             <div class="q-opt-content"><div class="q-opt-name">Mediano · Completo</div><div class="q-opt-desc">Páginas adicionales, blog, secciones a medida.</div></div>
           </button>
-          <button class="q-opt" data-name="scope" data-val="large" data-mod="1400">
+          <button class="q-opt" data-name="scope" data-val="large" data-mod="1000">
             <div class="q-opt-mark"></div>
             <div class="q-opt-content"><div class="q-opt-name">Grande · A medida total</div><div class="q-opt-desc">Multi-idioma, secciones avanzadas, animaciones cinematográficas.</div></div>
           </button>
-          <button class="q-opt" data-name="scope" data-val="enterprise" data-mod="2800">
+          <button class="q-opt" data-name="scope" data-val="enterprise" data-mod="2200">
             <div class="q-opt-mark"></div>
             <div class="q-opt-content"><div class="q-opt-name">Empresarial · Multi-módulo</div><div class="q-opt-desc">Múltiples sistemas conectados, escala enterprise.</div></div>
           </button>
@@ -743,37 +717,37 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
         <div class="q-question">¿Qué necesita tu proyecto?</div>
         <div class="q-hint">Selecciona todas las que apliquen.</div>
         <div class="q-options">
-          <button class="q-opt q-multi" data-name="feat" data-val="cms" data-mod="400">
+          <button class="q-opt q-multi" data-name="feat" data-val="cms" data-mod="250">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">CMS / panel para editar</div><div class="q-opt-desc">Que actualices contenido sin programador.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">CMS / panel para editar</div><div class="q-opt-desc">Que actualices contenido sin programador. +$250.</div></div>
           </button>
-          <button class="q-opt q-multi" data-name="feat" data-val="multilang" data-mod="500">
+          <button class="q-opt q-multi" data-name="feat" data-val="multilang" data-mod="350">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Multi-idioma (ES/EN/+)</div><div class="q-opt-desc">2+ idiomas con switcher.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Multi-idioma (ES/EN/+)</div><div class="q-opt-desc">2+ idiomas con switcher. +$350.</div></div>
           </button>
-          <button class="q-opt q-multi" data-name="feat" data-val="payments" data-mod="1200">
+          <button class="q-opt q-multi" data-name="feat" data-val="payments" data-mod="900">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Pasarela de pago</div><div class="q-opt-desc">Yappy / Stripe / tarjeta de crédito.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Pasarela de pago</div><div class="q-opt-desc">Yappy / Stripe / tarjeta de crédito. +$900.</div></div>
           </button>
-          <button class="q-opt q-multi" data-name="feat" data-val="auth" data-mod="900">
+          <button class="q-opt q-multi" data-name="feat" data-val="auth" data-mod="700">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Login + usuarios</div><div class="q-opt-desc">Registro, perfiles, roles.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Login + usuarios</div><div class="q-opt-desc">Registro, perfiles, roles. +$700.</div></div>
           </button>
-          <button class="q-opt q-multi" data-name="feat" data-val="integration" data-mod="650">
+          <button class="q-opt q-multi" data-name="feat" data-val="integration" data-mod="500">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Integraciones (CRM, email, WA)</div><div class="q-opt-desc">Conectar con tus herramientas actuales.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Integraciones (CRM, email, WA)</div><div class="q-opt-desc">Conectar con tus herramientas actuales. +$500.</div></div>
           </button>
-          <button class="q-opt q-multi" data-name="feat" data-val="ai" data-mod="700">
+          <button class="q-opt q-multi" data-name="feat" data-val="ai" data-mod="600">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">IA / asistente inteligente</div><div class="q-opt-desc">Chat, búsqueda inteligente, automatización con IA.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">IA / asistente inteligente</div><div class="q-opt-desc">Chat, búsqueda inteligente, automatización con IA. +$600.</div></div>
           </button>
-          <button class="q-opt q-multi" data-name="feat" data-val="branding" data-mod="800">
+          <button class="q-opt q-multi" data-name="feat" data-val="branding" data-mod="600">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Branding desde cero</div><div class="q-opt-desc">Logo, paleta, tipografía, manual de marca.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Branding desde cero</div><div class="q-opt-desc">Logo, paleta, tipografía, manual. +$600.</div></div>
           </button>
-          <button class="q-opt q-multi" data-name="feat" data-val="copy" data-mod="450">
+          <button class="q-opt q-multi" data-name="feat" data-val="copy" data-mod="300">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Redacción + estrategia de contenido</div><div class="q-opt-desc">Si no tienes los textos hechos.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Redacción + estrategia de contenido</div><div class="q-opt-desc">Si no tienes los textos hechos. +$300.</div></div>
           </button>
         </div>
       </div>
@@ -783,17 +757,17 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
         <div class="q-question">¿Para cuándo lo necesitas?</div>
         <div class="q-hint">Lo urgente cuesta más. Lo flexible cuesta menos.</div>
         <div class="q-options col-3">
-          <button class="q-opt" data-name="timeline" data-val="urgent" data-mod="1000" data-timefactor="1">
+          <button class="q-opt" data-name="timeline" data-val="urgent" data-mod="500" data-timefactor="1">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Urgente</div><div class="q-opt-desc">En menos de 3 semanas.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Urgente</div><div class="q-opt-desc">En menos de 3 semanas. +$500.</div></div>
           </button>
           <button class="q-opt" data-name="timeline" data-val="normal" data-mod="0" data-timefactor="0">
             <div class="q-opt-mark"></div>
             <div class="q-opt-content"><div class="q-opt-name">Normal</div><div class="q-opt-desc">3–8 semanas (recomendado).</div></div>
           </button>
-          <button class="q-opt" data-name="timeline" data-val="flex" data-mod="-400" data-timefactor="-1">
+          <button class="q-opt" data-name="timeline" data-val="flex" data-mod="-200" data-timefactor="-1">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Flexible</div><div class="q-opt-desc">Cuando esté bien hecho.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Flexible</div><div class="q-opt-desc">Cuando esté bien hecho. -$200.</div></div>
           </button>
         </div>
       </div>
@@ -814,20 +788,27 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
       <!-- RESULTADO -->
       <div class="q-step" data-step="6">
         <div class="q-result">
-          <div class="q-result-eyebrow">Estimación inicial</div>
-          <h3 class="q-result-title">Rango estimado para tu proyecto</h3>
-          <p class="q-result-sub">Este es un cálculo automático basado en tus respuestas. El precio final puede ser menor o mayor según el detalle real del trabajo. Lo confirmamos en la propuesta formal después de conversar.</p>
+          <div class="q-result-eyebrow" id="qResultEye">Estimación inicial</div>
+          <h3 class="q-result-title" id="qResultTitle">Rango estimado para tu proyecto</h3>
+          <p class="q-result-sub" id="qResultSub">Este es un cálculo automático basado en tus respuestas. El precio final puede ser menor o mayor según el detalle real del trabajo. Lo confirmamos en la propuesta formal después de conversar.</p>
           <div class="q-range-card">
             <div class="q-range-lbl">Inversión estimada (USD)</div>
             <div class="q-range-val"><span id="qRangeLow">$0</span> — <span id="qRangeHigh">$0</span></div>
             <div class="q-range-time" id="qRangeTime">Tiempo estimado: —</div>
           </div>
+
+          <!-- Estado del envío automático -->
+          <div id="qSendStatus" class="q-send-status sending">
+            <div class="q-send-spin"></div>
+            <span id="qSendText">Enviando tu solicitud…</span>
+          </div>
+
           <div class="q-result-actions">
             <a href="#" id="qWaLink" target="_blank" class="btn-wa">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Continuar por WhatsApp
+              Hablar por WhatsApp ahora
             </a>
-            <a href="#" id="qMailLink" class="btn-primary">Enviar resumen por email <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <button id="qResetBtn" class="btn-ghost" type="button">Hacer otra cotización</button>
           </div>
           <p class="q-disclaimer">Esta estimación es indicativa, no una cotización formal. Para una propuesta vinculante necesitamos una conversación corta (15 min) para entender el alcance real.</p>
         </div>
@@ -925,7 +906,7 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
   <h2 class="sec-title reveal">Todo lo que necesitas <strong>saber.</strong></h2>
 
   <div class="faq-wrap reveal">
-    <div class="faq-item"><button class="faq-q"><span>¿Cuánto cuesta un sitio con DTechLab Studio?</span><span class="faq-ico">+</span></button><div class="faq-a">Depende del alcance. Los rangos típicos en Panamá: landing $800–$1,500. Sitio corporativo $1,500–$3,500. Tienda online $3,000–$6,500. Plataforma a medida $5,500–$15,000+. CRM/Dashboard $4,000–$12,000. Usa el cotizador para una estimación más precisa según tus necesidades.</div></div>
+    <div class="faq-item"><button class="faq-q"><span>¿Cuánto cuesta un sitio con DTechLab Studio?</span><span class="faq-ico">+</span></button><div class="faq-a">Depende del alcance. Los rangos típicos: landing simple desde $200, landing con integraciones $500–$1,200. Sitio corporativo $700–$2,500. Tienda online $1,500–$4,500. CRM/Dashboard $2,500–$8,000. Plataforma a medida $3,500–$12,000+. Usa el cotizador para una estimación más precisa según lo que necesites.</div></div>
     <div class="faq-item"><button class="faq-q"><span>¿Cómo son los pagos?</span><span class="faq-ico">+</span></button><div class="faq-a">50% al firmar el acuerdo (apartas la fecha y empezamos), 50% al entregar el proyecto funcionando. Para proyectos grandes (sobre $6,000) podemos dividir en 3 pagos. Aceptamos transferencia, Yappy, ACH, tarjeta y PayPal.</div></div>
     <div class="faq-item"><button class="faq-q"><span>¿Qué incluye el precio?</span><span class="faq-ico">+</span></button><div class="faq-a">Diseño, desarrollo, integración con tus herramientas actuales, optimización mobile, despliegue en producción, capacitación a tu equipo y 30 días de soporte gratuito post-lanzamiento. NO incluye: dominio propio (~$15/año), hosting mensual si lo necesitas (~$10–20/mes), contenido y fotografías del negocio.</div></div>
     <div class="faq-item"><button class="faq-q"><span>¿En cuánto tiempo está listo?</span><span class="faq-ico">+</span></button><div class="faq-a">Landing pages: 2–3 semanas. Sitios corporativos: 3–5 semanas. E-commerce: 4–6 semanas. Plataformas a medida: 5–10 semanas. La primera versión funcional sale en menos de 21 días desde el inicio.</div></div>
@@ -959,7 +940,7 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
 <footer>
   <div class="footer-inner">
     <div>
-      <a href="dtechlab-homepage.html" class="footer-brand">
+      <a href="dtechlab-studio.html" class="footer-brand">
         <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
         <div><div class="footer-name">DTechLab Studio</div><div class="footer-tagline">diseño + ingeniería · panamá · latam</div></div>
       </a>
@@ -1144,9 +1125,9 @@ qBack.addEventListener('click', ()=>{
 
 function calculateAndShow(){
   const subtotal = Q.data.base + Q.data.scopeMod + Q.data.featMod + Q.data.timeMod;
-  // range +/- 18%
-  const low = Math.max(500, Math.round(subtotal * 0.88 / 50) * 50);
-  const high = Math.round(subtotal * 1.22 / 50) * 50;
+  // mínimo absoluto $200 + rango +/- 20%
+  const low = Math.max(200, Math.round(subtotal * 0.85 / 50) * 50);
+  const high = Math.max(low + 100, Math.round(subtotal * 1.25 / 50) * 50);
   document.getElementById('qRangeLow').textContent = '$' + low.toLocaleString('en-US');
   document.getElementById('qRangeHigh').textContent = '$' + high.toLocaleString('en-US');
 
@@ -1166,35 +1147,15 @@ function calculateAndShow(){
   const email = document.getElementById('qEmail').value;
   const whats = document.getElementById('qWhats').value;
   const msg = document.getElementById('qMensaje').value;
-  const featNames = Q.data.feat.map(f=>f.val).join(', ') || '(ninguna)';
+  const featList = Q.data.feat.map(f=>f.val);
+  const featReadable = { cms:'CMS / panel de edición', multilang:'Multi-idioma', payments:'Pasarela de pago', auth:'Login + usuarios', integration:'Integraciones (CRM, email, WA)', ai:'IA / asistente inteligente', branding:'Branding desde cero', copy:'Redacción + estrategia de contenido' };
+  const featNames = featList.length ? featList.map(v=>featReadable[v]||v).join(' · ') : '(ninguna seleccionada)';
 
-  const ptypeNames = { landing:'Landing page', corporate:'Sitio corporativo', ecommerce:'Tienda online', platform:'Plataforma/portal', dashboard:'CRM/Dashboard', automation:'Automatización' };
+  const ptypeNames = { landing:'Landing page', corporate:'Sitio corporativo', ecommerce:'Tienda online', platform:'Plataforma / portal', dashboard:'CRM / Dashboard', automation:'Automatización' };
   const scopeNames = { small:'Pequeño · Esencial', medium:'Mediano · Completo', large:'Grande · A medida total', enterprise:'Empresarial · Multi-módulo' };
   const timelineNames = { urgent:'Urgente (<3 semanas)', normal:'Normal (3–8 semanas)', flex:'Flexible' };
 
-  const summary = `Nuevo cotizador DTechLab Studio
-─────────────────────────────────
-Nombre: ${nombre}
-Empresa: ${empresa || '(sin especificar)'}
-Email: ${email}
-WhatsApp: ${whats}
-
-Proyecto: ${ptypeNames[Q.data.ptype]}
-Alcance: ${scopeNames[Q.data.scope]}
-Funcionalidades: ${featNames}
-Timeline: ${timelineNames[Q.data.timeline]}
-
-Estimación: $${low.toLocaleString('en-US')} – $${high.toLocaleString('en-US')} USD
-Tiempo: ${tLow}–${tHigh} semanas
-
-Mensaje del cliente:
-${msg || '(sin mensaje)'}`;
-
-  // mailto link
-  const mailLink = document.getElementById('qMailLink');
-  mailLink.href = 'mailto:rodophybusiness08@gmail.com?subject=' + encodeURIComponent(`Cotizador Studio — ${nombre} — ${ptypeNames[Q.data.ptype]}`) + '&body=' + encodeURIComponent(summary);
-
-  // WhatsApp link
+  // ── WhatsApp link (siempre disponible) ────────────────
   const waMsg = `Hola Rodolfo, completé el cotizador de DTechLab Studio:\n\n` +
                 `• Proyecto: ${ptypeNames[Q.data.ptype]}\n` +
                 `• Alcance: ${scopeNames[Q.data.scope]}\n` +
@@ -1202,9 +1163,63 @@ ${msg || '(sin mensaje)'}`;
                 `• Timeline: ${timelineNames[Q.data.timeline]}\n` +
                 `• Estimación: $${low.toLocaleString('en-US')} – $${high.toLocaleString('en-US')} USD\n\n` +
                 `Me llamo ${nombre}${empresa? ' de ' + empresa : ''}. ¿Cuándo conversamos?`;
-  const waLink = document.getElementById('qWaLink');
-  waLink.href = 'https://api.whatsapp.com/send?phone=50769837286&text=' + encodeURIComponent(waMsg);
+  document.getElementById('qWaLink').href = 'https://api.whatsapp.com/send?phone=50769837286&text=' + encodeURIComponent(waMsg);
+
+  // ── ENVÍO AUTOMÁTICO POR FORMSUBMIT (formato tabla) ──
+  const sendStatus = document.getElementById('qSendStatus');
+  const sendText = document.getElementById('qSendText');
+  sendStatus.className = 'q-send-status sending';
+  sendText.textContent = 'Enviando tu solicitud al equipo Studio…';
+
+  const payload = {
+    "Nombre del cliente": nombre,
+    "Empresa": empresa || '(no especificada)',
+    "Email": email,
+    "WhatsApp": whats,
+    "Tipo de proyecto": ptypeNames[Q.data.ptype],
+    "Alcance": scopeNames[Q.data.scope],
+    "Funcionalidades solicitadas": featNames,
+    "Timeline": timelineNames[Q.data.timeline],
+    "Estimación (USD)": `$${low.toLocaleString('en-US')} – $${high.toLocaleString('en-US')}`,
+    "Tiempo estimado": `${tLow}–${tHigh} semanas`,
+    "Mensaje del cliente": msg || '(sin mensaje adicional)',
+    "Origen del lead": "Cotizador DTechLab Studio (web)",
+    "_subject": `[Cotizador Studio] ${nombre} — ${ptypeNames[Q.data.ptype]} · $${low}-${high}`,
+    "_template": "table",
+    "_captcha": "false"
+  };
+
+  fetch('https://formsubmit.co/ajax/rodophybusiness08@gmail.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success === "true" || data.success === true) {
+      sendStatus.className = 'q-send-status success';
+      sendText.textContent = '✓ Solicitud enviada. Te contactaremos pronto.';
+    } else {
+      throw new Error(data.message || 'Error en el envío');
+    }
+  })
+  .catch(err => {
+    console.error('FormSubmit error:', err);
+    sendStatus.className = 'q-send-status error';
+    sendText.textContent = 'No se pudo enviar automáticamente. Por favor escríbenos por WhatsApp ↓';
+  });
 }
+
+// ── Reset cotizador ────────────────────────────────────
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.id === 'qResetBtn') {
+    Q.step = 1;
+    Q.data = { ptype:null, base:0, scope:null, scopeMod:0, feat:[], featMod:0, timeline:null, timeMod:0, timeFactor:0 };
+    document.querySelectorAll('.q-opt').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('.quoter-body input, .quoter-body textarea').forEach(el => el.value = '');
+    showStep(1);
+  }
+});
 </script>
 </body>
 </html>
