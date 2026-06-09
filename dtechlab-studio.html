@@ -7,7 +7,7 @@
 <meta name="description" content="DTechLab Studio diseña y construye sitios web, plataformas digitales, sistemas de automatización y experiencias premium para empresas que operan a un estándar diferente.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Crect x='1' y='1' width='30' height='30' rx='8' stroke='%235B6AFF' stroke-width='1.5'/%3E%3Crect x='8' y='8' width='7' height='7' rx='1.5' fill='%235B6AFF'/%3E%3Crect x='17' y='8' width='7' height='7' rx='1.5' fill='rgba(91,106,255,0.45)'/%3E%3Crect x='8' y='17' width='7' height='7' rx='1.5' fill='rgba(91,106,255,0.45)'/%3E%3Crect x='17' y='17' width='7' height='7' rx='1.5' fill='%235B6AFF'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Playfair+Display:wght@500;600&family=Crimson+Pro:wght@500;600&family=Libre+Bodoni:wght@500;600&family=Cormorant+Garamond:wght@500;600&family=Fraunces:wght@500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --void:#050507; --abyss:#0A0A0F; --graphite:#111118; --slate:#1A1A24;
@@ -61,11 +61,16 @@ nav.scrolled{background:rgba(5,5,7,.92);backdrop-filter:blur(20px);border-bottom
 .hero-label.in{opacity:1;transform:translateY(0)}
 .hero-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--signal);animation:blink 2.2s infinite}
 @keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.75)}}
-.hero-headline{font-size:clamp(44px,7vw,96px);font-weight:200;line-height:1;letter-spacing:-.04em;color:var(--pure);margin-bottom:32px}
-.hero-headline .line{display:block;overflow:hidden}
-.hero-headline .li{display:block;transform:translateY(105%);transition:transform .75s cubic-bezier(.16,1,.3,1)}
-.hero-headline .li.in{transform:translateY(0)}
-.hero-headline .acc{background:linear-gradient(100deg,var(--signal),var(--arc) 70%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-headline{font-size:clamp(44px,7vw,96px);font-weight:200;line-height:1;letter-spacing:-.04em;color:var(--pure);margin-bottom:32px;perspective:1000px}
+.hero-headline .line{display:block;overflow:visible;position:relative}
+.hero-headline .li{display:block}
+.hero-headline .li.acc{background:linear-gradient(100deg,var(--signal),var(--arc) 70%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+/* Tetris letter animation */
+.hero-headline .li .ch{display:inline-block;will-change:transform,opacity;transform-origin:center;opacity:0;transition:transform 0.85s cubic-bezier(.34,1.56,.64,1),opacity 0.45s ease}
+.hero-headline .li.acc .ch{background:linear-gradient(100deg,var(--signal),var(--arc) 70%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-headline .li .ch.placed{transform:none !important;opacity:1}
+/* shadow piece that ghosts the final position briefly */
+.hero-headline .li .ch::after{content:'';position:absolute;inset:0;border:1px dashed rgba(91,106,255,.3);opacity:0;transition:opacity .3s ease}
 .hero-sub{font-size:18px;line-height:1.78;color:var(--ghost);max-width:640px;margin:0 auto 44px;opacity:0;transform:translateY(16px);transition:opacity .6s .3s,transform .6s .3s;font-weight:300}
 .hero-sub.in{opacity:1;transform:translateY(0)}
 .hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;opacity:0;transform:translateY(16px);transition:opacity .6s .45s,transform .6s .45s}
@@ -114,10 +119,118 @@ section{position:relative;z-index:1;padding:96px 80px}
 .svc-deep-range{margin-top:18px;padding-top:18px;border-top:1px solid var(--hairline);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.06em}
 .svc-deep-range strong{color:var(--ghost);font-weight:500}
 
-/* ─── TEMPLATES SHOWCASE ─── */
-.tpl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.tpl-card{background:var(--graphite);border:1px solid var(--hairline);border-radius:14px;overflow:hidden;cursor:default;transition:transform .25s cubic-bezier(.16,1,.3,1),border-color .25s,box-shadow .25s}
-.tpl-card:hover{transform:translateY(-5px);border-color:var(--hairline2);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+/* ─── TEMPLATES SHOWCASE (real screenshots) ─── */
+.tpl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 28px}
+.tpl-card{background:transparent;border:none;border-radius:0;overflow:visible;cursor:pointer;transition:transform .25s cubic-bezier(.16,1,.3,1)}
+.tpl-card:hover{transform:translateY(-6px)}
+.tpl-card:hover .ss-shot{box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(91,106,255,.3)}
+.tpl-card:hover .ss-open{color:var(--ice)!important}
+
+/* Screenshot frame */
+.ss-shot{aspect-ratio:4/3;background:#fff;border-radius:12px;overflow:hidden;position:relative;box-shadow:0 14px 40px rgba(0,0,0,.4);transition:box-shadow .25s ease;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.08)}
+.ss-shot .ss-badge{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);color:#fff;font-family:'Courier New',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:4px 9px;border-radius:3px;font-weight:600;z-index:3;display:inline-flex;align-items:center;gap:6px}
+.ss-shot .ss-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:#34D399;animation:ssBlink 2s infinite}
+@keyframes ssBlink{0%,100%{opacity:1}50%{opacity:.4}}
+
+.ss-nav-bar{height:38px;display:flex;align-items:center;padding:0 18px;justify-content:space-between;flex-shrink:0;border-bottom:1px solid transparent}
+.ss-nav-bar .b{font-size:11.5px;font-weight:600;letter-spacing:-.01em;display:flex;align-items:center;gap:6px}
+.ss-nav-bar .b .m{width:16px;height:16px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;font-family:'Courier New',monospace}
+.ss-nav-bar .l{display:flex;gap:14px;font-size:9.5px;font-weight:500;letter-spacing:.04em}
+.ss-nav-bar .c{font-size:9px;padding:4px 10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+
+.ss-hero-area{flex:1;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:18px 18px 22px}
+.ss-hero-img{position:absolute;inset:0;background-size:cover;background-position:center}
+.ss-hero-ov{position:absolute;inset:0;pointer-events:none}
+.ss-hero-c{position:relative;z-index:2}
+.ss-hero-c .e{font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:6px;font-family:'Courier New',monospace}
+.ss-hero-c .t{font-size:22px;line-height:1.05;letter-spacing:-.02em;margin-bottom:4px;font-weight:500}
+.ss-hero-c .s{font-size:10.5px;line-height:1.5;max-width:80%}
+.ss-hero-c .cta{margin-top:10px;display:inline-block;font-size:9px;padding:5px 10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+
+/* template-specific palettes */
+.ss-bf .ss-nav-bar{background:#FAF8F3;border-bottom-color:rgba(10,24,40,.08)}
+.ss-bf .ss-nav-bar .b{color:#0A1828;font-family:'Playfair Display',serif;font-size:13px}
+.ss-bf .ss-nav-bar .b .m{background:#0A1828;color:#C8A35C;border-radius:50%}
+.ss-bf .ss-nav-bar .l{color:#0A1828}
+.ss-bf .ss-nav-bar .c{background:#0A1828;color:#FAF8F3}
+.ss-bf .ss-hero-img{background-image:url('https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=800&q=80&auto=format');background-color:#1a2333}
+.ss-bf .ss-hero-ov{background:linear-gradient(180deg,rgba(10,24,40,.2) 0%,rgba(10,24,40,.85) 80%)}
+.ss-bf .ss-hero-c .e{color:#C8A35C}
+.ss-bf .ss-hero-c .t{font-family:'Playfair Display',serif;color:#fff}
+.ss-bf .ss-hero-c .s{color:rgba(255,255,255,.85)}
+.ss-bf .ss-hero-c .cta{background:#C8A35C;color:#0A1828}
+
+.ss-rs .ss-nav-bar{background:#FAF5EA;border-bottom-color:rgba(28,47,42,.05)}
+.ss-rs .ss-nav-bar .b{color:#1C2F2A;font-family:'Cormorant Garamond',serif;font-size:14px}
+.ss-rs .ss-nav-bar .b .m{color:#1C2F2A;font-family:serif;font-size:14px}
+.ss-rs .ss-nav-bar .l{color:#1C2F2A}
+.ss-rs .ss-nav-bar .c{background:#1C2F2A;color:#FAF5EA;border-radius:100px}
+.ss-rs .ss-hero-img{background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80&auto=format');background-color:#2d1810}
+.ss-rs .ss-hero-ov{background:linear-gradient(180deg,rgba(28,15,5,.15) 0%,rgba(28,15,5,.85) 80%)}
+.ss-rs .ss-hero-c .e{color:#E8B958}
+.ss-rs .ss-hero-c .t{font-family:'Cormorant Garamond',serif;color:#fff;font-size:24px}
+.ss-rs .ss-hero-c .t em{font-style:italic;color:#E8B958}
+.ss-rs .ss-hero-c .s{color:rgba(255,255,255,.88)}
+.ss-rs .ss-hero-c .cta{background:#E8B958;color:#1C2F2A;border-radius:100px}
+
+.ss-cl .ss-nav-bar{background:#FDFBF7;border-bottom-color:rgba(26,40,37,.08)}
+.ss-cl .ss-nav-bar .b{color:#1A2825;font-family:'Fraunces',serif;font-size:13px}
+.ss-cl .ss-nav-bar .b .m{background:#35786A;color:#FDFBF7;border-radius:50%}
+.ss-cl .ss-nav-bar .l{color:#5C6B68}
+.ss-cl .ss-nav-bar .c{background:#35786A;color:#FDFBF7;border-radius:100px}
+.ss-cl .ss-hero-img{background-image:url('https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=800&q=80&auto=format');background-color:#0e1f1c}
+.ss-cl .ss-hero-ov{background:linear-gradient(180deg,rgba(26,40,37,.05) 0%,rgba(26,40,37,.78) 80%)}
+.ss-cl .ss-hero-c .e{color:#7AB4A4}
+.ss-cl .ss-hero-c .t{font-family:'Fraunces',serif;color:#fff;font-size:24px}
+.ss-cl .ss-hero-c .t em{font-style:italic;color:#7AB4A4}
+.ss-cl .ss-hero-c .s{color:rgba(255,255,255,.88)}
+.ss-cl .ss-hero-c .cta{background:#35786A;color:#FDFBF7;border-radius:100px}
+
+.ss-sh .ss-nav-bar{background:#17161A}
+.ss-sh .ss-nav-bar .b{color:#FAF7F1;font-family:'Libre Bodoni',serif;font-size:14px}
+.ss-sh .ss-nav-bar .b .gold{color:#E0B14A}
+.ss-sh .ss-nav-bar .l{color:#A8A0A8}
+.ss-sh .ss-nav-bar .c{background:transparent;color:#E0B14A;border:1px solid #E0B14A}
+.ss-sh .ss-hero-img{background-image:url('https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=800&q=80&auto=format');background-color:#1a0f08}
+.ss-sh .ss-hero-ov{background:linear-gradient(180deg,rgba(23,22,26,.4) 0%,rgba(23,22,26,.92) 80%)}
+.ss-sh .ss-hero-c .e{color:#E0B14A}
+.ss-sh .ss-hero-c .t{font-family:'Libre Bodoni',serif;color:#fff;font-size:26px;letter-spacing:-.02em}
+.ss-sh .ss-hero-c .t em{font-style:italic;color:#E0B14A}
+.ss-sh .ss-hero-c .s{color:rgba(255,255,255,.85)}
+.ss-sh .ss-hero-c .cta{background:#E0B14A;color:#17161A}
+
+.ss-rl .ss-nav-bar{background:#F8F8F5;border-bottom-color:rgba(20,35,57,.08)}
+.ss-rl .ss-nav-bar .b{color:#142339;font-family:'Crimson Pro',serif;font-size:13px}
+.ss-rl .ss-nav-bar .b .m{background:#142339;color:#F8F8F5;border-radius:50%}
+.ss-rl .ss-nav-bar .l{color:#142339}
+.ss-rl .ss-nav-bar .c{background:#142339;color:#F8F8F5}
+.ss-rl .ss-hero-img{background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80&auto=format');background-color:#0a1525}
+.ss-rl .ss-hero-ov{background:linear-gradient(180deg,rgba(10,21,37,.15) 0%,rgba(10,21,37,.85) 80%)}
+.ss-rl .ss-hero-c .e{color:#B87333}
+.ss-rl .ss-hero-c .t{font-family:'Crimson Pro',serif;color:#fff;font-size:26px;letter-spacing:-.02em}
+.ss-rl .ss-hero-c .t em{font-style:italic;color:#B87333}
+.ss-rl .ss-hero-c .s{color:rgba(255,255,255,.85)}
+.ss-rl .ss-hero-c .cta{background:#B87333;color:#fff}
+
+.ss-sv .ss-nav-bar{background:#262624}
+.ss-sv .ss-nav-bar .b{color:#E5E2DC;font-family:'Space Grotesk',sans-serif;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+.ss-sv .ss-nav-bar .b .m{background:#F1801E;color:#262624}
+.ss-sv .ss-nav-bar .l{color:#A8A5A0}
+.ss-sv .ss-nav-bar .c{background:#F1801E;color:#262624;font-family:'Space Grotesk',sans-serif}
+.ss-sv .ss-hero-img{background-image:url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80&auto=format');background-color:#1f1c18}
+.ss-sv .ss-hero-ov{background:linear-gradient(180deg,rgba(26,24,23,.25) 0%,rgba(26,24,23,.88) 80%)}
+.ss-sv .ss-hero-c .e{color:#F1801E}
+.ss-sv .ss-hero-c .t{font-family:'Space Grotesk',sans-serif;color:#fff;font-size:24px;letter-spacing:-.02em;font-weight:600}
+.ss-sv .ss-hero-c .t strong{color:#F1801E;font-weight:700}
+.ss-sv .ss-hero-c .s{color:rgba(255,255,255,.85)}
+.ss-sv .ss-hero-c .cta{background:#F1801E;color:#262624;font-family:'Space Grotesk',sans-serif}
+
+.ss-info{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-top:18px;padding:0 4px}
+.ss-info-l h3{font-size:16px;color:var(--pure);font-weight:500;letter-spacing:-.01em;line-height:1.3;margin-bottom:5px}
+.ss-info-l .cat{font-size:10.5px;color:var(--ghost);font-family:'Courier New',monospace;letter-spacing:.12em;text-transform:uppercase;font-weight:500}
+.ss-info-r{text-align:right}
+.ss-info-r .time{font-size:10.5px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.08em;margin-bottom:5px}
+.ss-info-r .ss-open{font-size:12px;color:var(--signal);font-weight:600;letter-spacing:.01em;display:inline-flex;align-items:center;gap:4px;transition:all .2s ease}
 .tpl-preview{height:240px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .tpl-mockup{width:78%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;overflow:hidden}
 .tpl-bar{height:18px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;padding:0 8px;gap:4px}
@@ -494,110 +607,152 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
   <div class="tpl-grid">
 
     <a href="template-bufete.html" target="_blank" rel="noopener" class="tpl-card reveal" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
-      <div class="tpl-preview" style="background:linear-gradient(160deg,#FAF8F3 0%,#F4EDDC 100%);overflow:hidden">
-        <div style="width:80%;max-width:240px;background:#FAF8F3;border:1px solid rgba(10,24,40,.1);border-radius:8px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.3)">
-          <div style="height:20px;background:#F4EDDC;display:flex;align-items:center;padding:0 8px;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:rgba(10,24,40,.4)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(10,24,40,.25)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(10,24,40,.15)"></div></div>
-          <div style="padding:14px 12px;display:flex;flex-direction:column;gap:6px"><div style="height:6px;width:35%;background:#C8A35C;border-radius:3px"></div><div style="height:9px;width:75%;background:#0A1828;border-radius:3px"></div><div style="height:5px;width:90%;background:rgba(10,24,40,.15);border-radius:3px"></div><div style="height:5px;width:60%;background:rgba(10,24,40,.15);border-radius:3px"></div><div style="display:flex;gap:5px;margin-top:4px"><div style="height:18px;width:60px;background:#0A1828"></div><div style="height:18px;width:60px;background:transparent;border:1px solid #0A1828"></div></div></div>
+      <div class="ss-shot ss-bf">
+        <span class="ss-badge">En vivo</span>
+        <div class="ss-nav-bar">
+          <div class="b"><div class="m">V</div>Vega &amp; Asociados</div>
+          <div class="l"><span>Práctica</span><span>Equipo</span><span>Casos</span></div>
+          <div class="c">Consulta</div>
+        </div>
+        <div class="ss-hero-area">
+          <div class="ss-hero-img"></div>
+          <div class="ss-hero-ov"></div>
+          <div class="ss-hero-c">
+            <div class="e">Bufete establecido · 1996</div>
+            <div class="t">Asesoría jurídica de criterio.</div>
+            <div class="s">Especializados en derecho corporativo, inmobiliario y patrimonial.</div>
+            <div class="cta">Agendar →</div>
+          </div>
         </div>
       </div>
-      <div class="tpl-info">
-        <div class="tpl-industry">Bufete · Consultora · Firma</div>
-        <h3 class="tpl-name">Vega &amp; Asociados</h3>
-        <p class="tpl-desc">Bufete legal premium. Áreas de práctica, equipo de socios y casos seleccionados con tono de autoridad.</p>
-      </div>
-      <div class="tpl-footer">
-        <span>template-bufete</span>
-        <span class="meta"><span style="color:var(--signal);font-weight:600">Ver en vivo →</span></span>
+      <div class="ss-info">
+        <div class="ss-info-l"><h3>Vega &amp; Asociados</h3><div class="cat">Bufete · Consultora · Firma</div></div>
+        <div class="ss-info-r"><div class="time">2–3 semanas</div><div class="ss-open">Ver en vivo →</div></div>
       </div>
     </a>
 
     <a href="template-restaurante.html" target="_blank" rel="noopener" class="tpl-card reveal" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
-      <div class="tpl-preview" style="background:linear-gradient(160deg,#FAF5EA 0%,#F4EDDF 100%);overflow:hidden">
-        <div style="width:80%;max-width:240px;background:#FAF5EA;border:1px solid rgba(28,47,42,.1);border-radius:8px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.3)">
-          <div style="height:20px;background:#F4EDDF;display:flex;align-items:center;padding:0 8px;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:rgba(28,47,42,.4)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(28,47,42,.25)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(28,47,42,.15)"></div></div>
-          <div style="padding:14px 12px;display:flex;flex-direction:column;gap:6px"><div style="height:5px;width:30%;background:#C49737;border-radius:3px"></div><div style="height:11px;width:80%;background:#1C2F2A;border-radius:3px"></div><div style="height:5px;width:65%;background:rgba(28,47,42,.15);border-radius:3px"></div><div style="display:flex;gap:5px"><div style="height:18px;width:60px;background:#1C2F2A;border-radius:100px"></div><div style="height:18px;width:50px;border:1px solid #1C2F2A;border-radius:100px"></div></div><div style="height:48px;background:radial-gradient(circle at 30% 30%,#FFF8E8,#E8DCC2);border-radius:6px;margin-top:4px"></div></div>
+      <div class="ss-shot ss-rs">
+        <span class="ss-badge">En vivo</span>
+        <div class="ss-nav-bar">
+          <div class="b"><div class="m">⚓</div>Casa Marítima</div>
+          <div class="l"><span>Menú</span><span>Historia</span><span>Visítanos</span></div>
+          <div class="c">Reservar</div>
+        </div>
+        <div class="ss-hero-area">
+          <div class="ss-hero-img"></div>
+          <div class="ss-hero-ov"></div>
+          <div class="ss-hero-c">
+            <div class="e">Cocina panameña · Desde 2008</div>
+            <div class="t">Sabores del Pacífico en mesa <em>del Casco.</em></div>
+            <div class="s">Una carta que cambia con la temporada.</div>
+            <div class="cta">Reservar mesa</div>
+          </div>
         </div>
       </div>
-      <div class="tpl-info">
-        <div class="tpl-industry">Restaurante · Cafetería</div>
-        <h3 class="tpl-name">Casa Marítima</h3>
-        <p class="tpl-desc">Restaurante gastronómico con menú de temporada, sistema de reservas, historia y enlace a WhatsApp.</p>
-      </div>
-      <div class="tpl-footer">
-        <span>template-restaurante</span>
-        <span class="meta"><span style="color:var(--signal);font-weight:600">Ver en vivo →</span></span>
+      <div class="ss-info">
+        <div class="ss-info-l"><h3>Casa Marítima</h3><div class="cat">Restaurante · Cafetería</div></div>
+        <div class="ss-info-r"><div class="time">2–4 semanas</div><div class="ss-open">Ver en vivo →</div></div>
       </div>
     </a>
 
     <a href="template-clinica.html" target="_blank" rel="noopener" class="tpl-card reveal" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
-      <div class="tpl-preview" style="background:linear-gradient(160deg,#FDFBF7 0%,#F5F0E8 100%);overflow:hidden">
-        <div style="width:80%;max-width:240px;background:#FDFBF7;border:1px solid rgba(26,40,37,.08);border-radius:8px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.3)">
-          <div style="height:20px;background:#F5F0E8;display:flex;align-items:center;padding:0 8px;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:rgba(26,40,37,.4)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(26,40,37,.25)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(26,40,37,.15)"></div></div>
-          <div style="padding:14px 12px;display:flex;flex-direction:column;gap:6px"><div style="height:5px;width:25%;background:#35786A;border-radius:3px"></div><div style="height:9px;width:75%;background:#1A2825;border-radius:3px"></div><div style="height:5px;width:90%;background:rgba(26,40,37,.1);border-radius:3px"></div><div style="display:flex;gap:5px"><div style="height:18px;width:60px;background:#35786A;border-radius:100px"></div></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-top:4px"><div style="height:36px;background:rgba(53,120,106,.18);border-radius:5px"></div><div style="height:36px;background:rgba(232,165,147,.22);border-radius:5px"></div><div style="height:36px;background:rgba(212,184,136,.2);border-radius:5px"></div></div></div>
+      <div class="ss-shot ss-cl">
+        <span class="ss-badge">En vivo</span>
+        <div class="ss-nav-bar">
+          <div class="b"><div class="m">+</div>Clínica Aurora</div>
+          <div class="l"><span>Tratamientos</span><span>Doctora</span><span>Pacientes</span></div>
+          <div class="c">Agendar</div>
+        </div>
+        <div class="ss-hero-area">
+          <div class="ss-hero-img"></div>
+          <div class="ss-hero-ov"></div>
+          <div class="ss-hero-c">
+            <div class="e">Aceptando nuevos pacientes</div>
+            <div class="t">Cuidamos tu piel <em>como tú la mereces.</em></div>
+            <div class="s">Estética facial, corporal y odontológica.</div>
+            <div class="cta">Valoración →</div>
+          </div>
         </div>
       </div>
-      <div class="tpl-info">
-        <div class="tpl-industry">Clínica · Médico · Wellness</div>
-        <h3 class="tpl-name">Clínica Aurora</h3>
-        <p class="tpl-desc">Clínica estética con tratamientos categorizados, perfil de doctora y calendario de citas integrado.</p>
-      </div>
-      <div class="tpl-footer">
-        <span>template-clinica</span>
-        <span class="meta"><span style="color:var(--signal);font-weight:600">Ver en vivo →</span></span>
+      <div class="ss-info">
+        <div class="ss-info-l"><h3>Clínica Aurora</h3><div class="cat">Salud · Médico · Wellness</div></div>
+        <div class="ss-info-r"><div class="time">3–5 semanas</div><div class="ss-open">Ver en vivo →</div></div>
       </div>
     </a>
 
     <a href="template-tienda.html" target="_blank" rel="noopener" class="tpl-card reveal" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
-      <div class="tpl-preview" style="background:linear-gradient(160deg,#1F1D24 0%,#17161A 100%);overflow:hidden">
-        <div style="width:80%;max-width:240px;background:#FAF7F1;border:1px solid rgba(23,22,26,.15);border-radius:8px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.4)">
-          <div style="height:20px;background:#17161A;display:flex;align-items:center;padding:0 8px;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:rgba(224,177,74,.6)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(224,177,74,.3)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(224,177,74,.2)"></div></div>
-          <div style="padding:14px 12px;display:flex;flex-direction:column;gap:6px"><div style="height:5px;width:35%;background:#B8862E;border-radius:3px"></div><div style="height:11px;width:75%;background:#17161A;border-radius:3px"></div><div style="display:flex;gap:5px"><div style="height:18px;width:60px;background:#17161A"></div><div style="height:18px;width:50px;border:1px solid #17161A"></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:4px"><div style="height:36px;background:rgba(184,134,46,.15);border-radius:5px"></div><div style="height:36px;background:radial-gradient(circle at 50% 40%,rgba(224,177,74,.4),rgba(184,134,46,.1));border-radius:5px"></div></div></div>
+      <div class="ss-shot ss-sh">
+        <span class="ss-badge">En vivo</span>
+        <div class="ss-nav-bar">
+          <div class="b">A<span class="gold">O</span>  Atelier Oro</div>
+          <div class="l"><span>Colecciones</span><span>Tienda</span><span>Bridal</span></div>
+          <div class="c">CARRITO</div>
+        </div>
+        <div class="ss-hero-area">
+          <div class="ss-hero-img"></div>
+          <div class="ss-hero-ov"></div>
+          <div class="ss-hero-c">
+            <div class="e">Edición primavera · MMXXVI</div>
+            <div class="t">Cada pieza, <em>una historia</em> hecha a mano.</div>
+            <div class="s">Oro 18k recuperado y piedras de origen ético.</div>
+            <div class="cta">Ver colección</div>
+          </div>
         </div>
       </div>
-      <div class="tpl-info">
-        <div class="tpl-industry">E-commerce · Retail</div>
-        <h3 class="tpl-name">Atelier Oro</h3>
-        <p class="tpl-desc">Joyería contemporánea con colecciones, ficha de producto, carrito y pasarela de pago.</p>
-      </div>
-      <div class="tpl-footer">
-        <span>template-tienda</span>
-        <span class="meta"><span style="color:var(--signal);font-weight:600">Ver en vivo →</span></span>
+      <div class="ss-info">
+        <div class="ss-info-l"><h3>Atelier Oro</h3><div class="cat">E-commerce · Retail</div></div>
+        <div class="ss-info-r"><div class="time">4–6 semanas</div><div class="ss-open">Ver en vivo →</div></div>
       </div>
     </a>
 
     <a href="template-inmobiliaria.html" target="_blank" rel="noopener" class="tpl-card reveal" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
-      <div class="tpl-preview" style="background:linear-gradient(160deg,#F8F8F5 0%,#EFEEEA 100%);overflow:hidden">
-        <div style="width:80%;max-width:240px;background:#FAFAF7;border:1px solid rgba(20,35,57,.1);border-radius:8px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.3)">
-          <div style="height:20px;background:#F0EFEB;display:flex;align-items:center;padding:0 8px;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:rgba(20,35,57,.4)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(20,35,57,.25)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(20,35,57,.15)"></div></div>
-          <div style="padding:14px 12px;display:flex;flex-direction:column;gap:6px"><div style="height:5px;width:30%;background:#B87333;border-radius:3px"></div><div style="height:11px;width:70%;background:#142339;border-radius:3px"></div><div style="display:flex;gap:5px"><div style="height:18px;width:60px;background:#142339"></div></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-top:4px"><div style="height:42px;background:linear-gradient(135deg,#2D3E5C,#1A2A42);border-radius:4px;position:relative"></div><div style="height:42px;background:linear-gradient(135deg,#3A4A60,#243348);border-radius:4px"></div><div style="height:42px;background:linear-gradient(135deg,#4A5A6E,#34445A);border-radius:4px"></div></div></div>
+      <div class="ss-shot ss-rl">
+        <span class="ss-badge">En vivo</span>
+        <div class="ss-nav-bar">
+          <div class="b"><div class="m">L</div>Lumina</div>
+          <div class="l"><span>Propiedades</span><span>Servicios</span><span>Equipo</span></div>
+          <div class="c">Vender</div>
+        </div>
+        <div class="ss-hero-area">
+          <div class="ss-hero-img"></div>
+          <div class="ss-hero-ov"></div>
+          <div class="ss-hero-c">
+            <div class="e">Corretaje premium · Panamá</div>
+            <div class="t">Tu próxima <em>dirección.</em></div>
+            <div class="s">Residencias y oficinas selectas en Ciudad de Panamá.</div>
+            <div class="cta">Ver listings</div>
+          </div>
         </div>
       </div>
-      <div class="tpl-info">
-        <div class="tpl-industry">Inmobiliaria · Real Estate</div>
-        <h3 class="tpl-name">Lumina Properties</h3>
-        <p class="tpl-desc">Boutique inmobiliaria con buscador filtrable, listings detallados, broker profile y valuación gratuita.</p>
-      </div>
-      <div class="tpl-footer">
-        <span>template-inmobiliaria</span>
-        <span class="meta"><span style="color:var(--signal);font-weight:600">Ver en vivo →</span></span>
+      <div class="ss-info">
+        <div class="ss-info-l"><h3>Lumina Properties</h3><div class="cat">Inmobiliaria · Real Estate</div></div>
+        <div class="ss-info-r"><div class="time">4–6 semanas</div><div class="ss-open">Ver en vivo →</div></div>
       </div>
     </a>
 
     <a href="template-servicios.html" target="_blank" rel="noopener" class="tpl-card reveal" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
-      <div class="tpl-preview" style="background:linear-gradient(160deg,#262624 0%,#1A1817 100%);overflow:hidden">
-        <div style="width:80%;max-width:240px;background:#F5F2EC;border:1px solid rgba(26,24,23,.15);border-radius:8px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.4)">
-          <div style="height:20px;background:#262624;display:flex;align-items:center;padding:0 8px;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:rgba(241,128,30,.6)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(241,128,30,.3)"></div><div style="width:5px;height:5px;border-radius:50%;background:rgba(241,128,30,.2)"></div></div>
-          <div style="padding:14px 12px;display:flex;flex-direction:column;gap:6px"><div style="height:5px;width:35%;background:#F1801E;border-radius:0"></div><div style="height:11px;width:80%;background:#1A1817;border-radius:0"></div><div style="display:flex;gap:5px"><div style="height:18px;width:60px;background:#F1801E"></div><div style="height:18px;width:50px;border:1.5px solid #1A1817"></div></div><div style="height:48px;background:linear-gradient(180deg,rgba(241,128,30,.04) 0%,rgba(241,128,30,.16) 100%);border:1px solid rgba(241,128,30,.4);display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(3,1fr);gap:2px;padding:3px;margin-top:4px"><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div><div style="background:rgba(255,210,140,.6)"></div><div style="background:rgba(241,128,30,.18)"></div></div></div>
+      <div class="ss-shot ss-sv">
+        <span class="ss-badge">En vivo</span>
+        <div class="ss-nav-bar">
+          <div class="b"><div class="m">V</div>VERIDIAN</div>
+          <div class="l"><span>Servicios</span><span>Proyectos</span><span>Proceso</span></div>
+          <div class="c">Cotizar →</div>
+        </div>
+        <div class="ss-hero-area">
+          <div class="ss-hero-img"></div>
+          <div class="ss-hero-ov"></div>
+          <div class="ss-hero-c">
+            <div class="e">Diseño · Ingeniería · Construcción</div>
+            <div class="t">Construimos donde se queda <strong>vivir.</strong></div>
+            <div class="s">22 años, 187 obras entregadas.</div>
+            <div class="cta">Cotizar obra</div>
+          </div>
         </div>
       </div>
-      <div class="tpl-info">
-        <div class="tpl-industry">Servicios · Constructora · Taller</div>
-        <h3 class="tpl-name">Veridian Construcciones</h3>
-        <p class="tpl-desc">Constructora con servicios categorizados, portafolio de 187 obras, proceso transparente y cotización inicial.</p>
-      </div>
-      <div class="tpl-footer">
-        <span>template-servicios</span>
-        <span class="meta"><span style="color:var(--signal);font-weight:600">Ver en vivo →</span></span>
+      <div class="ss-info">
+        <div class="ss-info-l"><h3>Veridian Construcciones</h3><div class="cat">Constructora · Taller · Servicios</div></div>
+        <div class="ss-info-r"><div class="time">3–5 semanas</div><div class="ss-open">Ver en vivo →</div></div>
       </div>
     </a>
 
@@ -661,9 +816,9 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
         <div class="q-question">¿Qué tipo de proyecto necesitas?</div>
         <div class="q-hint">Elige el que más se parezca. Lo afinamos después.</div>
         <div class="q-options">
-          <button class="q-opt" data-name="ptype" data-val="landing" data-base="200">
+          <button class="q-opt" data-name="ptype" data-val="landing" data-base="250">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Landing page</div><div class="q-opt-desc">Una sola página de alto impacto. Producto, evento o servicio. Desde $200.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Landing page</div><div class="q-opt-desc">Una sola página de alto impacto. Producto, evento o servicio. Desde $250.</div></div>
           </button>
           <button class="q-opt" data-name="ptype" data-val="corporate" data-base="700">
             <div class="q-opt-mark"></div>
@@ -673,13 +828,13 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
             <div class="q-opt-mark"></div>
             <div class="q-opt-content"><div class="q-opt-name">Tienda online</div><div class="q-opt-desc">Catálogo, carrito, pasarela de pago, panel admin. Desde $1,500.</div></div>
           </button>
-          <button class="q-opt" data-name="ptype" data-val="platform" data-base="3500">
+          <button class="q-opt" data-name="ptype" data-val="platform" data-base="3800">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Plataforma / portal</div><div class="q-opt-desc">Software a medida con login, usuarios y lógica de negocio. Desde $3,500.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Plataforma / portal</div><div class="q-opt-desc">Software a medida con login, usuarios y lógica de negocio. Desde $3,800.</div></div>
           </button>
-          <button class="q-opt" data-name="ptype" data-val="dashboard" data-base="2500">
+          <button class="q-opt" data-name="ptype" data-val="dashboard" data-base="3000">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">CRM / Dashboard</div><div class="q-opt-desc">Sistema interno para operar el negocio en tiempo real. Desde $2,500.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">CRM / Dashboard</div><div class="q-opt-desc">Sistema interno para operar el negocio en tiempo real. Desde $3,000.</div></div>
           </button>
           <button class="q-opt" data-name="ptype" data-val="automation" data-base="800">
             <div class="q-opt-mark"></div>
@@ -906,7 +1061,7 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
   <h2 class="sec-title reveal">Todo lo que necesitas <strong>saber.</strong></h2>
 
   <div class="faq-wrap reveal">
-    <div class="faq-item"><button class="faq-q"><span>¿Cuánto cuesta un sitio con DTechLab Studio?</span><span class="faq-ico">+</span></button><div class="faq-a">Depende del alcance. Los rangos típicos: landing simple desde $200, landing con integraciones $500–$1,200. Sitio corporativo $700–$2,500. Tienda online $1,500–$4,500. CRM/Dashboard $2,500–$8,000. Plataforma a medida $3,500–$12,000+. Usa el cotizador para una estimación más precisa según lo que necesites.</div></div>
+    <div class="faq-item"><button class="faq-q"><span>¿Cuánto cuesta un sitio con DTechLab Studio?</span><span class="faq-ico">+</span></button><div class="faq-a">Depende del alcance. Nuestros rangos están calibrados al mercado panameño 2026: landing simple desde <strong>$250</strong> (en mercado: $250–$700). Sitio corporativo <strong>$700–$2,500</strong> (mercado: $600–$1,500). Tienda online <strong>$1,500–$4,500</strong> (mercado: $1,100–$6,500). CRM/Dashboard <strong>$3,000–$8,000</strong> (mercado: $5,000–$15,000). Plataforma a medida <strong>$3,800–$12,000+</strong> (mercado: $5,000–$20,000+). Estamos ligeramente abajo del mercado promedio porque entregamos directo, sin intermediarios. Usa el cotizador para tu rango exacto.</div></div>
     <div class="faq-item"><button class="faq-q"><span>¿Cómo son los pagos?</span><span class="faq-ico">+</span></button><div class="faq-a">50% al firmar el acuerdo (apartas la fecha y empezamos), 50% al entregar el proyecto funcionando. Para proyectos grandes (sobre $6,000) podemos dividir en 3 pagos. Aceptamos transferencia, Yappy, ACH, tarjeta y PayPal.</div></div>
     <div class="faq-item"><button class="faq-q"><span>¿Qué incluye el precio?</span><span class="faq-ico">+</span></button><div class="faq-a">Diseño, desarrollo, integración con tus herramientas actuales, optimización mobile, despliegue en producción, capacitación a tu equipo y 30 días de soporte gratuito post-lanzamiento. NO incluye: dominio propio (~$15/año), hosting mensual si lo necesitas (~$10–20/mes), contenido y fotografías del negocio.</div></div>
     <div class="faq-item"><button class="faq-q"><span>¿En cuánto tiempo está listo?</span><span class="faq-ico">+</span></button><div class="faq-a">Landing pages: 2–3 semanas. Sitios corporativos: 3–5 semanas. E-commerce: 4–6 semanas. Plataformas a medida: 5–10 semanas. La primera versión funcional sale en menos de 21 días desde el inicio.</div></div>
@@ -997,13 +1152,52 @@ window.addEventListener('load',()=>{
   setTimeout(()=>run(0),200);
 });
 
-// ─── HERO ANIMATIONS ───
+// ─── HERO ANIMATIONS · TETRIS LETTER DROP ───
 function animHero(){
   setTimeout(()=>document.getElementById('hero-label').classList.add('in'),100);
-  setTimeout(()=>document.querySelectorAll('.li').forEach(e=>e.classList.add('in')),250);
-  setTimeout(()=>document.getElementById('hero-sub').classList.add('in'),600);
-  setTimeout(()=>document.getElementById('hero-actions').classList.add('in'),750);
-  setTimeout(()=>document.getElementById('hero-meta').classList.add('in'),900);
+  // Setup tetris: split each line into chars, then animate placement
+  tetrisSetup();
+  setTimeout(()=>tetrisPlace(), 280);
+  setTimeout(()=>document.getElementById('hero-sub').classList.add('in'),1500);
+  setTimeout(()=>document.getElementById('hero-actions').classList.add('in'),1650);
+  setTimeout(()=>document.getElementById('hero-meta').classList.add('in'),1800);
+}
+
+function tetrisSetup(){
+  const lis = document.querySelectorAll('.hero-headline .li');
+  // sides where blocks can come from
+  const directions = [
+    { tx: () => (Math.random()-0.5) * 200, ty: () => -350 - Math.random() * 250, rot: () => (Math.random()-0.5) * 60 },  // top
+    { tx: () => -500 - Math.random() * 250, ty: () => (Math.random()-0.5) * 200, rot: () => (Math.random()-0.5) * 70 },  // left
+    { tx: () => 500 + Math.random() * 250, ty: () => (Math.random()-0.5) * 200, rot: () => (Math.random()-0.5) * 70 },   // right
+    { tx: () => (Math.random()-0.5) * 100, ty: () => 350 + Math.random() * 150, rot: () => (Math.random()-0.5) * 40 },   // bottom
+  ];
+  lis.forEach((li, lineIdx) => {
+    const text = li.textContent;
+    li.innerHTML = '';
+    const chars = text.split('');
+    chars.forEach((char, charIdx) => {
+      const span = document.createElement('span');
+      span.className = 'ch';
+      span.textContent = char === ' ' ? ' ' : char;
+      const dir = directions[Math.floor(Math.random() * directions.length)];
+      const tx = dir.tx();
+      const ty = dir.ty();
+      const rot = dir.rot();
+      const scale = 0.6 + Math.random() * 0.6;
+      span.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg) scale(${scale})`;
+      // stagger by line + character
+      const delay = (lineIdx * 0.22) + (charIdx * 0.028);
+      span.style.transitionDelay = delay + 's';
+      li.appendChild(span);
+    });
+  });
+}
+
+function tetrisPlace(){
+  document.querySelectorAll('.hero-headline .li .ch').forEach(ch => {
+    ch.classList.add('placed');
+  });
 }
 
 // ─── NAV SCROLL ───
@@ -1125,8 +1319,8 @@ qBack.addEventListener('click', ()=>{
 
 function calculateAndShow(){
   const subtotal = Q.data.base + Q.data.scopeMod + Q.data.featMod + Q.data.timeMod;
-  // mínimo absoluto $200 + rango +/- 20%
-  const low = Math.max(200, Math.round(subtotal * 0.85 / 50) * 50);
+  // mínimo absoluto $250 + rango +/- 20% (calibrado al mercado panameño 2026)
+  const low = Math.max(250, Math.round(subtotal * 0.85 / 50) * 50);
   const high = Math.max(low + 100, Math.round(subtotal * 1.25 / 50) * 50);
   document.getElementById('qRangeLow').textContent = '$' + low.toLocaleString('en-US');
   document.getElementById('qRangeHigh').textContent = '$' + high.toLocaleString('en-US');
