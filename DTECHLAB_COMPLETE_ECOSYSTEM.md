@@ -4,6 +4,25 @@
 
 ---
 
+## Current Positioning Status
+
+This document describes the broader DTechLab vision. For current commercial communication, the active operating unit is **DTechLab Studio**.
+
+### Current Offer
+- Web Development
+- Web Systems
+- Integrations and Operational Automation
+
+### Roadmap
+- AutoPro
+- Future products
+- Advanced AI
+- SaaS projects
+
+The current offer should not be mixed with the roadmap in sales materials. The roadmap shows strategic direction and technical ambition, not the immediate commercial promise.
+
+---
+
 > *"Businesses are still operating manually. We engineer intelligent systems for modern companies."*
 
 ---
@@ -26,7 +45,7 @@ DTechLab engineers the digital nervous systems of modern businesses — AI-power
 - An AI automation studio
 - A business operating system builder
 - A premium systems integrator
-- A SaaS product house
+- A future product vision separated from the current offer
 
 ### What DTechLab is NOT:
 - A web design agency
@@ -46,7 +65,7 @@ DTechLab engineers the digital nervous systems of modern businesses — AI-power
 | Visual feel | Engineered. Dark. Cinematic. |
 | Emotional register | Confidence through restraint |
 | Energy | High-craft stillness |
-| Reference brands | Linear × SpaceX × Nothing Phone |
+| Reference brands | Linear Ã— SpaceX Ã— Nothing Phone |
 
 ### Brand Vocabulary (words DTechLab uses):
 - Infrastructure / Systems / Architecture
@@ -69,15 +88,15 @@ DTechLab engineers the digital nervous systems of modern businesses — AI-power
 
 ```
 DTECHLAB
-├── DTechLab Studio      → Client-facing premium services
-├── DTechLab Lab         → Experimental + R&D showcase
-├── DTechLab Store       → Digital assets marketplace
-└── DTechLab Products    → SaaS & software ecosystem
-    ├── Orbit           → CRM & relationship intelligence
-    ├── Nexus OS        → Business automation OS
-    ├── Atlas Flow      → Workflow orchestration platform
-    ├── Pulse           → Business analytics + signals
-    └── Meridian        → Client portal system
+â”œ── DTechLab Studio      â†’ Client-facing premium services
+â”œ── DTechLab Lab         â†’ Experimental + R&D showcase
+â”œ── DTechLab Store       â†’ Digital assets marketplace
+â””── DTechLab Products    â†’ future product roadmap
+    â”œ── Orbit           â†’ CRM & relationship intelligence
+    â”œ── Nexus OS        â†’ Business automation OS
+    â”œ── Atlas Flow      â†’ Workflow orchestration platform
+    â”œ── Pulse           â†’ Business analytics + signals
+    â””── Meridian        â†’ Client portal system
 ```
 
 ---
@@ -247,20 +266,20 @@ Three distinct depth layers:
 
 ```
 dtechlab.io/
-├── /                   → Homepage (cinematic entry)
-├── /studio             → DTechLab Studio (services)
-├── /lab                → DTechLab Lab (experiments)
-├── /store              → DTechLab Store (digital assets)
-├── /products           → SaaS products overview
-│   ├── /orbit          → Orbit CRM
-│   ├── /nexus          → Nexus OS
-│   ├── /atlas          → Atlas Flow
-│   ├── /pulse          → Pulse Analytics
-│   └── /meridian       → Meridian Client Portal
-├── /about              → Company / Manifesto
-├── /work               → Case studies / Selected projects
-├── /journal            → Long-form content / system thinking
-└── /contact            → Intake / qualification form
+â”œ── /                   â†’ Homepage (cinematic entry)
+â”œ── /studio             â†’ DTechLab Studio (services)
+â”œ── /lab                â†’ DTechLab Lab (experiments)
+â”œ── /store              â†’ DTechLab Store (digital assets)
+â”œ── /products           â†’ future product roadmap overview
+â”‚   â”œ── /orbit          â†’ Orbit CRM
+â”‚   â”œ── /nexus          â†’ Nexus OS
+â”‚   â”œ── /atlas          â†’ Atlas Flow
+â”‚   â”œ── /pulse          â†’ Pulse Analytics
+â”‚   â””── /meridian       â†’ Meridian Client Portal
+â”œ── /about              â†’ Company / Manifesto
+â”œ── /work               â†’ Case studies / Selected projects
+â”œ── /journal            â†’ Long-form content / system thinking
+â””── /contact            â†’ Intake / qualification form
 ```
 
 ---
@@ -298,7 +317,7 @@ at a different level.
 ```
 
 **CTA Block:**
-- Primary: `Start a project →` (Signal blue, minimal button)
+- Primary: `Start a project â†’` (Signal blue, minimal button)
 - Secondary: `View our work` (ghost/text only)
 
 **Visual:**  
@@ -432,7 +451,7 @@ Behind them: a faint constellation/network diagram connecting them.
 - Pulse — Business signals
 - Meridian — Client portal
 
-**CTA:** `Explore the ecosystem →`
+**CTA:** `Explore the ecosystem â†’`
 
 ---
 
@@ -458,7 +477,7 @@ That's the standard we build to."
 
 ```
 [DISCOVERY]          [ARCHITECTURE]       [ENGINEERING]        [DEPLOYMENT]
-  ↓                        ↓                    ↓                   ↓
+  â†“                        â†“                    â†“                   â†“
 We audit your          We design the        We build with        We deploy,
 existing systems       system blueprint:    precision: AI,       monitor, and
 and map the gaps       data flows,          automation,          iterate — your
@@ -484,7 +503,7 @@ Let's map your systems, identify the gaps,
 and build the architecture that puts you ahead.
 ```
 
-**CTA:** `Request a systems audit →`
+**CTA:** `Request a systems audit â†’`
 
 **Below CTA:** Email + available slots indicator (e.g., `Currently accepting 2 new projects — Q3 2024`)
 
@@ -496,7 +515,7 @@ and build the architecture that puts you ahead.
 **Left:** DTechLab logo + "Digital Systems Company" + copyright  
 **Center:** 4-column nav links (Studio, Lab, Store, Products)  
 **Right:** Contact + Social  
-**Bottom strip:** System status indicator: `All systems operational ●` + build version number + timestamp
+**Bottom strip:** System status indicator: `All systems operational â—` + build version number + timestamp
 
 ---
 
@@ -505,7 +524,7 @@ and build the architecture that puts you ahead.
 ### Desktop Navigation
 - Minimal top bar: Logo left | Links center | CTA right
 - Background: transparent on hero, glass dark on scroll
-- Links: Ghost color, hover → white, active → Signal blue underline
+- Links: Ghost color, hover â†’ white, active â†’ Signal blue underline
 - Navigation items: Studio / Lab / Store / Products / Work / Contact
 - The `/Products` link opens a mega-menu showing all 5 products with mini descriptions
 - No hamburger on desktop. Ever.
@@ -540,7 +559,7 @@ SECONDARY (Ghost):
 
 TEXT LINK:
   Color: Ghost, underline on hover
-  Arrow suffix on CTAs: →
+  Arrow suffix on CTAs: â†’
 
 DESTRUCTIVE:
   Border: 1px solid rgba(249,115,22,0.3)
@@ -597,7 +616,7 @@ SYSTEM TAG:
   Border-radius: 4px
 
 STATUS INDICATOR:
-  Green dot (●) + mono text for operational status
+  Green dot (â—) + mono text for operational status
   Amber dot for degraded
   Red dot for incident
 ```
@@ -659,7 +678,7 @@ Cinematic: 800ms+   (intro sequences, hero reveals)
 ## 5.2 Signature Motion Patterns
 
 **Page Entry (Hero):**  
-Content enters from opacity 0 + translateY(20px) → natural position.  
+Content enters from opacity 0 + translateY(20px) â†’ natural position.  
 Staggered: headline first, sub-copy 80ms later, CTA 80ms after that.  
 Duration: 500ms. Easing: cubic-bezier(0.16, 1, 0.3, 1) — fast out, natural settle.
 
@@ -678,11 +697,11 @@ Background shift is instant (0ms) then refines. Creates a snap feel.
 **Data/dashboard animations:**  
 - Number counters: Roll up from 0 to target value over 800ms when entering viewport
 - Chart lines: Draw from left to right over 600ms, stroke-dashoffset technique
-- Live indicators: Subtle pulse (scale 1.0 → 1.15 → 1.0, 2s loop, opacity 0.6)
+- Live indicators: Subtle pulse (scale 1.0 â†’ 1.15 â†’ 1.0, 2s loop, opacity 0.6)
 
 **Page transitions (if SPA):**  
-Outgoing page: opacity 1 → 0, 150ms.  
-Incoming page: opacity 0 → 1, translateY(8px) → 0, 250ms.  
+Outgoing page: opacity 1 â†’ 0, 150ms.  
+Incoming page: opacity 0 â†’ 1, translateY(8px) â†’ 0, 250ms.  
 Total transition: ~400ms. Feels like changing OS screens.
 
 **The "System Boot" intro:**  
@@ -931,7 +950,7 @@ Examples:
 - Product reveals (Orbit, Nexus, etc.)
 - New client project teasers (no logos, concept-level)
 
-**Visual style:** Raw but polished. Terminal screenshots. Process work. Sketch → execution.
+**Visual style:** Raw but polished. Terminal screenshots. Process work. Sketch â†’ execution.
 
 ---
 
@@ -972,7 +991,7 @@ The Store is not a marketplace. It's a curated collection of premium operational
 
 ### 01. Website Systems
 Full website design systems in Webflow/Framer:
-- SaaS website systems
+- website systems for digital products
 - Agency/studio website systems
 - Product launch templates
 - Portfolio systems (dark, editorial)
@@ -1151,8 +1170,8 @@ Business intelligence AI:
 
 ### Assistant 04: Architect (Consulting tool)
 System design AI used in client discovery:
-- Given a business description → outputs a recommended tech stack
-- Given a process description → outputs an automation architecture
+- Given a business description â†’ outputs a recommended tech stack
+- Given a process description â†’ outputs an automation architecture
 - Used in DTechLab's own sales and discovery process
 - Not public-facing (internal competitive advantage)
 
@@ -1163,33 +1182,33 @@ System design AI used in client discovery:
 ## 12.1 The DTechLab Ecosystem — Complete Architecture
 
 ```
-                            ┌─────────────────────────────────┐
-                            │            DTECHLAB               │
-                            │      Digital Systems Company     │
-                            └────────────┬────────────────────┘
-                                         │
-          ┌──────────────┬───────────────┼───────────────┬──────────────┐
-          │              │               │               │              │
-   ┌──────▼──────┐ ┌─────▼──────┐ ┌─────▼──────┐ ┌─────▼──────┐ ┌────▼──────────┐
-   │   STUDIO    │ │    LAB     │ │   STORE    │ │  PRODUCTS  │ │  INTELLIGENCE │
-   │             │ │            │ │            │ │            │ │               │
-   │Client work  │ │Experiments │ │Digital     │ │SaaS tools  │ │AI systems     │
-   │AI systems   │ │UI concepts │ │assets      │ │for modern  │ │Automation     │
-   │Automation   │ │Innovation  │ │Templates   │ │businesses  │ │integrations   │
-   │Platforms    │ │Showcases   │ │Systems     │ │            │ │               │
-   └─────────────┘ └────────────┘ └────────────┘ └──────┬─────┘ └───────────────┘
-                                                         │
-                            ┌────────────────────────────┴──────────────────────┐
-                            │                                                    │
-                    ┌───────▼──────┐   ┌───────────┐   ┌───────────┐   ┌───────▼──────┐
-                    │    ORBIT     │   │  NEXUS OS │   │ATLAS FLOW │   │    PULSE     │
-                    │ CRM Platform │   │Automation │   │ Workflow  │   │ Intelligence │
-                    └──────────────┘   └───────────┘   └───────────┘   └──────────────┘
-                                               │
-                                       ┌───────▼──────┐
-                                       │   MERIDIAN   │
-                                       │Client Portal │
-                                       └──────────────┘
+                            â”Œ─────────────────────────────────â”
+                            â”‚            DTECHLAB               â”‚
+                            â”‚      Digital Systems Company     â”‚
+                            â””────────────â”¬────────────────────â”˜
+                                         â”‚
+          â”Œ──────────────â”¬───────────────â”¼───────────────â”¬──────────────â”
+          â”‚              â”‚               â”‚               â”‚              â”‚
+   â”Œ──────â–¼──────â” â”Œ─────â–¼──────â” â”Œ─────â–¼──────â” â”Œ─────â–¼──────â” â”Œ────â–¼──────────â”
+   â”‚   STUDIO    â”‚ â”‚    LAB     â”‚ â”‚   STORE    â”‚ â”‚  PRODUCTS  â”‚ â”‚  INTELLIGENCE â”‚
+   â”‚             â”‚ â”‚            â”‚ â”‚            â”‚ â”‚            â”‚ â”‚               â”‚
+   â”‚Client work  â”‚ â”‚Experiments â”‚ â”‚Digital     â”‚ â”‚SaaS tools  â”‚ â”‚AI systems     â”‚
+   â”‚AI systems   â”‚ â”‚UI concepts â”‚ â”‚assets      â”‚ â”‚for modern  â”‚ â”‚Automation     â”‚
+   â”‚Automation   â”‚ â”‚Innovation  â”‚ â”‚Templates   â”‚ â”‚businesses  â”‚ â”‚integrations   â”‚
+   â”‚Platforms    â”‚ â”‚Showcases   â”‚ â”‚Systems     â”‚ â”‚            â”‚ â”‚               â”‚
+   â””─────────────â”˜ â””────────────â”˜ â””────────────â”˜ â””──────â”¬─────â”˜ â””───────────────â”˜
+                                                         â”‚
+                            â”Œ────────────────────────────â”´──────────────────────â”
+                            â”‚                                                    â”‚
+                    â”Œ───────â–¼──────â”   â”Œ───────────â”   â”Œ───────────â”   â”Œ───────â–¼──────â”
+                    â”‚    ORBIT     â”‚   â”‚  NEXUS OS â”‚   â”‚ATLAS FLOW â”‚   â”‚    PULSE     â”‚
+                    â”‚ CRM Platform â”‚   â”‚Automation â”‚   â”‚ Workflow  â”‚   â”‚ Intelligence â”‚
+                    â””──────────────â”˜   â””───────────â”˜   â””───────────â”˜   â””──────────────â”˜
+                                               â”‚
+                                       â”Œ───────â–¼──────â”
+                                       â”‚   MERIDIAN   â”‚
+                                       â”‚Client Portal â”‚
+                                       â””──────────────â”˜
 ```
 
 ---
@@ -1229,7 +1248,7 @@ System design AI used in client discovery:
 
 ### Week 7–8: Studio Operations
 - [ ] Define 3 service packages (pricing, scope, deliverables)
-- [ ] Build intake/contact system (form → CRM → Slack notification)
+- [ ] Build intake/contact system (form â†’ CRM â†’ Slack notification)
 - [ ] Create onboarding system for new clients (Notion + Meridian prototype)
 - [ ] Launch first client acquisition outreach (10 targeted prospects)
 - [ ] Create "Systems Audit" offer (low-barrier entry service, $0–$500)
@@ -1244,7 +1263,7 @@ System design AI used in client discovery:
 ### Week 9–10: Proof & Authority
 - [ ] Complete first 2 client projects (document everything)
 - [ ] Publish first 2 case studies on website
-- [ ] Post 4× per week on Instagram (establish rhythm)
+- [ ] Post 4Ã— per week on Instagram (establish rhythm)
 - [ ] Publish 2 long-form journal pieces (system thinking, not blog posts)
 - [ ] Begin Store: design and launch first 3 digital products
 
@@ -1263,7 +1282,7 @@ System design AI used in client discovery:
 
 | Metric | Day 30 | Day 60 | Day 90 |
 |--------|--------|--------|--------|
-| Website live | ✓ | ✓ | ✓ |
+| Website live | âœ“ | âœ“ | âœ“ |
 | Instagram followers | 50 | 250 | 750 |
 | Studio clients | 0 | 2 | 5 |
 | Store products | 0 | 0 | 5 |
@@ -1326,3 +1345,4 @@ System design AI used in client discovery:
 *Last updated: 2026*
 
 ---
+

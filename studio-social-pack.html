@@ -44,7 +44,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
 .card-label{font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.06em;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px}
 .card-label .badge{display:inline-block;padding:2px 7px;background:rgba(91,106,255,.1);border:1px solid rgba(91,106,255,.25);border-radius:3px;color:var(--ice);font-size:9px;letter-spacing:.1em}
 
-/* ─── PIECE: SQUARE 1080×1080 (IG FEED + WhatsApp) ─── */
+/* ─── PIECE: SQUARE 1080Ã—1080 (IG FEED + WhatsApp) ─── */
 .sq{width:540px;height:540px;border-radius:18px;overflow:hidden;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.55)}
 .sq-grid{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px;pointer-events:none}
 .sq-glow{position:absolute;width:600px;height:600px;border-radius:50%;pointer-events:none}
@@ -114,7 +114,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
 /* PIECE: list */
 .sq-list{display:flex;flex-direction:column;gap:10px;margin:18px 0}
 .sq-list-i{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--fog);font-weight:300}
-.sq-list-i::before{content:'→';color:var(--signal);font-family:'Courier New',monospace;font-weight:500}
+.sq-list-i::before{content:'â†’';color:var(--signal);font-family:'Courier New',monospace;font-weight:500}
 .sq-list-i strong{color:var(--pure);font-weight:600}
 
 /* PIECE: template thumbnail badge */
@@ -130,7 +130,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
 .tpl-serv{background:linear-gradient(160deg,#262624 0%,#1A1817 100%)}
 .tpl-bufete span,.tpl-resto span,.tpl-clinic span,.tpl-real span{color:#0A0A0F}
 
-/* ─── PIECE: STORY 1080×1920 (vertical) ─── */
+/* ─── PIECE: STORY 1080Ã—1920 (vertical) ─── */
 .st{width:340px;height:604px;border-radius:22px;overflow:hidden;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.55);background:var(--void)}
 .st-grid{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:22px 22px;pointer-events:none}
 .st-glow{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(91,106,255,.18) 0%,transparent 60%);pointer-events:none;top:40%;left:50%;transform:translate(-50%,-50%)}
@@ -183,7 +183,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
 /* Reel 2: terminal/typewriter */
 .reel-term{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:24px 22px;text-align:left;width:100%;max-width:280px}
 .reel-term-head{font-size:9.5px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.1em;margin-bottom:14px;text-transform:uppercase;display:flex;justify-content:space-between}
-.reel-term-head span:first-child::before{content:'●  ';color:var(--green)}
+.reel-term-head span:first-child::before{content:'â—  ';color:var(--green)}
 .reel-term-line{font-size:13px;font-family:'Courier New',monospace;color:var(--fog);line-height:1.7;font-weight:400}
 .reel-term-line.muted{color:var(--whisper)}
 .reel-term-line .cursor{display:inline-block;width:8px;height:14px;background:var(--signal);margin-left:2px;vertical-align:middle;animation:cursorBlink 1s infinite}
@@ -242,7 +242,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
 .wa-title em{font-style:normal;color:var(--signal)}
 .wa-list{position:relative;z-index:2;display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
 .wa-i{font-size:13.5px;color:var(--fog);font-weight:300;display:flex;align-items:flex-start;gap:10px;line-height:1.55}
-.wa-i::before{content:'→';color:var(--signal);font-weight:600;flex-shrink:0;font-family:'Courier New',monospace}
+.wa-i::before{content:'â†’';color:var(--signal);font-weight:600;flex-shrink:0;font-family:'Courier New',monospace}
 .wa-i strong{color:var(--pure);font-weight:600}
 .wa-foot{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;padding-top:16px;border-top:1px solid var(--hairline)}
 .wa-foot-l{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--fog);font-weight:500}
@@ -300,18 +300,18 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
 
 <!-- NAV INTERNA -->
 <div class="nav-tabs">
-  <a href="#flyers" class="nt-btn">📱 Flyers <span class="nt-count">10</span></a>
-  <a href="#carruseles" class="nt-btn">📚 Carruseles <span class="nt-count">3</span></a>
-  <a href="#stories" class="nt-btn">📖 Stories <span class="nt-count">6</span></a>
-  <a href="#reels" class="nt-btn">🎬 Reels <span class="nt-count">5</span></a>
-  <a href="#whatsapp" class="nt-btn">💬 WhatsApp <span class="nt-count">4</span></a>
-  <a href="#instrucciones" class="nt-btn">📐 Instrucciones</a>
+  <a href="#flyers" class="nt-btn">ðŸ“± Flyers <span class="nt-count">10</span></a>
+  <a href="#carruseles" class="nt-btn">ðŸ“š Carruseles <span class="nt-count">3</span></a>
+  <a href="#stories" class="nt-btn">ðŸ“– Stories <span class="nt-count">6</span></a>
+  <a href="#reels" class="nt-btn">ðŸŽ¬ Reels <span class="nt-count">5</span></a>
+  <a href="#whatsapp" class="nt-btn">ðŸ’¬ WhatsApp <span class="nt-count">4</span></a>
+  <a href="#instrucciones" class="nt-btn">ðŸ“ Instrucciones</a>
 </div>
 
-<!-- ─── FLYERS IG FEED 1080×1080 ─── -->
+<!-- ─── FLYERS IG FEED 1080Ã—1080 ─── -->
 <section class="sec" id="flyers">
   <div class="sec-head">
-    <div class="sec-name">Flyers cuadrados <small>Instagram feed · Facebook · WhatsApp share · 1080×1080</small></div>
+    <div class="sec-name">Flyers cuadrados <small>Instagram feed · Facebook · WhatsApp share · 1080Ã—1080</small></div>
     <div class="sec-spec">10 variantes</div>
   </div>
   <div class="strip">
@@ -329,11 +329,11 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
             <span class="sq-tag live">Abierto</span>
           </div>
           <div class="sq-center">
-            <div class="sq-eye" style="color:var(--signal)">Lanzamiento · 2026</div>
+            <div class="sq-eye" style="color:var(--signal)">Studio técnico boutique</div>
             <div class="sq-title">Sistemas digitales<br><em>diseñados con precisión.</em></div>
-            <div class="sq-sub">Sitios, plataformas, automatización y software a medida para empresas que operan a un estándar diferente.</div>
+            <div class="sq-sub">Sitios web profesionales, sistemas web e integraciones operativas para negocios que necesitan una base digital seria y funcional.</div>
           </div>
-          <div class="sq-bottom"><div class="sq-cta">Cotizar mi proyecto →</div><div class="sq-url">dtechlab.io/studio</div></div>
+          <div class="sq-bottom"><div class="sq-cta">Cotizar mi proyecto â†’</div><div class="sq-url">dtechlab.io/studio</div></div>
         </div>
       </div>
       <div class="card-label">flyer-01 <span class="badge">Anuncio</span></div>
@@ -356,13 +356,13 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
             <div class="sq-title">Estima tu proyecto<br><em>en 60 segundos.</em></div>
             <div class="sq-sub">5 preguntas. Rango de inversión y tiempo estimado al instante. Sin formularios eternos.</div>
           </div>
-          <div class="sq-bottom"><div class="sq-cta">Probar ahora →</div><div class="sq-url">dtechlab.io/studio#cotizador</div></div>
+          <div class="sq-bottom"><div class="sq-cta">Probar ahora â†’</div><div class="sq-url">dtechlab.io/studio#cotizador</div></div>
         </div>
       </div>
       <div class="card-label">flyer-02 <span class="badge">Cotizador</span></div>
     </div>
 
-    <!-- 03: Precios desde $200 -->
+    <!-- 03: Precios desde $350 -->
     <div class="card">
       <div class="sq dark">
         <div class="sq-grid"></div><div class="sq-glow"></div>
@@ -380,13 +380,13 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
           </div>
           <div class="sq-price">
             <div class="sq-price-label">Desde</div>
-            <div class="sq-price-val">$<span>250</span></div>
-            <div class="sq-price-sub">Incluye diseño + desarrollo + hosting setup<br>+ 30 días de soporte gratis</div>
+            <div class="sq-price-val">$<span>350</span></div>
+            <div class="sq-price-sub">Alcance definido + diseño + desarrollo<br>+ publicación profesional</div>
           </div>
-          <div class="sq-bottom"><div class="sq-cta">Cotizar →</div><div class="sq-url">dtechlab.io/studio</div></div>
+          <div class="sq-bottom"><div class="sq-cta">Cotizar â†’</div><div class="sq-url">dtechlab.io/studio</div></div>
         </div>
       </div>
-      <div class="card-label">flyer-03 <span class="badge">Precio entrada</span></div>
+      <div class="card-label">flyer-03 <span class="badge">Rango inicial</span></div>
     </div>
 
     <!-- 04: Templates en vivo -->
@@ -413,7 +413,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
             <div class="sq-tpl-thumb tpl-real"><span>Inmobiliaria</span></div>
             <div class="sq-tpl-thumb tpl-serv"><span>Servicios</span></div>
           </div>
-          <div class="sq-bottom"><div class="sq-cta">Ver galería →</div><div class="sq-url">dtechlab.io/studio#templates</div></div>
+          <div class="sq-bottom"><div class="sq-cta">Ver galería â†’</div><div class="sq-url">dtechlab.io/studio#templates</div></div>
         </div>
       </div>
       <div class="card-label">flyer-04 <span class="badge">Templates</span></div>
@@ -440,7 +440,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
             <div class="sq-list-i"><strong>Sistemas web</strong> · reservas, paneles y portales</div>
             <div class="sq-list-i"><strong>Integraciones</strong> · formularios, Sheets, email y WhatsApp</div>
           </div>
-          <div class="sq-bottom"><div class="sq-cta">Ver servicios →</div><div class="sq-url">dtechlab.io/studio</div></div>
+          <div class="sq-bottom"><div class="sq-cta">Ver servicios â†’</div><div class="sq-url">dtechlab.io/studio</div></div>
         </div>
       </div>
       <div class="card-label">flyer-05 <span class="badge">3 servicios</span></div>
@@ -464,7 +464,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
             <div class="sq-title" style="font-size:28px;text-align:center">Primera versión <em>en vivo.</em></div>
             <div class="sq-sub" style="text-align:center;margin:0 auto">Para landings y webs de alcance claro. Primero publicamos una base funcional.</div>
           </div>
-          <div class="sq-bottom"><div class="sq-cta">Empezar ahora →</div><div class="sq-url">dtechlab.io/studio</div></div>
+          <div class="sq-bottom"><div class="sq-cta">Empezar ahora â†’</div><div class="sq-url">dtechlab.io/studio</div></div>
         </div>
       </div>
       <div class="card-label">flyer-06 <span class="badge">21 días</span></div>
@@ -491,7 +491,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
             <div style="font-size:11px;color:rgba(255,255,255,.85);letter-spacing:.14em;text-transform:uppercase;font-family:'Courier New',monospace;margin-bottom:6px">WhatsApp directo</div>
             <div style="font-family:'Courier New',monospace;font-size:34px;font-weight:600;color:#fff;letter-spacing:-.02em">+507 6983-7286</div>
           </div>
-          <div class="sq-bottom"><div class="sq-cta" style="background:#25D366">Abrir chat →</div><div class="sq-url">wa.me/50769837286</div></div>
+          <div class="sq-bottom"><div class="sq-cta" style="background:#25D366">Abrir chat â†’</div><div class="sq-url">wa.me/50769837286</div></div>
         </div>
       </div>
       <div class="card-label">flyer-07 <span class="badge">WhatsApp</span></div>
@@ -514,7 +514,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
             <div class="sq-title" style="font-size:38px">¿Tu negocio necesita <em>una web más clara?</em></div>
             <div class="sq-sub">Revisamos qué necesitas hoy: landing, web profesional, sistema simple o integración básica.</div>
           </div>
-          <div class="sq-bottom"><div class="sq-cta">Cotizar proyecto →</div><div class="sq-url">dtechlab.io/studio</div></div>
+          <div class="sq-bottom"><div class="sq-cta">Cotizar proyecto â†’</div><div class="sq-url">dtechlab.io/studio</div></div>
         </div>
       </div>
       <div class="card-label">flyer-08 <span class="badge">Diagnóstico</span></div>
@@ -545,7 +545,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
       <div class="card-label">flyer-09 <span class="badge">Manifesto · light</span></div>
     </div>
 
-    <!-- 10: Promo lanzamiento -->
+    <!-- 10: Autoridad -->
     <div class="card">
       <div class="sq dark">
         <div class="sq-grid"></div><div class="sq-glow"></div>
@@ -555,21 +555,21 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
               <svg viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
               <span class="sq-brand-name">DTechLab Studio</span>
             </div>
-            <span class="sq-tag live">Promo lanzamiento</span>
+            <span class="sq-tag live">Criterio técnico</span>
           </div>
           <div class="sq-center">
-            <div class="sq-eye" style="color:var(--coral)">Solo este mes</div>
-            <div class="sq-title">Primeros<br><em>3 clientes:</em></div>
+            <div class="sq-eye" style="color:var(--coral)">Antes de construir</div>
+            <div class="sq-title">Alcance claro.<br><em>Entrega funcional.</em></div>
           </div>
           <div class="sq-list">
-            <div class="sq-list-i"><strong>10% descuento</strong> en proyecto inicial</div>
-            <div class="sq-list-i"><strong>Diagnóstico gratuito</strong> antes de cotizar</div>
-            <div class="sq-list-i"><strong>60 días</strong> de soporte (en vez de 30)</div>
+            <div class="sq-list-i"><strong>Diagnóstico inicial</strong> para entender el problema</div>
+            <div class="sq-list-i"><strong>Propuesta cerrada</strong> con alcance, tiempos y exclusiones</div>
+            <div class="sq-list-i"><strong>Implementación profesional</strong> sin inflar el proyecto</div>
           </div>
-          <div class="sq-bottom"><div class="sq-cta">Aplicar ahora →</div><div class="sq-url">+507 6983-7286</div></div>
+          <div class="sq-bottom"><div class="sq-cta">Conversar proyecto â†’</div><div class="sq-url">+507 6983-7286</div></div>
         </div>
       </div>
-      <div class="card-label">flyer-10 <span class="badge">Promo</span></div>
+      <div class="card-label">flyer-10 <span class="badge">Autoridad</span></div>
     </div>
 
   </div>
@@ -578,7 +578,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
 <!-- ─── CARRUSELES ─── -->
 <section class="sec" id="carruseles">
   <div class="sec-head">
-    <div class="sec-name">Carruseles Instagram <small>Sube los slides en orden · 1080×1350 (4:5)</small></div>
+    <div class="sec-name">Carruseles Instagram <small>Sube los slides en orden · 1080Ã—1350 (4:5)</small></div>
     <div class="sec-spec">3 carruseles educativos</div>
   </div>
 
@@ -597,7 +597,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
             </div>
             <div class="sq-eye" style="color:var(--signal)">Qué ofrecemos</div>
             <div class="sq-title" style="font-size:40px;margin-top:10px">5 disciplinas<br>para <em>operar mejor.</em></div>
-            <div style="margin-top:auto;display:flex;align-items:center;gap:8px;font-family:'Courier New',monospace;font-size:11px;color:var(--signal);letter-spacing:.14em">DESLIZA →</div>
+            <div style="margin-top:auto;display:flex;align-items:center;gap:8px;font-family:'Courier New',monospace;font-size:11px;color:var(--signal);letter-spacing:.14em">DESLIZA â†’</div>
           </div>
         </div>
         <div class="card-label">A.1 <span class="badge">Portada</span></div>
@@ -611,10 +611,10 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
             <div class="sq-top"><div class="sq-brand"><span style="font-family:'Courier New',monospace;font-size:11px;color:var(--whisper);letter-spacing:.14em">01 / 05</span></div><span class="sq-tag">Studio</span></div>
             <div class="sq-center">
               <div class="sq-eye" style="color:var(--signal)">Disciplina 1</div>
-              <div class="sq-title" style="font-size:38px">Sitios y<br><em>plataformas web.</em></div>
-              <div class="sq-sub" style="margin-top:8px">Landing pages, sitios corporativos, e-commerce y plataformas a medida. Diseño propio + código real.</div>
+              <div class="sq-title" style="font-size:38px">Sitios y<br><em>sistemas web.</em></div>
+              <div class="sq-sub" style="margin-top:8px">Landing pages, sitios corporativos, e-commerce básico y sistemas web por alcance. Diseño propio + código real.</div>
             </div>
-            <div style="font-family:'Courier New',monospace;font-size:11px;color:var(--ice);letter-spacing:.1em;text-transform:uppercase">Desde $200 · 2–6 semanas</div>
+            <div style="font-family:'Courier New',monospace;font-size:11px;color:var(--ice);letter-spacing:.1em;text-transform:uppercase">Desde $350 · 2–6 semanas</div>
           </div>
         </div>
         <div class="card-label">A.2 <span class="badge">Web</span></div>
@@ -628,13 +628,13 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
             <div class="sq-top"><div class="sq-brand"><span style="font-family:'Courier New',monospace;font-size:11px;color:var(--whisper);letter-spacing:.14em">02 / 05</span></div><span class="sq-tag" style="color:var(--arc);border-color:rgba(34,211,238,.3)">Studio</span></div>
             <div class="sq-center">
               <div class="sq-eye">Disciplina 2</div>
-              <div class="sq-title" style="font-size:38px">Integraciones<br><em>simples.</em></div>
+              <div class="sq-title" style="font-size:38px">Integraciones<br><em>operativas.</em></div>
               <div class="sq-sub" style="margin-top:8px">Conectamos formularios, correo, Google Sheets, calendario y WhatsApp para ordenar solicitudes sin copiar datos a mano.</div>
             </div>
-            <div style="font-family:'Courier New',monospace;font-size:11px;color:var(--arc);letter-spacing:.1em;text-transform:uppercase">Desde $300 · según alcance</div>
+            <div style="font-family:'Courier New',monospace;font-size:11px;color:var(--arc);letter-spacing:.1em;text-transform:uppercase">Desde $400 · según alcance</div>
           </div>
         </div>
-        <div class="card-label">A.3 <span class="badge">Automatización</span></div>
+        <div class="card-label">A.3 <span class="badge">Integraciones</span></div>
       </div>
 
       <!-- Slide 4: cta final -->
@@ -648,7 +648,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
               <div class="sq-title" style="font-size:40px">Cotiza tu proyecto<br><em>en 60 segundos.</em></div>
               <div class="sq-sub" style="margin-top:8px">Sin formulario eterno. Rango de inversión al instante.</div>
             </div>
-            <div class="sq-bottom"><div class="sq-cta">dtechlab.io/studio →</div><div class="sq-url">+507 6983-7286</div></div>
+            <div class="sq-bottom"><div class="sq-cta">dtechlab.io/studio â†’</div><div class="sq-url">+507 6983-7286</div></div>
           </div>
         </div>
         <div class="card-label">A.4 <span class="badge">CTA final</span></div>
@@ -668,7 +668,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
             <div class="sq-brand" style="margin-bottom:24px"><svg viewBox="0 0 32 32" fill="none" width="28" height="28"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#8B5CF6" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#8B5CF6"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(139,92,246,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(139,92,246,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#8B5CF6"/></svg><span class="sq-brand-name" style="font-size:16px">DTechLab Studio</span></div>
             <div class="sq-eye">Precios reales · Panamá 2026</div>
             <div class="sq-title" style="font-size:42px;margin-top:10px">¿Cuánto cuesta<br>una web <em>profesional?</em></div>
-            <div style="margin-top:auto;display:flex;align-items:center;gap:8px;font-family:'Courier New',monospace;font-size:11px;color:var(--plasma);letter-spacing:.14em">DESLIZA PARA VER →</div>
+            <div style="margin-top:auto;display:flex;align-items:center;gap:8px;font-family:'Courier New',monospace;font-size:11px;color:var(--plasma);letter-spacing:.14em">DESLIZA PARA VER â†’</div>
           </div>
         </div>
         <div class="card-label">B.1 <span class="badge">Portada</span></div>
@@ -680,10 +680,10 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
           <div class="sq-content">
             <div class="sq-top"><div class="sq-brand"><span style="font-family:'Courier New',monospace;font-size:11px;color:var(--whisper);letter-spacing:.14em">2 / 3</span></div><span class="sq-tag">Rangos</span></div>
             <div style="display:flex;flex-direction:column;gap:12px;margin:14px 0">
-              <div style="display:flex;justify-content:space-between;padding:14px 18px;background:rgba(91,106,255,.06);border:1px solid rgba(91,106,255,.2);border-radius:10px"><div><div style="font-size:13px;color:var(--pure);font-weight:600">Landing Starter</div><div style="font-size:11px;color:var(--ghost);margin-top:2px">1 página + WhatsApp</div></div><div style="font-family:'Courier New',monospace;font-size:18px;color:var(--signal);font-weight:600">$250–$350</div></div>
-              <div style="display:flex;justify-content:space-between;padding:14px 18px;background:rgba(91,106,255,.06);border:1px solid rgba(91,106,255,.2);border-radius:10px"><div><div style="font-size:13px;color:var(--pure);font-weight:600">Web Profesional</div><div style="font-size:11px;color:var(--ghost);margin-top:2px">Hasta 5 páginas</div></div><div style="font-family:'Courier New',monospace;font-size:18px;color:var(--signal);font-weight:600">$500–$900</div></div>
-              <div style="display:flex;justify-content:space-between;padding:14px 18px;background:rgba(91,106,255,.06);border:1px solid rgba(91,106,255,.2);border-radius:10px"><div><div style="font-size:13px;color:var(--pure);font-weight:600">Sistema Web</div><div style="font-size:11px;color:var(--ghost);margin-top:2px">Reservas, panel o portal</div></div><div style="font-family:'Courier New',monospace;font-size:18px;color:var(--signal);font-weight:600">desde $1,200</div></div>
-              <div style="display:flex;justify-content:space-between;padding:14px 18px;background:rgba(91,106,255,.06);border:1px solid rgba(91,106,255,.2);border-radius:10px"><div><div style="font-size:13px;color:var(--pure);font-weight:600">Automatización Simple</div><div style="font-size:11px;color:var(--ghost);margin-top:2px">Formularios e integraciones</div></div><div style="font-family:'Courier New',monospace;font-size:18px;color:var(--signal);font-weight:600">desde $300</div></div>
+              <div style="display:flex;justify-content:space-between;padding:14px 18px;background:rgba(91,106,255,.06);border:1px solid rgba(91,106,255,.2);border-radius:10px"><div><div style="font-size:13px;color:var(--pure);font-weight:600">Landing Starter</div><div style="font-size:11px;color:var(--ghost);margin-top:2px">1 página + WhatsApp</div></div><div style="font-family:'Courier New',monospace;font-size:18px;color:var(--signal);font-weight:600">desde $350</div></div>
+              <div style="display:flex;justify-content:space-between;padding:14px 18px;background:rgba(91,106,255,.06);border:1px solid rgba(91,106,255,.2);border-radius:10px"><div><div style="font-size:13px;color:var(--pure);font-weight:600">Web Profesional</div><div style="font-size:11px;color:var(--ghost);margin-top:2px">Hasta 5 páginas</div></div><div style="font-family:'Courier New',monospace;font-size:18px;color:var(--signal);font-weight:600">desde $750</div></div>
+              <div style="display:flex;justify-content:space-between;padding:14px 18px;background:rgba(91,106,255,.06);border:1px solid rgba(91,106,255,.2);border-radius:10px"><div><div style="font-size:13px;color:var(--pure);font-weight:600">Sistema Web</div><div style="font-size:11px;color:var(--ghost);margin-top:2px">Reservas, panel o portal</div></div><div style="font-family:'Courier New',monospace;font-size:18px;color:var(--signal);font-weight:600">desde $1,500</div></div>
+              <div style="display:flex;justify-content:space-between;padding:14px 18px;background:rgba(91,106,255,.06);border:1px solid rgba(91,106,255,.2);border-radius:10px"><div><div style="font-size:13px;color:var(--pure);font-weight:600">Integraciones y Automatización Operativa</div><div style="font-size:11px;color:var(--ghost);margin-top:2px">Formularios e integraciones</div></div><div style="font-family:'Courier New',monospace;font-size:18px;color:var(--signal);font-weight:600">desde $400</div></div>
             </div>
             <div style="font-family:'Courier New',monospace;font-size:11px;color:var(--whisper);letter-spacing:.06em">* Precios DTechLab Studio en Panamá</div>
           </div>
@@ -701,7 +701,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
               <div class="sq-title" style="font-size:38px">Tu precio <em>exacto,</em><br>en 60 segundos.</div>
               <div class="sq-sub" style="margin-top:8px">Responde 5 preguntas y obtén un rango personalizado para tu proyecto.</div>
             </div>
-            <div class="sq-bottom"><div class="sq-cta">Probar el cotizador →</div><div class="sq-url">dtechlab.io/studio</div></div>
+            <div class="sq-bottom"><div class="sq-cta">Probar el cotizador â†’</div><div class="sq-url">dtechlab.io/studio</div></div>
           </div>
         </div>
         <div class="card-label">B.3 <span class="badge">CTA</span></div>
@@ -713,7 +713,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
 <!-- ─── STORIES ─── -->
 <section class="sec" id="stories">
   <div class="sec-head">
-    <div class="sec-name">Stories verticales <small>Instagram Stories · WhatsApp Status · TikTok · 1080×1920</small></div>
+    <div class="sec-name">Stories verticales <small>Instagram Stories · WhatsApp Status · TikTok · 1080Ã—1920</small></div>
     <div class="sec-spec">6 variantes</div>
   </div>
   <div class="strip">
@@ -725,7 +725,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
         <div class="st-content">
           <div>
             <div class="st-brand"><svg viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg><span>DTechLab Studio</span></div>
-            <div class="st-eye">Lanzamiento · 2026</div>
+            <div class="st-eye">Studio técnico boutique</div>
             <div class="st-title">Sistemas digitales<br><em>para empresas que operan diferente.</em></div>
           </div>
           <div class="st-bottom">
@@ -780,25 +780,25 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
       <div class="card-label">story-03 <span class="badge">Engagement</span></div>
     </div>
 
-    <!-- Story 4: promo -->
+    <!-- Story 4: autoridad -->
     <div class="card">
       <div class="st gold">
         <div class="st-grid"></div><div class="st-glow"></div>
         <div class="st-content">
           <div>
             <div class="st-brand"><svg viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#F59E0B" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#F59E0B"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(245,158,11,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(245,158,11,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#F59E0B"/></svg><span>DTechLab Studio</span></div>
-            <div class="st-eye">Promo lanzamiento</div>
-            <div class="st-title">Primeros<br><em>3 clientes</em><br>del mes.</div>
-            <div class="st-sub" style="margin-top:14px">10% off + 60 días de soporte. Solo este mes.</div>
+            <div class="st-eye">Criterio técnico</div>
+            <div class="st-title">Antes de construir,<br><em>cerramos el alcance.</em></div>
+            <div class="st-sub" style="margin-top:14px">Menos improvisación. Más claridad, tiempos definidos y entrega funcional.</div>
           </div>
           <div class="st-bottom">
-            <div class="st-bottom-arr">Aplicar a la promo</div>
+            <div class="st-bottom-arr">Conversar proyecto</div>
             <div class="st-bottom-cta">+507 6983-7286</div>
             <div class="st-bottom-link">dtechlab.io/studio</div>
           </div>
         </div>
       </div>
-      <div class="card-label">story-04 <span class="badge">Promo</span></div>
+      <div class="card-label">story-04 <span class="badge">Autoridad</span></div>
     </div>
 
     <!-- Story 5: templates -->
@@ -836,10 +836,10 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
             <div class="st-brand" style="margin-bottom:36px"><svg viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#22D3EE" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#22D3EE"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(34,211,238,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(34,211,238,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#22D3EE"/></svg><span>DTechLab Studio</span></div>
             <div class="st-eye">Tabla de precios</div>
             <div style="display:flex;flex-direction:column;gap:14px;margin-top:24px">
-              <div><div style="font-size:11px;color:#7A8278;font-family:'Courier New',monospace;letter-spacing:.06em">LANDING STARTER</div><div style="font-family:'Courier New',monospace;font-size:24px;color:var(--arc);font-weight:600">$250 – $350</div></div>
-              <div><div style="font-size:11px;color:#7A8278;font-family:'Courier New',monospace;letter-spacing:.06em">WEB PROFESIONAL</div><div style="font-family:'Courier New',monospace;font-size:24px;color:var(--arc);font-weight:600">$500 – $900</div></div>
-              <div><div style="font-size:11px;color:#7A8278;font-family:'Courier New',monospace;letter-spacing:.06em">SISTEMA WEB</div><div style="font-family:'Courier New',monospace;font-size:24px;color:var(--arc);font-weight:600">desde $1,200</div></div>
-              <div><div style="font-size:11px;color:#7A8278;font-family:'Courier New',monospace;letter-spacing:.06em">AUTOMATIZACIÓN SIMPLE</div><div style="font-family:'Courier New',monospace;font-size:24px;color:var(--arc);font-weight:600">desde $300</div></div>
+              <div><div style="font-size:11px;color:#7A8278;font-family:'Courier New',monospace;letter-spacing:.06em">LANDING STARTER</div><div style="font-family:'Courier New',monospace;font-size:24px;color:var(--arc);font-weight:600">desde $350</div></div>
+              <div><div style="font-size:11px;color:#7A8278;font-family:'Courier New',monospace;letter-spacing:.06em">WEB PROFESIONAL</div><div style="font-family:'Courier New',monospace;font-size:24px;color:var(--arc);font-weight:600">desde $750</div></div>
+              <div><div style="font-size:11px;color:#7A8278;font-family:'Courier New',monospace;letter-spacing:.06em">SISTEMA WEB</div><div style="font-family:'Courier New',monospace;font-size:24px;color:var(--arc);font-weight:600">desde $1,500</div></div>
+              <div><div style="font-size:11px;color:#7A8278;font-family:'Courier New',monospace;letter-spacing:.06em">INTEGRACIONES OPERATIVAS</div><div style="font-family:'Courier New',monospace;font-size:24px;color:var(--arc);font-weight:600">desde $400</div></div>
             </div>
           </div>
           <div class="st-bottom" style="margin-top:auto">
@@ -857,7 +857,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
 <!-- ─── REELS ─── -->
 <section class="sec" id="reels">
   <div class="sec-head">
-    <div class="sec-name">Reels animados <small>TikTok · Instagram Reels · 1080×1920 · grabar pantalla mientras se reproduce</small></div>
+    <div class="sec-name">Reels animados <small>TikTok · Instagram Reels · 1080Ã—1920 · grabar pantalla mientras se reproduce</small></div>
     <div class="sec-spec">5 reels — todos con animación CSS real</div>
   </div>
   <div class="strip">
@@ -890,11 +890,11 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
           <div class="reel-term">
             <div class="reel-term-head"><span>dtechlab.cli</span><span>v1.0</span></div>
             <div class="reel-term-line muted">$ studio --new-project</div>
-            <div class="reel-term-line"><span class="green">▸</span> Initializing client space…</div>
-            <div class="reel-term-line"><span class="green">▸</span> Architecture: <span class="arc">cinematographic</span></div>
-            <div class="reel-term-line"><span class="green">▸</span> Stack: <span class="gold">production-grade</span></div>
-            <div class="reel-term-line"><span class="green">▸</span> Timeline: <span class="arc">21 days</span></div>
-            <div class="reel-term-line"><span class="green">✓</span> Ready to build<span class="cursor"></span></div>
+            <div class="reel-term-line"><span class="green">â–¸</span> Initializing client space…</div>
+            <div class="reel-term-line"><span class="green">â–¸</span> Architecture: <span class="arc">cinematographic</span></div>
+            <div class="reel-term-line"><span class="green">â–¸</span> Stack: <span class="gold">production-grade</span></div>
+            <div class="reel-term-line"><span class="green">â–¸</span> Timeline: <span class="arc">21 days</span></div>
+            <div class="reel-term-line"><span class="green">âœ“</span> Ready to build<span class="cursor"></span></div>
           </div>
         </div>
         <div class="reel-brand-mini">
@@ -970,7 +970,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
 <!-- ─── WHATSAPP CARDS ─── -->
 <section class="sec" id="whatsapp">
   <div class="sec-head">
-    <div class="sec-name">Tarjetas WhatsApp <small>Para compartir en chats, status, grupos · 1080×1080</small></div>
+    <div class="sec-name">Tarjetas WhatsApp <small>Para compartir en chats, status, grupos · 1080Ã—1080</small></div>
     <div class="sec-spec">4 variantes · texto-pesado para legibilidad en chat</div>
   </div>
   <div class="strip">
@@ -987,10 +987,10 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
           <div class="wa-eye">Qué ofrecemos</div>
           <div class="wa-title">Páginas y sistemas web para negocios <strong>en Panamá y Latam.</strong></div>
           <div class="wa-list">
-            <div class="wa-i">Landing Starter <strong>$250–$350</strong></div>
-            <div class="wa-i">Web Profesional <strong>$500–$900</strong></div>
-            <div class="wa-i">Sistema Web <strong>desde $1,200</strong></div>
-            <div class="wa-i">Automatización Simple <strong>desde $300</strong></div>
+            <div class="wa-i">Landing Starter <strong>desde $350</strong></div>
+            <div class="wa-i">Web Profesional <strong>desde $750</strong></div>
+            <div class="wa-i">Sistema Web <strong>desde $1,500</strong></div>
+            <div class="wa-i">Integraciones Operativas <strong>desde $400</strong></div>
             <div class="wa-i">Proyecto Personalizado según alcance</div>
           </div>
         </div>
@@ -1020,7 +1020,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
           </div>
         </div>
         <div class="wa-foot">
-          <div class="wa-foot-l">→ dtechlab.io/studio</div>
+          <div class="wa-foot-l">â†’ dtechlab.io/studio</div>
           <div class="wa-foot-r">WhatsApp<br>+507 6983-7286</div>
         </div>
       </div>
@@ -1048,7 +1048,7 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
           </div>
         </div>
         <div class="wa-foot">
-          <div class="wa-foot-l">Galería completa →</div>
+          <div class="wa-foot-l">Galería completa â†’</div>
           <div class="wa-foot-r">dtechlab.io/studio<br>#templates</div>
         </div>
       </div>
@@ -1088,17 +1088,17 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
     <div class="sec-spec">4 pasos</div>
   </div>
   <div class="instructions">
-    <div class="instr-t">📐 Workflow recomendado</div>
+    <div class="instr-t">ðŸ“ Workflow recomendado</div>
     <div class="instr-grid">
       <div class="instr">
         <div class="instr-num">01 · IG FEED &amp; WHATSAPP</div>
         <div class="instr-tit">Captura 1:1</div>
-        <div class="instr-d">Win+Shift+S (recorte rápido). Encuadra el cuadrado, captura, súbelo a IG o WA. Para resolución 1080×1080 real, hace zoom al navegador (100% o más).</div>
+        <div class="instr-d">Win+Shift+S (recorte rápido). Encuadra el cuadrado, captura, súbelo a IG o WA. Para resolución 1080Ã—1080 real, hace zoom al navegador (100% o más).</div>
       </div>
       <div class="instr">
         <div class="instr-num">02 · STORIES &amp; TIKTOK</div>
         <div class="instr-tit">Captura 9:16</div>
-        <div class="instr-d">Igual al anterior pero capturando el rectángulo vertical. Tamaño nativo: 1080×1920. Si tu pantalla no es tan alta, usa zoom 80% del navegador.</div>
+        <div class="instr-d">Igual al anterior pero capturando el rectángulo vertical. Tamaño nativo: 1080Ã—1920. Si tu pantalla no es tan alta, usa zoom 80% del navegador.</div>
       </div>
       <div class="instr">
         <div class="instr-num">03 · REELS ANIMADOS</div>
@@ -1112,10 +1112,11 @@ body{background:#0F0F18;color:var(--fog);font-family:'Inter',sans-serif;-webkit-
       </div>
     </div>
     <div style="margin-top:24px;padding:18px;background:rgba(91,106,255,.05);border:1px solid rgba(91,106,255,.2);border-radius:10px;font-size:13px;color:var(--ice);line-height:1.7">
-      💡 <strong>Tip pro:</strong> Para tener piezas de mayor calidad sin capturar, puedes imprimir cualquier sección desde el menú del navegador y exportar a PDF — la maquetación se preserva en vectorial.
+      ðŸ’¡ <strong>Tip pro:</strong> Para tener piezas de mayor calidad sin capturar, puedes imprimir cualquier sección desde el menú del navegador y exportar a PDF — la maquetación se preserva en vectorial.
     </div>
   </div>
 </section>
 
 </body>
 </html>
+

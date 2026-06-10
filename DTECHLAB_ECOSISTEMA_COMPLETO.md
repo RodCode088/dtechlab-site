@@ -4,6 +4,25 @@
 
 ---
 
+## Estado de posicionamiento actual
+
+Este documento describe una visión amplia de DTechLab. Para comunicación comercial actual, la unidad operativa es **DTechLab Studio**.
+
+### Oferta actual
+- Desarrollo Web
+- Sistemas Web
+- Integraciones y Automatización Operativa
+
+### Roadmap
+- AutoPro
+- Productos futuros
+- IA avanzada
+- Proyectos SaaS
+
+La oferta actual no debe mezclarse con el roadmap en materiales de venta. El roadmap sirve como dirección estratégica y evidencia de ambición técnica, no como promesa comercial inmediata.
+
+---
+
 > *"Las empresas siguen operando de forma manual. Nosotros diseñamos sistemas inteligentes para empresas modernas."*
 
 ---
@@ -26,7 +45,7 @@ DTechLab diseña los sistemas nerviosos digitales de las empresas modernas — i
 - Un estudio de automatización con IA
 - Un constructor de sistemas operativos empresariales
 - Un integrador de sistemas premium
-- Una casa de productos SaaS
+- Una vision de productos futuros separada de la oferta actual
 
 ### Lo que DTechLab NO ES:
 - Una agencia de diseño web
@@ -46,7 +65,7 @@ DTechLab diseña los sistemas nerviosos digitales de las empresas modernas — i
 | Sensación visual | Diseñada con ingeniería. Oscura. Cinematográfica. |
 | Registro emocional | Confianza a través de la contención |
 | Energía | Quietud de alta calidad |
-| Marcas de referencia | Linear × SpaceX × Nothing Phone |
+| Marcas de referencia | Linear Ã— SpaceX Ã— Nothing Phone |
 
 ### Vocabulario de Marca (palabras que DTechLab usa):
 - Infraestructura / Sistemas / Arquitectura
@@ -69,15 +88,15 @@ DTechLab diseña los sistemas nerviosos digitales de las empresas modernas — i
 
 ```
 DTECHLAB
-├── DTechLab Studio      → Servicios premium para clientes
-├── DTechLab Lab         → Experimentación + Vitrina de I+D
-├── DTechLab Store       → Mercado de activos digitales
-└── DTechLab Products    → Ecosistema de SaaS y software
-    ├── Orbit           → CRM e inteligencia de relaciones
-    ├── Nexus OS        → Sistema operativo de automatización
-    ├── Atlas Flow      → Plataforma de orquestación de flujos
-    ├── Pulse           → Analítica empresarial + señales
-    └── Meridian        → Sistema de portal para clientes
+â”œ── DTechLab Studio      â†’ Servicios premium para clientes
+â”œ── DTechLab Lab         â†’ Experimentación + Vitrina de I+D
+â”œ── DTechLab Store       â†’ Mercado de activos digitales
+â””── DTechLab Products    â†’ Roadmap de productos futuros
+    â”œ── Orbit           â†’ CRM e inteligencia de relaciones
+    â”œ── Nexus OS        â†’ Sistema operativo de automatización
+    â”œ── Atlas Flow      â†’ Plataforma de orquestación de flujos
+    â”œ── Pulse           â†’ Analítica empresarial + señales
+    â””── Meridian        â†’ Sistema de portal para clientes
 ```
 
 ---
@@ -247,20 +266,20 @@ Tres capas de profundidad distintas:
 
 ```
 dtechlab.io/
-├── /                   → Página de inicio (entrada cinematográfica)
-├── /studio             → DTechLab Studio (servicios)
-├── /lab                → DTechLab Lab (experimentos)
-├── /store              → DTechLab Store (activos digitales)
-├── /products           → Resumen del ecosistema de productos
-│   ├── /orbit          → Orbit CRM
-│   ├── /nexus          → Nexus OS
-│   ├── /atlas          → Atlas Flow
-│   ├── /pulse          → Pulse Analytics
-│   └── /meridian       → Portal de Clientes Meridian
-├── /about              → Empresa / Manifiesto
-├── /work               → Casos de estudio / Proyectos seleccionados
-├── /journal            → Contenido de largo aliento / Pensamiento sistémico
-└── /contact            → Formulario de intake / calificación
+â”œ── /                   â†’ Página de inicio (entrada cinematográfica)
+â”œ── /studio             â†’ DTechLab Studio (servicios)
+â”œ── /lab                â†’ DTechLab Lab (experimentos)
+â”œ── /store              â†’ DTechLab Store (activos digitales)
+â”œ── /products           â†’ Resumen del roadmap de productos
+â”‚   â”œ── /orbit          â†’ Orbit CRM
+â”‚   â”œ── /nexus          â†’ Nexus OS
+â”‚   â”œ── /atlas          â†’ Atlas Flow
+â”‚   â”œ── /pulse          â†’ Pulse Analytics
+â”‚   â””── /meridian       â†’ Portal de Clientes Meridian
+â”œ── /about              â†’ Empresa / Manifiesto
+â”œ── /work               â†’ Casos de estudio / Proyectos seleccionados
+â”œ── /journal            â†’ Contenido de largo aliento / Pensamiento sistémico
+â””── /contact            â†’ Formulario de intake / calificación
 ```
 
 ---
@@ -272,7 +291,7 @@ La página de inicio debe sentirse como iniciar un nuevo sistema operativo por p
 
 ---
 
-### SECCIÓN 1: Entrada / Cargador
+### SECCIÃ“N 1: Entrada / Cargador
 **Antes de que la página se renderice:**  
 Una secuencia de arranque mínima — no una animación de carga, sino una metáfora de inicialización del sistema.  
 `> inicializando sistemas dtechlab...`  
@@ -281,7 +300,7 @@ Se desvanece en ~1.2 segundos. Sutil, no exagerado.
 
 ---
 
-### SECCIÓN 2: Hero
+### SECCIÃ“N 2: Hero
 **Layout:** Alto de viewport completo. Texto anclado abajo-izquierda, no centrado.
 
 **Titular (Display XL, peso 200):**
@@ -298,7 +317,7 @@ a un nivel diferente.
 ```
 
 **Bloque CTA:**
-- Principal: `Iniciar un proyecto →` (azul Señal, botón minimal)
+- Principal: `Iniciar un proyecto â†’` (azul Señal, botón minimal)
 - Secundario: `Ver nuestro trabajo` (fantasma/solo texto)
 
 **Visual:**  
@@ -314,7 +333,7 @@ Negro Vacío. Un único degradado radial sutil en el centro-derecha (azul Señal
 
 ---
 
-### SECCIÓN 3: El Problema
+### SECCIÃ“N 3: El Problema
 **Encuadre conceptual — no una lista de características**
 
 **Columna izquierda (fija):**  
@@ -340,7 +359,7 @@ Tres declaraciones numeradas que aparecen al hacer scroll:
 
 ---
 
-### SECCIÓN 4: Servicios / Resumen del Studio
+### SECCIÃ“N 4: Servicios / Resumen del Studio
 **Título:** `Qué construimos`
 
 **Tarjetas (5 en total):**
@@ -374,7 +393,7 @@ operacional construido para cómo trabaja realmente tu equipo.
 
 ---
 
-### SECCIÓN 5: Trabajo Seleccionado
+### SECCIÃ“N 5: Trabajo Seleccionado
 **Título:** `Proyectos seleccionados`
 
 **Layout:** Grid editorial en mosaico — asimétrico. No un grid uniforme.
@@ -388,7 +407,7 @@ Cada uno mostrado como una tarjeta oscura grande con:
 
 ---
 
-### SECCIÓN 6: El Lab (Vitrina de experimentos)
+### SECCIÃ“N 6: El Lab (Vitrina de experimentos)
 **Título:** `Desde el lab`
 
 **Subtítulo:** `Conceptos que estamos construyendo. Sistemas que estamos explorando. Las próximas interfaces.`
@@ -400,8 +419,8 @@ Cada una muestra un experimento de UI, un concepto de IA, o una exploración de 
 
 ---
 
-### SECCIÓN 7: Teaser de Productos
-**Título:** `El ecosistema de productos`
+### SECCIÃ“N 7: Teaser de Productos
+**Título:** `Roadmap de productos`
 
 **Subtítulo:** `Software que construimos para nosotros mismos. Infraestructura que puedes usar.`
 
@@ -412,11 +431,11 @@ Cada una muestra un experimento de UI, un concepto de IA, o una exploración de 
 - Pulse — Señales de negocio
 - Meridian — Portal de clientes
 
-**CTA:** `Explorar el ecosistema →`
+**CTA:** `Explorar el roadmap â†’`
 
 ---
 
-### SECCIÓN 8: Manifiesto / Declaración de Filosofía
+### SECCIÃ“N 8: Manifiesto / Declaración de Filosofía
 **Sección tipográfica a ancho completo — sin imágenes**
 
 **Texto display grande (peso 200, fino):**
@@ -431,14 +450,14 @@ Ese es el estándar al que construimos."
 
 ---
 
-### SECCIÓN 9: Resumen del Proceso
+### SECCIÃ“N 9: Resumen del Proceso
 **Título:** `Cómo operamos`
 
 **Sistema de 4 pasos (no una línea de tiempo — un diagrama de sistema):**
 
 ```
 [DESCUBRIMIENTO]     [ARQUITECTURA]       [INGENIERÍA]         [DESPLIEGUE]
-      ↓                     ↓                   ↓                    ↓
+      â†“                     â†“                   â†“                    â†“
 Auditamos tus         Diseñamos el         Construimos con      Desplegamos,
 sistemas existentes   blueprint del        precisión: IA,       monitoreamos e
 y mapeamos las        sistema: flujos de   automatización,      iteramos — tu
@@ -449,7 +468,7 @@ línea de código.      completa del stack.                       evolucionando.
 
 ---
 
-### SECCIÓN 10: CTA / Contacto
+### SECCIÃ“N 10: CTA / Contacto
 **Sección oscura de viewport completo**
 
 **Titular:**
@@ -464,17 +483,17 @@ Mapeemos tus sistemas, identifiquemos las brechas,
 y construyamos la arquitectura que te pone adelante.
 ```
 
-**CTA:** `Solicitar una auditoría de sistemas →`
+**CTA:** `Solicitar una auditoría de sistemas â†’`
 
 ---
 
-### SECCIÓN 11: Footer
+### SECCIÃ“N 11: Footer
 **Oscuro, diseñado con ingeniería — no un footer estándar**
 
 **Izquierda:** Logo DTechLab + "Empresa de Sistemas Digitales" + copyright  
 **Centro:** Links de navegación en 4 columnas (Studio, Lab, Store, Productos)  
 **Derecha:** Contacto + Redes sociales  
-**Tira inferior:** Indicador de estado del sistema: `Todos los sistemas operativos ●` + número de versión + timestamp
+**Tira inferior:** Indicador de estado del sistema: `Todos los sistemas operativos â—` + número de versión + timestamp
 
 ---
 
@@ -483,7 +502,7 @@ y construyamos la arquitectura que te pone adelante.
 ### Navegación Desktop
 - Barra superior minimal: Logo izquierda | Links centro | CTA derecha
 - Fondo: transparente en hero, vidrio oscuro al hacer scroll
-- Links: Color Fantasma, hover → blanco, activo → subrayado azul Señal
+- Links: Color Fantasma, hover â†’ blanco, activo â†’ subrayado azul Señal
 - Elementos de navegación: Studio / Lab / Store / Productos / Trabajo / Contacto
 - El link `/Productos` abre un mega-menú mostrando los 5 productos con mini descripciones
 - Sin hamburguesa en desktop. Nunca.
@@ -496,7 +515,7 @@ y construyamos la arquitectura que te pone adelante.
 
 ---
 
-# PARTE IV — SISTEMA DE DISEÑO UI
+# PARTE IV — SISTEMA DE DISEÃ‘O UI
 
 ## 4.1 Biblioteca de Componentes
 
@@ -518,7 +537,7 @@ SECUNDARIO (Fantasma):
 
 ENLACE DE TEXTO:
   Color: Fantasma, subrayado en hover
-  Sufijo flecha en CTAs: →
+  Sufijo flecha en CTAs: â†’
 
 DESTRUCTIVO:
   Borde: 1px solid rgba(249,115,22,0.3)
@@ -575,7 +594,7 @@ ETIQUETA DE SISTEMA:
   Radio: 4px
 
 INDICADOR DE ESTADO:
-  Punto verde (●) + texto mono para estado operativo
+  Punto verde (â—) + texto mono para estado operativo
   Punto ámbar para degradado
   Punto rojo para incidente
 ```
@@ -637,7 +656,7 @@ Cinemato:  800ms+     (secuencias de intro, revelaciones de hero)
 ## 5.2 Patrones de Movimiento Distintivos
 
 **Entrada de Página (Hero):**  
-El contenido entra desde opacidad 0 + translateY(20px) → posición natural.  
+El contenido entra desde opacidad 0 + translateY(20px) â†’ posición natural.  
 Escalonado: titular primero, sub-copy 80ms después, CTA 80ms después.  
 Duración: 500ms. Easing: cubic-bezier(0.16, 1, 0.3, 1) — salida rápida, asentamiento natural.
 
@@ -656,11 +675,11 @@ El cambio de fondo es instantáneo (0ms) luego se refina. Crea sensación de sna
 **Animaciones de datos/dashboard:**  
 - Contadores de números: Suben de 0 al valor objetivo en 800ms al entrar al viewport
 - Líneas de gráfica: Se dibujan de izquierda a derecha en 600ms, técnica stroke-dashoffset
-- Indicadores en vivo: Pulso sutil (escala 1.0 → 1.15 → 1.0, bucle de 2s, opacidad 0.6)
+- Indicadores en vivo: Pulso sutil (escala 1.0 â†’ 1.15 â†’ 1.0, bucle de 2s, opacidad 0.6)
 
 **Transiciones de página (si SPA):**  
-Página saliente: opacidad 1 → 0, 150ms.  
-Página entrante: opacidad 0 → 1, translateY(8px) → 0, 250ms.  
+Página saliente: opacidad 1 â†’ 0, 150ms.  
+Página entrante: opacidad 0 â†’ 1, translateY(8px) â†’ 0, 250ms.  
 Transición total: ~400ms. Se siente como cambiar pantallas de OS.
 
 **La intro de "Arranque del Sistema":**  
@@ -678,7 +697,7 @@ Puede omitirse después de la primera visita (guardado en localStorage).
 
 ---
 
-# PARTE VI — DIRECCIÓN DE CONTENIDO
+# PARTE VI — DIRECCIÃ“N DE CONTENIDO
 
 ## 6.1 Guías de Voz Editorial
 
@@ -770,3 +789,4 @@ Un sistema operativo de automatización que conecta cada herramienta en tu stack
 **Capacidades principales:**
 - Constructor visual de flujos de trabajo (drag-and-drop + asistencia de IA)
 - Triggers y ac
+
