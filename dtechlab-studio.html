@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DTechLab Studio — Diseño y desarrollo de sistemas digitales premium</title>
-<meta name="description" content="DTechLab Studio diseña y construye sitios web, plataformas digitales, sistemas de automatización y experiencias premium para empresas que operan a un estándar diferente.">
+<title>DTechLab Studio — Estudio de Ingeniería Digital · Panamá</title>
+<meta name="description" content="Diseñamos, construimos e implementamos sistemas digitales que ayudan a empresas a vender más, operar mejor y escalar con menos trabajo manual. Tecnología al servicio del negocio — no al revés.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Crect x='1' y='1' width='30' height='30' rx='8' stroke='%235B6AFF' stroke-width='1.5'/%3E%3Crect x='8' y='8' width='7' height='7' rx='1.5' fill='%235B6AFF'/%3E%3Crect x='17' y='8' width='7' height='7' rx='1.5' fill='rgba(91,106,255,0.45)'/%3E%3Crect x='8' y='17' width='7' height='7' rx='1.5' fill='rgba(91,106,255,0.45)'/%3E%3Crect x='17' y='17' width='7' height='7' rx='1.5' fill='%235B6AFF'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Playfair+Display:wght@500;600&family=Crimson+Pro:wght@500;600&family=Libre+Bodoni:wght@500;600&family=Cormorant+Garamond:wght@500;600&family=Fraunces:wght@500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -234,6 +234,9 @@ section{position:relative;z-index:1;padding:96px 80px}
 .ss-info-r{text-align:right}
 .ss-info-r .time{font-size:10.5px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.08em;margin-bottom:5px}
 .ss-info-r .ss-open{font-size:12px;color:var(--signal);font-weight:600;letter-spacing:.01em;display:inline-flex;align-items:center;gap:4px;transition:all .2s ease}
+.ss-problem{margin:14px 4px 0;padding:14px 16px;background:rgba(91,106,255,.06);border:1px solid rgba(91,106,255,.18);border-radius:10px;font-size:12.5px;color:var(--fog);font-weight:300;line-height:1.6;display:flex;gap:10px}
+.ss-problem::before{content:'';flex-shrink:0;width:3px;background:var(--signal);border-radius:2px;align-self:stretch;opacity:.7}
+.ss-problem strong{color:var(--ice);font-weight:600;display:block;font-family:'Courier New',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
 .tpl-preview{height:240px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .tpl-mockup{width:78%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;overflow:hidden}
 .tpl-bar{height:18px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;padding:0 8px;gap:4px}
@@ -555,14 +558,14 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
     <span class="nav-logo-text">DTechLab<span class="div">Studio</span></span>
   </a>
   <ul class="nav-links">
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#templates">Templates</a></li>
+    <li><a href="#servicios">Cómo resolvemos</a></li>
+    <li><a href="#templates">Por industria</a></li>
     <li><a href="#proceso">Proceso</a></li>
-    <li><a href="#cotizador">Cotizador</a></li>
+    <li><a href="#casos">Trabajo</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
   <div class="nav-right">
-    <a href="#cotizador" class="nav-cta">Cotizar proyecto</a>
+    <a href="#cotizador" class="nav-cta">Diagnosticar negocio</a>
   </div>
 </nav>
 
@@ -570,72 +573,73 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
 <section id="hero">
   <div class="hero-glow"></div>
   <div class="hero-content">
-    <div class="hero-label" id="hero-label">DTechLab Studio · Diseño + Ingeniería</div>
+    <div class="hero-label" id="hero-label">Estudio de Ingeniería Digital · Panamá · Latam</div>
     <div class="hero-headline">
-      <div class="line"><div class="li" id="hl1">Sistemas digitales</div></div>
-      <div class="line"><div class="li" id="hl2">diseñados con precisión.</div></div>
-      <div class="line"><div class="li acc" id="hl3">Construidos para escalar.</div></div>
+      <div class="line"><div class="li" id="hl1">Más clientes.</div></div>
+      <div class="line"><div class="li" id="hl2">Mejor operación.</div></div>
+      <div class="line"><div class="li acc" id="hl3">Menos fricción.</div></div>
     </div>
-    <p class="hero-sub" id="hero-sub">Estudio de diseño y desarrollo enfocado en empresas que merecen una presencia digital al nivel de su ambición. Sitios web, plataformas, automatización y software a medida — bajo un único estándar de ingeniería.</p>
+    <p class="hero-sub" id="hero-sub">Diseñamos, construimos e implementamos sistemas digitales que ayudan a empresas a vender más, operar mejor y escalar con menos trabajo manual. Tecnología al servicio del negocio — no al revés.</p>
     <div class="hero-actions" id="hero-actions">
       <a href="#cotizador" class="btn-primary">
-        Cotizar mi proyecto <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Diagnosticar mi negocio <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
       <a href="https://api.whatsapp.com/send?phone=50769837286&text=Hola%20Rodolfo%2C%20vi%20DTechLab%20Studio%20y%20quiero%20arrancar%20un%20proyecto.%20%F0%9F%91%8B" class="btn-wa" target="_blank">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         WhatsApp directo
       </a>
-      <a href="#templates" class="btn-ghost">Ver templates</a>
+      <a href="#servicios" class="btn-ghost">Cómo lo hacemos</a>
     </div>
     <div class="hero-meta" id="hero-meta">
-      <div class="hero-meta-item"><div class="hero-meta-val">21d</div><div class="hero-meta-lbl">Primera versión en vivo</div></div>
-      <div class="hero-meta-item"><div class="hero-meta-val">100%</div><div class="hero-meta-lbl">Código tuyo</div></div>
-      <div class="hero-meta-item"><div class="hero-meta-val">30d</div><div class="hero-meta-lbl">Soporte post-lanzamiento</div></div>
-      <div class="hero-meta-item"><div class="hero-meta-val">PA</div><div class="hero-meta-lbl">Base Panamá · Latam</div></div>
+      <div class="hero-meta-item"><div class="hero-meta-val">Vender</div><div class="hero-meta-lbl">Sistemas que captan clientes</div></div>
+      <div class="hero-meta-item"><div class="hero-meta-val">Operar</div><div class="hero-meta-lbl">Automatización end-to-end</div></div>
+      <div class="hero-meta-item"><div class="hero-meta-val">Decidir</div><div class="hero-meta-lbl">Datos en tiempo real</div></div>
+      <div class="hero-meta-item"><div class="hero-meta-val">Atender</div><div class="hero-meta-lbl">IA aplicada al negocio</div></div>
     </div>
   </div>
 </section>
 
 <!-- SERVICIOS PROFUNDOS -->
 <section class="dark-sec" id="servicios">
-  <div class="sec-eyebrow reveal">Qué construimos</div>
-  <h2 class="sec-title reveal tetris-text">Cinco líneas de servicio. <strong>Una sola arquitectura.</strong></h2>
-  <p class="sec-sub reveal">Cada proyecto se diseña como un sistema. No hay "el web" suelto, "la automatización" suelta y "el CRM" suelto — todo se piensa como parte de una infraestructura coherente.</p>
+  <div class="sec-eyebrow reveal">Cómo resolvemos</div>
+  <h2 class="sec-title reveal tetris-text">No vendemos páginas web. <strong>Resolvemos problemas de negocio.</strong></h2>
+  <p class="sec-sub reveal">La página web, la automatización, la IA — son <em>herramientas</em>. Lo que entregamos son resultados: más clientes, mejor operación, decisiones más rápidas. Cinco caminos para llegar ahí.</p>
 
   <div class="svc-deep-grid">
 
     <div class="svc-deep-card featured reveal">
       <div class="svc-deep-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18"/><circle cx="6" cy="6" r=".8" fill="currentColor"/><circle cx="9" cy="6" r=".8" fill="currentColor"/></svg></div>
-      <div class="svc-deep-tier">01 · Studio</div>
-      <h3 class="svc-deep-name">Sitios y plataformas web</h3>
-      <p class="svc-deep-desc">Sitios web cinematográficos, landing pages que convierten y plataformas a medida. Diseño propio, código real, sin templates genéricas de WordPress.</p>
+      <div class="svc-deep-tier">01 · Captación</div>
+      <h3 class="svc-deep-name">Presencia que vende</h3>
+      <p class="svc-deep-desc">Cuando tu negocio no aparece online o aparece mal, pierdes clientes que ni siquiera supiste que existieron. Construimos la presencia digital que te trae clientes nuevos, no la que solo se ve bonita.</p>
       <ul class="svc-deep-list">
-        <li>Landing pages de alto impacto</li>
-        <li>Sitios corporativos multi-idioma</li>
-        <li>Plataformas y portales a medida</li>
-        <li>E-commerce con pasarela de pago</li>
-        <li>CMS para que actualices sin depender de nadie</li>
-        <li>Optimización móvil y performance</li>
+        <li>Landing pages que convierten visitantes en leads</li>
+        <li>Sitios corporativos que comunican autoridad</li>
+        <li>E-commerce con pasarelas de pago integradas</li>
+        <li>Portales y plataformas web a medida</li>
+        <li>SEO técnico desde el día uno</li>
+        <li>Mobile-first y velocidad de carga real</li>
       </ul>
       <div class="svc-deep-range">
+        <span>Resultado: <strong>+ clientes</strong></span>
         <span>Tiempo: <strong>2–6 semanas</strong></span>
-        <span>Acceso: <strong>Disponible</strong></span>
       </div>
     </div>
 
     <div class="svc-deep-card reveal">
       <div class="svc-deep-icon"><svg viewBox="0 0 24 24"><polyline points="4 17 8 13 12 15 16 9 20 11"/><circle cx="4" cy="17" r="1.5"/><circle cx="8" cy="13" r="1.5"/><circle cx="12" cy="15" r="1.5"/><circle cx="16" cy="9" r="1.5"/><circle cx="20" cy="11" r="1.5"/></svg></div>
-      <div class="svc-deep-tier">02 · Studio</div>
-      <h3 class="svc-deep-name">Automatización + integraciones</h3>
-      <p class="svc-deep-desc">Conectamos tus herramientas (correo, CRM, WhatsApp, Sheets, formularios, pagos) para que el negocio fluya solo. Cero trabajo manual donde no debe haberlo.</p>
+      <div class="svc-deep-tier">02 · Operación</div>
+      <h3 class="svc-deep-name">Operación que fluye</h3>
+      <p class="svc-deep-desc">Cuando tu equipo gasta el día copiando datos entre herramientas, respondiendo lo mismo cien veces y persiguiendo a clientes con Excel — la operación no escala. Eliminamos el trabajo manual que no agrega valor.</p>
       <ul class="svc-deep-list">
-        <li>Automatización de procesos internos</li>
-        <li>Integración entre apps (Make, n8n, Zapier o nativo)</li>
-        <li>Bots de WhatsApp inteligentes</li>
-        <li>Notificaciones automáticas y enrutamiento de leads</li>
-        <li>Facturación, contratos y onboarding automáticos</li>
+        <li>Workflows automáticos entre tus apps</li>
+        <li>Bots de WhatsApp para atender y calificar leads</li>
+        <li>Captura, enrutamiento y seguimiento de oportunidades</li>
+        <li>Cotizaciones, contratos y onboarding automáticos</li>
+        <li>Reservas, agendas y confirmaciones sin intervención</li>
       </ul>
       <div class="svc-deep-range">
+        <span>Resultado: <strong>+ horas/semana</strong></span>
         <span>Tiempo: <strong>1–4 semanas</strong></span>
         <span>Acceso: <strong>Disponible</strong></span>
       </div>
@@ -643,55 +647,55 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
 
     <div class="svc-deep-card reveal">
       <div class="svc-deep-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
-      <div class="svc-deep-tier">03 · Studio</div>
-      <h3 class="svc-deep-name">CRM y dashboards a medida</h3>
-      <p class="svc-deep-desc">Sistemas internos para ver y operar tu negocio en tiempo real. Datos donde los necesitas, no enterrados en hojas de cálculo.</p>
+      <div class="svc-deep-tier">03 · Inteligencia</div>
+      <h3 class="svc-deep-name">Datos que deciden</h3>
+      <p class="svc-deep-desc">Cuando para saber cómo va el mes hay que cruzar tres hojas de cálculo y preguntarle a alguien — las decisiones llegan tarde. Construimos los dashboards y sistemas que te muestran qué pasa en tu negocio, en tiempo real.</p>
       <ul class="svc-deep-list">
-        <li>CRM personalizado a tu pipeline real</li>
-        <li>Dashboards de ventas, finanzas u operaciones</li>
-        <li>Sistemas multi-sucursal y multi-usuario</li>
-        <li>Reportes automáticos diarios/semanales</li>
-        <li>Acceso desde web y mobile</li>
+        <li>CRM diseñado para tu pipeline real, no genérico</li>
+        <li>Dashboards de ventas, finanzas y operaciones</li>
+        <li>Sistemas multi-sucursal con visibilidad consolidada</li>
+        <li>Reportes automáticos en tu correo o WhatsApp</li>
+        <li>Acceso desde web y móvil, con roles por usuario</li>
       </ul>
       <div class="svc-deep-range">
+        <span>Resultado: <strong>decisiones más rápidas</strong></span>
         <span>Tiempo: <strong>3–8 semanas</strong></span>
-        <span>Acceso: <strong>Disponible</strong></span>
       </div>
     </div>
 
     <div class="svc-deep-card reveal">
       <div class="svc-deep-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/><line x1="6" y1="6.5" x2="9.5" y2="11"/><line x1="18" y1="6.5" x2="14.5" y2="11"/></svg></div>
-      <div class="svc-deep-tier">04 · Studio</div>
-      <h3 class="svc-deep-name">IA aplicada al negocio</h3>
-      <p class="svc-deep-desc">Integramos IA donde tiene sentido operacional — no como gimmick. Asistentes, búsqueda inteligente de documentos, clasificación de leads, generación de contenido y agentes que ejecutan tareas reales.</p>
+      <div class="svc-deep-tier">04 · IA</div>
+      <h3 class="svc-deep-name">Inteligencia que atiende</h3>
+      <p class="svc-deep-desc">Cuando tu equipo responde lo mismo todo el día, califica leads a mano o se ahoga clasificando información — la IA hace ese trabajo por ti. No como gimmick: como una capa que libera tiempo real.</p>
       <ul class="svc-deep-list">
-        <li>Asistentes de IA entrenados con tus datos</li>
-        <li>Búsqueda inteligente en tus documentos</li>
-        <li>Clasificación automática de tickets / leads</li>
-        <li>Generación de contenido y propuestas asistida</li>
-        <li>Integración con OpenAI / Anthropic / modelos open</li>
+        <li>Asistentes virtuales para atender clientes 24/7</li>
+        <li>Chatbots inteligentes en WhatsApp, web y redes</li>
+        <li>Clasificación y enrutamiento automático de leads</li>
+        <li>Búsqueda inteligente dentro de tus documentos</li>
+        <li>Procesamiento y resumen de información masiva</li>
       </ul>
       <div class="svc-deep-range">
+        <span>Resultado: <strong>+ capacidad sin contratar</strong></span>
         <span>Tiempo: <strong>2–6 semanas</strong></span>
-        <span>Acceso: <strong>Disponible</strong></span>
       </div>
     </div>
 
     <div class="svc-deep-card reveal" style="grid-column:span 2">
-      <div class="svc-deep-icon"><svg viewBox="0 0 24 24"><path d="M12 3l2.2 4.5 4.8.7-3.5 3.4.8 4.8L12 14l-4.3 2.4.8-4.8L5 8.2l4.8-.7z"/></svg></div>
-      <div class="svc-deep-tier">05 · Studio</div>
-      <h3 class="svc-deep-name">Identidad visual + marca</h3>
-      <p class="svc-deep-desc">Si tu marca todavía no proyecta el nivel del negocio que estás construyendo, podemos diseñarla desde cero o evolucionarla. Logo, sistema de color, tipografía, voz y aplicaciones. No es maquillaje — es arquitectura visual.</p>
+      <div class="svc-deep-icon"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/><path d="M2 4l2 2-2 2M2 10l2 2-2 2M2 16l2 2-2 2"/></svg></div>
+      <div class="svc-deep-tier">05 · Producto</div>
+      <h3 class="svc-deep-name">Software a medida</h3>
+      <p class="svc-deep-desc">Cuando lo que necesitas no existe en el mercado — o existe pero no se adapta a tu forma de operar — lo construimos desde cero. SaaS propios, sistemas internos y herramientas operativas pensadas para tu negocio, no para el promedio.</p>
       <ul class="svc-deep-list">
-        <li>Logo y sistema de marca completo</li>
-        <li>Paleta, tipografía y reglas de uso</li>
-        <li>Plantillas para redes, propuestas y documentos</li>
-        <li>Manual de marca (PDF profesional)</li>
-        <li>Aplicado al sitio web del mismo proyecto si se contrata en conjunto</li>
+        <li>Productos SaaS propios desde concepto a lanzamiento</li>
+        <li>Sistemas operacionales internos (estilo AutoPro)</li>
+        <li>Herramientas de gestión y administración a medida</li>
+        <li>Aplicaciones web y móviles personalizadas</li>
+        <li>Migraciones desde sistemas heredados a stack moderno</li>
       </ul>
       <div class="svc-deep-range">
-        <span>Tiempo: <strong>2–4 semanas</strong></span>
-        <span>Acceso: <strong>Disponible</strong></span>
+        <span>Resultado: <strong>operación a tu medida</strong></span>
+        <span>Tiempo: <strong>6–16 semanas</strong></span>
       </div>
     </div>
 
@@ -700,9 +704,9 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
 
 <!-- TEMPLATES -->
 <section id="templates">
-  <div class="sec-eyebrow reveal">Templates de referencia</div>
-  <h2 class="sec-title reveal tetris-text">El estándar visual. <strong>Hecho a medida.</strong></h2>
-  <p class="sec-sub reveal">Seis ejemplos del nivel de diseño que entregamos en cada industria. Tu proyecto se diseña desde cero con identidad propia — estos son sólo la referencia del estándar.</p>
+  <div class="sec-eyebrow reveal">Para cada industria</div>
+  <h2 class="sec-title reveal tetris-text">Cada negocio tiene un dolor distinto. <strong>Resolvemos el específico.</strong></h2>
+  <p class="sec-sub reveal">Estos son ejemplos del tipo de sistema que diseñamos para cada industria. No son plantillas — son la referencia del problema típico que resolvemos y del nivel de diseño que entregamos.</p>
 
   <div class="tpl-grid">
 
@@ -729,6 +733,7 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
         <div class="ss-info-l"><h3>Vega &amp; Asociados</h3><div class="cat">Bufete · Consultora · Firma</div></div>
         <div class="ss-info-r"><div class="time">2–3 sem</div><div class="ss-open">Bufete</div></div>
       </div>
+      <div class="ss-problem"><div><strong>Problema que resuelve</strong>Las consultas se pierden en formularios que nadie revisa. Construimos el sistema que captura, califica y enruta cada lead — directo al equipo, vía WhatsApp.</div></div>
     </div>
 
     <div class="tpl-card reveal" style="display:flex;flex-direction:column">
@@ -754,6 +759,7 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
         <div class="ss-info-l"><h3>Casa Marítima</h3><div class="cat">Restaurante · Cafetería</div></div>
         <div class="ss-info-r"><div class="time">2–4 sem</div><div class="ss-open">Restaurante</div></div>
       </div>
+      <div class="ss-problem"><div><strong>Problema que resuelve</strong>Se pierden mesas por llamadas no contestadas y reservas duplicadas. Sistema de reservas online + confirmaciones por WhatsApp + agenda automática para el equipo.</div></div>
     </div>
 
     <div class="tpl-card reveal" style="display:flex;flex-direction:column">
@@ -779,6 +785,7 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
         <div class="ss-info-l"><h3>Clínica Aurora</h3><div class="cat">Salud · Médico · Wellness</div></div>
         <div class="ss-info-r"><div class="time">3–5 sem</div><div class="ss-open">Clínica</div></div>
       </div>
+      <div class="ss-problem"><div><strong>Problema que resuelve</strong>La recepción no da abasto agendando citas por teléfono. Los pacientes agendan solos online, reciben recordatorios automáticos y la agenda del doctor se llena sin intervención.</div></div>
     </div>
 
     <div class="tpl-card reveal" style="display:flex;flex-direction:column">
@@ -804,6 +811,7 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
         <div class="ss-info-l"><h3>Atelier Oro</h3><div class="cat">E-commerce · Retail</div></div>
         <div class="ss-info-r"><div class="time">4–6 sem</div><div class="ss-open">Tienda</div></div>
       </div>
+      <div class="ss-problem"><div><strong>Problema que resuelve</strong>Vender online sin pasarela integrada significa perder clientes en cada paso. Catálogo, carrito, pagos con Yappy/Stripe, panel para gestionar inventario — el negocio vende mientras duermes.</div></div>
     </div>
 
     <div class="tpl-card reveal" style="display:flex;flex-direction:column">
@@ -829,6 +837,7 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
         <div class="ss-info-l"><h3>Lumina Properties</h3><div class="cat">Inmobiliaria · Real Estate</div></div>
         <div class="ss-info-r"><div class="time">4–6 sem</div><div class="ss-open">Inmobiliaria</div></div>
       </div>
+      <div class="ss-problem"><div><strong>Problema que resuelve</strong>Mostrar propiedades a curiosos quema horas del broker. Buscador filtrable, fichas detalladas, formularios que pre-califican interés real, CRM conectado — el equipo solo atiende leads serios.</div></div>
     </div>
 
     <div class="tpl-card reveal" style="display:flex;flex-direction:column">
@@ -851,9 +860,10 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
         </div>
       </div>
       <div class="ss-info">
-        <div class="ss-info-l"><h3>Veridian Construcciones</h3><div class="cat">Constructora · Taller · Servicios</div></div>
+        <div class="ss-info-l"><h3>Veridian Construcciones</h3><div class="cat">Constructora &amp; ingeniería</div></div>
         <div class="ss-info-r"><div class="time">3–5 sem</div><div class="ss-open">Constructora</div></div>
       </div>
+      <div class="ss-problem"><div><strong>Problema que resuelve</strong>Cotizar obras nuevas consume días entre planos, costos y comunicación con el cliente. Portafolio que vende solo, formulario de cotización inicial inteligente, seguimiento por etapas — cierra más sin gastar horas.</div></div>
     </div>
 
   </div>
@@ -866,32 +876,32 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
 <!-- PROCESO -->
 <section class="dark-sec" id="proceso">
   <div class="sec-eyebrow reveal">Cómo trabajamos</div>
-  <h2 class="sec-title reveal">Un proceso claro. <strong>Sin sorpresas.</strong></h2>
-  <p class="sec-sub reveal">Cuatro fases, cero zonas grises. Cada fase tiene un entregable visible y un punto de aprobación. Tú siempre sabes en qué etapa está tu proyecto.</p>
+  <h2 class="sec-title reveal">Empezamos por el problema. <strong>No por la herramienta.</strong></h2>
+  <p class="sec-sub reveal">Cuatro fases, cero zonas grises. Antes de escribir una línea de código entendemos qué quieres resolver. Después decidimos qué construir y cómo.</p>
 
   <div class="proc-row reveal">
     <div class="proc-step">
       <div class="proc-num">01</div>
       <h3>Diagnóstico</h3>
-      <p>Mapeamos qué necesitas, qué tienes hoy y qué tiene sentido construir primero. Sin compromiso.</p>
-      <span class="day">Día 0 · Gratis</span>
+      <p>Entendemos tu negocio, no solo lo que pides. Identificamos qué problema cuesta más resolverlo a mano y qué tiene sentido atacar primero. Sin compromiso.</p>
+      <span class="day">Día 0 · Sin costo</span>
     </div>
     <div class="proc-step">
       <div class="proc-num">02</div>
       <h3>Arquitectura</h3>
-      <p>Propuesta formal, alcance y blueprint del sistema. Aprobación + 50% para iniciar.</p>
+      <p>Te mostramos cómo se va a resolver antes de construir. Blueprint del sistema, alcance cerrado, propuesta formal. Aprobación + 50% para iniciar.</p>
       <span class="day">Día 1–3</span>
     </div>
     <div class="proc-step">
       <div class="proc-num">03</div>
       <h3>Ingeniería</h3>
-      <p>Diseñamos y construimos. Demos semanales. Acceso a la versión en desarrollo todo el tiempo.</p>
+      <p>Diseñamos y construimos con cronograma visible. Demos semanales, acceso permanente a la versión en desarrollo. Cero sorpresas en el avance.</p>
       <span class="day">Semana 1–6</span>
     </div>
     <div class="proc-step">
       <div class="proc-num">04</div>
       <h3>Despliegue</h3>
-      <p>Lanzamos en producción, capacitamos a tu equipo y damos 30 días de soporte incluido.</p>
+      <p>Lanzamos en producción, capacitamos a tu equipo y damos 30 días de soporte incluido. Lo que queda funcionando es tuyo, código incluido.</p>
       <span class="day">Última semana + 30d</span>
     </div>
   </div>
@@ -899,9 +909,9 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
 
 <!-- ─── COTIZADOR INTELIGENTE ─── -->
 <section id="cotizador" class="center-sec">
-  <div class="sec-eyebrow reveal">Cotizador inteligente</div>
-  <h2 class="sec-title reveal tetris-text">Estima tu proyecto <strong>en 60 segundos.</strong></h2>
-  <p class="sec-sub reveal">Responde 5 preguntas y obtén un rango estimado al instante. No es una cotización formal — pero te da una idea clara antes de hablar.</p>
+  <div class="sec-eyebrow reveal">Diagnóstico rápido</div>
+  <h2 class="sec-title reveal tetris-text">Cuéntanos qué problema <strong>quieres resolver.</strong></h2>
+  <p class="sec-sub reveal">Responde 5 preguntas y obtén un rango estimado al instante. Trabajamos con base en el problema de negocio que tienes hoy — no en productos genéricos.</p>
 
   <div class="quoter reveal">
     <div class="quoter-top">
@@ -911,34 +921,34 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
     <div class="quoter-progress"><div class="quoter-progress-fill" id="qProgress"></div></div>
     <div class="quoter-body">
 
-      <!-- PASO 1: tipo de proyecto -->
+      <!-- PASO 1: problema a resolver -->
       <div class="q-step active" data-step="1">
-        <div class="q-question">¿Qué tipo de proyecto necesitas?</div>
-        <div class="q-hint">Elige el que más se parezca. Lo afinamos después.</div>
+        <div class="q-question">¿Qué quieres resolver?</div>
+        <div class="q-hint">Elige el dolor más cercano al tuyo. Sabemos qué tipo de sistema mapea a cada uno.</div>
         <div class="q-options">
           <button class="q-opt" data-name="ptype" data-val="landing" data-base="250">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Landing page</div><div class="q-opt-desc">Una sola página de alto impacto. Producto, evento o servicio. Desde $250.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Atraer más clientes online</div><div class="q-opt-desc">Hoy tu negocio no aparece en Google o tu presencia digital no convierte. Landing o sitio enfocado en captación.</div></div>
           </button>
           <button class="q-opt" data-name="ptype" data-val="corporate" data-base="700">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Sitio corporativo</div><div class="q-opt-desc">5–10 páginas. Empresa, servicios, equipo, contacto. Desde $700.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Mostrar mi empresa con autoridad</div><div class="q-opt-desc">Necesitas un sitio que comunique seriedad — servicios, equipo, casos, contacto calificado. Sitio corporativo completo.</div></div>
           </button>
           <button class="q-opt" data-name="ptype" data-val="ecommerce" data-base="1500">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Tienda online</div><div class="q-opt-desc">Catálogo, carrito, pasarela de pago, panel admin. Desde $1,500.</div></div>
-          </button>
-          <button class="q-opt" data-name="ptype" data-val="platform" data-base="3800">
-            <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Plataforma / portal</div><div class="q-opt-desc">Software a medida con login, usuarios y lógica de negocio. Desde $3,800.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Vender online con pagos</div><div class="q-opt-desc">Quieres que el negocio venda mientras duermes. E-commerce con catálogo, pasarela de pago y panel.</div></div>
           </button>
           <button class="q-opt" data-name="ptype" data-val="dashboard" data-base="3000">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">CRM / Dashboard</div><div class="q-opt-desc">Sistema interno para operar el negocio en tiempo real. Desde $3,000.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Ver y operar mi negocio en tiempo real</div><div class="q-opt-desc">Los datos viven en hojas de cálculo y nadie ve lo mismo. CRM o dashboard a medida con visibilidad consolidada.</div></div>
           </button>
           <button class="q-opt" data-name="ptype" data-val="automation" data-base="800">
             <div class="q-opt-mark"></div>
-            <div class="q-opt-content"><div class="q-opt-name">Automatización</div><div class="q-opt-desc">Integraciones, bots, flujos de trabajo. Desde $800.</div></div>
+            <div class="q-opt-content"><div class="q-opt-name">Eliminar trabajo manual del equipo</div><div class="q-opt-desc">Tu equipo gasta horas copiando datos entre apps o respondiendo lo mismo. Automatización + integraciones + bots.</div></div>
+          </button>
+          <button class="q-opt" data-name="ptype" data-val="platform" data-base="3800">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Construir un software que no existe</div><div class="q-opt-desc">Necesitas algo que ningún SaaS hace bien para tu negocio. Plataforma o producto a medida desde cero.</div></div>
           </button>
         </div>
       </div>
@@ -1079,78 +1089,58 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
 
 <!-- CASES MINI -->
 <section id="casos">
-  <div class="sec-eyebrow reveal">Trabajo real</div>
-  <h2 class="sec-title reveal tetris-text">Sistemas que ya están <strong>operando.</strong></h2>
-  <p class="sec-sub reveal">No prometemos. Mostramos.</p>
+  <div class="sec-eyebrow reveal">Caso real + capacidades</div>
+  <h2 class="sec-title reveal tetris-text">Esto es lo que hacemos <strong>cuando nos contratan.</strong></h2>
+  <p class="sec-sub reveal">Un caso real en producción más dos capacidades típicas — para que sepas qué esperar antes de hablar.</p>
 
   <div class="cases-strip">
     <div class="case-cell reveal">
-      <div class="case-tag">Taller mecánico · Panamá</div>
+      <div class="case-tag" style="color:#34D399">● Caso real en producción</div>
       <h3 class="case-name">AutoPro — Sistema operativo del taller</h3>
-      <p class="case-desc">Órdenes de trabajo, CRM, inventario, finanzas y multi-sucursal en una sola plataforma.</p>
-      <div class="case-metric"><strong>80%</strong> reducción de carga administrativa</div>
+      <p class="case-desc">Un taller mecánico de Panamá llevaba todo en papel y WhatsApp. Construimos su sistema: órdenes de trabajo, CRM, inventario, finanzas, multi-sucursal — todo conectado en una sola plataforma.</p>
+      <div class="case-metric"><strong>80%</strong> menos carga administrativa · <strong>0</strong> papel · <strong>21d</strong> a producción</div>
     </div>
     <div class="case-cell reveal">
-      <div class="case-tag">Logística · Pendiente publicar</div>
-      <h3 class="case-name">Plataforma de procesamiento de pedidos</h3>
-      <p class="case-desc">Sistema de orquestación end-to-end: recepción, calificación, asignación y entrega.</p>
-      <div class="case-metric">De <strong>4 horas</strong> a <strong>11 minutos</strong> por orden</div>
+      <div class="case-tag">Capacidad típica · Captura de leads</div>
+      <h3 class="case-name">Sistema de captación + calificación</h3>
+      <p class="case-desc">Para negocios que pierden oportunidades porque los leads llegan por canales sueltos. Captura desde web, redes y WhatsApp → calificación automática → asignación al equipo de venta con seguimiento.</p>
+      <div class="case-metric">Tiempo de respuesta típico: de <strong>horas</strong> a <strong>segundos</strong></div>
     </div>
     <div class="case-cell reveal">
-      <div class="case-tag">SaaS B2B · Pendiente publicar</div>
-      <h3 class="case-name">CRM con pipeline inteligente</h3>
-      <p class="case-desc">Reemplazo de CRM heredado por sistema con scoring de IA y recomendaciones de próxima acción.</p>
-      <div class="case-metric">Ciclo de venta acortado <strong>34%</strong></div>
+      <div class="case-tag">Capacidad típica · Operación end-to-end</div>
+      <h3 class="case-name">Automatización de procesos completos</h3>
+      <p class="case-desc">Para empresas con procesos que viven entre apps desconectadas. Diseñamos el flujo completo (WhatsApp + CRM + facturación + reportes) que se ejecuta solo, con visibilidad para el dueño.</p>
+      <div class="case-metric">Horas recuperadas semanales: <strong>10 – 40</strong> según operación</div>
     </div>
   </div>
 </section>
 
 <!-- ADDONS -->
 <section class="dark-sec" id="addons">
-  <div class="sec-eyebrow reveal">Servicios complementarios</div>
-  <h2 class="sec-title reveal">Más allá del lanzamiento. <strong>Lo que sigue importa.</strong></h2>
-  <p class="sec-sub reveal">Lo que ofrecemos después del proyecto inicial para que el sistema crezca contigo.</p>
+  <div class="sec-eyebrow reveal">Después del lanzamiento</div>
+  <h2 class="sec-title reveal">Partner tecnológico. <strong>No proveedor de una sola venta.</strong></h2>
+  <p class="sec-sub reveal">El sistema lanzado es el inicio, no el final. Estos son los acuerdos que mantenemos contigo para que la inversión siga rindiendo a 6, 12 y 24 meses.</p>
 
   <div class="addon-grid">
     <div class="addon-cell reveal">
       <div class="addon-ico"><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="6"/><path d="M9 5v4l2.5 1.5"/></svg></div>
       <div class="addon-name">Mantenimiento mensual</div>
-      <p class="addon-desc">Actualizaciones, seguridad, monitoreo, soporte y ajustes pequeños. Plan mensual o por horas.</p>
+      <p class="addon-desc">Actualizaciones, seguridad, monitoreo, ajustes y soporte priorizado. Plan mensual con horas garantizadas — para que no pierdas tiempo buscando proveedor cada vez que algo cambia.</p>
     </div>
     <div class="addon-cell reveal">
-      <div class="addon-ico"><svg viewBox="0 0 18 18"><polyline points="3 11 7 7 11 9 15 4"/></svg></div>
-      <div class="addon-name">SEO y posicionamiento</div>
-      <p class="addon-desc">Optimización técnica, palabras clave, contenidos y métricas para que tu sitio aparezca arriba.</p>
-    </div>
-    <div class="addon-cell reveal">
-      <div class="addon-ico"><svg viewBox="0 0 18 18"><rect x="3" y="3" width="12" height="12" rx="2"/><path d="M3 7h12"/></svg></div>
-      <div class="addon-name">Ads y campañas digitales</div>
-      <p class="addon-desc">Configuración de Meta Ads + Google Ads, audiencias y seguimiento de conversiones.</p>
-    </div>
-    <div class="addon-cell reveal">
-      <div class="addon-ico"><svg viewBox="0 0 18 18"><rect x="2" y="3" width="14" height="10" rx="2"/><path d="M2 13l4-4 4 3 4-5 2 2"/></svg></div>
-      <div class="addon-name">Fotografía y contenido</div>
-      <p class="addon-desc">Coordinación de sesión fotográfica, retoque y producción de contenido para el sitio y redes.</p>
-    </div>
-    <div class="addon-cell reveal">
-      <div class="addon-ico"><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="6"/><path d="M3 9h12M9 3v12"/></svg></div>
-      <div class="addon-name">Multi-idioma posterior</div>
-      <p class="addon-desc">Agregar más idiomas a un sitio ya hecho. Traducción profesional + implementación.</p>
-    </div>
-    <div class="addon-cell reveal">
-      <div class="addon-ico"><svg viewBox="0 0 18 18"><path d="M3 3h12v12H3z"/><path d="M3 8h12M8 3v12"/></svg></div>
-      <div class="addon-name">Migración + hosting gestionado</div>
-      <p class="addon-desc">Mudarse de WordPress / Wix a un sistema propio. Setup de dominio, hosting y email.</p>
+      <div class="addon-ico"><svg viewBox="0 0 18 18"><path d="M2 9l3 3 7-7M9 14l3-3"/></svg></div>
+      <div class="addon-name">Sprint de evolución</div>
+      <p class="addon-desc">Un ciclo mensual de mejoras y nuevas funcionalidades. Cuando el negocio crece, el sistema crece con él — sin re-cotizar cada cambio. Ideal para empresas que iteran rápido.</p>
     </div>
     <div class="addon-cell reveal">
       <div class="addon-ico"><svg viewBox="0 0 18 18"><path d="M9 2l2 4 4 .6-3 3 .7 4L9 12l-3.7 1.6.7-4-3-3 4-.6z"/></svg></div>
       <div class="addon-name">Auditoría de sistemas</div>
-      <p class="addon-desc">Revisamos tu stack actual, identificamos brechas y entregamos un blueprint de mejora.</p>
+      <p class="addon-desc">Revisamos tu stack tecnológico actual, identificamos brechas y te entregamos un blueprint priorizado de mejora. Sirve para diagnóstico inicial o como auditoría anual de salud digital.</p>
     </div>
     <div class="addon-cell reveal">
       <div class="addon-ico"><svg viewBox="0 0 18 18"><circle cx="9" cy="6" r="3"/><path d="M3 16c0-3 2.5-5 6-5s6 2 6 5"/></svg></div>
       <div class="addon-name">Capacitación a equipos</div>
-      <p class="addon-desc">Sesiones para que tu equipo aproveche las herramientas, automatice tareas y use IA en su día a día.</p>
+      <p class="addon-desc">Sesiones para que tu equipo se apropie del sistema, automatice sus propias tareas con IA y deje de depender de nosotros para los cambios pequeños. Transferencia real de conocimiento.</p>
     </div>
   </div>
 </section>
@@ -1158,27 +1148,42 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
 <!-- FAQ -->
 <section id="faq">
   <div class="sec-eyebrow reveal">Preguntas frecuentes</div>
-  <h2 class="sec-title reveal">Todo lo que necesitas <strong>saber.</strong></h2>
+  <h2 class="sec-title reveal">Lo que la gente <strong>nos suele preguntar.</strong></h2>
 
   <div class="faq-wrap reveal">
-    <div class="faq-item"><button class="faq-q"><span>¿Cuánto cuesta un sitio con DTechLab Studio?</span><span class="faq-ico">+</span></button><div class="faq-a">Depende del alcance. Nuestros rangos están calibrados al mercado panameño 2026: landing simple desde <strong>$250</strong> (en mercado: $250–$700). Sitio corporativo <strong>$700–$2,500</strong> (mercado: $600–$1,500). Tienda online <strong>$1,500–$4,500</strong> (mercado: $1,100–$6,500). CRM/Dashboard <strong>$3,000–$8,000</strong> (mercado: $5,000–$15,000). Plataforma a medida <strong>$3,800–$12,000+</strong> (mercado: $5,000–$20,000+). Estamos ligeramente abajo del mercado promedio porque entregamos directo, sin intermediarios. Usa el cotizador para tu rango exacto.</div></div>
-    <div class="faq-item"><button class="faq-q"><span>¿Cómo son los pagos?</span><span class="faq-ico">+</span></button><div class="faq-a">50% al firmar el acuerdo (apartas la fecha y empezamos), 50% al entregar el proyecto funcionando. Para proyectos grandes (sobre $6,000) podemos dividir en 3 pagos. Aceptamos transferencia, Yappy, ACH, tarjeta y PayPal.</div></div>
-    <div class="faq-item"><button class="faq-q"><span>¿Qué incluye el precio?</span><span class="faq-ico">+</span></button><div class="faq-a">Diseño, desarrollo, integración con tus herramientas actuales, optimización mobile, despliegue en producción, capacitación a tu equipo y 30 días de soporte gratuito post-lanzamiento. NO incluye: dominio propio (~$15/año), hosting mensual si lo necesitas (~$10–20/mes), contenido y fotografías del negocio.</div></div>
-    <div class="faq-item"><button class="faq-q"><span>¿En cuánto tiempo está listo?</span><span class="faq-ico">+</span></button><div class="faq-a">Landing pages: 2–3 semanas. Sitios corporativos: 3–5 semanas. E-commerce: 4–6 semanas. Plataformas a medida: 5–10 semanas. La primera versión funcional sale en menos de 21 días desde el inicio.</div></div>
-    <div class="faq-item"><button class="faq-q"><span>¿Necesito tener listo el contenido y las fotos?</span><span class="faq-ico">+</span></button><div class="faq-a">No tienes que tenerlo todo perfecto al iniciar, pero idealmente sí. Si no tienes textos, ofrecemos servicio de redacción. Si no tienes fotos, coordinamos sesión fotográfica como servicio aparte. Lo importante es que sepas qué quieres comunicar.</div></div>
-    <div class="faq-item"><button class="faq-q"><span>¿El código es mío?</span><span class="faq-ico">+</span></button><div class="faq-a">Sí. Al finalizar el proyecto te entregamos todo el código fuente. No te amarramos a una plataforma que cobre mensualidad forzosa. Lo que construimos vive en tu hosting y crece contigo.</div></div>
-    <div class="faq-item"><button class="faq-q"><span>¿Trabajan con clientes fuera de Panamá?</span><span class="faq-ico">+</span></button><div class="faq-a">Sí. Trabajamos 100% remoto con clientes en toda Latinoamérica. Tenemos procesos claros que funcionan bien a distancia: reuniones por video, demo semanal y acceso siempre al avance.</div></div>
-    <div class="faq-item"><button class="faq-q"><span>¿Qué pasa después de los 30 días de soporte?</span><span class="faq-ico">+</span></button><div class="faq-a">Tres opciones: (1) no hacer nada — el sitio sigue funcionando, tú lo administras; (2) plan de mantenimiento mensual desde $90/mes que cubre actualizaciones, monitoreo y ajustes; (3) pagar por horas cuando necesites algo puntual.</div></div>
-    <div class="faq-item"><button class="faq-q"><span>¿Pueden hacer mantenimiento de un sitio que no construyeron ustedes?</span><span class="faq-ico">+</span></button><div class="faq-a">Depende del estado. Si el sitio está bien construido sí. Si está en mal estado o en una plataforma muy limitada, te recomendaremos rehacerlo. Hacemos auditoría gratuita.</div></div>
-    <div class="faq-item"><button class="faq-q"><span>¿Cómo empieza un proyecto?</span><span class="faq-ico">+</span></button><div class="faq-a">Usa el cotizador, escríbenos por WhatsApp o envíanos un email. Agendamos una llamada de 20–30 minutos para entender qué necesitas. Si hace sentido para ambos, te enviamos una propuesta formal en 2–3 días.</div></div>
+
+    <!-- ESTRATÉGICAS PRIMERO -->
+    <div class="faq-item"><button class="faq-q"><span>¿En qué se diferencian de una agencia de marketing o diseño tradicional?</span><span class="faq-ico">+</span></button><div class="faq-a">Una agencia te vende lo que sabe hacer (web, ads, branding) y mide su éxito en entregables. Nosotros empezamos por entender qué problema de negocio tienes — y después decidimos qué herramientas usar: a veces una landing, a veces una automatización, a veces un sistema interno, a veces todo combinado. Vendemos resultados (más clientes, menos trabajo manual), no productos sueltos.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>Mi problema no es solo la página web. ¿Pueden resolverlo?</span><span class="faq-ico">+</span></button><div class="faq-a">Sí — de hecho, es donde más valor agregamos. Si tienes un cuello de botella operacional, un proceso que se hace a mano, o necesitas un software que no existe en el mercado, eso es exactamente lo que diseñamos. Cuéntanos qué quieres resolver y te decimos honesto si podemos o no.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿Cómo sé si necesito automatización, IA, un sitio web o todo combinado?</span><span class="faq-ico">+</span></button><div class="faq-a">No tienes que saberlo. Esa es nuestra parte del trabajo. En la primera conversación (20 min, sin costo) escuchamos qué te está costando tiempo o clientes, y te decimos qué stack tiene sentido — incluso si la respuesta es "no necesitas nada todavía". Diagnosticamos antes de proponer.</div></div>
+
+    <!-- TRANSACCIONALES -->
+    <div class="faq-item"><button class="faq-q"><span>¿Cuánto cuesta trabajar con DTechLab Studio?</span><span class="faq-ico">+</span></button><div class="faq-a">Depende del alcance del problema. Rangos típicos calibrados al mercado panameño 2026: presencia digital simple desde <strong>$250</strong> (mercado: $250–$700). Sitios corporativos <strong>$700–$2,500</strong>. E-commerce <strong>$1,500–$4,500</strong>. Automatización <strong>$800–$3,500</strong>. CRM/Dashboard <strong>$3,000–$8,000</strong>. Software a medida <strong>$3,800–$15,000+</strong>. Estamos por debajo del promedio del mercado porque entregamos directo, sin intermediarios. Usa el cotizador para tu caso exacto.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿Cómo son los pagos?</span><span class="faq-ico">+</span></button><div class="faq-a">50% al firmar el acuerdo (apartas la fecha y empezamos), 50% al entregar el sistema funcionando. Para proyectos sobre $6,000 podemos dividir en 3 pagos. Aceptamos transferencia, Yappy, ACH, tarjeta y PayPal.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿Qué incluye el precio?</span><span class="faq-ico">+</span></button><div class="faq-a">Diseño, desarrollo, integración con tus herramientas actuales, optimización móvil, despliegue en producción, capacitación a tu equipo y 30 días de soporte gratuito post-lanzamiento. NO incluye: dominio propio (~$15/año), hosting mensual si aplica (~$10–20/mes), contenido y fotografías del negocio.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿En cuánto tiempo está listo?</span><span class="faq-ico">+</span></button><div class="faq-a">Presencias digitales: 2–3 semanas. Sitios corporativos: 3–5 semanas. E-commerce: 4–6 semanas. Automatizaciones: 1–4 semanas. CRM/Dashboard: 3–8 semanas. Software a medida: 6–16 semanas. La primera versión funcional sale en menos de 21 días desde el inicio en la mayoría de proyectos.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿El código es mío?</span><span class="faq-ico">+</span></button><div class="faq-a">Sí. Al finalizar te entregamos todo el código fuente. No te amarramos a una plataforma con mensualidad forzosa. Lo que construimos vive en tu hosting y escala contigo, incluso si decides cambiar de proveedor en el futuro.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿Trabajan con clientes fuera de Panamá?</span><span class="faq-ico">+</span></button><div class="faq-a">Sí. Trabajamos 100% remoto con clientes en toda Latinoamérica. Tenemos procesos claros que funcionan bien a distancia: reuniones por video, demos semanales y acceso permanente al avance.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿Qué pasa después de los 30 días de soporte?</span><span class="faq-ico">+</span></button><div class="faq-a">Tres opciones: (1) nada — el sistema sigue funcionando, tú lo administras; (2) plan de mantenimiento mensual desde $90/mes que cubre actualizaciones, monitoreo, ajustes y soporte priorizado; (3) Sprint mensual de evolución para empresas que iteran rápido y necesitan nuevas funcionalidades cada mes.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿Cómo empieza un proyecto?</span><span class="faq-ico">+</span></button><div class="faq-a">Usa el cotizador, escríbenos por WhatsApp o envíanos un email. Agendamos una llamada de 20–30 minutos (sin costo) para entender qué problema quieres resolver. Si hace sentido para ambos, recibes propuesta formal en 2–3 días.</div></div>
+
   </div>
 </section>
 
 <!-- CTA FINAL -->
 <section class="dark-sec center-sec" id="contacto" style="padding:120px 80px">
-  <div class="sec-eyebrow reveal">Empieza hoy</div>
-  <h2 class="sec-title reveal tetris-text">Tu negocio merece <strong>mejor infraestructura digital.</strong></h2>
-  <p class="sec-sub reveal">Conversemos. La primera llamada es sin costo y sin compromiso.</p>
+  <div class="sec-eyebrow reveal">Empieza por una conversación</div>
+  <h2 class="sec-title reveal tetris-text">Tu negocio puede crecer <strong>sin que tú trabajes el doble.</strong></h2>
+  <p class="sec-sub reveal">Hay algo en tu operación que se puede resolver con tecnología. 20 minutos de conversación, sin costo. Te decimos honesto si hay oportunidad — o si no.</p>
   <div class="hero-actions reveal in" style="justify-content:center">
     <a href="#cotizador" class="btn-primary">Cotizar mi proyecto <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     <a href="https://api.whatsapp.com/send?phone=50769837286&text=Hola%20Rodolfo%2C%20vi%20DTechLab%20Studio%20y%20quiero%20arrancar%20un%20proyecto.%20%F0%9F%91%8B" class="btn-wa" target="_blank">
@@ -1197,16 +1202,17 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
     <div>
       <a href="dtechlab-studio.html" class="footer-brand">
         <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" stroke="#5B6AFF" stroke-width="1.5"/><rect x="8" y="8" width="7" height="7" rx="1.5" fill="#5B6AFF"/><rect x="17" y="8" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="8" y="17" width="7" height="7" rx="1.5" fill="rgba(91,106,255,0.45)"/><rect x="17" y="17" width="7" height="7" rx="1.5" fill="#5B6AFF"/></svg>
-        <div><div class="footer-name">DTechLab Studio</div><div class="footer-tagline">diseño + ingeniería · panamá · latam</div></div>
+        <div><div class="footer-name">DTechLab Studio</div><div class="footer-tagline">estudio de ingeniería digital · panamá · latam</div></div>
       </a>
     </div>
     <div>
-      <div class="footer-col-title">Studio</div>
+      <div class="footer-col-title">Navegar</div>
       <div class="footer-links">
-        <a href="#servicios">Servicios</a>
-        <a href="#templates">Templates</a>
+        <a href="#servicios">Cómo resolvemos</a>
+        <a href="#templates">Por industria</a>
         <a href="#proceso">Proceso</a>
-        <a href="#cotizador">Cotizador</a>
+        <a href="#casos">Trabajo</a>
+        <a href="#cotizador">Diagnóstico rápido</a>
         <a href="#faq">FAQ</a>
       </div>
     </div>
@@ -1215,14 +1221,14 @@ footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;
       <div class="footer-links">
         <a href="https://api.whatsapp.com/send?phone=50769837286&text=Hola%20Rodolfo%2C%20vi%20DTechLab%20Studio%20y%20quiero%20arrancar%20un%20proyecto.%20%F0%9F%91%8B" target="_blank" rel="noopener">WhatsApp · +507 6983-7286</a>
         <a href="mailto:rodophybusiness08@gmail.com">rodophybusiness08@gmail.com</a>
-        <a href="#cotizador">Cotizador inteligente</a>
+        <a href="#cotizador">Diagnóstico de 60 seg</a>
         <a href="#contacto">Agendar conversación</a>
       </div>
     </div>
   </div>
   <div class="footer-copy">
-    <span>© 2026 DTechLab Studio · Panamá</span>
-    <span>v2.0 · ready to launch</span>
+    <span>© 2026 DTechLab Studio · Panamá · Latam</span>
+    <span>Tecnología al servicio del negocio.</span>
   </div>
 </footer>
 
@@ -1617,46 +1623,68 @@ const Sasha = {
   nodes: {
     async GREETING() {
       await this.botSay(`Hola 👋 Soy <strong>Sasha</strong>, asistente de DTechLab Studio.`);
-      await this.botSay(`Te ayudo a encontrar lo correcto en menos de un minuto. <em>¿Qué te trae por aquí?</em>`);
+      await this.botSay(`Para recomendarte algo concreto, dime: <em>¿qué te está costando tiempo, dinero o clientes en tu negocio hoy?</em>`);
       this.renderQuick([
-        { ico: '💼', label: 'Necesito un sitio web', next: 'WEB_TYPE' },
-        { ico: '⚙️', label: 'Quiero automatizar mi negocio', next: 'AUTOMATION' },
-        { ico: '🤖', label: 'Me interesa la IA aplicada', next: 'AI' },
-        { ico: '💰', label: 'Ver precios y rangos', next: 'PRICING' },
-        { ico: '❓', label: 'No sé qué necesito todavía', next: 'DISCOVERY' },
+        { ico: '🌐', label: 'No me encuentran online', next: 'PAIN_PRESENCE' },
+        { ico: '⏰', label: 'Mi equipo está saturado en trabajo manual', next: 'PAIN_OPS' },
+        { ico: '📉', label: 'No sé qué pasa en mi negocio en tiempo real', next: 'PAIN_DATA' },
+        { ico: '🤖', label: 'Quiero atender más clientes sin contratar', next: 'PAIN_AI' },
+        { ico: '💼', label: 'Necesito un software que no existe', next: 'PAIN_PRODUCT' },
+        { ico: '❓', label: 'Aún no lo tengo claro', next: 'DISCOVERY' },
       ]);
     },
 
-    async WEB_TYPE() {
+    async PAIN_PRESENCE() {
       this.ctx.intent = 'web';
-      await this.botSay(`Genial. <em>¿Qué tipo de sitio te imaginas?</em>`);
+      await this.botSay(`Te entiendo — cuando la gente no te encuentra o llega a un sitio que no convierte, los clientes se van a la competencia. <em>¿Qué tipo de presencia necesitas?</em>`);
       this.renderQuick([
-        { ico: '🚀', label: 'Landing simple (1 página)', next: 'PRICE_LANDING' },
-        { ico: '🏢', label: 'Sitio corporativo (5–10 págs)', next: 'PRICE_CORPORATE' },
+        { ico: '🚀', label: 'Landing enfocada en captar clientes', next: 'PRICE_LANDING' },
+        { ico: '🏢', label: 'Sitio corporativo completo', next: 'PRICE_CORPORATE' },
         { ico: '🛒', label: 'Tienda online con pagos', next: 'PRICE_ECOMMERCE' },
-        { ico: '🔧', label: 'Plataforma a medida', next: 'PRICE_PLATFORM' },
-        { ico: '🤔', label: 'No estoy seguro', next: 'DISCOVERY' },
-      ]);
-    },
-
-    async AUTOMATION() {
-      this.ctx.intent = 'automation';
-      await this.botSay(`La automatización conecta tus herramientas para que el negocio fluya solo. <em>¿Qué necesitas resolver?</em>`);
-      this.renderQuick([
-        { ico: '🔗', label: 'Integrar mis herramientas', next: 'PRICE_AUTO_INT' },
-        { ico: '📱', label: 'Bot inteligente de WhatsApp', next: 'PRICE_AUTO_WA' },
-        { ico: '📊', label: 'Reportes y dashboards automáticos', next: 'PRICE_AUTO_DASH' },
         { ico: '💬', label: 'Mejor hablar con alguien', next: 'CONTACT' },
       ]);
     },
 
-    async AI() {
-      this.ctx.intent = 'ai';
-      await this.botSay(`La IA bien aplicada cambia cómo opera un negocio. <em>¿Qué tipo de IA te interesa?</em>`);
+    async PAIN_OPS() {
+      this.ctx.intent = 'automation';
+      await this.botSay(`Eso le pasa a casi todos los negocios que crecen — el equipo se ahoga en trabajo manual. <em>¿Cuál es el más doloroso hoy?</em>`);
       this.renderQuick([
-        { ico: '🤖', label: 'Asistente para mis clientes (chatbot inteligente)', next: 'PRICE_AI_BOT' },
-        { ico: '📄', label: 'Búsqueda inteligente en mis documentos', next: 'PRICE_AI_DOC' },
-        { ico: '🎯', label: 'Calificación automática de leads', next: 'PRICE_AI_LEAD' },
+        { ico: '🔗', label: 'Copiar datos entre apps a mano', next: 'PRICE_AUTO_INT' },
+        { ico: '📱', label: 'Atender lo mismo en WhatsApp todo el día', next: 'PRICE_AUTO_WA' },
+        { ico: '📊', label: 'Armar reportes desde cero cada semana', next: 'PRICE_AUTO_DASH' },
+        { ico: '💬', label: 'Mejor hablar con alguien', next: 'CONTACT' },
+      ]);
+    },
+
+    async PAIN_DATA() {
+      this.ctx.intent = 'data';
+      await this.botSay(`Cuando los datos viven en tres Excel distintos, las decisiones llegan tarde. <em>¿Qué quieres ver en tiempo real?</em>`);
+      this.renderQuick([
+        { ico: '📊', label: 'Ventas, pipeline y clientes', next: 'PRICE_AUTO_DASH' },
+        { ico: '🏢', label: 'Operación y multi-sucursal', next: 'PRICE_DASHBOARD' },
+        { ico: '💰', label: 'Finanzas y cobros', next: 'PRICE_DASHBOARD' },
+        { ico: '💬', label: 'Mejor hablar con alguien', next: 'CONTACT' },
+      ]);
+    },
+
+    async PAIN_AI() {
+      this.ctx.intent = 'ai';
+      await this.botSay(`La IA bien aplicada te da capacidad sin contratar más gente. <em>¿Qué quieres que la IA atienda por ti?</em>`);
+      this.renderQuick([
+        { ico: '🤖', label: 'Clientes — chatbot inteligente 24/7', next: 'PRICE_AI_BOT' },
+        { ico: '📄', label: 'Documentos — búsqueda y resumen', next: 'PRICE_AI_DOC' },
+        { ico: '🎯', label: 'Leads — calificación automática', next: 'PRICE_AI_LEAD' },
+        { ico: '💬', label: 'Mejor hablar con alguien', next: 'CONTACT' },
+      ]);
+    },
+
+    async PAIN_PRODUCT() {
+      this.ctx.intent = 'product';
+      await this.botSay(`Construir software desde cero es exactamente lo que hacemos en proyectos como <em>AutoPro</em> (sistema operativo para talleres). <em>¿Qué tipo de software necesitas?</em>`);
+      this.renderQuick([
+        { ico: '💼', label: 'Sistema interno para mi operación', next: 'PRICE_PLATFORM' },
+        { ico: '🚀', label: 'SaaS propio para lanzar al mercado', next: 'PRICE_PLATFORM' },
+        { ico: '🔧', label: 'Herramienta a medida para mi equipo', next: 'PRICE_PLATFORM' },
         { ico: '💬', label: 'Mejor hablar con alguien', next: 'CONTACT' },
       ]);
     },
@@ -1711,6 +1739,7 @@ const Sasha = {
     async PRICE_AUTO_INT() { await this.showPrice('Integración de herramientas', '$800 – $2,500', 'automation'); },
     async PRICE_AUTO_WA() { await this.showPrice('Bot inteligente de WhatsApp', '$1,200 – $3,500', 'automation'); },
     async PRICE_AUTO_DASH() { await this.showPrice('Dashboards automáticos', '$2,500 – $6,000', 'dashboard'); },
+    async PRICE_DASHBOARD() { await this.showPrice('CRM / Dashboard a medida', '$3,000 – $8,000', 'dashboard'); },
     async PRICE_AI_BOT() { await this.showPrice('Asistente IA para clientes', '$2,500 – $6,000', 'platform'); },
     async PRICE_AI_DOC() { await this.showPrice('Búsqueda inteligente de documentos', '$2,000 – $5,000', 'platform'); },
     async PRICE_AI_LEAD() { await this.showPrice('Calificación IA de leads', '$2,500 – $5,000', 'automation'); },
