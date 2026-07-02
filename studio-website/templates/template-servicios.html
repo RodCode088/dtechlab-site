@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veridian Construcciones — Demo Navegable | DTechLab Studio</title>
+<meta name="description" content="Demo navegable ficticio para empresa de construcción y servicios. Concepto de referencia de DTechLab Studio.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23262624'/%3E%3Cpath d='M6 24V14L16 8l10 6v10' stroke='%23F1801E' stroke-width='1.8' fill='none'/%3E%3Cpath d='M6 24h20M11 24v-6h10v6' stroke='%23F1801E' stroke-width='1.8' fill='none'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--stone:#262624;--stone-2:#34322F;--ash:#E5E2DC;--paper:#F5F2EC;--orange:#F1801E;--orange-d:#C8631A;--ink:#1A1817;--soft:#6B6862;--line:rgba(26,24,23,.12);--green:#5C7548}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+
+.dtl-ribbon{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0A0A0F;color:#9898A8;padding:8px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Courier New',monospace;font-size:11px;letter-spacing:.08em;border-bottom:1px solid rgba(255,255,255,.06)}
+.dtl-ribbon .dtl-l{display:flex;align-items:center;gap:10px}
+.dtl-ribbon svg{width:16px;height:16px}
+.dtl-ribbon a{color:#5B6AFF;text-decoration:none;border:1px solid rgba(91,106,255,.3);padding:4px 12px;border-radius:4px;font-weight:500}
+.dtl-ribbon a:hover{background:rgba(91,106,255,.1);color:#A8B4FF}
+
+nav{position:fixed;top:36px;left:0;right:0;background:rgba(245,242,236,.96);backdrop-filter:blur(14px);z-index:100;padding:18px 56px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);transition:padding .25s}
+nav.shrink{padding:14px 56px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.brand-mark{width:42px;height:42px;background:var(--stone);display:flex;align-items:center;justify-content:center;color:var(--orange)}
+.brand-mark svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8}
+.brand-name{font-family:'Space Grotesk',sans-serif;font-size:18px;color:var(--ink);font-weight:600;letter-spacing:.02em;line-height:1;text-transform:uppercase}
+.brand-name small{display:block;font-family:'Space Grotesk',sans-serif;font-size:10px;color:var(--soft);font-weight:400;letter-spacing:.2em;text-transform:uppercase;margin-top:5px}
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+.nav-links a{font-size:13px;color:var(--ink);text-decoration:none;letter-spacing:.04em;font-weight:500}
+.nav-links a:hover{color:var(--orange-d)}
+.nav-cta{background:var(--orange);color:var(--stone);padding:11px 22px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-weight:700;transition:all .15s;display:inline-flex;align-items:center;gap:8px}
+.nav-cta:hover{background:var(--orange-d);color:#fff}
+
+/* HERO */
+.hero{padding:160px 0 0;position:relative;overflow:hidden;background:var(--stone)}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;min-height:680px}
+.hero-text{padding:0 56px 80px;display:flex;flex-direction:column;justify-content:center;color:var(--ash)}
+.hero-eye{display:inline-flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:28px;font-weight:600}
+.hero-eye::before{content:'';width:30px;height:2px;background:var(--orange)}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(40px,5.5vw,84px);line-height:1.02;color:var(--ash);font-weight:500;letter-spacing:-.02em;margin-bottom:24px}
+.hero h1 strong{color:var(--orange);font-weight:700}
+.hero-sub{font-size:17px;color:#A8A5A0;max-width:520px;line-height:1.85;margin-bottom:40px;font-weight:300}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn-pri{background:var(--orange);color:var(--stone);padding:15px 32px;text-decoration:none;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;transition:all .15s;display:inline-flex;align-items:center;gap:10px;border:none;cursor:pointer;font-family:inherit}
+.btn-pri:hover{background:#fff;transform:translateY(-1px)}
+.btn-sec{background:transparent;color:var(--ash);padding:15px 26px;text-decoration:none;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;border:1.5px solid var(--ash);transition:all .15s}
+.btn-sec:hover{background:var(--ash);color:var(--stone)}
+
+.hero-visual{background:linear-gradient(160deg,#1A1817 0%,#2A2825 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.hero-visual::before{content:'';position:absolute;top:0;right:0;bottom:0;width:2px;background:var(--orange);opacity:.6}
+.hv-overlay{position:absolute;top:32px;left:32px;color:var(--orange);font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;display:flex;flex-direction:column;gap:6px}
+.hv-overlay span:last-child{color:#7A7872;font-size:9.5px;letter-spacing:.16em}
+.hv-meta{position:absolute;bottom:32px;left:32px;right:32px;display:flex;justify-content:space-between;align-items:flex-end;color:var(--ash);font-family:'Space Grotesk',sans-serif}
+.hv-meta-name{font-size:22px;font-weight:600;letter-spacing:-.01em;margin-bottom:4px}
+.hv-meta-loc{font-size:11px;color:#A8A5A0;letter-spacing:.12em;text-transform:uppercase}
+.hv-meta-y{font-size:48px;color:var(--orange);font-weight:700;letter-spacing:-.04em;line-height:1}
+.hv-meta-y small{display:block;font-size:10px;color:#7A7872;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin-top:6px}
+
+/* Building rendering */
+.bldg-render{position:relative;width:75%;aspect-ratio:1/1.1;display:flex;align-items:flex-end;justify-content:center}
+.br-base{width:100%;height:62%;background:linear-gradient(180deg,rgba(241,128,30,.04) 0%,rgba(241,128,30,.18) 100%);border:1px solid rgba(241,128,30,.4);position:relative;display:grid;grid-template-rows:repeat(7,1fr);grid-template-columns:repeat(5,1fr);gap:2px;padding:8px}
+.br-w{background:rgba(241,128,30,.15);position:relative}
+.br-w.lit{background:rgba(255,210,140,.7);box-shadow:inset 0 0 8px rgba(255,210,140,.4)}
+.br-base::before{content:'';position:absolute;top:-10px;left:0;right:0;height:3px;background:var(--orange);opacity:.6}
+.br-second{position:absolute;top:18%;width:60%;height:32%;background:linear-gradient(180deg,rgba(241,128,30,.04) 0%,rgba(241,128,30,.16) 100%);border:1px solid rgba(241,128,30,.3);display:grid;grid-template-rows:repeat(4,1fr);grid-template-columns:repeat(3,1fr);gap:2px;padding:6px}
+.br-tower{position:absolute;top:0;left:50%;transform:translateX(-50%);width:30%;height:24%;background:linear-gradient(180deg,rgba(241,128,30,.05) 0%,rgba(241,128,30,.15) 100%);border:1px solid rgba(241,128,30,.4);border-bottom:none;display:grid;grid-template-rows:repeat(3,1fr);grid-template-columns:repeat(2,1fr);gap:2px;padding:5px}
+.br-tower::after{content:'';position:absolute;top:-12px;left:50%;width:2px;height:14px;background:var(--orange);transform:translateX(-50%)}
+.br-ground{position:absolute;bottom:0;left:-10%;right:-10%;height:8px;background:linear-gradient(90deg,transparent 0%,rgba(241,128,30,.4) 50%,transparent 100%);opacity:.6}
+
+/* HERO BOTTOM STRIP */
+.hero-strip{background:var(--stone-2);color:var(--ash);padding:0;border-top:1px solid rgba(241,128,30,.2)}
+.hero-strip-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);align-items:stretch}
+.hsi{padding:32px 36px;border-right:1px solid rgba(241,128,30,.18);display:flex;flex-direction:column;justify-content:center}
+.hsi:last-child{border-right:none}
+.hsi-v{font-family:'Space Grotesk',sans-serif;font-size:32px;color:var(--orange);font-weight:700;letter-spacing:-.02em;line-height:1}
+.hsi-l{font-family:'Space Grotesk',sans-serif;font-size:11px;color:#A8A5A0;letter-spacing:.16em;text-transform:uppercase;margin-top:6px;font-weight:500}
+.hsi-d{font-size:13px;color:#A8A5A0;margin-top:8px;font-weight:300;line-height:1.6}
+
+/* SECTIONS */
+.section{padding:120px 56px;max-width:1400px;margin:0 auto}
+.sec-head{margin-bottom:64px;max-width:780px}
+.sec-head.center{text-align:center;margin-left:auto;margin-right:auto}
+.sec-eye{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--orange-d);margin-bottom:18px;font-weight:600}
+.sec-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,4.8vw,64px);line-height:1.02;color:var(--ink);font-weight:500;letter-spacing:-.025em;margin-bottom:18px}
+.sec-title strong{color:var(--orange-d);font-weight:700}
+.sec-sub{font-size:17px;color:var(--soft);line-height:1.85;font-weight:300}
+
+/* SERVICIOS */
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.svc{background:var(--paper);padding:48px 40px;transition:all .25s;display:flex;flex-direction:column;gap:18px;cursor:default}
+.svc:hover{background:#fff}
+.svc-head{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.svc-num{font-family:'Space Grotesk',sans-serif;font-size:48px;color:var(--orange-d);font-weight:700;letter-spacing:-.04em;line-height:1}
+.svc-cat{font-family:'Space Grotesk',sans-serif;font-size:10.5px;color:var(--soft);letter-spacing:.18em;text-transform:uppercase;font-weight:600;text-align:right}
+.svc h3{font-family:'Space Grotesk',sans-serif;font-size:28px;color:var(--ink);font-weight:600;letter-spacing:-.015em;line-height:1.15}
+.svc p{font-size:14.5px;color:var(--soft);line-height:1.8;font-weight:300}
+.svc-list{list-style:none;display:flex;flex-direction:column;gap:8px;padding-top:18px;border-top:1px solid var(--line);margin-top:8px}
+.svc-list li{font-size:13px;color:var(--ink);display:flex;justify-content:space-between;font-weight:500}
+.svc-list li span:last-child{color:var(--orange-d);font-weight:700}
+
+/* PROYECTOS */
+.projects-sec{background:var(--ash);padding:120px 0}
+.projects-head{max-width:1400px;margin:0 auto;padding:0 56px;margin-bottom:48px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.projects-grid{max-width:1400px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.proj{background:var(--stone);color:var(--ash);overflow:hidden;cursor:default;transition:transform .25s;position:relative}
+.proj:hover{transform:translateY(-4px)}
+.proj-img{aspect-ratio:4/3;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.proj-img.t1{background:linear-gradient(135deg,#3D3A35 0%,#262420 50%,#1F1D1A 100%)}
+.proj-img.t2{background:linear-gradient(135deg,#1F2725 0%,#141816 100%)}
+.proj-img.t3{background:linear-gradient(135deg,#2D2A22 0%,#1A1715 100%)}
+.proj-img.t4{background:linear-gradient(135deg,#252220 0%,#15110F 100%)}
+.proj-img.t5{background:linear-gradient(135deg,#332E28 0%,#1F1B17 100%)}
+.proj-img.t6{background:linear-gradient(135deg,#1A1817 0%,#0F0D0C 100%)}
+.proj-mock{width:75%;height:60%;position:relative;display:flex;align-items:flex-end;justify-content:center}
+.proj-shape{width:100%;height:80%;background:linear-gradient(180deg,rgba(241,128,30,.05) 0%,rgba(241,128,30,.18) 100%);border:1px solid rgba(241,128,30,.4);display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(5,1fr);gap:2px;padding:6px;position:relative}
+.proj-shape::before{content:'';position:absolute;top:-6px;left:0;right:0;height:2px;background:var(--orange);opacity:.5}
+.psw{background:rgba(241,128,30,.18)}
+.psw.lit{background:rgba(255,210,140,.65)}
+.proj-mock-2{width:100%;height:35%;background:rgba(241,128,30,.12);border:1px solid rgba(241,128,30,.3);position:absolute;bottom:0;left:0;right:0}
+.proj-tag{position:absolute;top:16px;left:16px;background:var(--orange);color:var(--stone);font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:5px 11px;font-weight:700}
+.proj-tag.done{background:var(--green);color:#fff}
+.proj-tag.progress{background:var(--orange);color:var(--stone)}
+.proj-info{padding:24px 26px}
+.proj-meta{font-family:'Space Grotesk',sans-serif;font-size:10.5px;color:var(--orange);letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px;font-weight:600;display:flex;justify-content:space-between}
+.proj-meta span:last-child{color:#7A7872;letter-spacing:.12em}
+.proj h3{font-family:'Space Grotesk',sans-serif;font-size:22px;color:var(--ash);font-weight:600;margin-bottom:8px;letter-spacing:-.01em;line-height:1.2}
+.proj p{font-size:13.5px;color:#A8A5A0;line-height:1.7;font-weight:300;margin-bottom:14px}
+.proj-data{display:flex;gap:24px;padding-top:14px;border-top:1px solid rgba(241,128,30,.15);font-family:'Space Grotesk',sans-serif;font-size:11px;color:#A8A5A0;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.proj-data strong{color:var(--ash);font-size:14px;display:block;font-weight:700;letter-spacing:-.01em;text-transform:none;margin-bottom:2px}
+
+/* PROCESO */
+.process-sec{padding:120px 56px;max-width:1400px;margin:0 auto}
+.process-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--stone);border-bottom:2px solid var(--stone);margin-top:48px}
+.ps{padding:48px 36px;border-right:1px solid var(--line);position:relative}
+.ps:last-child{border-right:none}
+.ps-num{font-family:'Space Grotesk',sans-serif;font-size:64px;color:var(--orange);font-weight:700;letter-spacing:-.04em;line-height:1;margin-bottom:20px}
+.ps h3{font-family:'Space Grotesk',sans-serif;font-size:22px;color:var(--ink);font-weight:600;margin-bottom:12px;letter-spacing:-.01em;line-height:1.2}
+.ps p{font-size:14px;color:var(--soft);line-height:1.8;font-weight:300}
+.ps-time{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-family:'Space Grotesk',sans-serif;font-size:11px;color:var(--orange-d);letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+
+/* CTA */
+.cta-sec{background:var(--stone);color:var(--ash);padding:100px 56px;position:relative;overflow:hidden}
+.cta-sec::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange)}
+.cta-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.cta-text .sec-eye{color:var(--orange)}
+.cta-sec h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,4.8vw,58px);color:var(--ash);font-weight:600;letter-spacing:-.025em;line-height:1.05;margin-bottom:22px}
+.cta-sec h2 strong{color:var(--orange);font-weight:700}
+.cta-sec p{font-size:17px;color:#A8A5A0;line-height:1.85;margin-bottom:28px;font-weight:300}
+.cta-form{background:var(--stone-2);padding:36px 32px;border-left:3px solid var(--orange)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.fg{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.fg label{font-family:'Space Grotesk',sans-serif;font-size:10.5px;color:var(--orange);letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.fg input,.fg select,.fg textarea{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);color:var(--ash);font-size:14px;padding:13px 14px;outline:none;font-family:inherit;font-weight:300;transition:all .15s;border-radius:0}
+.fg input::placeholder{color:#6B6862}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--orange)}
+.fg select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23F1801E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+.fg select option{background:var(--stone-2);color:var(--ash)}
+.fg textarea{resize:vertical;min-height:80px}
+.cta-form .btn-pri{width:100%;justify-content:center;margin-top:6px}
+
+/* FOOTER */
+footer{background:#1A1817;color:#A8A5A0;padding:60px 56px 32px;border-top:1px solid rgba(241,128,30,.2)}
+.foot-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px}
+.foot-name{font-family:'Space Grotesk',sans-serif;font-size:22px;color:var(--ash);font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+.foot-tag{font-size:13px;color:#7A7872;line-height:1.7;max-width:280px;font-weight:300;margin-top:14px}
+.foot-col-t{font-family:'Space Grotesk',sans-serif;font-size:11px;color:var(--orange);letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px;font-weight:600}
+.foot-col a{display:block;font-size:13.5px;color:#A8A5A0;text-decoration:none;margin-bottom:9px;font-weight:300}
+.foot-bottom{max-width:1400px;margin:48px auto 0;padding-top:24px;border-top:1px solid rgba(168,165,160,.1);display:flex;justify-content:space-between;font-family:'Space Grotesk',sans-serif;font-size:11px;color:#7A7872;letter-spacing:.08em;flex-wrap:wrap;gap:12px;text-transform:uppercase;font-weight:500}
+
+@media(max-width:980px){
+  .hero{padding:130px 0 0}
+  nav{padding:14px 24px}
+  nav.shrink{padding:12px 24px}
+  .nav-links{display:none}
+  .hero-grid{grid-template-columns:1fr;min-height:auto}
+  .hero-text{padding:0 24px 56px}
+  .hero-visual{aspect-ratio:5/4;border-top:1px solid rgba(241,128,30,.2)}
+  .hero-visual::before{display:none}
+  .hero-strip-inner{grid-template-columns:1fr 1fr}
+  .hsi{padding:24px;border-bottom:1px solid rgba(241,128,30,.18)}
+  .section,.cta-sec,.process-sec{padding:72px 24px}
+  .projects-sec{padding:72px 0}
+  .projects-head,.projects-grid{padding:0 24px}
+  .services-grid{grid-template-columns:1fr;gap:1px}
+  .svc{padding:36px 28px}
+  .projects-grid{grid-template-columns:1fr;gap:18px}
+  .process-row{grid-template-columns:1fr 1fr}
+  .ps{border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .ps:nth-child(2){border-right:none}
+  .ps:nth-child(3),.ps:nth-child(4){border-bottom:none}
+  .cta-inner{grid-template-columns:1fr;gap:48px}
+  .form-row{grid-template-columns:1fr}
+  .foot-inner{grid-template-columns:1fr 1fr;gap:32px}
+  .foot-bottom{flex-direction:column;align-items:flex-start;gap:8px}
+  .dtl-ribbon{padding:6px 16px;font-size:10px}
+  .dtl-ribbon .dtl-hide{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="dtl-ribbon">
+  <div class="dtl-l">
+    <svg viewBox="0 0 32 32" fill="none"><g stroke="rgba(91,106,255,0.45)" stroke-width="1.4" stroke-linecap="round" fill="none"><line x1="10" y1="10" x2="22" y2="10"/><line x1="10" y1="10" x2="10" y2="22"/><line x1="22" y1="10" x2="22" y2="22"/><line x1="10" y1="22" x2="22" y2="22"/><line x1="10" y1="10" x2="22" y2="22"/></g><circle cx="10" cy="10" r="3.1" fill="#5B6AFF"/><circle cx="22" cy="10" r="3.1" fill="rgba(91,106,255,0.45)"/><circle cx="10" cy="22" r="3.1" fill="rgba(91,106,255,0.45)"/><circle cx="22" cy="22" r="3.1" fill="#5B6AFF"/></svg>
+    <span>DEMO NAVEGABLE · DTECHLAB STUDIO</span>
+    <span class="dtl-hide" style="color:#4A4A5C">·  Constructora · Veridian Construcciones</span>
+  </div>
+  <a href="dtechlab-studio.html#cotizador">Quiero uno así →</a>
+</div>
+
+<nav id="nav">
+  <a href="#" class="brand">
+    <div class="brand-mark"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-7h6v7"/></svg></div>
+    <div class="brand-name">Veridian<small>Construcciones · Panamá</small></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#cotizar">Contacto</a></li>
+    <li><a href="#cotizar" class="nav-cta">Cotizar obra →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-text">
+      <div class="hero-eye">Diseño · Ingeniería · Construcción</div>
+      <h1>Construimos<br>donde se queda <strong>vivir.</strong></h1>
+      <p class="hero-sub">Diseño, ingeniería y construcción de residencias y proyectos comerciales en Ciudad de Panamá. Veintidós años haciéndolo bien, una obra a la vez.</p>
+      <div class="hero-actions">
+        <a href="#cotizar" class="btn-pri">Cotizar mi proyecto →</a>
+        <a href="#proyectos" class="btn-sec">Ver obras realizadas</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hv-overlay">
+        <span>OBRA EN CURSO · 2026</span>
+        <span>RESIDENCIAL · COSTA DEL ESTE</span>
+      </div>
+      <div class="bldg-render">
+        <div class="br-tower">
+          <div class="br-w lit"></div><div class="br-w"></div>
+          <div class="br-w"></div><div class="br-w lit"></div>
+          <div class="br-w lit"></div><div class="br-w"></div>
+        </div>
+        <div class="br-second">
+          <div class="br-w lit"></div><div class="br-w"></div><div class="br-w lit"></div>
+          <div class="br-w"></div><div class="br-w lit"></div><div class="br-w"></div>
+          <div class="br-w lit"></div><div class="br-w"></div><div class="br-w lit"></div>
+          <div class="br-w"></div><div class="br-w lit"></div><div class="br-w lit"></div>
+        </div>
+        <div class="br-base">
+          <div class="br-w lit"></div><div class="br-w"></div><div class="br-w lit"></div><div class="br-w"></div><div class="br-w lit"></div>
+          <div class="br-w"></div><div class="br-w lit"></div><div class="br-w"></div><div class="br-w lit"></div><div class="br-w"></div>
+          <div class="br-w lit"></div><div class="br-w lit"></div><div class="br-w"></div><div class="br-w lit"></div><div class="br-w"></div>
+          <div class="br-w"></div><div class="br-w"></div><div class="br-w lit"></div><div class="br-w"></div><div class="br-w lit"></div>
+          <div class="br-w lit"></div><div class="br-w"></div><div class="br-w lit"></div><div class="br-w lit"></div><div class="br-w"></div>
+          <div class="br-w"></div><div class="br-w lit"></div><div class="br-w"></div><div class="br-w"></div><div class="br-w lit"></div>
+          <div class="br-w lit"></div><div class="br-w lit"></div><div class="br-w lit"></div><div class="br-w"></div><div class="br-w lit"></div>
+        </div>
+        <div class="br-ground"></div>
+      </div>
+      <div class="hv-meta">
+        <div>
+          <div class="hv-meta-name">Torre Galena</div>
+          <div class="hv-meta-loc">Costa del Este · Cliente: Grupo Velar</div>
+        </div>
+        <div class="hv-meta-y">68%<small>Avance</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-strip">
+    <div class="hero-strip-inner">
+      <div class="hsi">
+        <div class="hsi-v">22</div>
+        <div class="hsi-l">años de experiencia</div>
+        <div class="hsi-d">Desde 2004 construyendo en Panamá sin un solo arbitraje.</div>
+      </div>
+      <div class="hsi">
+        <div class="hsi-v">187</div>
+        <div class="hsi-l">obras entregadas</div>
+        <div class="hsi-d">Residenciales, comerciales e industriales en todo el país.</div>
+      </div>
+      <div class="hsi">
+        <div class="hsi-v">$240M+</div>
+        <div class="hsi-l">en construcción ejecutada</div>
+        <div class="hsi-d">Valor acumulado de obras desde la fundación.</div>
+      </div>
+      <div class="hsi">
+        <div class="hsi-v">100%</div>
+        <div class="hsi-l">entregas en plazo</div>
+        <div class="hsi-d">Cronograma cerrado. Sin sorpresas, sin extensiones disfrazadas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="section" id="servicios">
+  <div class="sec-head">
+    <div class="sec-eye">Servicios</div>
+    <h2 class="sec-title">Una constructora <strong>completa.</strong></h2>
+    <p class="sec-sub">Desde el anteproyecto hasta la entrega final. No subcontratamos lo crítico — diseño, ingeniería estructural y supervisión los llevamos en casa.</p>
+  </div>
+  <div class="services-grid">
+    <div class="svc">
+      <div class="svc-head">
+        <div class="svc-num">01</div>
+        <div class="svc-cat">Residencial premium</div>
+      </div>
+      <h3>Casas y residencias unifamiliares</h3>
+      <p>Diseño, planos, permisos y construcción llave en mano de casas premium. Desde proyectos de 250 m² hasta residencias de gran escala con piscina, oficinas anexas y áreas exteriores.</p>
+      <ul class="svc-list">
+        <li><span>Casa hasta 250 m²</span><span>desde $180/m²</span></li>
+        <li><span>Casa 250 – 500 m²</span><span>desde $220/m²</span></li>
+        <li><span>Residencia +500 m²</span><span>desde $280/m²</span></li>
+        <li><span>Remodelaciones</span><span>cotización</span></li>
+      </ul>
+    </div>
+
+    <div class="svc">
+      <div class="svc-head">
+        <div class="svc-num">02</div>
+        <div class="svc-cat">Comercial &amp; oficinas</div>
+      </div>
+      <h3>Locales y espacios corporativos</h3>
+      <p>Construcción y adecuación de locales comerciales, restaurantes, clínicas, oficinas y centros corporativos. Plazos cerrados, presupuesto fijo, supervisión profesional.</p>
+      <ul class="svc-list">
+        <li><span>Local comercial llave en mano</span><span>desde $850/m²</span></li>
+        <li><span>Adecuación de oficinas</span><span>desde $480/m²</span></li>
+        <li><span>Restaurante / cocinas</span><span>desde $1,200/m²</span></li>
+        <li><span>Clínicas y consultorios</span><span>desde $980/m²</span></li>
+      </ul>
+    </div>
+
+    <div class="svc">
+      <div class="svc-head">
+        <div class="svc-num">03</div>
+        <div class="svc-cat">Diseño &amp; arquitectura</div>
+      </div>
+      <h3>Anteproyectos y planos</h3>
+      <p>Servicio de diseño arquitectónico, planos estructurales y de instalaciones. Trabajamos con o sin construcción posterior — los planos son tuyos.</p>
+      <ul class="svc-list">
+        <li><span>Anteproyecto residencial</span><span>desde $1,800</span></li>
+        <li><span>Planos arquitectónicos completos</span><span>desde $4,500</span></li>
+        <li><span>Planos estructurales</span><span>desde $3,200</span></li>
+        <li><span>Permisos municipales</span><span>desde $1,400</span></li>
+      </ul>
+    </div>
+
+    <div class="svc">
+      <div class="svc-head">
+        <div class="svc-num">04</div>
+        <div class="svc-cat">Remodelaciones</div>
+      </div>
+      <h3>Remodelación &amp; renovación</h3>
+      <p>Modificaciones estructurales, ampliaciones, renovación de cocinas y baños, cambios de fachada y modernización completa de espacios existentes.</p>
+      <ul class="svc-list">
+        <li><span>Cocina llave en mano</span><span>desde $9,500</span></li>
+        <li><span>Baño completo</span><span>desde $4,200</span></li>
+        <li><span>Ampliación de habitación</span><span>desde $14,000</span></li>
+        <li><span>Renovación integral</span><span>cotización</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section class="projects-sec" id="proyectos">
+  <div class="projects-head">
+    <div>
+      <div class="sec-eye">Portafolio · Obras entregadas</div>
+      <h2 class="sec-title">Algunas de las <strong>187 obras.</strong></h2>
+    </div>
+    <a href="#" class="btn-sec" style="border-color:var(--stone);color:var(--stone)">Ver portafolio completo →</a>
+  </div>
+
+  <div class="projects-grid">
+
+    <div class="proj">
+      <div class="proj-img t1">
+        <div class="proj-mock">
+          <div class="proj-shape">
+            <div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div>
+            <div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div>
+            <div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div>
+            <div class="psw"></div><div class="psw lit"></div><div class="psw lit"></div><div class="psw"></div><div class="psw"></div><div class="psw lit"></div>
+            <div class="psw lit"></div><div class="psw"></div><div class="psw"></div><div class="psw lit"></div><div class="psw lit"></div><div class="psw"></div>
+          </div>
+        </div>
+        <span class="proj-tag done">Entregada</span>
+      </div>
+      <div class="proj-info">
+        <div class="proj-meta"><span>Residencial</span><span>2024</span></div>
+        <h3>Casa "Roble Alto"</h3>
+        <p>Residencia familiar de 480 m² en Albrook con piscina, oficina anexa y áreas exteriores integradas.</p>
+        <div class="proj-data">
+          <div><strong>480 m²</strong>Construcción</div>
+          <div><strong>14 m</strong>Plazo</div>
+          <div><strong>Llave en mano</strong>Modalidad</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-img t2">
+        <div class="proj-mock">
+          <div class="proj-shape" style="grid-template-rows:repeat(7,1fr)">
+            <div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div>
+            <div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div>
+            <div class="psw lit"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div>
+            <div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div>
+            <div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw"></div><div class="psw lit"></div>
+            <div class="psw"></div><div class="psw lit"></div><div class="psw lit"></div><div class="psw lit"></div><div class="psw"></div><div class="psw"></div>
+            <div class="psw lit"></div><div class="psw"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div>
+          </div>
+        </div>
+        <span class="proj-tag done">Entregada</span>
+      </div>
+      <div class="proj-info">
+        <div class="proj-meta"><span>Corporativo</span><span>2023</span></div>
+        <h3>Edificio "Logos Plaza"</h3>
+        <p>Edificio corporativo de 7 plantas en Marbella. Espacios de oficinas premium con servicios integrados.</p>
+        <div class="proj-data">
+          <div><strong>3,200 m²</strong>Construcción</div>
+          <div><strong>24 m</strong>Plazo</div>
+          <div><strong>Corporativo</strong>Tipo</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-img t3">
+        <div class="proj-mock">
+          <div class="proj-shape">
+            <div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw lit"></div><div class="psw"></div>
+            <div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div>
+            <div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div>
+            <div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div>
+            <div class="psw"></div><div class="psw lit"></div><div class="psw lit"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div>
+          </div>
+        </div>
+        <span class="proj-tag progress">En curso</span>
+      </div>
+      <div class="proj-info">
+        <div class="proj-meta"><span>Comercial</span><span>2025–26</span></div>
+        <h3>Centro "Mercado Norte"</h3>
+        <p>Centro comercial mixto con 14 locales, parqueos para 80 vehículos y plaza interior pública.</p>
+        <div class="proj-data">
+          <div><strong>2,800 m²</strong>Construcción</div>
+          <div><strong>9 m</strong>Restantes</div>
+          <div><strong>42%</strong>Avance</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-img t4">
+        <div class="proj-mock">
+          <div class="proj-shape" style="grid-template-rows:repeat(4,1fr)">
+            <div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div>
+            <div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div>
+            <div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div>
+            <div class="psw"></div><div class="psw lit"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div>
+          </div>
+        </div>
+        <span class="proj-tag done">Entregada</span>
+      </div>
+      <div class="proj-info">
+        <div class="proj-meta"><span>Residencial</span><span>2024</span></div>
+        <h3>Casa "Mirador del Bosque"</h3>
+        <p>Casa contemporánea de dos plantas en Clayton. Diseño arquitectónico de Veridian + construcción.</p>
+        <div class="proj-data">
+          <div><strong>320 m²</strong>Construcción</div>
+          <div><strong>11 m</strong>Plazo</div>
+          <div><strong>Diseño+obra</strong>Modalidad</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-img t5">
+        <div class="proj-mock">
+          <div class="proj-shape">
+            <div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div>
+            <div class="psw lit"></div><div class="psw lit"></div><div class="psw"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div>
+            <div class="psw"></div><div class="psw"></div><div class="psw lit"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div>
+            <div class="psw lit"></div><div class="psw"></div><div class="psw"></div><div class="psw lit"></div><div class="psw lit"></div><div class="psw"></div>
+            <div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw"></div><div class="psw"></div><div class="psw lit"></div>
+          </div>
+        </div>
+        <span class="proj-tag done">Entregada</span>
+      </div>
+      <div class="proj-info">
+        <div class="proj-meta"><span>Restaurante</span><span>2024</span></div>
+        <h3>Café "Lentitud Costera"</h3>
+        <p>Construcción llave en mano de cafetería gourmet de 145 m² en Casco Antiguo. Diseño integral.</p>
+        <div class="proj-data">
+          <div><strong>145 m²</strong>Construcción</div>
+          <div><strong>5 m</strong>Plazo</div>
+          <div><strong>Llave en mano</strong>Modalidad</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-img t6">
+        <div class="proj-mock">
+          <div class="proj-shape" style="grid-template-rows:repeat(6,1fr)">
+            <div class="psw"></div><div class="psw lit"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div>
+            <div class="psw lit"></div><div class="psw"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw lit"></div>
+            <div class="psw"></div><div class="psw lit"></div><div class="psw lit"></div><div class="psw"></div><div class="psw"></div><div class="psw"></div>
+            <div class="psw lit"></div><div class="psw"></div><div class="psw"></div><div class="psw lit"></div><div class="psw lit"></div><div class="psw"></div>
+            <div class="psw"></div><div class="psw lit"></div><div class="psw lit"></div><div class="psw"></div><div class="psw"></div><div class="psw lit"></div>
+            <div class="psw lit"></div><div class="psw"></div><div class="psw"></div><div class="psw lit"></div><div class="psw"></div><div class="psw"></div>
+          </div>
+        </div>
+        <span class="proj-tag progress">En curso</span>
+      </div>
+      <div class="proj-info">
+        <div class="proj-meta"><span>Residencial</span><span>2025–27</span></div>
+        <h3>Torre "Galena Towers"</h3>
+        <p>Torre residencial de 18 niveles en Costa del Este. 72 apartamentos y áreas sociales premium.</p>
+        <div class="proj-data">
+          <div><strong>9,200 m²</strong>Construcción</div>
+          <div><strong>22 m</strong>Restantes</div>
+          <div><strong>68%</strong>Avance</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section class="process-sec" id="proceso">
+  <div class="sec-head center">
+    <div class="sec-eye">Cómo trabajamos</div>
+    <h2 class="sec-title">Cuatro fases. <strong>Cero sorpresas.</strong></h2>
+    <p class="sec-sub">Antes de mover un solo bloque, todo está documentado, presupuestado y firmado. Así funciona desde hace 22 años.</p>
+  </div>
+
+  <div class="process-row">
+    <div class="ps">
+      <div class="ps-num">01</div>
+      <h3>Diseño y diagnóstico</h3>
+      <p>Visita al terreno, levantamiento topográfico y anteproyecto arquitectónico. Aquí definimos qué quieres y qué es posible construir.</p>
+      <div class="ps-time">Semanas 1–3</div>
+    </div>
+    <div class="ps">
+      <div class="ps-num">02</div>
+      <h3>Planos e ingeniería</h3>
+      <p>Planos arquitectónicos completos, estructurales, eléctricos, hidráulicos. Trámite de permisos municipales. Presupuesto cerrado.</p>
+      <div class="ps-time">Semanas 4–7</div>
+    </div>
+    <div class="ps">
+      <div class="ps-num">03</div>
+      <h3>Construcción</h3>
+      <p>Obra con cronograma semanal visible. Supervisión propia, no subcontratada. Reportes fotográficos y reuniones quincenales.</p>
+      <div class="ps-time">Variable según obra</div>
+    </div>
+    <div class="ps">
+      <div class="ps-num">04</div>
+      <h3>Entrega y garantía</h3>
+      <p>Acta de entrega con revisión punto por punto. Un año de garantía integral en mano de obra. Soporte continuo en estructural.</p>
+      <div class="ps-time">Última semana + 1 año</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec" id="cotizar">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <div class="sec-eye">Cotización gratuita</div>
+      <h2>Cuéntanos qué vas <strong>a construir.</strong></h2>
+      <p>Visita al terreno sin costo. Anteproyecto inicial entregado en 7 días hábiles. Si decides seguir, el costo del anteproyecto se descuenta de la obra.</p>
+      <p>Atendemos toda la República de Panamá. Para proyectos fuera del área metropolitana, coordinamos primera visita combinada.</p>
+    </div>
+    <form class="cta-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='✓ Solicitud enviada'">
+      <div class="fg"><label>Nombre completo</label><input type="text" placeholder="Tu nombre" required></div>
+      <div class="form-row">
+        <div class="fg"><label>Teléfono</label><input type="tel" placeholder="+507 0000-0000" required></div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="tu@email.com" required></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Tipo de obra</label><select><option>Casa residencial</option><option>Local comercial</option><option>Oficinas</option><option>Restaurante</option><option>Remodelación</option><option>Otro</option></select></div>
+        <div class="fg"><label>Ubicación</label><input type="text" placeholder="Provincia / corregimiento" required></div>
+      </div>
+      <div class="fg"><label>Cuéntanos sobre el proyecto</label><textarea placeholder="Metraje aproximado, ubicación, tiempo estimado y cualquier dato relevante." required></textarea></div>
+      <button type="submit" class="btn-pri">Solicitar visita al terreno →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div>
+      <div class="foot-name">Veridian</div>
+      <p class="foot-tag">Diseño, ingeniería y construcción de residencias y proyectos comerciales premium en Panamá desde 2004.</p>
+    </div>
+    <div class="foot-col">
+      <div class="foot-col-t">Servicios</div>
+      <a href="#">Residencial</a><a href="#">Comercial</a><a href="#">Diseño &amp; planos</a><a href="#">Remodelaciones</a>
+    </div>
+    <div class="foot-col">
+      <div class="foot-col-t">Veridian</div>
+      <a href="#">Sobre nosotros</a><a href="#">Portafolio completo</a><a href="#">Equipo</a><a href="#">Certificaciones</a>
+    </div>
+    <div class="foot-col">
+      <div class="foot-col-t">Contacto</div>
+      <a href="#">Edificio Ágora · piso 4</a><a href="#">+507 264-7700</a><a href="#">obras@veridian.com.pa</a><a href="#">@veridianconstrucciones</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Veridian Construcciones · Licencia CIAPPA 04827</span>
+    <span>Demo ficticia de referencia · DTechLab Studio</span>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('shrink',window.scrollY>40));
+</script>
+</body>
+</html>

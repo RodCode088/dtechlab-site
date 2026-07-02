@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DTechLab Studio — Estudio de Ingeniería Digital · Panamá</title>
+<meta name="description" content="Diseñamos, construimos e implementamos sistemas digitales que ayudan a empresas a vender más, operar mejor y escalar con menos trabajo manual. Tecnología al servicio del negocio — no al revés.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Cg stroke='rgba(91,106,255,0.45)' stroke-width='1.4' stroke-linecap='round' fill='none'%3E%3Cline x1='10' y1='10' x2='22' y2='10'/%3E%3Cline x1='10' y1='10' x2='10' y2='22'/%3E%3Cline x1='22' y1='10' x2='22' y2='22'/%3E%3Cline x1='10' y1='22' x2='22' y2='22'/%3E%3Cline x1='10' y1='10' x2='22' y2='22'/%3E%3C/g%3E%3Ccircle cx='10' cy='10' r='3.1' fill='%235B6AFF'/%3E%3Ccircle cx='22' cy='10' r='3.1' fill='rgba(91,106,255,0.45)'/%3E%3Ccircle cx='10' cy='22' r='3.1' fill='rgba(91,106,255,0.45)'/%3E%3Ccircle cx='22' cy='22' r='3.1' fill='%235B6AFF'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Playfair+Display:wght@500;600&family=Crimson+Pro:wght@500;600&family=Libre+Bodoni:wght@500;600&family=Cormorant+Garamond:wght@500;600&family=Fraunces:wght@500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void:#050507; --abyss:#0A0A0F; --graphite:#111118; --slate:#1A1A24;
+  --pure:#FFFFFF; --fog:#E8E8F0; --ghost:#9898A8; --whisper:#4A4A5C;
+  --signal:#5B6AFF; --ice:#A8B4FF; --plasma:#8B5CF6; --arc:#22D3EE;
+  --green:#10B981; --amber:#F59E0B;
+  --hairline:rgba(255,255,255,.06); --hairline2:rgba(255,255,255,.10);
+  --glass:rgba(255,255,255,.03);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--fog);font-family:'Inter',-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
+
+/* DOT GRID */
+.dot-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(circle,rgba(255,255,255,.022) 1px,transparent 1px);background-size:32px 32px;opacity:0;transition:opacity 1s ease}
+.dot-grid.on{opacity:1}
+
+/* ─── LOADER (barras de inicio como el home) ─── */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--void);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;transition:opacity .6s,visibility .6s}
+#loader.out{opacity:0;visibility:hidden}
+.ld-logo{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.ld-logo-text{font-size:15px;font-weight:600;color:var(--fog);letter-spacing:-.01em}
+.ld-sub{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--whisper);font-family:'Courier New',monospace;margin-bottom:16px}
+.ld-rows{display:flex;flex-direction:column;gap:7px}
+.ld-row{display:flex;align-items:center;gap:14px;width:280px;opacity:0;transition:opacity .25s}
+.ld-row.show{opacity:1}
+.ld-lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--whisper);font-family:'Courier New',monospace;width:170px;flex-shrink:0}
+.ld-lbl.active{color:var(--signal)}
+.ld-lbl.done{color:var(--ghost)}
+.ld-bar{flex:1;height:1px;background:var(--hairline);overflow:hidden}
+.ld-fill{height:100%;width:0%;background:var(--signal);transition:width .55s cubic-bezier(.16,1,.3,1)}
+
+/* ─── NAV ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 56px;display:flex;align-items:center;justify-content:space-between;transition:background .3s,border .3s}
+nav.scrolled{background:rgba(5,5,7,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--hairline)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-text{font-size:15px;font-weight:500;color:var(--pure);letter-spacing:-.02em}
+.nav-logo-text .div{color:var(--signal);font-weight:400;font-size:13px;margin-left:6px;letter-spacing:.04em;text-transform:uppercase;font-family:'Courier New',monospace}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:13px;color:var(--ghost);text-decoration:none;letter-spacing:.01em;transition:color .15s}
+.nav-links a:hover{color:var(--pure)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-cta{font-size:13px;padding:8px 18px;background:var(--signal);border:1px solid var(--signal);color:#fff;border-radius:6px;cursor:pointer;text-decoration:none;transition:all .15s;font-weight:500}
+.nav-cta:hover{background:#6B7AFF;transform:translateY(-1px);box-shadow:0 0 24px rgba(91,106,255,.3)}
+
+/* ─── HERO ─── */
+#hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:140px 80px 100px;overflow:hidden;text-align:center}
+.hero-glow{position:absolute;top:30%;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,rgba(91,106,255,.08) 0%,transparent 70%);pointer-events:none}
+.hero-content{max-width:920px;position:relative;z-index:2}
+.hero-label{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ghost);font-family:'Courier New',monospace;margin-bottom:32px;opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s;padding:6px 14px;border:1px solid var(--hairline2);border-radius:100px;background:var(--glass)}
+.hero-label.in{opacity:1;transform:translateY(0)}
+.hero-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--signal);animation:blink 2.2s infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.75)}}
+.hero-headline{font-size:clamp(44px,7vw,96px);font-weight:200;line-height:1;letter-spacing:-.04em;color:var(--pure);margin-bottom:32px;perspective:1000px}
+.hero-headline .line{display:block;overflow:visible;position:relative}
+.hero-headline .li{display:block}
+.hero-headline .li.acc{background:linear-gradient(100deg,var(--signal),var(--arc) 70%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+/* Tetris letter animation */
+.hero-headline .li .ch{display:inline-block;will-change:transform,opacity;transform-origin:center;opacity:0;transition:transform 0.85s cubic-bezier(.34,1.56,.64,1),opacity 0.45s ease}
+.hero-headline .li.acc .ch{background:linear-gradient(100deg,var(--signal),var(--arc) 70%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-headline .li .ch.placed{transform:none !important;opacity:1}
+/* shadow piece that ghosts the final position briefly */
+.hero-headline .li .ch::after{content:'';position:absolute;inset:0;border:1px dashed rgba(91,106,255,.3);opacity:0;transition:opacity .3s ease}
+
+/* Section titles tetris */
+.tetris-text{display:inline-block}
+.tetris-text .ch{display:inline-block;will-change:transform,opacity;transform-origin:center;opacity:0;transition:transform .75s cubic-bezier(.34,1.56,.64,1),opacity .4s ease}
+.tetris-text .ch.placed{transform:none !important;opacity:1}
+.tetris-text strong .ch{font-weight:inherit}
+.hero-sub{font-size:18px;line-height:1.78;color:var(--ghost);max-width:640px;margin:0 auto 44px;opacity:0;transform:translateY(16px);transition:opacity .6s .3s,transform .6s .3s;font-weight:300}
+.hero-sub.in{opacity:1;transform:translateY(0)}
+.hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;opacity:0;transform:translateY(16px);transition:opacity .6s .45s,transform .6s .45s}
+.hero-actions.in{opacity:1;transform:translateY(0)}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--signal);color:#fff;font-size:14px;font-weight:500;border-radius:8px;text-decoration:none;border:none;cursor:pointer;transition:all .15s;font-family:inherit;letter-spacing:-.01em}
+.btn-primary:hover{background:#6B7AFF;transform:translateY(-1px);box-shadow:0 0 32px rgba(91,106,255,.4)}
+.btn-primary .arr{transition:transform .15s}
+.btn-primary:hover .arr{transform:translateX(3px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:6px;padding:14px 24px;background:transparent;border:1px solid var(--hairline2);color:var(--fog);font-size:14px;border-radius:8px;text-decoration:none;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn-ghost:hover{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.04)}
+.btn-wa{display:inline-flex;align-items:center;gap:8px;padding:14px 22px;background:#25D366;color:#fff;font-size:14px;font-weight:500;border-radius:8px;text-decoration:none;border:none;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn-wa:hover{background:#20BD5A;transform:translateY(-1px)}
+
+.hero-meta{display:flex;justify-content:center;gap:48px;margin-top:64px;padding-top:32px;border-top:1px solid var(--hairline);flex-wrap:wrap;opacity:0;transition:opacity .6s .6s}
+.hero-meta.in{opacity:1}
+.hero-meta-item{text-align:center}
+.hero-meta-val{font-size:22px;font-weight:300;letter-spacing:-.02em;color:var(--pure);font-family:'Courier New',monospace}
+.hero-meta-lbl{font-size:11px;color:var(--ghost);margin-top:4px;letter-spacing:.08em;text-transform:uppercase;font-family:'Courier New',monospace}
+
+/* ─── SECTION BASE ─── */
+section{position:relative;z-index:1;padding:96px 80px}
+.dark-sec{background:var(--abyss);border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+.sec-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ghost);font-family:'Courier New',monospace;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.sec-eyebrow::before{content:'';width:20px;height:1px;background:var(--signal)}
+.sec-title{font-size:clamp(28px,3.5vw,48px);font-weight:200;letter-spacing:-.035em;color:var(--pure);line-height:1.05;margin-bottom:18px}
+.sec-title strong{font-weight:600}
+.sec-sub{font-size:16px;font-weight:300;color:var(--ghost);max-width:600px;line-height:1.78;margin-bottom:56px}
+.center-sec{text-align:center}
+.center-sec .sec-eyebrow{justify-content:center}
+.center-sec .sec-eyebrow::before{display:none}
+.center-sec .sec-sub{margin-left:auto;margin-right:auto}
+
+/* ─── SERVICES (profundo) ─── */
+.svc-deep-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.svc-deep-card{background:var(--graphite);border:1px solid var(--hairline);border-radius:14px;padding:36px 32px;display:flex;flex-direction:column;gap:18px;transition:background .25s,border-color .25s,transform .25s}
+.svc-deep-card:hover{background:var(--slate);border-color:var(--hairline2);transform:translateY(-3px)}
+.svc-deep-card.featured{border-top:1px solid rgba(91,106,255,.4);background:linear-gradient(180deg,rgba(91,106,255,.04),transparent 70%)}
+.svc-deep-icon{width:42px;height:42px;border-radius:11px;background:rgba(91,106,255,.1);border:1px solid rgba(91,106,255,.18);display:flex;align-items:center;justify-content:center}
+.svc-deep-icon svg{width:22px;height:22px;stroke:var(--signal);fill:none;stroke-width:1.5}
+.svc-deep-tier{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ghost);font-family:'Courier New',monospace}
+.svc-deep-name{font-size:22px;font-weight:300;letter-spacing:-.02em;color:var(--pure)}
+.svc-deep-desc{font-size:14px;font-weight:300;color:var(--ghost);line-height:1.75}
+.svc-deep-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.svc-deep-list li{font-size:13px;font-weight:300;color:var(--fog);display:flex;align-items:flex-start;gap:9px}
+.svc-deep-list li::before{content:'→';color:var(--signal);font-family:'Courier New',monospace;flex-shrink:0;margin-top:1px}
+.svc-deep-range{margin-top:18px;padding-top:18px;border-top:1px solid var(--hairline);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.06em}
+.svc-deep-range strong{color:var(--ghost);font-weight:500}
+
+/* ─── TEMPLATES SHOWCASE (real screenshots) ─── */
+.tpl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 28px}
+.tpl-card{background:transparent;border:none;border-radius:0;overflow:visible;cursor:default;transition:transform .25s cubic-bezier(.16,1,.3,1)}
+.tpl-card:hover{transform:translateY(-4px)}
+.tpl-card:hover .ss-shot{box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 0 1px rgba(91,106,255,.18)}
+
+/* Screenshot frame */
+.ss-shot{aspect-ratio:4/3;background:#fff;border-radius:12px;overflow:hidden;position:relative;box-shadow:0 14px 40px rgba(0,0,0,.4);transition:box-shadow .25s ease;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.08)}
+.ss-shot .ss-badge{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);color:#fff;font-family:'Courier New',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:4px 9px;border-radius:3px;font-weight:600;z-index:3}
+
+.ss-nav-bar{height:38px;display:flex;align-items:center;padding:0 18px;justify-content:space-between;flex-shrink:0;border-bottom:1px solid transparent}
+.ss-nav-bar .b{font-size:11.5px;font-weight:600;letter-spacing:-.01em;display:flex;align-items:center;gap:6px}
+.ss-nav-bar .b .m{width:16px;height:16px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;font-family:'Courier New',monospace}
+.ss-nav-bar .l{display:flex;gap:14px;font-size:9.5px;font-weight:500;letter-spacing:.04em}
+.ss-nav-bar .c{font-size:9px;padding:4px 10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+
+.ss-hero-area{flex:1;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:18px 18px 22px}
+.ss-hero-img{position:absolute;inset:0;background-size:cover;background-position:center}
+.ss-hero-ov{position:absolute;inset:0;pointer-events:none}
+.ss-hero-c{position:relative;z-index:2}
+.ss-hero-c .e{font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:6px;font-family:'Courier New',monospace}
+.ss-hero-c .t{font-size:22px;line-height:1.05;letter-spacing:-.02em;margin-bottom:4px;font-weight:500}
+.ss-hero-c .s{font-size:10.5px;line-height:1.5;max-width:80%}
+.ss-hero-c .cta{margin-top:10px;display:inline-block;font-size:9px;padding:5px 10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+
+/* template-specific palettes */
+.ss-bf .ss-nav-bar{background:#FAF8F3;border-bottom-color:rgba(10,24,40,.08)}
+.ss-bf .ss-nav-bar .b{color:#0A1828;font-family:'Playfair Display',serif;font-size:13px}
+.ss-bf .ss-nav-bar .b .m{background:#0A1828;color:#C8A35C;border-radius:50%}
+.ss-bf .ss-nav-bar .l{color:#0A1828}
+.ss-bf .ss-nav-bar .c{background:#0A1828;color:#FAF8F3}
+.ss-bf .ss-hero-img{background-image:url('https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=800&q=80&auto=format');background-color:#1a2333}
+.ss-bf .ss-hero-ov{background:linear-gradient(180deg,rgba(10,24,40,.2) 0%,rgba(10,24,40,.85) 80%)}
+.ss-bf .ss-hero-c .e{color:#C8A35C}
+.ss-bf .ss-hero-c .t{font-family:'Playfair Display',serif;color:#fff}
+.ss-bf .ss-hero-c .s{color:rgba(255,255,255,.85)}
+.ss-bf .ss-hero-c .cta{background:#C8A35C;color:#0A1828}
+
+.ss-rs .ss-nav-bar{background:#FAF5EA;border-bottom-color:rgba(28,47,42,.05)}
+.ss-rs .ss-nav-bar .b{color:#1C2F2A;font-family:'Cormorant Garamond',serif;font-size:14px}
+.ss-rs .ss-nav-bar .b .m{color:#1C2F2A;font-family:serif;font-size:14px}
+.ss-rs .ss-nav-bar .l{color:#1C2F2A}
+.ss-rs .ss-nav-bar .c{background:#1C2F2A;color:#FAF5EA;border-radius:100px}
+.ss-rs .ss-hero-img{background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80&auto=format');background-color:#2d1810}
+.ss-rs .ss-hero-ov{background:linear-gradient(180deg,rgba(28,15,5,.15) 0%,rgba(28,15,5,.85) 80%)}
+.ss-rs .ss-hero-c .e{color:#E8B958}
+.ss-rs .ss-hero-c .t{font-family:'Cormorant Garamond',serif;color:#fff;font-size:24px}
+.ss-rs .ss-hero-c .t em{font-style:italic;color:#E8B958}
+.ss-rs .ss-hero-c .s{color:rgba(255,255,255,.88)}
+.ss-rs .ss-hero-c .cta{background:#E8B958;color:#1C2F2A;border-radius:100px}
+
+.ss-cl .ss-nav-bar{background:#FDFBF7;border-bottom-color:rgba(26,40,37,.08)}
+.ss-cl .ss-nav-bar .b{color:#1A2825;font-family:'Fraunces',serif;font-size:13px}
+.ss-cl .ss-nav-bar .b .m{background:#35786A;color:#FDFBF7;border-radius:50%}
+.ss-cl .ss-nav-bar .l{color:#5C6B68}
+.ss-cl .ss-nav-bar .c{background:#35786A;color:#FDFBF7;border-radius:100px}
+.ss-cl .ss-hero-img{background-image:url('https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=800&q=80&auto=format');background-color:#0e1f1c}
+.ss-cl .ss-hero-ov{background:linear-gradient(180deg,rgba(26,40,37,.05) 0%,rgba(26,40,37,.78) 80%)}
+.ss-cl .ss-hero-c .e{color:#7AB4A4}
+.ss-cl .ss-hero-c .t{font-family:'Fraunces',serif;color:#fff;font-size:24px}
+.ss-cl .ss-hero-c .t em{font-style:italic;color:#7AB4A4}
+.ss-cl .ss-hero-c .s{color:rgba(255,255,255,.88)}
+.ss-cl .ss-hero-c .cta{background:#35786A;color:#FDFBF7;border-radius:100px}
+
+.ss-sh .ss-nav-bar{background:#17161A}
+.ss-sh .ss-nav-bar .b{color:#FAF7F1;font-family:'Libre Bodoni',serif;font-size:14px}
+.ss-sh .ss-nav-bar .b .gold{color:#E0B14A}
+.ss-sh .ss-nav-bar .l{color:#A8A0A8}
+.ss-sh .ss-nav-bar .c{background:transparent;color:#E0B14A;border:1px solid #E0B14A}
+.ss-sh .ss-hero-img{background-image:url('https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=800&q=80&auto=format');background-color:#1a0f08}
+.ss-sh .ss-hero-ov{background:linear-gradient(180deg,rgba(23,22,26,.4) 0%,rgba(23,22,26,.92) 80%)}
+.ss-sh .ss-hero-c .e{color:#E0B14A}
+.ss-sh .ss-hero-c .t{font-family:'Libre Bodoni',serif;color:#fff;font-size:26px;letter-spacing:-.02em}
+.ss-sh .ss-hero-c .t em{font-style:italic;color:#E0B14A}
+.ss-sh .ss-hero-c .s{color:rgba(255,255,255,.85)}
+.ss-sh .ss-hero-c .cta{background:#E0B14A;color:#17161A}
+
+.ss-rl .ss-nav-bar{background:#F8F8F5;border-bottom-color:rgba(20,35,57,.08)}
+.ss-rl .ss-nav-bar .b{color:#142339;font-family:'Crimson Pro',serif;font-size:13px}
+.ss-rl .ss-nav-bar .b .m{background:#142339;color:#F8F8F5;border-radius:50%}
+.ss-rl .ss-nav-bar .l{color:#142339}
+.ss-rl .ss-nav-bar .c{background:#142339;color:#F8F8F5}
+.ss-rl .ss-hero-img{background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80&auto=format');background-color:#0a1525}
+.ss-rl .ss-hero-ov{background:linear-gradient(180deg,rgba(10,21,37,.15) 0%,rgba(10,21,37,.85) 80%)}
+.ss-rl .ss-hero-c .e{color:#B87333}
+.ss-rl .ss-hero-c .t{font-family:'Crimson Pro',serif;color:#fff;font-size:26px;letter-spacing:-.02em}
+.ss-rl .ss-hero-c .t em{font-style:italic;color:#B87333}
+.ss-rl .ss-hero-c .s{color:rgba(255,255,255,.85)}
+.ss-rl .ss-hero-c .cta{background:#B87333;color:#fff}
+
+.ss-sv .ss-nav-bar{background:#262624}
+.ss-sv .ss-nav-bar .b{color:#E5E2DC;font-family:'Space Grotesk',sans-serif;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+.ss-sv .ss-nav-bar .b .m{background:#F1801E;color:#262624}
+.ss-sv .ss-nav-bar .l{color:#A8A5A0}
+.ss-sv .ss-nav-bar .c{background:#F1801E;color:#262624;font-family:'Space Grotesk',sans-serif}
+.ss-sv .ss-hero-img{background-image:url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80&auto=format');background-color:#1f1c18}
+.ss-sv .ss-hero-ov{background:linear-gradient(180deg,rgba(26,24,23,.25) 0%,rgba(26,24,23,.88) 80%)}
+.ss-sv .ss-hero-c .e{color:#F1801E}
+.ss-sv .ss-hero-c .t{font-family:'Space Grotesk',sans-serif;color:#fff;font-size:24px;letter-spacing:-.02em;font-weight:600}
+.ss-sv .ss-hero-c .t strong{color:#F1801E;font-weight:700}
+.ss-sv .ss-hero-c .s{color:rgba(255,255,255,.85)}
+.ss-sv .ss-hero-c .cta{background:#F1801E;color:#262624;font-family:'Space Grotesk',sans-serif}
+
+.ss-info{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-top:18px;padding:0 4px}
+.ss-info-l h3{font-size:16px;color:var(--pure);font-weight:500;letter-spacing:-.01em;line-height:1.3;margin-bottom:5px}
+.ss-info-l .cat{font-size:10.5px;color:var(--ghost);font-family:'Courier New',monospace;letter-spacing:.12em;text-transform:uppercase;font-weight:500}
+.ss-info-r{text-align:right}
+.ss-info-r .time{font-size:10.5px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.08em;margin-bottom:5px}
+.ss-info-r .ss-open{font-size:12px;color:var(--signal);font-weight:600;letter-spacing:.01em;display:inline-flex;align-items:center;gap:4px;transition:all .2s ease}
+.ss-problem{margin:14px 4px 0;padding:14px 16px;background:rgba(91,106,255,.06);border:1px solid rgba(91,106,255,.18);border-radius:10px;font-size:12.5px;color:var(--fog);font-weight:300;line-height:1.6;display:flex;gap:10px}
+.ss-problem::before{content:'';flex-shrink:0;width:3px;background:var(--signal);border-radius:2px;align-self:stretch;opacity:.7}
+.ss-problem strong{color:var(--ice);font-weight:600;display:block;font-family:'Courier New',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+.tpl-preview{height:240px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.tpl-mockup{width:78%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;overflow:hidden}
+.tpl-bar{height:18px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;padding:0 8px;gap:4px}
+.tpl-dot{width:5px;height:5px;border-radius:50%;opacity:.5}
+.tpl-mock-body{padding:14px 12px;display:flex;flex-direction:column;gap:6px}
+.tpl-line{height:5px;border-radius:3px;background:rgba(255,255,255,.07)}
+.tpl-line.acc{background:var(--signal);opacity:.65}
+.tpl-line.w70{width:70%}.tpl-line.w50{width:50%}.tpl-line.w90{width:90%}.tpl-line.w40{width:40%}
+.tpl-img{height:48px;background:linear-gradient(135deg,rgba(91,106,255,.15),rgba(34,211,238,.08));border-radius:5px;margin:6px 0}
+.tpl-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:4px}
+.tpl-mini-block{height:28px;border-radius:4px;background:rgba(255,255,255,.05)}
+.tpl-mini-block.acc{background:rgba(91,106,255,.18)}
+.tpl-bg-1{background:linear-gradient(135deg,#0D0F2E,#1A1040)}
+.tpl-bg-2{background:linear-gradient(135deg,#041018,#0A2030)}
+.tpl-bg-3{background:linear-gradient(135deg,#100A08,#201508)}
+.tpl-bg-4{background:linear-gradient(135deg,#050E12,#081A20)}
+.tpl-bg-5{background:linear-gradient(135deg,#0F0A20,#1E0A35)}
+.tpl-bg-6{background:linear-gradient(135deg,#0A1008,#102018)}
+.tpl-info{padding:22px 24px}
+.tpl-industry{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--signal);font-family:'Courier New',monospace;margin-bottom:8px}
+.tpl-name{font-size:16px;font-weight:500;color:var(--pure);margin-bottom:6px;letter-spacing:-.01em}
+.tpl-desc{font-size:13px;font-weight:300;color:var(--ghost);line-height:1.65}
+.tpl-footer{padding:14px 24px;border-top:1px solid var(--hairline);display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.06em}
+.tpl-footer .meta{display:flex;gap:14px}
+
+/* ─── PROCESS TIMELINE ─── */
+.proc-row{display:grid;grid-template-columns:repeat(4,1fr);position:relative;gap:0}
+.proc-row::before{content:'';position:absolute;top:25px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,rgba(91,106,255,.3),transparent)}
+.proc-step{text-align:center;padding:0 20px}
+.proc-num{width:50px;height:50px;border-radius:50%;background:var(--abyss);border:1px solid rgba(91,106,255,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:14px;font-weight:600;color:var(--signal);box-shadow:0 0 0 8px var(--abyss);font-family:'Courier New',monospace}
+.proc-step h3{font-size:15px;font-weight:500;color:var(--pure);margin-bottom:10px;letter-spacing:-.01em}
+.proc-step p{font-size:13px;font-weight:300;color:var(--ghost);line-height:1.7}
+.proc-step .day{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--signal);font-family:'Courier New',monospace;margin-top:10px}
+
+/* ─── QUOTER (cotizador inteligente) ─── */
+.quoter{background:var(--graphite);border:1px solid var(--hairline);border-radius:18px;overflow:hidden;max-width:920px;margin:0 auto;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.quoter-top{padding:24px 36px;border-bottom:1px solid var(--hairline);background:var(--abyss);display:flex;justify-content:space-between;align-items:center}
+.quoter-title{font-size:13px;font-weight:500;color:var(--fog);letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.quoter-title::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--signal);animation:blink 2s infinite}
+.quoter-step-lbl{font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.08em}
+.quoter-progress{height:2px;background:var(--hairline);position:relative}
+.quoter-progress-fill{height:100%;background:linear-gradient(90deg,var(--signal),var(--arc));width:20%;transition:width .5s cubic-bezier(.16,1,.3,1)}
+.quoter-body{padding:48px 56px;min-height:420px;display:flex;flex-direction:column;justify-content:space-between}
+.q-step{display:none;animation:fadein .4s ease}
+.q-step.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.q-question{font-size:24px;font-weight:300;letter-spacing:-.02em;color:var(--pure);margin-bottom:8px;line-height:1.25}
+.q-hint{font-size:14px;color:var(--ghost);margin-bottom:32px;font-weight:300}
+.q-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.q-options.col-1{grid-template-columns:1fr}
+.q-options.col-3{grid-template-columns:repeat(3,1fr)}
+.q-opt{background:var(--slate);border:1px solid var(--hairline);border-radius:10px;padding:18px 20px;cursor:pointer;transition:all .15s;display:flex;align-items:flex-start;gap:12px;text-align:left;font-family:inherit;color:var(--fog)}
+.q-opt:hover{border-color:var(--hairline2);background:rgba(255,255,255,.04)}
+.q-opt.selected{border-color:var(--signal);background:rgba(91,106,255,.07);box-shadow:0 0 0 1px rgba(91,106,255,.2)}
+.q-opt-mark{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--hairline2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;transition:all .15s}
+.q-opt.selected .q-opt-mark{background:var(--signal);border-color:var(--signal)}
+.q-opt.selected .q-opt-mark::after{content:'✓';color:#fff;font-size:11px;font-weight:700}
+.q-opt-content{flex:1}
+.q-opt-name{font-size:14px;font-weight:500;color:var(--pure);margin-bottom:3px;letter-spacing:-.01em}
+.q-opt-desc{font-size:12px;font-weight:300;color:var(--ghost);line-height:1.5}
+.q-input-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.q-fg{display:flex;flex-direction:column;gap:8px}
+.q-fg.full{grid-column:span 2}
+.q-fg label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--whisper);font-family:'Courier New',monospace}
+.q-fg input,.q-fg textarea,.q-fg select{background:rgba(255,255,255,.03);border:1px solid var(--hairline);border-radius:8px;color:var(--fog);font-size:14px;font-weight:300;padding:12px 14px;outline:none;transition:all .15s;font-family:inherit}
+.q-fg input::placeholder,.q-fg textarea::placeholder{color:var(--whisper)}
+.q-fg input:focus,.q-fg textarea:focus,.q-fg select:focus{border-color:rgba(91,106,255,.5);box-shadow:0 0 0 3px rgba(91,106,255,.08)}
+.q-fg textarea{resize:vertical;min-height:90px}
+.q-fg select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239898A8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.q-fg select option{background:#1A1A24}
+.quoter-foot{padding:22px 36px;border-top:1px solid var(--hairline);background:var(--abyss);display:flex;justify-content:space-between;align-items:center}
+.btn-back{background:transparent;border:1px solid var(--hairline2);color:var(--ghost);padding:10px 20px;border-radius:7px;font-size:13px;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-back:hover{color:var(--fog);border-color:rgba(255,255,255,.2)}
+.btn-back:disabled{opacity:.35;cursor:not-allowed}
+.btn-next{background:var(--signal);border:none;color:#fff;padding:11px 24px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:8px;transition:all .15s}
+.btn-next:hover{background:#6B7AFF;transform:translateY(-1px);box-shadow:0 4px 20px rgba(91,106,255,.3)}
+.btn-next:disabled{background:var(--whisper);cursor:not-allowed;transform:none;box-shadow:none}
+
+/* RESULT */
+.q-result{text-align:center;padding:20px 0}
+.q-result-eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--signal);font-family:'Courier New',monospace;margin-bottom:14px}
+.q-result-title{font-size:28px;font-weight:300;color:var(--pure);margin-bottom:10px;letter-spacing:-.02em}
+.q-result-sub{font-size:14px;color:var(--ghost);margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.75;font-weight:300}
+.q-range-card{background:var(--abyss);border:1px solid rgba(91,106,255,.3);border-radius:14px;padding:36px;margin:0 auto 28px;max-width:480px;box-shadow:0 0 60px rgba(91,106,255,.08)}
+.q-range-lbl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ghost);font-family:'Courier New',monospace;margin-bottom:14px}
+.q-range-val{font-size:42px;font-weight:300;color:var(--pure);letter-spacing:-.03em;font-family:'Courier New',monospace}
+.q-range-val span{color:var(--signal)}
+.q-range-time{font-size:12px;color:var(--whisper);margin-top:12px;font-family:'Courier New',monospace;letter-spacing:.08em}
+.q-send-status{display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:100px;font-size:13px;font-weight:500;letter-spacing:.01em;margin:0 auto;font-family:inherit;transition:all .3s ease}
+.q-send-status.sending{background:rgba(91,106,255,.08);border:1px solid rgba(91,106,255,.25);color:var(--ice)}
+.q-send-status.success{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:#34D399}
+.q-send-status.error{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.3);color:#FB923C}
+.q-send-spin{width:14px;height:14px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:qspin .8s linear infinite;flex-shrink:0}
+.q-send-status.success .q-send-spin,.q-send-status.error .q-send-spin{display:none;animation:none}
+@keyframes qspin{to{transform:rotate(360deg)}}
+.q-send-status::before{display:none}
+.q-send-status.success::before{content:'✓';display:inline-block;width:18px;height:18px;border-radius:50%;background:#34D399;color:#0A0A0F;font-size:11px;font-weight:700;text-align:center;line-height:18px}
+.q-send-status.error::before{content:'!';display:inline-block;width:18px;height:18px;border-radius:50%;background:#FB923C;color:#0A0A0F;font-size:11px;font-weight:700;text-align:center;line-height:18px}
+.q-result-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.q-disclaimer{font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.04em;margin-top:24px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7}
+
+/* ─── CASES (mini) ─── */
+.cases-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hairline);border:1px solid var(--hairline);border-radius:14px;overflow:hidden}
+.case-cell{background:var(--graphite);padding:32px 28px;transition:background .2s}
+.case-cell:hover{background:var(--slate)}
+.case-tag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--signal);font-family:'Courier New',monospace;margin-bottom:12px}
+.case-name{font-size:18px;font-weight:400;color:var(--pure);margin-bottom:10px;letter-spacing:-.01em}
+.case-desc{font-size:13px;font-weight:300;color:var(--ghost);line-height:1.7;margin-bottom:18px}
+.case-metric{font-size:13px;color:var(--fog);padding-top:14px;border-top:1px solid var(--hairline)}
+.case-metric strong{color:var(--arc);font-family:'Courier New',monospace;font-weight:500}
+
+/* ─── ADDON STRIP (lo extra que se puede vender) ─── */
+.addon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hairline);border:1px solid var(--hairline);border-radius:14px;overflow:hidden}
+.addon-cell{background:var(--graphite);padding:28px 24px;display:flex;flex-direction:column;gap:10px;transition:background .2s}
+.addon-cell:hover{background:var(--slate)}
+.addon-ico{width:32px;height:32px;border-radius:8px;background:rgba(91,106,255,.1);display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+.addon-ico svg{width:16px;height:16px;stroke:var(--signal);fill:none;stroke-width:1.5}
+.addon-name{font-size:14px;font-weight:500;color:var(--pure);letter-spacing:-.01em}
+.addon-desc{font-size:12px;font-weight:300;color:var(--ghost);line-height:1.6}
+
+/* ─── FAQ ─── */
+.faq-wrap{max-width:720px;display:flex;flex-direction:column;gap:6px;margin:0 auto}
+.faq-item{background:var(--glass);border:1px solid var(--hairline);border-radius:10px;overflow:hidden}
+.faq-q{width:100%;background:none;border:none;color:var(--fog);text-align:left;padding:20px 24px;font-size:14px;font-weight:400;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:inherit;transition:background .15s}
+.faq-q:hover{background:rgba(255,255,255,.02)}
+.faq-ico{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:1px solid var(--hairline2);display:flex;align-items:center;justify-content:center;transition:all .25s;font-size:15px;color:var(--ghost);line-height:1}
+.faq-item.open .faq-ico{transform:rotate(45deg);border-color:var(--signal);color:var(--signal)}
+.faq-a{display:none;padding:0 24px 22px;font-size:13.5px;font-weight:300;color:var(--ghost);line-height:1.78;border-top:1px solid var(--hairline);padding-top:18px}
+.faq-item.open .faq-a{display:block}
+
+/* ─── FOOTER ─── */
+footer{border-top:1px solid var(--hairline);padding:48px 80px;position:relative;z-index:1}
+.footer-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;align-items:start}
+.footer-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.footer-name{font-size:14px;font-weight:500;color:var(--fog);letter-spacing:-.01em}
+.footer-tagline{font-size:12px;font-weight:300;color:var(--whisper);letter-spacing:.04em;font-family:'Courier New',monospace;margin-top:2px}
+.footer-col-title{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ghost);font-family:'Courier New',monospace;margin-bottom:14px}
+.footer-links{display:flex;flex-direction:column;gap:9px}
+.footer-links a{font-size:13px;font-weight:300;color:var(--ghost);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:var(--fog)}
+.footer-copy{margin-top:36px;padding-top:24px;border-top:1px solid var(--hairline);display:flex;justify-content:space-between;font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.04em}
+
+/* WA FLOAT */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:200;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(37,211,102,.35);text-decoration:none;transition:all .2s}
+.wa-float:hover{background:#20BD5A;transform:scale(1.08)}
+.wa-float svg{width:26px;height:26px}
+
+/* ─── CHAT WIDGET (Sasha · asistente guía) ─── */
+.chat-fab{position:fixed;bottom:92px;right:28px;z-index:200;width:60px;height:60px;border-radius:50%;background:var(--signal);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(91,106,255,.4);cursor:pointer;border:none;transition:all .2s;color:#fff}
+.chat-fab:hover{background:#6B7AFF;transform:scale(1.06);box-shadow:0 12px 40px rgba(91,106,255,.5)}
+.chat-fab svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.chat-fab .chat-fab-pulse{position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--signal);animation:chatPulse 2s infinite;pointer-events:none}
+@keyframes chatPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.4);opacity:0}}
+.chat-fab-badge{position:absolute;top:-4px;right:-4px;background:var(--coral,#F87171);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--void);font-family:'Courier New',monospace}
+
+.chat-window{position:fixed;bottom:92px;right:28px;z-index:201;width:380px;height:580px;max-height:calc(100vh - 120px);background:var(--graphite);border:1px solid var(--hairline2);border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(91,106,255,.1);display:none;flex-direction:column;overflow:hidden;transform-origin:bottom right;animation:chatOpen .35s cubic-bezier(.16,1,.3,1)}
+.chat-window.open{display:flex}
+@keyframes chatOpen{from{opacity:0;transform:translateY(20px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.chat-header{padding:18px 20px;border-bottom:1px solid var(--hairline);display:flex;align-items:center;gap:12px;background:linear-gradient(180deg,var(--abyss) 0%,var(--graphite) 100%)}
+.chat-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--signal),var(--arc));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:15px;letter-spacing:-.01em;position:relative;flex-shrink:0}
+.chat-avatar::after{content:'';position:absolute;bottom:0;right:0;width:11px;height:11px;border-radius:50%;background:#34D399;border:2px solid var(--graphite)}
+.chat-header-info{flex:1;min-width:0}
+.chat-header-name{font-size:14.5px;font-weight:600;color:var(--pure);letter-spacing:-.01em;line-height:1.2}
+.chat-header-status{font-size:11px;color:var(--ghost);margin-top:2px;display:flex;align-items:center;gap:6px}
+.chat-header-status::before{content:'';width:6px;height:6px;border-radius:50%;background:#34D399;display:inline-block}
+.chat-close{background:transparent;border:none;color:var(--ghost);cursor:pointer;padding:6px;border-radius:6px;transition:all .15s}
+.chat-close:hover{background:rgba(255,255,255,.05);color:var(--pure)}
+.chat-close svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+
+.chat-body{flex:1;overflow-y:auto;padding:20px 18px;display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth}
+.chat-body::-webkit-scrollbar{width:6px}
+.chat-body::-webkit-scrollbar-track{background:transparent}
+.chat-body::-webkit-scrollbar-thumb{background:var(--hairline2);border-radius:3px}
+.chat-msg{display:flex;gap:10px;align-items:flex-end;animation:msgIn .35s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.chat-msg.bot{align-self:flex-start;max-width:88%}
+.chat-msg.user{align-self:flex-end;flex-direction:row-reverse;max-width:80%}
+.chat-msg-bubble{padding:11px 15px;border-radius:14px;font-size:13.5px;line-height:1.55;font-weight:400}
+.chat-msg.bot .chat-msg-bubble{background:var(--slate);color:var(--fog);border-bottom-left-radius:4px}
+.chat-msg.user .chat-msg-bubble{background:var(--signal);color:#fff;border-bottom-right-radius:4px;font-weight:500}
+.chat-msg-bubble strong{color:var(--pure);font-weight:600}
+.chat-msg-bubble em{font-style:normal;color:var(--ice);font-weight:500}
+
+.chat-typing{display:flex;gap:4px;padding:14px 18px;background:var(--slate);border-radius:14px;border-bottom-left-radius:4px;align-self:flex-start;width:fit-content}
+.chat-typing span{width:6px;height:6px;border-radius:50%;background:var(--ghost);animation:typing 1.4s infinite}
+.chat-typing span:nth-child(2){animation-delay:.2s}
+.chat-typing span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
+
+.chat-card{background:var(--slate);border:1px solid var(--hairline2);border-radius:12px;padding:16px;margin-top:4px;width:100%}
+.chat-card-l{font-size:10px;color:var(--ghost);letter-spacing:.14em;text-transform:uppercase;font-family:'Courier New',monospace;margin-bottom:6px}
+.chat-card-v{font-family:'Courier New',monospace;font-size:24px;color:var(--ice);font-weight:300;letter-spacing:-.02em;margin-bottom:4px}
+.chat-card-v strong{color:var(--signal)}
+.chat-card-s{font-size:11px;color:var(--whisper);font-family:'Courier New',monospace}
+
+.chat-footer{padding:14px 16px;border-top:1px solid var(--hairline);background:var(--abyss);min-height:64px}
+.chat-quick{display:flex;flex-direction:column;gap:7px}
+.chat-q{background:transparent;border:1px solid var(--hairline2);color:var(--fog);padding:10px 14px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;text-align:left;transition:all .15s;display:flex;align-items:center;gap:10px;line-height:1.4}
+.chat-q:hover{background:rgba(91,106,255,.08);border-color:rgba(91,106,255,.4);color:var(--pure);transform:translateX(2px)}
+.chat-q .chat-q-ico{font-size:15px;flex-shrink:0;display:inline-block;width:20px;text-align:center}
+.chat-q.primary{background:var(--signal);border-color:var(--signal);color:#fff}
+.chat-q.primary:hover{background:#6B7AFF;border-color:#6B7AFF}
+.chat-q.wa{background:#25D366;border-color:#25D366;color:#fff}
+.chat-q.wa:hover{background:#20BD5A;border-color:#20BD5A}
+
+.chat-input-row{display:flex;gap:8px;width:100%}
+.chat-input{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--hairline2);color:var(--fog);padding:11px 14px;border-radius:10px;font-size:13.5px;outline:none;font-family:inherit;font-weight:400;transition:border .15s}
+.chat-input::placeholder{color:var(--whisper)}
+.chat-input:focus{border-color:rgba(91,106,255,.5)}
+.chat-send{background:var(--signal);border:none;color:#fff;padding:0 16px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.chat-send:hover{background:#6B7AFF}
+.chat-send svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+
+.chat-disclaimer{font-size:10px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.04em;text-align:center;padding:6px 16px 0;line-height:1.5}
+
+@media(max-width:480px){
+  .chat-window{width:calc(100vw - 24px);right:12px;bottom:84px;height:calc(100vh - 100px)}
+  .chat-fab{right:16px;bottom:80px;width:54px;height:54px}
+  .chat-fab svg{width:23px;height:23px}
+  .wa-float{right:16px;bottom:16px}
+}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+.reveal.in{opacity:1;transform:none}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1180px){
+  nav{padding:0 36px}
+  #hero{padding:130px 36px 80px}
+  section{padding:80px 36px}
+  footer{padding:48px 36px}
+  .svc-deep-grid{grid-template-columns:1fr}
+  .tpl-grid{grid-template-columns:1fr 1fr}
+  .addon-grid{grid-template-columns:1fr 1fr}
+  .cases-strip{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:32px}
+}
+@media(max-width:768px){
+  nav{padding:0 20px;height:56px}
+  .nav-links{display:none}
+  .nav-cta{padding:7px 14px;font-size:12px}
+  #hero{padding:110px 20px 60px}
+  .hero-headline{font-size:clamp(38px,9vw,56px)}
+  .hero-sub{font-size:15px}
+  section{padding:56px 20px}
+  .sec-title{font-size:clamp(24px,7vw,36px)}
+  .sec-sub{font-size:14px;margin-bottom:40px}
+  footer{padding:36px 20px}
+  .tpl-grid{grid-template-columns:1fr}
+  .addon-grid{grid-template-columns:1fr 1fr}
+  .proc-row{grid-template-columns:1fr 1fr;gap:32px 16px}
+  .proc-row::before{display:none}
+  .quoter-body{padding:32px 24px}
+  .quoter-top,.quoter-foot{padding:18px 24px}
+  .q-question{font-size:20px}
+  .q-options{grid-template-columns:1fr}
+  .q-options.col-3{grid-template-columns:1fr}
+  .q-input-grid{grid-template-columns:1fr}
+  .q-fg.full{grid-column:auto}
+  .q-range-val{font-size:32px}
+  .footer-inner{grid-template-columns:1fr;gap:32px}
+  .footer-copy{flex-direction:column;gap:8px}
+  .wa-float{bottom:20px;right:20px;width:48px;height:48px}
+  .wa-float svg{width:22px;height:22px}
+}
+</style>
+</head>
+<body>
+
+<div class="dot-grid" id="dotgrid"></div>
+
+<!-- WA FLOAT -->
+<a href="https://api.whatsapp.com/send?phone=50769837286&text=Hola%20Rodolfo%2C%20vi%20DTechLab%20Studio%20y%20quiero%20arrancar%20un%20proyecto.%20%F0%9F%91%8B" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- CHAT WIDGET · Sasha (asistente guía) -->
+<button class="chat-fab" id="chatFab" aria-label="Abrir chat con asistente">
+  <span class="chat-fab-pulse"></span>
+  <span class="chat-fab-badge" id="chatBadge" style="display:none">1</span>
+  <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</button>
+<div class="chat-window" id="chatWindow" role="dialog" aria-labelledby="chatTitle">
+  <div class="chat-header">
+    <div class="chat-avatar">S</div>
+    <div class="chat-header-info">
+      <div class="chat-header-name" id="chatTitle">Sasha · Asistente Studio</div>
+      <div class="chat-header-status">Online · responde al instante</div>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="Cerrar chat">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
+    </button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-footer" id="chatFooter"></div>
+  <div class="chat-disclaimer">Asistente guía · para consultas complejas, chat directo por WhatsApp</div>
+</div>
+
+<!-- LOADER (barritas como el home) -->
+<div id="loader">
+  <div class="ld-logo">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><g stroke="rgba(91,106,255,0.45)" stroke-width="1.4" stroke-linecap="round" fill="none"><line x1="10" y1="10" x2="22" y2="10"/><line x1="10" y1="10" x2="10" y2="22"/><line x1="22" y1="10" x2="22" y2="22"/><line x1="10" y1="22" x2="22" y2="22"/><line x1="10" y1="10" x2="22" y2="22"/></g><circle cx="10" cy="10" r="3.1" fill="#5B6AFF"/><circle cx="22" cy="10" r="3.1" fill="rgba(91,106,255,0.45)"/><circle cx="10" cy="22" r="3.1" fill="rgba(91,106,255,0.45)"/><circle cx="22" cy="22" r="3.1" fill="#5B6AFF"/></svg>
+    <span class="ld-logo-text">DTechLab</span>
+  </div>
+  <div class="ld-sub">Studio · v1.0</div>
+  <div class="ld-rows">
+    <div class="ld-row" id="lr1"><span class="ld-lbl" id="ll1">cargando estudio</span><div class="ld-bar"><div class="ld-fill" id="lf1"></div></div></div>
+    <div class="ld-row" id="lr2"><span class="ld-lbl" id="ll2">preparando servicios</span><div class="ld-bar"><div class="ld-fill" id="lf2"></div></div></div>
+    <div class="ld-row" id="lr3"><span class="ld-lbl" id="ll3">activando cotizador</span><div class="ld-bar"><div class="ld-fill" id="lf3"></div></div></div>
+    <div class="ld-row" id="lr4"><span class="ld-lbl" id="ll4">studio listo</span><div class="ld-bar"><div class="ld-fill" id="lf4"></div></div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="dtechlab-studio.html" class="nav-logo" aria-label="DTechLab Studio — inicio">
+    <svg width="26" height="26" viewBox="0 0 32 32" fill="none"><g stroke="rgba(91,106,255,0.45)" stroke-width="1.4" stroke-linecap="round" fill="none"><line x1="10" y1="10" x2="22" y2="10"/><line x1="10" y1="10" x2="10" y2="22"/><line x1="22" y1="10" x2="22" y2="22"/><line x1="10" y1="22" x2="22" y2="22"/><line x1="10" y1="10" x2="22" y2="22"/></g><circle cx="10" cy="10" r="3.1" fill="#5B6AFF"/><circle cx="22" cy="10" r="3.1" fill="rgba(91,106,255,0.45)"/><circle cx="10" cy="22" r="3.1" fill="rgba(91,106,255,0.45)"/><circle cx="22" cy="22" r="3.1" fill="#5B6AFF"/></svg>
+    <span class="nav-logo-text">DTechLab<span class="div">Studio</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Cómo resolvemos</a></li>
+    <li><a href="#paquetes">Paquetes</a></li>
+    <li><a href="#templates">Por industria</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#casos">Trabajo</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#cotizador" class="nav-cta">Cotizar proyecto</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-label" id="hero-label">Desarrollo web · Sistemas digitales · Panamá</div>
+    <div class="hero-headline">
+      <div class="line"><div class="li" id="hl1">Sitios web.</div></div>
+      <div class="line"><div class="li" id="hl2">Sistemas digitales.</div></div>
+      <div class="line"><div class="li acc" id="hl3">Para negocios reales.</div></div>
+    </div>
+    <p class="hero-sub" id="hero-sub">Somos un estudio técnico boutique: diseñamos y construimos sitios web profesionales, sistemas web e integraciones operativas para negocios que necesitan una base digital seria, funcional y lista para crecer.</p>
+    <div class="hero-actions" id="hero-actions">
+      <a href="#cotizador" class="btn-primary">
+        Cotizar mi proyecto <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="https://api.whatsapp.com/send?phone=50769837286&text=Hola%20Rodolfo%2C%20vi%20DTechLab%20Studio%20y%20quiero%20arrancar%20un%20proyecto.%20%F0%9F%91%8B" class="btn-wa" target="_blank">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp directo
+      </a>
+      <a href="#templates" class="btn-ghost">Ver ejemplos</a>
+    </div>
+    <div class="hero-meta" id="hero-meta">
+      <div class="hero-meta-item"><div class="hero-meta-val">Web</div><div class="hero-meta-lbl">Landing, sitio o catálogo</div></div>
+      <div class="hero-meta-item"><div class="hero-meta-val">Sistema</div><div class="hero-meta-lbl">Reservas, paneles y portales</div></div>
+      <div class="hero-meta-item"><div class="hero-meta-val">Conexión</div><div class="hero-meta-lbl">Formularios, Sheets y email</div></div>
+      <div class="hero-meta-item"><div class="hero-meta-val">Base</div><div class="hero-meta-lbl">Lista para crecer</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS PROFUNDOS -->
+<section class="dark-sec" id="servicios">
+  <div class="sec-eyebrow reveal">Qué hacemos</div>
+  <h2 class="sec-title reveal tetris-text">Desarrollo web y sistemas digitales <strong>para negocios.</strong></h2>
+  <p class="sec-sub reveal">Empezamos por lo que tu negocio necesita hoy: verse profesional, recibir solicitudes, organizar información y operar mejor con herramientas digitales claras.</p>
+
+  <div class="svc-deep-grid">
+
+    <div class="svc-deep-card featured reveal">
+      <div class="svc-deep-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18"/><circle cx="6" cy="6" r=".8" fill="currentColor"/><circle cx="9" cy="6" r=".8" fill="currentColor"/></svg></div>
+      <div class="svc-deep-tier">01 · Desarrollo Web</div>
+      <h3 class="svc-deep-name">Páginas profesionales</h3>
+      <p class="svc-deep-desc">Para negocios que necesitan verse confiables, explicar sus servicios y recibir contactos sin depender solo de Instagram o mensajes sueltos.</p>
+      <ul class="svc-deep-list">
+        <li>Landing pages</li>
+        <li>Sitios corporativos</li>
+        <li>Catálogos y galerías</li>
+        <li>E-commerce básico</li>
+        <li>Botón de WhatsApp y formularios</li>
+        <li>Diseño responsive y publicación</li>
+      </ul>
+      <div class="svc-deep-range">
+        <span>Desde: <strong>$350</strong></span>
+        <span>Tiempo: <strong>5–21 días</strong></span>
+      </div>
+    </div>
+
+    <div class="svc-deep-card reveal">
+      <div class="svc-deep-icon"><svg viewBox="0 0 24 24"><polyline points="4 17 8 13 12 15 16 9 20 11"/><circle cx="4" cy="17" r="1.5"/><circle cx="8" cy="13" r="1.5"/><circle cx="12" cy="15" r="1.5"/><circle cx="16" cy="9" r="1.5"/><circle cx="20" cy="11" r="1.5"/></svg></div>
+      <div class="svc-deep-tier">02 · Sistemas Web</div>
+      <h3 class="svc-deep-name">Herramientas funcionales</h3>
+      <p class="svc-deep-desc">Cuando una página ya no alcanza, construimos sistemas simples para recibir, guardar, administrar o mostrar información de forma ordenada.</p>
+      <ul class="svc-deep-list">
+        <li>Sistemas de reservas</li>
+        <li>Catálogos administrables</li>
+        <li>Paneles administrativos básicos</li>
+        <li>Portales simples</li>
+        <li>Registro de solicitudes</li>
+        <li>Formularios conectados a base de datos</li>
+      </ul>
+      <div class="svc-deep-range">
+        <span>Desde: <strong>$1,500</strong></span>
+        <span>Tiempo: <strong>3–6 semanas</strong></span>
+      </div>
+    </div>
+
+    <div class="svc-deep-card reveal">
+      <div class="svc-deep-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+      <div class="svc-deep-tier">03 · Integraciones y Automatización Operativa</div>
+      <h3 class="svc-deep-name">Conexiones operativas</h3>
+      <p class="svc-deep-desc">Conectamos formularios, notificaciones y herramientas externas para que la información llegue donde debe llegar sin copiar y pegar todo a mano.</p>
+      <ul class="svc-deep-list">
+        <li>Formulario a email</li>
+        <li>Formulario a Google Sheets</li>
+        <li>Reserva a calendario</li>
+        <li>Solicitud a notificación</li>
+        <li>Lead a CRM simple</li>
+        <li>WhatsApp prellenado o email automático</li>
+      </ul>
+      <div class="svc-deep-range">
+        <span>Desde: <strong>$400</strong></span>
+        <span>Uso: <strong>complemento web</strong></span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PAQUETES -->
+<section id="paquetes">
+  <div class="sec-eyebrow reveal">Paquetes por alcance</div>
+  <h2 class="sec-title reveal tetris-text">Qué puedes contratar <strong>desde hoy.</strong></h2>
+  <p class="sec-sub reveal">Rangos iniciales por alcance definido, implementación profesional y una estructura técnica sólida desde el primer día.</p>
+
+  <div class="cases-strip">
+    <div class="case-cell reveal">
+      <div class="case-tag">Landing Starter</div>
+      <h3 class="case-name">Desde $350</h3>
+      <p class="case-desc">Landing de una página, hasta 5 secciones, diseño responsive, WhatsApp, formulario básico, redes y publicación.</p>
+      <div class="case-metric">Entrega estimada: <strong>5–10 días</strong></div>
+    </div>
+    <div class="case-cell reveal">
+      <div class="case-tag">Web Profesional</div>
+      <h3 class="case-name">Desde $750</h3>
+      <p class="case-desc">Web completa o hasta 5 páginas, servicios, catálogo simple o galería, formulario, WhatsApp, Google Maps y SEO básico.</p>
+      <div class="case-metric">Entrega estimada: <strong>10–21 días</strong></div>
+    </div>
+    <div class="case-cell reveal">
+      <div class="case-tag">Sistema Web</div>
+      <h3 class="case-name">Desde $1,500</h3>
+      <p class="case-desc">Reservas, catálogo administrable, panel básico, portal simple, registro de solicitudes o formularios conectados a base de datos.</p>
+      <div class="case-metric">Entrega estimada: <strong>3–6 semanas</strong></div>
+    </div>
+    <div class="case-cell reveal">
+      <div class="case-tag">Integraciones y Automatización Operativa</div>
+      <h3 class="case-name">Desde $400</h3>
+      <p class="case-desc">Formulario a correo o Google Sheets, reserva a calendario, notificaciones, CRM simple, WhatsApp prellenado o email automático.</p>
+      <div class="case-metric">Se cotiza como <strong>complemento</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEMPLATES -->
+<section id="templates">
+  <div class="sec-eyebrow reveal">Para cada industria</div>
+  <h2 class="sec-title reveal tetris-text">Cada negocio tiene un dolor distinto. <strong>Resolvemos el específico.</strong></h2>
+  <p class="sec-sub reveal">Estos son demos navegables con marcas ficticias. Muestran el tipo de estructura, diseño y problema que podemos resolver por industria sin presentarlos como clientes reales.</p>
+
+  <div class="tpl-grid">
+
+    <div class="tpl-card reveal" style="display:flex;flex-direction:column">
+      <div class="ss-shot ss-bf">
+        <span class="ss-badge">Demo Navegable</span>
+        <div class="ss-nav-bar">
+          <div class="b"><div class="m">V</div>Vega &amp; Asociados</div>
+          <div class="l"><span>Práctica</span><span>Equipo</span><span>Casos</span></div>
+          <div class="c">Consulta</div>
+        </div>
+        <div class="ss-hero-area">
+          <div class="ss-hero-img"></div>
+          <div class="ss-hero-ov"></div>
+          <div class="ss-hero-c">
+            <div class="e">Bufete establecido · 1996</div>
+            <div class="t">Asesoría jurídica de criterio.</div>
+            <div class="s">Especializados en derecho corporativo, inmobiliario y patrimonial.</div>
+            <div class="cta">Agendar →</div>
+          </div>
+        </div>
+      </div>
+      <div class="ss-info">
+        <div class="ss-info-l"><h3>Vega &amp; Asociados</h3><div class="cat">Bufete · Consultora · Firma</div></div>
+        <div class="ss-info-r"><div class="time">2–3 sem</div><div class="ss-open">Bufete</div></div>
+      </div>
+      <div class="ss-problem"><div><strong>Problema que resuelve</strong>Las consultas se pierden en formularios que nadie revisa. Construimos el sistema que captura, califica y enruta cada lead — directo al equipo, vía WhatsApp.</div></div>
+    </div>
+
+    <div class="tpl-card reveal" style="display:flex;flex-direction:column">
+      <div class="ss-shot ss-rs">
+        <span class="ss-badge">Demo Navegable</span>
+        <div class="ss-nav-bar">
+          <div class="b"><div class="m">⚓</div>Casa Marítima</div>
+          <div class="l"><span>Menú</span><span>Historia</span><span>Visítanos</span></div>
+          <div class="c">Reservar</div>
+        </div>
+        <div class="ss-hero-area">
+          <div class="ss-hero-img"></div>
+          <div class="ss-hero-ov"></div>
+          <div class="ss-hero-c">
+            <div class="e">Cocina panameña · Desde 2008</div>
+            <div class="t">Sabores del Pacífico en mesa <em>del Casco.</em></div>
+            <div class="s">Una carta que cambia con la temporada.</div>
+            <div class="cta">Reservar mesa</div>
+          </div>
+        </div>
+      </div>
+      <div class="ss-info">
+        <div class="ss-info-l"><h3>Casa Marítima</h3><div class="cat">Restaurante · Cafetería</div></div>
+        <div class="ss-info-r"><div class="time">2–4 sem</div><div class="ss-open">Restaurante</div></div>
+      </div>
+      <div class="ss-problem"><div><strong>Problema que resuelve</strong>Se pierden mesas por llamadas no contestadas y reservas duplicadas. Sistema de reservas online + confirmaciones por WhatsApp + agenda automática para el equipo.</div></div>
+    </div>
+
+    <div class="tpl-card reveal" style="display:flex;flex-direction:column">
+      <div class="ss-shot ss-cl">
+        <span class="ss-badge">Demo Navegable</span>
+        <div class="ss-nav-bar">
+          <div class="b"><div class="m">+</div>Clínica Aurora</div>
+          <div class="l"><span>Tratamientos</span><span>Doctora</span><span>Pacientes</span></div>
+          <div class="c">Agendar</div>
+        </div>
+        <div class="ss-hero-area">
+          <div class="ss-hero-img"></div>
+          <div class="ss-hero-ov"></div>
+          <div class="ss-hero-c">
+            <div class="e">Aceptando nuevos pacientes</div>
+            <div class="t">Cuidamos tu piel <em>como tú la mereces.</em></div>
+            <div class="s">Estética facial, corporal y odontológica.</div>
+            <div class="cta">Valoración →</div>
+          </div>
+        </div>
+      </div>
+      <div class="ss-info">
+        <div class="ss-info-l"><h3>Clínica Aurora</h3><div class="cat">Salud · Médico · Wellness</div></div>
+        <div class="ss-info-r"><div class="time">3–5 sem</div><div class="ss-open">Clínica</div></div>
+      </div>
+      <div class="ss-problem"><div><strong>Problema que resuelve</strong>La recepción no da abasto agendando citas por teléfono. Los pacientes agendan solos online, reciben recordatorios automáticos y la agenda del doctor se llena sin intervención.</div></div>
+    </div>
+
+    <div class="tpl-card reveal" style="display:flex;flex-direction:column">
+      <div class="ss-shot ss-sh">
+        <span class="ss-badge">Demo Navegable</span>
+        <div class="ss-nav-bar">
+          <div class="b">A<span class="gold">O</span>  Atelier Oro</div>
+          <div class="l"><span>Colecciones</span><span>Tienda</span><span>Bridal</span></div>
+          <div class="c">CARRITO</div>
+        </div>
+        <div class="ss-hero-area">
+          <div class="ss-hero-img"></div>
+          <div class="ss-hero-ov"></div>
+          <div class="ss-hero-c">
+            <div class="e">Edición primavera · MMXXVI</div>
+            <div class="t">Cada pieza, <em>una historia</em> hecha a mano.</div>
+            <div class="s">Oro 18k recuperado y piedras de origen ético.</div>
+            <div class="cta">Ver colección</div>
+          </div>
+        </div>
+      </div>
+      <div class="ss-info">
+        <div class="ss-info-l"><h3>Atelier Oro</h3><div class="cat">E-commerce · Retail</div></div>
+        <div class="ss-info-r"><div class="time">4–6 sem</div><div class="ss-open">Tienda</div></div>
+      </div>
+      <div class="ss-problem"><div><strong>Problema que resuelve</strong>Vender online sin pasarela integrada significa perder clientes en cada paso. Catálogo, carrito, pagos con Yappy/Stripe, panel para gestionar inventario — el negocio vende mientras duermes.</div></div>
+    </div>
+
+    <div class="tpl-card reveal" style="display:flex;flex-direction:column">
+      <div class="ss-shot ss-rl">
+        <span class="ss-badge">Demo Navegable</span>
+        <div class="ss-nav-bar">
+          <div class="b"><div class="m">L</div>Lumina</div>
+          <div class="l"><span>Propiedades</span><span>Servicios</span><span>Equipo</span></div>
+          <div class="c">Vender</div>
+        </div>
+        <div class="ss-hero-area">
+          <div class="ss-hero-img"></div>
+          <div class="ss-hero-ov"></div>
+          <div class="ss-hero-c">
+            <div class="e">Corretaje premium · Panamá</div>
+            <div class="t">Tu próxima <em>dirección.</em></div>
+            <div class="s">Residencias y oficinas selectas en Ciudad de Panamá.</div>
+            <div class="cta">Ver listings</div>
+          </div>
+        </div>
+      </div>
+      <div class="ss-info">
+        <div class="ss-info-l"><h3>Lumina Properties</h3><div class="cat">Inmobiliaria · Real Estate</div></div>
+        <div class="ss-info-r"><div class="time">4–6 sem</div><div class="ss-open">Inmobiliaria</div></div>
+      </div>
+      <div class="ss-problem"><div><strong>Problema que resuelve</strong>Mostrar propiedades a curiosos quema horas del broker. Buscador filtrable, fichas detalladas, formularios que pre-califican interés real, CRM conectado — el equipo solo atiende leads serios.</div></div>
+    </div>
+
+    <div class="tpl-card reveal" style="display:flex;flex-direction:column">
+      <div class="ss-shot ss-sv">
+        <span class="ss-badge">Demo Navegable</span>
+        <div class="ss-nav-bar">
+          <div class="b"><div class="m">V</div>VERIDIAN</div>
+          <div class="l"><span>Servicios</span><span>Proyectos</span><span>Proceso</span></div>
+          <div class="c">Cotizar →</div>
+        </div>
+        <div class="ss-hero-area">
+          <div class="ss-hero-img"></div>
+          <div class="ss-hero-ov"></div>
+          <div class="ss-hero-c">
+            <div class="e">Diseño · Ingeniería · Construcción</div>
+            <div class="t">Construimos donde se queda <strong>vivir.</strong></div>
+            <div class="s">22 años, 187 obras entregadas.</div>
+            <div class="cta">Cotizar obra</div>
+          </div>
+        </div>
+      </div>
+      <div class="ss-info">
+        <div class="ss-info-l"><h3>Veridian Construcciones</h3><div class="cat">Constructora &amp; ingeniería</div></div>
+        <div class="ss-info-r"><div class="time">3–5 sem</div><div class="ss-open">Constructora</div></div>
+      </div>
+      <div class="ss-problem"><div><strong>Problema que resuelve</strong>Cotizar obras nuevas consume días entre planos, costos y comunicación con el cliente. Portafolio que vende solo, formulario de cotización inicial inteligente, seguimiento por etapas — cierra más sin gastar horas.</div></div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:40px" class="reveal">
+    <a href="#cotizador" class="btn-primary">Cotizar mi proyecto <span style="margin-left:6px">→</span></a>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section class="dark-sec" id="proceso">
+  <div class="sec-eyebrow reveal">Cómo trabajamos</div>
+  <h2 class="sec-title reveal">Empezamos por el problema. <strong>No por la herramienta.</strong></h2>
+  <p class="sec-sub reveal">Cuatro fases, cero zonas grises. Antes de escribir una línea de código entendemos qué quieres resolver. Después decidimos qué construir y cómo.</p>
+
+  <div class="proc-row reveal">
+    <div class="proc-step">
+      <div class="proc-num">01</div>
+      <h3>Diagnóstico</h3>
+      <p>Entendemos tu negocio, no solo lo que pides. Identificamos qué problema cuesta más resolverlo a mano y qué tiene sentido atacar primero. Sin compromiso.</p>
+      <span class="day">Día 0 · Sin costo</span>
+    </div>
+    <div class="proc-step">
+      <div class="proc-num">02</div>
+      <h3>Arquitectura</h3>
+      <p>Te mostramos cómo se va a resolver antes de construir. Blueprint del sistema, alcance cerrado, propuesta formal. Aprobación + 50% para iniciar.</p>
+      <span class="day">Día 1–3</span>
+    </div>
+    <div class="proc-step">
+      <div class="proc-num">03</div>
+      <h3>Ingeniería</h3>
+      <p>Diseñamos y construimos con cronograma visible. Demos semanales, acceso permanente a la versión en desarrollo. Cero sorpresas en el avance.</p>
+      <span class="day">Semana 1–6</span>
+    </div>
+    <div class="proc-step">
+      <div class="proc-num">04</div>
+      <h3>Despliegue</h3>
+      <p>Lanzamos en producción, capacitamos a tu equipo y damos 30 días de soporte incluido. Lo que queda funcionando es tuyo, código incluido.</p>
+      <span class="day">Última semana + 30d</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COTIZADOR INTELIGENTE ─── -->
+<section id="cotizador" class="center-sec">
+  <div class="sec-eyebrow reveal">Diagnóstico rápido</div>
+  <h2 class="sec-title reveal tetris-text">Cuéntanos qué problema <strong>quieres resolver.</strong></h2>
+  <p class="sec-sub reveal">Responde 5 preguntas y obtén un rango estimado al instante. Trabajamos con base en el problema de negocio que tienes hoy — no en productos genéricos.</p>
+
+  <div class="quoter reveal">
+    <div class="quoter-top">
+      <div class="quoter-title">Cotizador DTechLab Studio</div>
+      <div class="quoter-step-lbl" id="qStepLbl">Paso 1 de 5</div>
+    </div>
+    <div class="quoter-progress"><div class="quoter-progress-fill" id="qProgress"></div></div>
+    <div class="quoter-body">
+
+      <!-- PASO 1: problema a resolver -->
+      <div class="q-step active" data-step="1">
+        <div class="q-question">¿Qué quieres resolver?</div>
+        <div class="q-hint">Elige lo más cercano a lo que necesitas construir hoy.</div>
+        <div class="q-options">
+          <button class="q-opt" data-name="ptype" data-val="landing" data-base="350">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Atraer más clientes online</div><div class="q-opt-desc">Hoy tu negocio no aparece en Google o tu presencia digital no convierte. Landing o sitio enfocado en captación.</div></div>
+          </button>
+          <button class="q-opt" data-name="ptype" data-val="corporate" data-base="750">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Tener una web profesional</div><div class="q-opt-desc">Necesitas una web clara con servicios, páginas o secciones, contacto y presencia confiable.</div></div>
+          </button>
+          <button class="q-opt" data-name="ptype" data-val="ecommerce" data-base="1500">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Mostrar productos o vender online</div><div class="q-opt-desc">Catálogo, tienda básica, pasarela si aplica y estructura para recibir pedidos.</div></div>
+          </button>
+          <button class="q-opt" data-name="ptype" data-val="dashboard" data-base="1500">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Crear un sistema web simple</div><div class="q-opt-desc">Reservas, solicitudes, catálogo administrable, portal básico o panel interno.</div></div>
+          </button>
+          <button class="q-opt" data-name="ptype" data-val="automation" data-base="400">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Conectar formularios o herramientas</div><div class="q-opt-desc">Formulario a correo, Google Sheets, calendario, CRM simple o WhatsApp prellenado.</div></div>
+          </button>
+          <button class="q-opt" data-name="ptype" data-val="platform" data-base="1200">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Proyecto personalizado</div><div class="q-opt-desc">Tienes una idea o necesidad que no encaja en los paquetes anteriores.</div></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 2: alcance -->
+      <div class="q-step" data-step="2">
+        <div class="q-question">¿Qué tan extenso es?</div>
+        <div class="q-hint">Aproximado. Lo confirmamos en la propuesta formal.</div>
+        <div class="q-options">
+          <button class="q-opt" data-name="scope" data-val="small" data-mod="0">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Pequeño · Esencial</div><div class="q-opt-desc">Lo justo y necesario. 1 idioma, sin secciones extra.</div></div>
+          </button>
+          <button class="q-opt" data-name="scope" data-val="medium" data-mod="400">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Mediano · Completo</div><div class="q-opt-desc">Páginas adicionales, blog, secciones a medida.</div></div>
+          </button>
+          <button class="q-opt" data-name="scope" data-val="large" data-mod="1000">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Grande · Más completo</div><div class="q-opt-desc">Más páginas, contenido o funcionalidades que requieren planificación adicional.</div></div>
+          </button>
+          <button class="q-opt" data-name="scope" data-val="custom" data-mod="2200">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Personalizado · Multi-módulo</div><div class="q-opt-desc">Varias partes conectadas o necesidades especiales. Requiere cotización final.</div></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 3: funcionalidades extra (multi-select) -->
+      <div class="q-step" data-step="3">
+        <div class="q-question">¿Qué necesita tu proyecto?</div>
+        <div class="q-hint">Selecciona todas las que apliquen.</div>
+        <div class="q-options">
+          <button class="q-opt q-multi" data-name="feat" data-val="cms" data-mod="250">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">CMS / panel para editar</div><div class="q-opt-desc">Que actualices contenido sin programador. +$250.</div></div>
+          </button>
+          <button class="q-opt q-multi" data-name="feat" data-val="multilang" data-mod="350">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Multi-idioma (ES/EN/+)</div><div class="q-opt-desc">2+ idiomas con switcher. +$350.</div></div>
+          </button>
+          <button class="q-opt q-multi" data-name="feat" data-val="payments" data-mod="900">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Pasarela de pago</div><div class="q-opt-desc">Yappy / Stripe / tarjeta de crédito. +$900.</div></div>
+          </button>
+          <button class="q-opt q-multi" data-name="feat" data-val="auth" data-mod="700">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Login + usuarios</div><div class="q-opt-desc">Registro, perfiles, roles. +$700.</div></div>
+          </button>
+          <button class="q-opt q-multi" data-name="feat" data-val="integration" data-mod="500">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Integraciones simples</div><div class="q-opt-desc">Email, Sheets, calendario, CRM simple o WhatsApp link. +$500.</div></div>
+          </button>
+          <button class="q-opt q-multi" data-name="feat" data-val="automation-note" data-mod="300">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Email automático o notificación</div><div class="q-opt-desc">Confirmaciones, alertas internas o seguimiento básico. +$300.</div></div>
+          </button>
+          <button class="q-opt q-multi" data-name="feat" data-val="branding" data-mod="600">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Ajuste visual básico</div><div class="q-opt-desc">Paleta, tipografía y orden visual si no tienes marca clara. +$600.</div></div>
+          </button>
+          <button class="q-opt q-multi" data-name="feat" data-val="copy" data-mod="300">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Redacción básica de textos</div><div class="q-opt-desc">Si no tienes los textos hechos. +$300.</div></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 4: timeline -->
+      <div class="q-step" data-step="4">
+        <div class="q-question">¿Para cuándo lo necesitas?</div>
+        <div class="q-hint">Lo urgente cuesta más. Lo flexible cuesta menos.</div>
+        <div class="q-options col-3">
+          <button class="q-opt" data-name="timeline" data-val="urgent" data-mod="500" data-timefactor="1">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Urgente</div><div class="q-opt-desc">En menos de 3 semanas. +$500.</div></div>
+          </button>
+          <button class="q-opt" data-name="timeline" data-val="normal" data-mod="0" data-timefactor="0">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Normal</div><div class="q-opt-desc">3–8 semanas (recomendado).</div></div>
+          </button>
+          <button class="q-opt" data-name="timeline" data-val="flex" data-mod="-200" data-timefactor="-1">
+            <div class="q-opt-mark"></div>
+            <div class="q-opt-content"><div class="q-opt-name">Flexible</div><div class="q-opt-desc">Cuando esté bien hecho. -$200.</div></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 5: datos -->
+      <div class="q-step" data-step="5">
+        <div class="q-question">Para enviarte el estimado…</div>
+        <div class="q-hint">Tus datos. Sin spam — sólo para mandar el resumen y conversar.</div>
+        <div class="q-input-grid">
+          <div class="q-fg"><label>Tu nombre</label><input type="text" id="qNombre" placeholder="Ej. Rodolfo Alabarca"></div>
+          <div class="q-fg"><label>Empresa (opcional)</label><input type="text" id="qEmpresa" placeholder="Ej. Mi Empresa S.A."></div>
+          <div class="q-fg"><label>Email</label><input type="email" id="qEmail" placeholder="rodolfo@empresa.com"></div>
+          <div class="q-fg"><label>WhatsApp</label><input type="tel" id="qWhats" placeholder="+507 6000-0000"></div>
+          <div class="q-fg full"><label>Cuéntanos qué quieres construir</label><textarea id="qMensaje" placeholder="Describe brevemente el proyecto, tu industria, lo que ya tienes hoy y a dónde quieres llegar."></textarea></div>
+        </div>
+      </div>
+
+      <!-- RESULTADO -->
+      <div class="q-step" data-step="6">
+        <div class="q-result">
+          <div class="q-result-eyebrow" id="qResultEye">Estimación inicial</div>
+          <h3 class="q-result-title" id="qResultTitle">Rango estimado para tu proyecto</h3>
+          <p class="q-result-sub" id="qResultSub">Este es un cálculo automático basado en tus respuestas. El precio final puede ser menor o mayor según el detalle real del trabajo. Lo confirmamos en la propuesta formal después de conversar.</p>
+          <div class="q-range-card">
+            <div class="q-range-lbl">Inversión estimada (USD)</div>
+            <div class="q-range-val"><span id="qRangeLow">$0</span> — <span id="qRangeHigh">$0</span></div>
+            <div class="q-range-time" id="qRangeTime">Tiempo estimado: —</div>
+          </div>
+
+          <!-- Estado del envío automático -->
+          <div id="qSendStatus" class="q-send-status sending">
+            <div class="q-send-spin"></div>
+            <span id="qSendText">Enviando tu solicitud…</span>
+          </div>
+
+          <div class="q-result-actions">
+            <a href="#" id="qWaLink" target="_blank" class="btn-wa">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Hablar por WhatsApp ahora
+            </a>
+            <button id="qResetBtn" class="btn-ghost" type="button">Hacer otra cotización</button>
+          </div>
+          <p class="q-disclaimer">Esta estimación es indicativa, no una cotización formal. Para una propuesta vinculante necesitamos una conversación corta (15 min) para entender el alcance real.</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="quoter-foot">
+      <button class="btn-back" id="qBack" disabled>← Atrás</button>
+      <button class="btn-next" id="qNext">Siguiente →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CASES MINI -->
+<section id="casos">
+  <div class="sec-eyebrow reveal">Producto propio + demos</div>
+  <h2 class="sec-title reveal tetris-text">Evidencia clara, <strong>sin exagerar el portafolio.</strong></h2>
+  <p class="sec-sub reveal">Clasificamos cada muestra por contexto: producto propio, demo navegable o capacidad típica. Los clientes reales se mostrarán como tales cuando correspondan.</p>
+
+  <div class="cases-strip">
+    <div class="case-cell reveal">
+      <div class="case-tag" style="color:#34D399">● Capacidad demostrada</div>
+      <h3 class="case-name">Sistema de gestión para negocio local</h3>
+      <p class="case-desc">Un negocio de servicios en Panamá necesitaba dejar el papel y WhatsApp. Diseñamos y construimos su plataforma web: gestión de órdenes, clientes, inventario y reportes — todo conectado en un solo sistema.</p>
+      <div class="case-metric">Resultado: <strong>operación digitalizada</strong> desde cero</div>
+    </div>
+    <div class="case-cell reveal">
+      <div class="case-tag">Demo funcional · Captura de leads</div>
+      <h3 class="case-name">Formulario + seguimiento</h3>
+      <p class="case-desc">Para negocios que reciben solicitudes por canales sueltos. Captura desde la web, envío al correo o Google Sheets y botón de WhatsApp con mensaje prellenado.</p>
+      <div class="case-metric">Objetivo: <strong>ordenar solicitudes</strong> desde el primer día</div>
+    </div>
+    <div class="case-cell reveal">
+      <div class="case-tag">Capacidad típica · Integración operativa</div>
+      <h3 class="case-name">Web + herramientas conectadas</h3>
+      <p class="case-desc">Para negocios que quieren que una solicitud termine en una hoja de cálculo, calendario, correo o CRM simple sin copiar datos manualmente.</p>
+      <div class="case-metric">Ideal para: <strong>primeras automatizaciones</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ADDONS -->
+<section class="dark-sec" id="addons">
+  <div class="sec-eyebrow reveal">Sin promesas infladas</div>
+  <h2 class="sec-title reveal">No vendemos humo. <strong>Construimos herramientas claras.</strong></h2>
+  <p class="sec-sub reveal">Alcance claro, entrega funcional y criterios técnicos desde el inicio. Construimos sitios web, sistemas digitales e integraciones operativas para que tu negocio tenga una base más sólida.</p>
+
+  <div class="addon-grid">
+    <div class="addon-cell reveal">
+      <div class="addon-ico"><svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="6"/><path d="M9 5v4l2.5 1.5"/></svg></div>
+      <div class="addon-name">Alcance claro</div>
+      <p class="addon-desc">Cada proyecto queda definido por escrito: qué incluye, qué no incluye, tiempos, entregables y condiciones para cambios adicionales.</p>
+    </div>
+    <div class="addon-cell reveal">
+      <div class="addon-ico"><svg viewBox="0 0 18 18"><path d="M2 9l3 3 7-7M9 14l3-3"/></svg></div>
+      <div class="addon-name">Base funcional</div>
+      <p class="addon-desc">Priorizamos que la web o sistema funcione bien, cargue rápido, se vea profesional y ayude a recibir o administrar información.</p>
+    </div>
+    <div class="addon-cell reveal">
+      <div class="addon-ico"><svg viewBox="0 0 18 18"><path d="M9 2l2 4 4 .6-3 3 .7 4L9 12l-3.7 1.6.7-4-3-3 4-.6z"/></svg></div>
+      <div class="addon-name">Costos transparentes</div>
+      <p class="addon-desc">Dominio, hosting, herramientas externas, APIs y licencias se separan del precio del proyecto para evitar sorpresas.</p>
+    </div>
+    <div class="addon-cell reveal">
+      <div class="addon-ico"><svg viewBox="0 0 18 18"><circle cx="9" cy="6" r="3"/><path d="M3 16c0-3 2.5-5 6-5s6 2 6 5"/></svg></div>
+      <div class="addon-name">Soporte inicial</div>
+      <p class="addon-desc">Después de publicar, te acompañamos con ajustes y dudas del alcance entregado. El mantenimiento mensual se cotiza aparte si lo necesitas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="sec-eyebrow reveal">Preguntas frecuentes</div>
+  <h2 class="sec-title reveal">Lo que la gente <strong>nos suele preguntar.</strong></h2>
+
+  <div class="faq-wrap reveal">
+
+    <!-- ESTRATÉGICAS PRIMERO -->
+    <div class="faq-item"><button class="faq-q"><span>¿En qué se diferencian de una agencia de marketing o diseño tradicional?</span><span class="faq-ico">+</span></button><div class="faq-a">No vendemos solo diseño ni campañas. Construimos herramientas digitales funcionales: páginas, sistemas web simples e integraciones que ayudan a recibir solicitudes, mostrar servicios y organizar mejor la operación.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>Mi problema no es solo la página web. ¿Pueden resolverlo?</span><span class="faq-ico">+</span></button><div class="faq-a">Sí, si el alcance es claro. Podemos construir reservas, catálogos administrables, formularios conectados, paneles básicos o integraciones simples. Si el proyecto requiere algo más complejo, lo tratamos como proyecto personalizado.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿Cómo sé si necesito una web, un sistema o una automatización?</span><span class="faq-ico">+</span></button><div class="faq-a">No tienes que saberlo antes de escribirnos. En la primera conversación revisamos qué necesitas hoy y te recomendamos la opción más simple que resuelva el problema sin inflar el proyecto.</div></div>
+
+    <!-- TRANSACCIONALES -->
+    <div class="faq-item"><button class="faq-q"><span>¿Cuánto cuesta trabajar con DTechLab Studio?</span><span class="faq-ico">+</span></button><div class="faq-a">Según alcance: Landing Starter <strong>desde $350</strong>. Web Profesional <strong>desde $750</strong>. Sistema Web <strong>desde $1,500</strong>. Integraciones y Automatización Operativa <strong>desde $400</strong>. Proyectos personalizados se cotizan según complejidad.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿Cómo son los pagos?</span><span class="faq-ico">+</span></button><div class="faq-a">50% al firmar el acuerdo (apartas la fecha y empezamos), 50% al entregar el sistema funcionando. Para proyectos sobre $6,000 podemos dividir en 3 pagos. Aceptamos transferencia, Yappy, ACH, tarjeta y PayPal.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿Qué incluye el precio?</span><span class="faq-ico">+</span></button><div class="faq-a">Incluye lo descrito en el alcance aprobado: diseño, desarrollo, configuración básica, publicación y soporte inicial. NO incluye dominio, hosting, herramientas externas, contenido profesional, fotografías, branding completo ni APIs de terceros salvo cotización aparte.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿En cuánto tiempo está listo?</span><span class="faq-ico">+</span></button><div class="faq-a">Landing Starter: 5–10 días. Web Profesional: 10–21 días. Sistema Web: 3–6 semanas. Integraciones operativas: según alcance. Los tiempos empiezan cuando recibimos pago inicial, contenido y accesos necesarios.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿El código es mío?</span><span class="faq-ico">+</span></button><div class="faq-a">Sí. Al finalizar te entregamos todo el código fuente. No te amarramos a una plataforma con mensualidad forzosa. Lo que construimos vive en tu hosting y escala contigo, incluso si decides cambiar de proveedor en el futuro.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿Trabajan con clientes fuera de Panamá?</span><span class="faq-ico">+</span></button><div class="faq-a">Sí. Trabajamos 100% remoto con clientes en toda Latinoamérica. Tenemos procesos claros que funcionan bien a distancia: reuniones por video, demos semanales y acceso permanente al avance.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿Qué pasa después del soporte inicial?</span><span class="faq-ico">+</span></button><div class="faq-a">Puedes administrar el proyecto por tu cuenta o contratar mantenimiento mensual desde $50–$150/mes, según horas, actualizaciones y soporte requerido.</div></div>
+
+    <div class="faq-item"><button class="faq-q"><span>¿Cómo empieza un proyecto?</span><span class="faq-ico">+</span></button><div class="faq-a">Usa el cotizador, escríbenos por WhatsApp o envíanos un email. Agendamos una llamada de 20–30 minutos (sin costo) para entender qué problema quieres resolver. Si hace sentido para ambos, recibes propuesta formal en 2–3 días.</div></div>
+
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="dark-sec center-sec" id="contacto" style="padding:120px 80px">
+  <div class="sec-eyebrow reveal">Empieza por una conversación</div>
+  <h2 class="sec-title reveal tetris-text">Tu negocio puede crecer <strong>sin que tú trabajes el doble.</strong></h2>
+  <p class="sec-sub reveal">Hay algo en tu operación que se puede resolver con tecnología. 20 minutos de conversación, sin costo. Te decimos honesto si hay oportunidad — o si no.</p>
+  <div class="hero-actions reveal in" style="justify-content:center">
+    <a href="#cotizador" class="btn-primary">Cotizar mi proyecto <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="https://api.whatsapp.com/send?phone=50769837286&text=Hola%20Rodolfo%2C%20vi%20DTechLab%20Studio%20y%20quiero%20arrancar%20un%20proyecto.%20%F0%9F%91%8B" class="btn-wa" target="_blank">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Hablar por WhatsApp
+    </a>
+  </div>
+  <div style="margin-top:24px;font-size:11px;color:var(--whisper);font-family:'Courier New',monospace;letter-spacing:.08em">
+    rodophybusiness08@gmail.com · +507 6983-7286 · Panamá
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="dtechlab-studio.html" class="footer-brand">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><g stroke="rgba(91,106,255,0.45)" stroke-width="1.4" stroke-linecap="round" fill="none"><line x1="10" y1="10" x2="22" y2="10"/><line x1="10" y1="10" x2="10" y2="22"/><line x1="22" y1="10" x2="22" y2="22"/><line x1="10" y1="22" x2="22" y2="22"/><line x1="10" y1="10" x2="22" y2="22"/></g><circle cx="10" cy="10" r="3.1" fill="#5B6AFF"/><circle cx="22" cy="10" r="3.1" fill="rgba(91,106,255,0.45)"/><circle cx="10" cy="22" r="3.1" fill="rgba(91,106,255,0.45)"/><circle cx="22" cy="22" r="3.1" fill="#5B6AFF"/></svg>
+        <div><div class="footer-name">DTechLab Studio</div><div class="footer-tagline">estudio de ingeniería digital · panamá · latam</div></div>
+      </a>
+    </div>
+    <div>
+      <div class="footer-col-title">Navegar</div>
+      <div class="footer-links">
+        <a href="#servicios">Cómo resolvemos</a>
+        <a href="#paquetes">Paquetes</a>
+        <a href="#templates">Por industria</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#casos">Trabajo</a>
+        <a href="#cotizador">Diagnóstico rápido</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Contacto</div>
+      <div class="footer-links">
+        <a href="https://api.whatsapp.com/send?phone=50769837286&text=Hola%20Rodolfo%2C%20vi%20DTechLab%20Studio%20y%20quiero%20arrancar%20un%20proyecto.%20%F0%9F%91%8B" target="_blank" rel="noopener">WhatsApp · +507 6983-7286</a>
+        <a href="mailto:rodophybusiness08@gmail.com">rodophybusiness08@gmail.com</a>
+        <a href="#cotizador">Diagnóstico de 60 seg</a>
+        <a href="#contacto">Agendar conversación</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>© 2026 DTechLab Studio · Panamá · Latam</span>
+    <span>Tecnología al servicio del negocio.</span>
+  </div>
+</footer>
+
+<script>
+// ─── LOADER ───
+window.addEventListener('load',()=>{
+  const steps=[{r:'lr1',f:'lf1',l:'ll1'},{r:'lr2',f:'lf2',l:'ll2'},{r:'lr3',f:'lf3',l:'ll3'},{r:'lr4',f:'lf4',l:'ll4'}];
+  function run(i){
+    if(i>=steps.length){
+      setTimeout(()=>{
+        document.getElementById('loader').classList.add('out');
+        document.getElementById('dotgrid').classList.add('on');
+        animHero();
+      },280);
+      return;
+    }
+    const s=steps[i];
+    document.getElementById(s.r).classList.add('show');
+    document.getElementById(s.l).classList.add('active');
+    setTimeout(()=>{document.getElementById(s.f).style.width='100%';},60);
+    setTimeout(()=>{
+      document.getElementById(s.l).classList.remove('active');
+      document.getElementById(s.l).classList.add('done');
+      run(i+1);
+    },680);
+  }
+  setTimeout(()=>run(0),200);
+});
+
+// ─── HERO ANIMATIONS · TETRIS LETTER DROP ───
+function animHero(){
+  setTimeout(()=>document.getElementById('hero-label').classList.add('in'),100);
+  // Setup tetris: split each line into chars, then animate placement
+  tetrisSetup();
+  setTimeout(()=>tetrisPlace(), 280);
+  setTimeout(()=>document.getElementById('hero-sub').classList.add('in'),1500);
+  setTimeout(()=>document.getElementById('hero-actions').classList.add('in'),1650);
+  setTimeout(()=>document.getElementById('hero-meta').classList.add('in'),1800);
+}
+
+function tetrisSetup(){
+  const lis = document.querySelectorAll('.hero-headline .li');
+  // sides where blocks can come from
+  const directions = [
+    { tx: () => (Math.random()-0.5) * 200, ty: () => -350 - Math.random() * 250, rot: () => (Math.random()-0.5) * 60 },  // top
+    { tx: () => -500 - Math.random() * 250, ty: () => (Math.random()-0.5) * 200, rot: () => (Math.random()-0.5) * 70 },  // left
+    { tx: () => 500 + Math.random() * 250, ty: () => (Math.random()-0.5) * 200, rot: () => (Math.random()-0.5) * 70 },   // right
+    { tx: () => (Math.random()-0.5) * 100, ty: () => 350 + Math.random() * 150, rot: () => (Math.random()-0.5) * 40 },   // bottom
+  ];
+  lis.forEach((li, lineIdx) => {
+    const text = li.textContent;
+    li.innerHTML = '';
+    const chars = text.split('');
+    chars.forEach((char, charIdx) => {
+      const span = document.createElement('span');
+      span.className = 'ch';
+      span.textContent = char === ' ' ? ' ' : char;
+      const dir = directions[Math.floor(Math.random() * directions.length)];
+      const tx = dir.tx();
+      const ty = dir.ty();
+      const rot = dir.rot();
+      const scale = 0.6 + Math.random() * 0.6;
+      span.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg) scale(${scale})`;
+      // stagger by line + character
+      const delay = (lineIdx * 0.22) + (charIdx * 0.028);
+      span.style.transitionDelay = delay + 's';
+      li.appendChild(span);
+    });
+  });
+}
+
+function tetrisPlace(){
+  document.querySelectorAll('.hero-headline .li .ch').forEach(ch => {
+    ch.classList.add('placed');
+  });
+}
+
+// ─── NAV SCROLL ───
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40));
+
+// ─── REVEAL ON SCROLL ───
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target);}}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ─── FAQ ───
+document.querySelectorAll('.faq-q').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.closest('.faq-item'),open=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+    if(!open)item.classList.add('open');
+  });
+});
+
+// ─── COTIZADOR INTELIGENTE ───
+const Q = {
+  step: 1,
+  total: 5,
+  data: { ptype:null, base:0, scope:null, scopeMod:0, feat:[], featMod:0, timeline:null, timeMod:0, timeFactor:0 },
+};
+
+const qSteps = document.querySelectorAll('.q-step');
+const qNext = document.getElementById('qNext');
+const qBack = document.getElementById('qBack');
+const qStepLbl = document.getElementById('qStepLbl');
+const qProgress = document.getElementById('qProgress');
+
+function showStep(n){
+  qSteps.forEach(s=>s.classList.toggle('active', parseInt(s.dataset.step)===n));
+  qBack.disabled = n===1 || n===6;
+  if(n===6){
+    qNext.style.display='none';
+    qBack.style.display='none';
+    qStepLbl.textContent = 'Estimación lista';
+    qProgress.style.width = '100%';
+  } else {
+    qNext.style.display='';
+    qBack.style.display='';
+    qStepLbl.textContent = `Paso ${n} de ${Q.total}`;
+    qProgress.style.width = (n/Q.total*100) + '%';
+    qNext.innerHTML = n===Q.total ? 'Ver estimación →' : 'Siguiente →';
+  }
+}
+
+// option selection
+document.querySelectorAll('.q-opt').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const name = btn.dataset.name;
+    if(btn.classList.contains('q-multi')){
+      btn.classList.toggle('selected');
+      const val = btn.dataset.val;
+      const mod = parseInt(btn.dataset.mod || 0);
+      if(btn.classList.contains('selected')){
+        Q.data.feat.push({val,mod});
+      } else {
+        Q.data.feat = Q.data.feat.filter(f=>f.val!==val);
+      }
+      Q.data.featMod = Q.data.feat.reduce((s,f)=>s+f.mod,0);
+    } else {
+      // single-select within name group
+      document.querySelectorAll(`.q-opt[data-name="${name}"]`).forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      if(name==='ptype'){
+        Q.data.ptype = btn.dataset.val;
+        Q.data.base = parseInt(btn.dataset.base);
+      } else if(name==='scope'){
+        Q.data.scope = btn.dataset.val;
+        Q.data.scopeMod = parseInt(btn.dataset.mod);
+      } else if(name==='timeline'){
+        Q.data.timeline = btn.dataset.val;
+        Q.data.timeMod = parseInt(btn.dataset.mod);
+        Q.data.timeFactor = parseInt(btn.dataset.timefactor);
+      }
+    }
+  });
+});
+
+function validateStep(n){
+  if(n===1) return !!Q.data.ptype;
+  if(n===2) return !!Q.data.scope;
+  if(n===3) return true; // multi optional
+  if(n===4) return !!Q.data.timeline;
+  if(n===5){
+    return document.getElementById('qNombre').value.trim() &&
+           document.getElementById('qEmail').value.trim() &&
+           document.getElementById('qWhats').value.trim();
+  }
+  return true;
+}
+
+qNext.addEventListener('click', ()=>{
+  if(!validateStep(Q.step)){
+    qNext.style.background = '#F97316';
+    qNext.textContent = 'Completa este paso';
+    setTimeout(()=>{ qNext.style.background=''; qNext.innerHTML = Q.step===Q.total ? 'Ver estimación →' : 'Siguiente →'; }, 1500);
+    return;
+  }
+  if(Q.step < Q.total){
+    Q.step++;
+    showStep(Q.step);
+  } else {
+    // calculate
+    calculateAndShow();
+    Q.step = 6;
+    showStep(6);
+  }
+});
+
+qBack.addEventListener('click', ()=>{
+  if(Q.step>1){
+    Q.step--;
+    showStep(Q.step);
+  }
+});
+
+function calculateAndShow(){
+  const subtotal = Q.data.base + Q.data.scopeMod + Q.data.featMod + Q.data.timeMod;
+  // mínimo absoluto $350 + rango +/- 20% (calibrado al mercado panameño 2026)
+  const low = Math.max(350, Math.round(subtotal * 0.85 / 50) * 50);
+  const high = Math.max(low + 100, Math.round(subtotal * 1.25 / 50) * 50);
+  document.getElementById('qRangeLow').textContent = '$' + low.toLocaleString('en-US');
+  document.getElementById('qRangeHigh').textContent = '$' + high.toLocaleString('en-US');
+
+  // tiempo estimado
+  const baseTime = { landing:[2,3], corporate:[3,5], ecommerce:[4,6], platform:[6,10], dashboard:[5,8], automation:[2,4] };
+  let [tLow, tHigh] = baseTime[Q.data.ptype] || [3,6];
+  if(Q.data.scope==='medium') tHigh += 1;
+  if(Q.data.scope==='large'){ tLow += 1; tHigh += 2; }
+  if(Q.data.scope==='custom'){ tLow += 2; tHigh += 3; }
+  if(Q.data.timeFactor===1){ tLow = Math.max(2, tLow-1); tHigh = Math.max(tLow+1, tHigh-1); }
+  if(Q.data.timeFactor===-1){ tHigh += 2; }
+  document.getElementById('qRangeTime').textContent = `Tiempo estimado: ${tLow}–${tHigh} semanas`;
+
+  // build summary
+  const nombre = document.getElementById('qNombre').value;
+  const empresa = document.getElementById('qEmpresa').value;
+  const email = document.getElementById('qEmail').value;
+  const whats = document.getElementById('qWhats').value;
+  const msg = document.getElementById('qMensaje').value;
+  const featList = Q.data.feat.map(f=>f.val);
+  const featReadable = { cms:'CMS / panel de edición', multilang:'Multi-idioma', payments:'Pasarela de pago', auth:'Login + usuarios', integration:'Integraciones simples', 'automation-note':'Email automático o notificación', branding:'Ajuste visual básico', copy:'Redacción básica de textos' };
+  const featNames = featList.length ? featList.map(v=>featReadable[v]||v).join(' · ') : '(ninguna seleccionada)';
+
+  const ptypeNames = { landing:'Landing Starter', corporate:'Web Profesional', ecommerce:'Catálogo o tienda básica', platform:'Proyecto personalizado', dashboard:'Sistema Web', automation:'Integraciones y Automatización Operativa' };
+  const scopeNames = { small:'Pequeño · Esencial', medium:'Mediano · Completo', large:'Grande · Más completo', custom:'Personalizado · Multi-módulo' };
+  const timelineNames = { urgent:'Urgente (<3 semanas)', normal:'Normal (3–8 semanas)', flex:'Flexible' };
+
+  // ── WhatsApp link (siempre disponible) ────────────────
+  const waMsg = `Hola Rodolfo, completé el cotizador de DTechLab Studio:\n\n` +
+                `• Proyecto: ${ptypeNames[Q.data.ptype]}\n` +
+                `• Alcance: ${scopeNames[Q.data.scope]}\n` +
+                `• Funcionalidades: ${featNames}\n` +
+                `• Timeline: ${timelineNames[Q.data.timeline]}\n` +
+                `• Estimación: $${low.toLocaleString('en-US')} – $${high.toLocaleString('en-US')} USD\n\n` +
+                `Me llamo ${nombre}${empresa? ' de ' + empresa : ''}. ¿Cuándo conversamos?`;
+  document.getElementById('qWaLink').href = 'https://api.whatsapp.com/send?phone=50769837286&text=' + encodeURIComponent(waMsg);
+
+  // ── ENVÍO AUTOMÁTICO POR FORMSUBMIT (formato tabla) ──
+  const sendStatus = document.getElementById('qSendStatus');
+  const sendText = document.getElementById('qSendText');
+  sendStatus.className = 'q-send-status sending';
+  sendText.textContent = 'Enviando tu solicitud al equipo Studio…';
+
+  const payload = {
+    "Nombre del cliente": nombre,
+    "Empresa": empresa || '(no especificada)',
+    "Email": email,
+    "WhatsApp": whats,
+    "Tipo de proyecto": ptypeNames[Q.data.ptype],
+    "Alcance": scopeNames[Q.data.scope],
+    "Funcionalidades solicitadas": featNames,
+    "Timeline": timelineNames[Q.data.timeline],
+    "Estimación (USD)": `$${low.toLocaleString('en-US')} – $${high.toLocaleString('en-US')}`,
+    "Tiempo estimado": `${tLow}–${tHigh} semanas`,
+    "Mensaje del cliente": msg || '(sin mensaje adicional)',
+    "Origen del lead": "Cotizador DTechLab Studio (web)",
+    "_subject": `[Cotizador Studio] ${nombre} — ${ptypeNames[Q.data.ptype]} · $${low}-${high}`,
+    "_template": "table",
+    "_captcha": "false"
+  };
+
+  fetch('https://formsubmit.co/ajax/rodophybusiness08@gmail.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success === "true" || data.success === true) {
+      sendStatus.className = 'q-send-status success';
+      sendText.textContent = '✓ Solicitud enviada. Te contactaremos pronto.';
+    } else {
+      throw new Error(data.message || 'Error en el envío');
+    }
+  })
+  .catch(err => {
+    console.error('FormSubmit error:', err);
+    sendStatus.className = 'q-send-status error';
+    sendText.textContent = 'No se pudo enviar automáticamente. Por favor escríbenos por WhatsApp ↓';
+  });
+}
+
+// ── Reset cotizador ────────────────────────────────────
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.id === 'qResetBtn') {
+    Q.step = 1;
+    Q.data = { ptype:null, base:0, scope:null, scopeMod:0, feat:[], featMod:0, timeline:null, timeMod:0, timeFactor:0 };
+    document.querySelectorAll('.q-opt').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('.quoter-body input, .quoter-body textarea').forEach(el => el.value = '');
+    showStep(1);
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════
+   SASHA · Asistente guía de DTechLab Studio
+   State machine + flow tree. Sin IA generativa.
+   Califica leads y los rutea al cotizador o WhatsApp.
+═══════════════════════════════════════════════════════════ */
+const Sasha = {
+  ctx: { name: null, intent: null, projectType: null, history: [] },
+  body: null, footer: null, badge: null,
+  isOpen: false,
+
+  init() {
+    this.body = document.getElementById('chatBody');
+    this.footer = document.getElementById('chatFooter');
+    this.badge = document.getElementById('chatBadge');
+
+    document.getElementById('chatFab').addEventListener('click', () => this.toggle());
+    document.getElementById('chatClose').addEventListener('click', () => this.close());
+
+    // mostrar badge "1" después de 8 segundos si nunca lo abrió
+    if (!localStorage.getItem('dtl_sasha_seen')) {
+      setTimeout(() => {
+        if (!this.isOpen) this.badge.style.display = 'flex';
+      }, 8000);
+    }
+  },
+
+  toggle() {
+    this.isOpen ? this.close() : this.open();
+  },
+  open() {
+    document.getElementById('chatWindow').classList.add('open');
+    this.isOpen = true;
+    this.badge.style.display = 'none';
+    localStorage.setItem('dtl_sasha_seen', '1');
+    if (this.ctx.history.length === 0) {
+      setTimeout(() => this.goto('GREETING'), 250);
+    }
+  },
+  close() {
+    document.getElementById('chatWindow').classList.remove('open');
+    this.isOpen = false;
+  },
+
+  /* helper · agrega un mensaje del bot con typing delay */
+  async botSay(html, delay = 600) {
+    this.showTyping();
+    await this.wait(delay);
+    this.hideTyping();
+    this.body.insertAdjacentHTML('beforeend',
+      `<div class="chat-msg bot"><div class="chat-msg-bubble">${html}</div></div>`);
+    this.scrollDown();
+  },
+  userSay(text) {
+    this.body.insertAdjacentHTML('beforeend',
+      `<div class="chat-msg user"><div class="chat-msg-bubble">${text}</div></div>`);
+    this.scrollDown();
+    this.ctx.history.push({ role: 'user', text });
+  },
+  showTyping() {
+    if (document.getElementById('chatTyping')) return;
+    this.body.insertAdjacentHTML('beforeend',
+      `<div class="chat-typing" id="chatTyping"><span></span><span></span><span></span></div>`);
+    this.scrollDown();
+  },
+  hideTyping() {
+    const t = document.getElementById('chatTyping');
+    if (t) t.remove();
+  },
+  scrollDown() {
+    this.body.scrollTop = this.body.scrollHeight;
+  },
+  wait(ms) { return new Promise(r => setTimeout(r, ms)); },
+
+  /* render quick replies */
+  renderQuick(buttons) {
+    this.footer.innerHTML = '';
+    const wrap = document.createElement('div');
+    wrap.className = 'chat-quick';
+    buttons.forEach(b => {
+      const btn = document.createElement('button');
+      btn.className = 'chat-q' + (b.style ? ' ' + b.style : '');
+      btn.innerHTML = `<span class="chat-q-ico">${b.ico || '→'}</span><span>${b.label}</span>`;
+      btn.addEventListener('click', () => {
+        this.userSay(b.label);
+        if (b.action) b.action();
+        else if (b.next) this.goto(b.next);
+      });
+      wrap.appendChild(btn);
+    });
+    this.footer.appendChild(wrap);
+  },
+
+  /* ═══ FLOW TREE ═══ */
+  async goto(node) {
+    this.footer.innerHTML = '';
+    const fn = this.nodes[node];
+    if (fn) await fn.call(this);
+  },
+
+  nodes: {
+    async GREETING() {
+      await this.botSay(`Hola 👋 Soy <strong>Sasha</strong>, asistente de DTechLab Studio.`);
+      await this.botSay(`Para recomendarte algo concreto, dime: <em>¿qué te está costando tiempo, dinero o clientes en tu negocio hoy?</em>`);
+      this.renderQuick([
+        { ico: '🌐', label: 'Necesito una web profesional', next: 'PAIN_PRESENCE' },
+        { ico: '📋', label: 'Quiero recibir solicitudes ordenadas', next: 'PAIN_OPS' },
+        { ico: '🗂️', label: 'Necesito un catálogo o reservas', next: 'PAIN_DATA' },
+        { ico: '🔗', label: 'Quiero conectar formularios', next: 'PAIN_AI' },
+        { ico: '💼', label: 'Necesito un sistema personalizado', next: 'PAIN_PRODUCT' },
+        { ico: '❓', label: 'Aún no lo tengo claro', next: 'DISCOVERY' },
+      ]);
+    },
+
+    async PAIN_PRESENCE() {
+      this.ctx.intent = 'web';
+      await this.botSay(`Te entiendo. Una web clara puede ser la primera base digital de tu negocio. <em>¿Qué tipo de presencia necesitas?</em>`);
+      this.renderQuick([
+        { ico: '🚀', label: 'Landing enfocada en captar clientes', next: 'PRICE_LANDING' },
+        { ico: '🏢', label: 'Sitio corporativo completo', next: 'PRICE_CORPORATE' },
+        { ico: '🛒', label: 'Tienda online con pagos', next: 'PRICE_ECOMMERCE' },
+        { ico: '💬', label: 'Mejor hablar con alguien', next: 'CONTACT' },
+      ]);
+    },
+
+    async PAIN_OPS() {
+      this.ctx.intent = 'automation';
+      await this.botSay(`Eso le pasa a casi todos los negocios que crecen — el equipo se ahoga en trabajo manual. <em>¿Cuál es el más doloroso hoy?</em>`);
+      this.renderQuick([
+        { ico: '🔗', label: 'Guardar formularios en Sheets', next: 'PRICE_AUTO_INT' },
+        { ico: '📱', label: 'Mandar mensajes de WhatsApp más fácil', next: 'PRICE_AUTO_WA' },
+        { ico: '📧', label: 'Enviar confirmaciones automáticas', next: 'PRICE_AUTO_DASH' },
+        { ico: '💬', label: 'Mejor hablar con alguien', next: 'CONTACT' },
+      ]);
+    },
+
+    async PAIN_DATA() {
+      this.ctx.intent = 'data';
+      await this.botSay(`Cuando los datos viven en tres Excel distintos, las decisiones llegan tarde. <em>¿Qué quieres ver en tiempo real?</em>`);
+      this.renderQuick([
+        { ico: '📅', label: 'Reservas o agenda', next: 'PRICE_DASHBOARD' },
+        { ico: '🛍️', label: 'Catálogo administrable', next: 'PRICE_DASHBOARD' },
+        { ico: '📥', label: 'Panel para solicitudes', next: 'PRICE_DASHBOARD' },
+        { ico: '💬', label: 'Mejor hablar con alguien', next: 'CONTACT' },
+      ]);
+    },
+
+    async PAIN_AI() {
+      this.ctx.intent = 'automation';
+      await this.botSay(`Una integración simple puede ahorrarte pasos repetidos sin complicar el proyecto. <em>¿Qué quieres conectar?</em>`);
+      this.renderQuick([
+        { ico: '📨', label: 'Formulario → correo', next: 'PRICE_AI_BOT' },
+        { ico: '📊', label: 'Formulario → Google Sheets', next: 'PRICE_AI_DOC' },
+        { ico: '📅', label: 'Reserva → calendario', next: 'PRICE_AI_LEAD' },
+        { ico: '💬', label: 'Mejor hablar con alguien', next: 'CONTACT' },
+      ]);
+    },
+
+    async PAIN_PRODUCT() {
+      this.ctx.intent = 'product';
+      await this.botSay(`Podemos construir sistemas web simples o proyectos personalizados cuando una página no alcanza. <em>¿Qué necesitas ordenar?</em>`);
+      this.renderQuick([
+        { ico: '💼', label: 'Sistema interno simple', next: 'PRICE_PLATFORM' },
+        { ico: '🚀', label: 'Prototipo para validar una idea', next: 'PRICE_PLATFORM' },
+        { ico: '🔧', label: 'Herramienta a medida para mi equipo', next: 'PRICE_PLATFORM' },
+        { ico: '💬', label: 'Mejor hablar con alguien', next: 'CONTACT' },
+      ]);
+    },
+
+    async PRICING() {
+      await this.botSay(`Estos son los rangos típicos según tipo de proyecto:`);
+      const card = `
+        <div class="chat-card">
+          <div class="chat-card-l">Rangos · USD</div>
+          <div style="font-size:13px;line-height:1.85;color:var(--fog);font-family:'Courier New',monospace">
+            • Landing Starter — <strong style="color:var(--ice)">desde $350</strong><br>
+            • Web Profesional — <strong style="color:var(--ice)">desde $750</strong><br>
+            • Sistema Web — <strong style="color:var(--ice)">desde $1,500</strong><br>
+            • Integraciones y Automatización Operativa — <strong style="color:var(--ice)">desde $400</strong>
+          </div>
+        </div>
+      `;
+      this.body.insertAdjacentHTML('beforeend', `<div class="chat-msg bot" style="max-width:95%">${card}</div>`);
+      this.scrollDown();
+      await this.wait(400);
+      await this.botSay(`Para un rango <em>exacto</em> de tu caso, el cotizador toma 60 segundos.`);
+      this.renderQuick([
+        { ico: '🎯', label: 'Cotizar mi proyecto exacto', style: 'primary', action: () => this.toCotizador() },
+        { ico: '💬', label: 'Hablar por WhatsApp', style: 'wa', action: () => this.toWhatsApp() },
+        { ico: '↩️', label: 'Volver al inicio', next: 'GREETING' },
+      ]);
+    },
+
+    async DISCOVERY() {
+      await this.botSay(`Sin problema — la mayoría empieza así. <em>Cuéntame en una línea: ¿qué problema quieres resolver en tu negocio?</em>`);
+      this.renderInput('Ej. mis clientes no me encuentran online…', (text) => {
+        this.ctx.discoveryGoal = text;
+        this.goto('DISCOVERY_RESULT');
+      });
+    },
+
+    async DISCOVERY_RESULT() {
+      await this.botSay(`Anotado. Para recomendarte un camino concreto, te sugiero usar el <em>cotizador</em> — te toma 60s y te da una propuesta inicial.`);
+      this.renderQuick([
+        { ico: '🎯', label: 'Usar el cotizador (recomendado)', style: 'primary', action: () => this.toCotizador() },
+        { ico: '💬', label: 'Mejor explicarle a Rodolfo directo', style: 'wa', action: () => this.toWhatsApp() },
+        { ico: '↩️', label: 'Volver al inicio', next: 'GREETING' },
+      ]);
+    },
+
+    /* Price nodes — generic helper */
+    async PRICE_LANDING() { await this.showPrice('Landing Starter', 'desde $350', 'landing'); },
+    async PRICE_CORPORATE() { await this.showPrice('Web Profesional', 'desde $750', 'corporate'); },
+    async PRICE_ECOMMERCE() { await this.showPrice('Catálogo o tienda básica', '$900 – $1,800+', 'ecommerce'); },
+    async PRICE_PLATFORM() { await this.showPrice('Proyecto personalizado', 'desde $1,500', 'platform'); },
+    async PRICE_AUTO_INT() { await this.showPrice('Formulario conectado', 'desde $400', 'automation'); },
+    async PRICE_AUTO_WA() { await this.showPrice('WhatsApp prellenado o flujo simple', 'desde $400', 'automation'); },
+    async PRICE_AUTO_DASH() { await this.showPrice('Confirmaciones o notificaciones', 'desde $400', 'automation'); },
+    async PRICE_DASHBOARD() { await this.showPrice('Sistema Web', 'desde $1,500', 'dashboard'); },
+    async PRICE_AI_BOT() { await this.showPrice('Formulario a correo', 'desde $400', 'automation'); },
+    async PRICE_AI_DOC() { await this.showPrice('Formulario a Google Sheets', 'desde $400', 'automation'); },
+    async PRICE_AI_LEAD() { await this.showPrice('Reserva a calendario', 'desde $400', 'automation'); },
+
+    async CONTACT() {
+      await this.botSay(`Rodolfo te responde personalmente. <em>¿Por dónde prefieres?</em>`);
+      this.renderQuick([
+        { ico: '📱', label: 'WhatsApp directo (más rápido)', style: 'wa', action: () => this.toWhatsApp() },
+        { ico: '✉️', label: 'Email', action: () => window.location.href = 'mailto:rodophybusiness08@gmail.com?subject=Consulta%20DTechLab%20Studio' },
+        { ico: '🎯', label: 'Mejor uso el cotizador primero', style: 'primary', action: () => this.toCotizador() },
+        { ico: '↩️', label: 'Volver al inicio', next: 'GREETING' },
+      ]);
+    },
+  },
+
+  async showPrice(name, range, ptype) {
+    this.ctx.projectType = ptype;
+    await this.botSay(`Para <em>${name}</em>, el rango típico está entre:`);
+    const card = `
+      <div class="chat-card">
+        <div class="chat-card-l">Rango estimado · USD</div>
+        <div class="chat-card-v"><strong>${range}</strong></div>
+        <div class="chat-card-s">Incluye diseño + desarrollo + publicación según alcance</div>
+      </div>
+    `;
+    this.body.insertAdjacentHTML('beforeend', `<div class="chat-msg bot" style="max-width:95%">${card}</div>`);
+    this.scrollDown();
+    await this.wait(400);
+    await this.botSay(`Para un rango <strong>exacto</strong> según tu caso, te recomiendo el cotizador completo.`);
+    this.renderQuick([
+      { ico: '🎯', label: 'Cotizar exacto (60 seg)', style: 'primary', action: () => this.toCotizador() },
+      { ico: '💬', label: 'Hablar por WhatsApp', style: 'wa', action: () => this.toWhatsApp() },
+      { ico: '↩️', label: 'Otra opción', next: 'GREETING' },
+    ]);
+  },
+
+  /* Input para discovery */
+  renderInput(placeholder, onSubmit) {
+    this.footer.innerHTML = `
+      <div class="chat-input-row">
+        <input type="text" class="chat-input" id="chatInput" placeholder="${placeholder}">
+        <button class="chat-send" id="chatSend"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    `;
+    const input = document.getElementById('chatInput');
+    const send = document.getElementById('chatSend');
+    const submit = () => {
+      const v = input.value.trim();
+      if (!v) return;
+      this.userSay(v);
+      onSubmit(v);
+    };
+    send.addEventListener('click', submit);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+    setTimeout(() => input.focus(), 100);
+  },
+
+  /* Action: ir al cotizador con pre-select del tipo */
+  toCotizador() {
+    this.close();
+    if (this.ctx.projectType) {
+      // pre-select the project type
+      setTimeout(() => {
+        const btn = document.querySelector(`.q-opt[data-name="ptype"][data-val="${this.ctx.projectType}"]`);
+        if (btn) btn.click();
+      }, 800);
+    }
+    document.getElementById('cotizador').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  },
+
+  /* Action: abrir WhatsApp con contexto */
+  toWhatsApp() {
+    const intentLabel = {
+      web: 'un sitio web', automation: 'una integración simple', ai: 'una integración simple', null: 'un proyecto'
+    }[this.ctx.intent] || 'un proyecto';
+    const msg = `Hola Rodolfo, hablé con Sasha en DTechLab Studio y quiero conversar sobre ${intentLabel}. 👋`;
+    window.open('https://api.whatsapp.com/send?phone=50769837286&text=' + encodeURIComponent(msg), '_blank');
+  },
+};
+
+// ─── TETRIS para section titles (on-scroll) ───
+function tetrisSetupElement(el){
+  if (el.dataset.tetrisReady) return;
+  el.dataset.tetrisReady = '1';
+  // Split node preserving inline tags (strong, em)
+  function splitNode(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent;
+      const frag = document.createDocumentFragment();
+      text.split('').forEach(char => {
+        const span = document.createElement('span');
+        span.className = 'ch';
+        span.textContent = char === ' ' ? ' ' : char;
+        frag.appendChild(span);
+      });
+      node.parentNode.replaceChild(frag, node);
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      Array.from(node.childNodes).forEach(splitNode);
+    }
+  }
+  splitNode(el);
+  // Assign random initial transforms to each .ch
+  const dirs = [
+    () => ({ tx: (Math.random()-0.5) * 240, ty: -180 - Math.random()*120, rot: (Math.random()-0.5) * 60, sc: 0.7 + Math.random()*0.5 }),
+    () => ({ tx: -300 - Math.random()*150, ty: (Math.random()-0.5) * 100, rot: (Math.random()-0.5) * 70, sc: 0.7 + Math.random()*0.5 }),
+    () => ({ tx: 300 + Math.random()*150, ty: (Math.random()-0.5) * 100, rot: (Math.random()-0.5) * 70, sc: 0.7 + Math.random()*0.5 }),
+    () => ({ tx: (Math.random()-0.5) * 80, ty: 180 + Math.random()*100, rot: (Math.random()-0.5) * 50, sc: 0.7 + Math.random()*0.5 }),
+  ];
+  el.querySelectorAll('.ch').forEach((ch, i) => {
+    const d = dirs[Math.floor(Math.random() * dirs.length)]();
+    ch.style.transform = `translate(${d.tx}px, ${d.ty}px) rotate(${d.rot}deg) scale(${d.sc})`;
+    ch.style.transitionDelay = (i * 0.022) + 's';
+  });
+}
+function tetrisPlaceElement(el){
+  el.querySelectorAll('.ch').forEach(ch => ch.classList.add('placed'));
+}
+
+// Setup all .tetris-text on load
+document.querySelectorAll('.tetris-text').forEach(el => tetrisSetupElement(el));
+
+// IntersectionObserver triggers placement
+const tetrisObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      setTimeout(() => tetrisPlaceElement(e.target), 100);
+      tetrisObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+// don't observe the hero one (already handled by animHero)
+document.querySelectorAll('.tetris-text').forEach(el => {
+  if (!el.closest('.hero-headline')) tetrisObserver.observe(el);
+});
+
+// Init Sasha cuando la página termine de cargar
+window.addEventListener('load', () => {
+  setTimeout(() => Sasha.init(), 2500);
+});
+</script>
+</body>
+</html>
