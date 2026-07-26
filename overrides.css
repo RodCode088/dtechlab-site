@@ -1,0 +1,32 @@
+html{overflow-x:hidden}
+.container{width:min(var(--max),calc(100% - 8vw))}
+.hero-line--accent{display:block;font-size:.82em;white-space:nowrap}
+.logo-t{position:relative}
+.browser-frame img{height:auto}
+.phone-shell img{height:auto}
+.phone-shell{width:100%;transform:translateZ(0);backface-visibility:hidden}
+.phone-shell{overflow:hidden}
+.phone-shell img{width:calc(100% + 12px);max-width:none;image-rendering:auto;object-fit:cover;object-position:left top;transform:translateZ(0);backface-visibility:hidden}
+.mobile-carousel:before{display:none}
+.site-header:has(.menu-toggle[aria-expanded="true"]){backdrop-filter:none}
+.phone-card:not(.is-active){filter:grayscale(.58) blur(1.35px)}
+.phone-card.is-active{filter:none;z-index:4}
+.phone-card figcaption{display:flex;flex-direction:column;align-items:center;gap:4px;line-height:1.25}
+.phone-card figcaption strong{font-family:var(--display);font-size:14px;font-weight:600;color:var(--ink)}
+.phone-card figcaption small{max-width:210px;font-family:var(--sans);font-size:10px;line-height:1.35;letter-spacing:0;color:rgba(11,11,13,.54)}
+.projects__intro h2 .accent{color:var(--blue-dark)}
+.contact h2 .accent{color:var(--blue)}
+.contact__main{max-width:1320px}
+.tetris-title .tetris-letter{animation-name:tetrisBurst;animation-duration:1.15s;animation-timing-function:cubic-bezier(.16,1.15,.25,1)}
+.tetris-word{display:inline-block;white-space:nowrap}
+.tetris-title{contain:paint}
+.hero-line--accent{overflow:clip}
+.tetris-logo-letter{display:inline-flex;align-items:center;justify-content:center;width:.58em;height:.82em;vertical-align:-.1em}
+.tetris-logo-letter img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 8px rgba(91,106,255,.28))}
+@keyframes tetrisBurst{0%{opacity:0;transform:translate3d(var(--x),var(--y),0) rotate(var(--r)) scale(2.2);filter:blur(10px)}48%{opacity:1;transform:translate3d(0,-10px,0) rotate(-3deg) scale(.9);filter:blur(0)}72%{transform:translate3d(0,4px,0) rotate(2deg) scale(1.06)}100%{opacity:1;transform:translate3d(0,0,0) rotate(0) scale(1);filter:none}}
+.whatsapp-float{position:fixed;right:22px;bottom:22px;z-index:18;display:inline-flex;align-items:center;gap:9px;min-height:48px;padding:0 17px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:#25d366;color:#062b16;box-shadow:0 12px 32px rgba(0,0,0,.25),0 0 0 5px rgba(37,211,102,.08);font-size:11px;font-weight:800;letter-spacing:.02em;transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
+.whatsapp-float:hover,.whatsapp-float:focus-visible{transform:translateY(-4px);background:#46e27d;box-shadow:0 16px 38px rgba(0,0,0,.32),0 0 0 7px rgba(37,211,102,.1)}
+.whatsapp-float svg{width:20px;height:20px;fill:currentColor}
+@media (max-width:800px){.display-title{font-size:clamp(42px,13.4vw,58px);line-height:.9;letter-spacing:-.09em}.hero-line--accent{font-size:.86em;white-space:normal;max-width:100%}.statement{font-size:clamp(40px,10.8vw,62px);line-height:.95}.mobile-carousel{min-height:650px}.mobile-carousel__track{height:650px}.phone-card{width:196px}.phone-card.is-prev{transform:translate(-50%,-50%) translate3d(-178px,22px,-120px) rotateY(28deg) scale(.72)}.phone-card.is-next{transform:translate(-50%,-50%) translate3d(178px,-22px,-120px) rotateY(-28deg) scale(.72)}.phone-card figcaption small{max-width:180px}.project-showcase{min-height:720px;margin:0;padding:0;display:block;position:relative}.project-stage{position:relative;top:auto;width:100%;height:500px;margin:0;display:block;perspective:900px;transform-style:preserve-3d;overflow:hidden}.project-card,.has-js .project-card,.has-js .project-card.is-active{position:absolute;left:50%;top:50%;width:min(74vw,300px);height:auto;opacity:0;transform:translate(-50%,-50%) translate3d(150px,0,-110px) rotateY(-24deg) scale(.82)!important;filter:blur(2px) grayscale(.5)!important;pointer-events:none!important;display:block;transition:transform .8s var(--ease),opacity .8s var(--ease),filter .8s var(--ease)}.project-card.is-active,.has-js .project-card.is-active{opacity:1;z-index:3;transform:translate(-50%,-50%) translate3d(0,0,0) rotateY(0) scale(1)!important;filter:none!important;pointer-events:auto!important}.project-card.is-prev{opacity:.28;z-index:1;transform:translate(-50%,-50%) translate3d(-150px,24px,-100px) rotateY(24deg) scale(.82)!important;filter:blur(1.5px) grayscale(.55)!important}.project-card.is-next{opacity:.28;z-index:1;transform:translate(-50%,-50%) translate3d(150px,-24px,-100px) rotateY(-24deg) scale(.82)!important;filter:blur(1.5px) grayscale(.55)!important}.project-card[aria-hidden="true"]{display:block}.project-stage .project-card figcaption{display:block;padding-bottom:2px}.project-detail{position:relative;right:auto;top:auto;transform:none;width:100%;order:initial;padding:18px 0 26px;margin-bottom:12px}.project-detail h3{font-size:38px}.whatsapp-float{right:16px;bottom:16px;min-height:48px;padding:0 15px}}
+@media (max-width:480px){.hero{padding-bottom:100px}.phone-card{width:188px}.phone-card.is-prev{transform:translate(-50%,-50%) translate3d(-170px,22px,-120px) rotateY(28deg) scale(.7)}.phone-card.is-next{transform:translate(-50%,-50%) translate3d(170px,-22px,-120px) rotateY(-28deg) scale(.7)}.project-showcase{min-height:680px}.project-stage{height:455px}.project-card,.has-js .project-card,.has-js .project-card.is-active{width:min(74vw,300px)}.project-card.is-prev{transform:translate(-50%,-50%) translate3d(-132px,18px,-100px) rotateY(22deg) scale(.78)!important}.project-card.is-next{transform:translate(-50%,-50%) translate3d(132px,-18px,-100px) rotateY(-22deg) scale(.78)!important}.whatsapp-float span{display:none}.whatsapp-float{width:50px;height:50px;justify-content:center;padding:0;right:15px;bottom:15px}.whatsapp-float svg{width:22px;height:22px}}
+@media (max-width:480px){.hero{padding-bottom:130px}}
