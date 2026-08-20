@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dtechlab.io/sitemap.xml
+Sitemap: https://www.dtechl.com/sitemap.xml
