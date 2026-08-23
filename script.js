@@ -15,6 +15,8 @@ const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.site-nav');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isMobile = () => window.matchMedia('(max-width: 800px)').matches;
+document.addEventListener('keydown', event => { if (event.key === 'Tab') document.body.classList.add('keyboard-nav'); });
+document.addEventListener('pointerdown', () => document.body.classList.remove('keyboard-nav'), { passive:true });
 
 const setHeaderState = () => header?.classList.toggle('is-scrolled', window.scrollY > 28);
 setHeaderState();
@@ -137,6 +139,8 @@ paintMobileCarousel(0);
 startMobileCarousel();
 document.querySelector('[data-mobile-carousel]')?.addEventListener('mouseenter', () => window.clearInterval(mobileTimer));
 document.querySelector('[data-mobile-carousel]')?.addEventListener('mouseleave', startMobileCarousel);
+document.querySelector('[data-mobile-prev]')?.addEventListener('click', () => { window.clearInterval(mobileTimer); paintMobileCarousel(mobileIndex - 1); });
+document.querySelector('[data-mobile-next]')?.addEventListener('click', () => { window.clearInterval(mobileTimer); paintMobileCarousel(mobileIndex + 1); });
 
 const showcase = document.querySelector('[data-project-showcase]');
 const projectSection = document.querySelector('[data-projects-section]');
@@ -188,17 +192,11 @@ const orbitalPaint = () => {
     const offset = i - continuous;
     const depth = Math.abs(offset);
     if (mobile) {
-      const angle = offset * 58;
-      const scale = Math.max(.64, 1 - depth * .14);
-      const x = Math.sin(angle * Math.PI / 180) * Math.min(145, window.innerWidth * .34);
-      const y = Math.cos(angle * Math.PI / 180) * 18;
-      const opacity = Math.max(.1, 1 - depth * .45);
-      const blur = Math.min(3.2, depth * 1.6);
-      card.style.setProperty('transform', `translate(-50%, -50%) translate3d(${x}px, ${y}px, ${-depth * 100}px) rotateY(${offset * 18}deg) rotateZ(${offset * 2}deg) scale(${scale})`, 'important');
-      card.style.setProperty('opacity', String(opacity), 'important');
-      card.style.setProperty('filter', `blur(${blur}px) grayscale(${Math.min(.6, depth * .35)})`, 'important');
-      card.style.setProperty('z-index', String(Math.max(1, 20 - Math.round(depth * 5))), 'important');
-      card.style.setProperty('pointer-events', i === activeProject ? 'auto' : 'none', 'important');
+      card.style.removeProperty('transform');
+      card.style.removeProperty('opacity');
+      card.style.removeProperty('filter');
+      card.style.removeProperty('z-index');
+      card.style.removeProperty('pointer-events');
       return;
     }
     card.style.removeProperty('transform');
@@ -246,11 +244,11 @@ const createLeadChat = () => {
   shell.className = 'lead-chat';
   shell.innerHTML = `
     <button class="lead-chat__launcher" type="button" aria-label="Abrir asistente de proyectos" aria-expanded="false">
-      <span aria-hidden="true">✦</span><strong>Cuéntanos tu proyecto</strong>
+      <span class="lead-chat__avatar lead-chat__avatar--launcher" aria-hidden="true"><img src="/brand/dtechlab-mark-blue.svg" alt="" /></span><strong>Cuéntanos tu proyecto</strong>
     </button>
     <section class="lead-chat__panel" role="dialog" aria-modal="false" aria-labelledby="lead-chat-title" aria-hidden="true">
       <header class="lead-chat__header">
-        <div><span class="lead-chat__status" aria-hidden="true"></span><p id="lead-chat-title">Asistente DTechLab</p><small>Te orientamos en menos de 2 minutos</small></div>
+        <div><span class="lead-chat__avatar" aria-hidden="true"><img src="/brand/dtechlab-mark-blue.svg" alt="" /></span><p id="lead-chat-title">Asistente DTechLab</p><small><i class="lead-chat__status" aria-hidden="true"></i> Te orientamos en menos de 2 minutos</small></div>
         <button class="lead-chat__close" type="button" aria-label="Cerrar asistente">×</button>
       </header>
       <div class="lead-chat__messages" aria-live="polite" aria-relevant="additions"></div>
@@ -417,3 +415,43 @@ const createLeadChat = () => {
 };
 
 createLeadChat();
+
+const contactForm = document.querySelector('[data-contact-form]');
+if (contactForm) {
+  const status = contactForm.querySelector('[data-contact-form-status]');
+  const submit = contactForm.querySelector('button[type="submit"]');
+  contactForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!contactForm.reportValidity()) return;
+    const values = Object.fromEntries(new FormData(contactForm).entries());
+    const payload = { ...values, source:location.href, submittedAt:new Date().toISOString() };
+    const endpoint = String(window.DTECHLAB_LEAD_ENDPOINT || '').trim();
+    if (!endpoint) {
+      const body = [`Nombre: ${values.name}`, `Correo: ${values.email}`, `Negocio: ${values.business}`, `Proyecto: ${values.project}`].join('\n');
+      location.href = `mailto:sales@dtechl.com?subject=${encodeURIComponent(`Nuevo proyecto · ${values.business}`)}&body=${encodeURIComponent(body)}`;
+      status.textContent = 'Abrimos tu correo para completar el envío a sales@dtechl.com.';
+      return;
+    }
+    submit.disabled = true;
+    status.textContent = 'Enviando tu proyecto…';
+    try {
+      await fetch(endpoint, { method:'POST', mode:'no-cors', headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body:JSON.stringify(payload) });
+      contactForm.reset();
+      status.textContent = 'Gracias. Recibimos la información y te contactaremos pronto.';
+    } catch (error) {
+      status.textContent = 'No pudimos enviar automáticamente. Escríbenos a sales@dtechl.com.';
+    } finally {
+      submit.disabled = false;
+    }
+  });
+}
+
+const tourVideos = [...document.querySelectorAll('video[autoplay]')];
+if (reduceMotion) tourVideos.forEach(video => video.pause());
+else if ('IntersectionObserver' in window) {
+  const videoObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.play().catch(() => {});
+    else entry.target.pause();
+  }), { rootMargin:'120px 0px', threshold:.2 });
+  tourVideos.forEach(video => videoObserver.observe(video));
+}

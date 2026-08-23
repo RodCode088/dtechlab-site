@@ -66,3 +66,61 @@ html{overflow-x:hidden}
 @media (max-width:800px){.lead-chat{right:16px;bottom:76px}.lead-chat__panel{position:fixed;right:16px;bottom:140px;width:calc(100vw - 32px);height:min(610px,calc(100svh - 160px))}.lead-chat__launcher strong{display:none}.lead-chat__launcher{width:50px;height:50px;justify-content:center;padding:0}.lead-chat__launcher>span{background:transparent;color:var(--ink);font-size:18px}.site-nav .nav-contact--button{font-family:var(--sans);font-size:13px;letter-spacing:0;margin-top:14px;color:#fff;padding:10px 13px;border:1px solid var(--line)}}
 @media (max-width:480px){.hero{padding-bottom:100px}.phone-card{width:188px}.phone-card.is-prev{transform:translate(-50%,-50%) translate3d(-170px,22px,-120px) rotateY(28deg) scale(.7)}.phone-card.is-next{transform:translate(-50%,-50%) translate3d(170px,-22px,-120px) rotateY(-28deg) scale(.7)}.project-showcase{min-height:680px}.project-stage{height:455px}.project-card,.has-js .project-card,.has-js .project-card.is-active{width:min(74vw,300px)}.project-card.is-prev{transform:translate(-50%,-50%) translate3d(-132px,18px,-100px) rotateY(22deg) scale(.78)!important}.project-card.is-next{transform:translate(-50%,-50%) translate3d(132px,-18px,-100px) rotateY(-22deg) scale(.78)!important}.whatsapp-float span{display:none}.whatsapp-float{width:50px;height:50px;justify-content:center;padding:0;right:15px;bottom:15px}.whatsapp-float svg{width:22px;height:22px}}
 @media (max-width:480px){.hero{padding-bottom:130px}.whatsapp-float{right:15px!important}.lead-chat{right:15px!important}}
+
+/* Contact strip + centered navigation */
+.contact-strip{position:fixed;inset:0 0 auto;z-index:22;height:32px;border-bottom:1px solid rgba(255,255,255,.12);background:#09090b;color:rgba(255,255,255,.68);font-size:9px;letter-spacing:.07em;text-transform:uppercase}
+.contact-strip__inner{width:min(var(--max),calc(100% - 8vw));height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.contact-strip__inner>div{display:flex;align-items:center;gap:22px}
+.contact-strip a{transition:color .2s ease}.contact-strip a:hover,.contact-strip a:focus-visible{color:var(--blue)}
+.site-header{top:32px}
+.site-nav{position:absolute;left:50%;transform:translateX(-50%)}
+.skip-link{top:42px;transform:translateY(-300%)}
+.skip-link:focus{transform:translateY(-300%)}
+.keyboard-nav .skip-link:focus{transform:none}
+
+/* Crisp site tours */
+.browser-frame__screen{position:relative;overflow:hidden;aspect-ratio:16/9;background:#ecebe7;border:1px solid rgba(255,255,255,.1)}
+.browser-frame__screen video{display:block;width:100%;height:100%;object-fit:cover;background:#ecebe7}
+.browser-frame__screen>span{position:absolute;left:12px;bottom:12px;padding:8px 10px;background:rgba(11,11,13,.88);color:#fff;font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 8px 22px rgba(0,0,0,.2)}
+
+/* Mobile work shown as sharp, intentional product previews */
+.mobile-carousel{min-height:700px}
+.mobile-carousel__track{height:640px}
+.phone-card{width:min(270px,24vw);opacity:0;filter:none!important;transform:translate(-50%,-50%) scale(.9)}
+.phone-card.is-active{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.phone-card.is-prev{opacity:.62;transform:translate(-50%,-50%) translateX(-330px) scale(.78)}
+.phone-card.is-next{opacity:.62;transform:translate(-50%,-50%) translateX(330px) scale(.78)}
+.phone-shell{padding:6px;border-width:6px;border-radius:30px;box-shadow:0 24px 70px rgba(11,11,13,.22)}
+.phone-shell img{width:100%;aspect-ratio:375/812;object-fit:cover;object-position:top;transform:none}
+.mobile-carousel__controls{position:absolute;left:50%;bottom:6px;z-index:8;display:flex;align-items:center;gap:18px;transform:translateX(-50%)}
+.mobile-carousel__controls button{display:grid;place-items:center;width:40px;height:40px;border:1px solid rgba(11,11,13,.2);border-radius:50%;background:transparent;color:var(--ink);cursor:pointer}
+.mobile-carousel__progress{position:static;transform:none}
+
+/* Contact form */
+.contact__layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(320px,.55fr);gap:clamp(50px,8vw,120px);align-items:end}
+.contact-form{padding:28px;border:1px solid var(--line);background:#111115}
+.contact-form__heading{margin-bottom:24px}.contact-form__heading span{display:block;margin-bottom:9px;color:var(--blue);font-size:9px;font-weight:800;letter-spacing:.12em}.contact-form__heading h3{margin:0;font-family:var(--display);font-size:26px;line-height:1.05;letter-spacing:-.045em}
+.contact-form label{display:block;margin-top:14px;color:rgba(255,255,255,.58);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.contact-form input,.contact-form textarea{display:block;width:100%;margin-top:7px;padding:12px 0;border:0;border-bottom:1px solid rgba(255,255,255,.2);border-radius:0;background:transparent;color:#fff;font:500 12px/1.5 var(--sans);outline:0;resize:vertical}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--blue)}
+.contact-form .button{width:100%;margin-top:24px}.contact-form .button:disabled{opacity:.6;cursor:wait}
+.contact-form__status{margin:12px 0 0;color:rgba(255,255,255,.45);font-size:9px;line-height:1.5}
+
+/* Branded assistant */
+.lead-chat__avatar{position:relative;display:grid;place-items:center;grid-row:1/3;width:38px;height:38px;overflow:hidden;border:1px solid rgba(91,106,255,.45);border-radius:50%;background:#17171d}
+.lead-chat__avatar img{width:21px;height:23px;object-fit:contain}
+.lead-chat__avatar--launcher{grid-row:auto;width:30px;height:30px;background:var(--ink)}
+.lead-chat__avatar--launcher img{width:17px;height:19px}
+.lead-chat__header>div{grid-template-columns:38px 1fr;column-gap:11px}
+.lead-chat__header small{grid-column:2}.lead-chat__status{display:inline-block;width:6px;height:6px;margin-right:3px;vertical-align:1px}
+
+@media (max-width:800px){
+  .contact-strip__inner{width:calc(100% - 40px)}.contact-strip__inner>span,.contact-strip__inner a:last-child{display:none}.contact-strip__inner>div{width:100%;justify-content:space-between;gap:12px}
+  .site-header,.site-header.is-scrolled{top:32px}.site-nav{left:0;right:0;top:102px;bottom:0;transform:translateX(100%)}.site-nav.is-open{transform:none}
+  .hero{padding-top:190px}.portfolio-hero{padding-top:180px!important}
+  .mobile-carousel{min-height:650px}.mobile-carousel__track{height:590px}.phone-card{width:min(270px,70vw)}.phone-card:not(.is-active){opacity:0;pointer-events:none}.phone-card.is-prev,.phone-card.is-next{transform:translate(-50%,-50%) scale(.9)}
+  .project-showcase{min-height:0}.project-stage{height:auto;overflow:visible}.project-card,.has-js .project-card,.has-js .project-card.is-active{position:relative;left:auto;top:auto;width:100%;opacity:1;transform:none!important;filter:none!important;pointer-events:auto!important}.project-card[aria-hidden="true"]{display:none!important}.project-card[aria-hidden="false"]{display:block!important}.project-stage .project-card figcaption{font-size:9px}
+  .contact__layout{grid-template-columns:1fr}.contact-form{padding:22px}.contact__channels{margin-top:50px}
+  .lead-chat__avatar--launcher{width:34px;height:34px}.lead-chat__launcher>span{background:var(--ink)}
+}
+@media (max-width:480px){.browser-frame{padding:7px 7px 10px}.browser-frame__bar{height:20px}.browser-frame__screen>span{left:8px;bottom:8px;padding:6px 8px;font-size:7px}.mobile-carousel__controls{bottom:0}.contact-strip{font-size:8px}}

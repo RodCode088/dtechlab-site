@@ -19,9 +19,10 @@
 .case-study__header h2{margin:0;font-family:var(--display);font-size:clamp(46px,5vw,78px);font-weight:500;line-height:.88;letter-spacing:-.075em}
 .case-study__visual{grid-area:visual;position:relative;display:block;overflow:hidden;background:#111113;box-shadow:0 28px 70px rgba(11,11,13,.16)}
 .case-study__visual:before{content:"";position:absolute;inset:0;z-index:1;border:1px solid rgba(11,11,13,.2);pointer-events:none}
-.case-study__visual img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;transition:transform .8s var(--ease),filter .8s ease}
+.case-study__visual video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:top;transition:transform .8s var(--ease),filter .8s ease}
 .case-study__visual span{position:absolute;right:18px;bottom:18px;z-index:2;padding:11px 13px;background:rgba(11,11,13,.9);color:#fff;font-size:10px;font-weight:800;letter-spacing:.04em;transform:translateY(6px);opacity:0;transition:.35s var(--ease)}
-.case-study__visual:hover img,.case-study__visual:focus-visible img{transform:scale(1.025);filter:saturate(1.08)}
+.case-study__visual small{position:absolute;left:18px;bottom:18px;z-index:2;padding:9px 11px;background:rgba(11,11,13,.82);color:#fff;font-size:8px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+.case-study__visual:hover video,.case-study__visual:focus-visible video{transform:scale(1.025);filter:saturate(1.08)}
 .case-study__visual:hover span,.case-study__visual:focus-visible span{transform:none;opacity:1}
 .case-study__details{grid-area:details;padding-left:60px}
 .case-study__statement{margin:0 0 30px;font-family:var(--display);font-size:clamp(20px,2vw,28px);line-height:1.25;letter-spacing:-.035em}
