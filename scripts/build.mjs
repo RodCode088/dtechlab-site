@@ -13,6 +13,6 @@ for (const asset of await readdir(resolve(root, 'public'))) {
   await cp(resolve(root, 'public', asset), resolve(dist, asset), { recursive:true });
 }
 
-const required = ['index.html', 'portafolio.html', 'styles.css', 'overrides.css', 'portfolio.css', 'script.js', 'lead-config.js', '404.html', 'robots.txt', 'sitemap.xml', 'brand/favicon.ico', 'projects/heritage/homepage.png', 'projects/heritage/mobile.png', 'projects/heritage/tour.mp4', 'projects/sommelier/homepage.png', 'projects/sommelier/mobile.png', 'projects/sommelier/tour.mp4', 'projects/gallo/homepage.png', 'projects/gallo/tour.mp4', 'projects/dcars/homepage.png', 'projects/dcars/mobile.png', 'projects/dcars/tour.mp4', 'projects/mono-solo/homepage.png', 'projects/mono-solo/tour.mp4'];
+const required = ['index.html', 'portafolio.html', 'styles.css', 'overrides.css', 'portfolio.css', 'script.js', 'lead-config.js', '404.html', 'robots.txt', 'sitemap.xml', 'brand/favicon.ico', 'projects/heritage/homepage.png', 'projects/heritage/mobile.png', 'projects/heritage/tour.mp4', 'projects/sommelier/homepage.png', 'projects/sommelier/mobile.png', 'projects/sommelier/tour.mp4', 'projects/gallo/homepage.png', 'projects/gallo/mobile.png', 'projects/gallo/tour.mp4', 'projects/dcars/homepage.png', 'projects/dcars/mobile.png', 'projects/dcars/tour.mp4', 'projects/mono-solo/homepage.png', 'projects/mono-solo/mobile.png', 'projects/mono-solo/tour.mp4'];
 for (const file of required) await stat(resolve(dist, file));
 console.log(`Build listo: ${required.length} artefactos críticos verificados en ${dist}`);
