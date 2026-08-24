@@ -155,6 +155,29 @@ const detailLink = document.querySelector('[data-detail-link]');
 let activeProject = 0;
 let raf = 0;
 
+const positionProjectCards = position => {
+  const mobile = isMobile();
+  cards.forEach((card, i) => {
+    if (reduceMotion || mobile) {
+      card.style.removeProperty('transform');
+      card.style.removeProperty('opacity');
+      card.style.removeProperty('filter');
+      card.style.removeProperty('z-index');
+      card.style.removeProperty('pointer-events');
+      return;
+    }
+    let offset = i - position;
+    if (offset > cards.length / 2) offset -= cards.length;
+    if (offset < -cards.length / 2) offset += cards.length;
+    const depth = Math.abs(offset);
+    const angle = offset * 86;
+    const scale = Math.max(.64, 1 - depth * .12);
+    const x = Math.sin(angle * Math.PI / 180) * 175;
+    const y = Math.cos(angle * Math.PI / 180) * 24;
+    card.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${y}px, ${-depth * 80}px) rotateZ(${offset * 2}deg) scale(${scale})`;
+  });
+};
+
 const paintProject = (index, fromScroll = false) => {
   activeProject = Math.max(0, Math.min(projectData.length - 1, index));
   const data = projectData[activeProject];
@@ -166,6 +189,8 @@ const paintProject = (index, fromScroll = false) => {
   if (detailRole) detailRole.textContent = data.role;
   if (detailStack) detailStack.textContent = data.stack;
   if (detailLink) { detailLink.href = data.link; detailLink.setAttribute('aria-label', `Visitar proyecto ${data.title}`); }
+  if (!fromScroll) positionProjectCards(activeProject);
+  document.dispatchEvent(new CustomEvent('dtechlab:project-change'));
   if (!fromScroll) tabs[activeProject]?.scrollIntoView({ behavior:reduceMotion ? 'auto' : 'smooth', block:'nearest', inline:'nearest' });
 };
 tabs.forEach(tab => tab.addEventListener('click', () => paintProject(Number(tab.dataset.projectTab))));
@@ -173,43 +198,13 @@ tabs.forEach(tab => tab.addEventListener('click', () => paintProject(Number(tab.
 const orbitalPaint = () => {
   raf = 0;
   if (!projectSection || !showcase) return;
-  const mobile = isMobile();
   const bounds = projectSection.getBoundingClientRect();
   const scrollable = Math.max(1, projectSection.offsetHeight - window.innerHeight);
-  const progress = reduceMotion ? 0 : Math.max(0, Math.min(.999, -bounds.top / scrollable));
-  const continuous = progress * projectData.length;
-  const nextProject = Math.min(projectData.length - 1, Math.floor(continuous));
+  const progress = reduceMotion ? 0 : Math.max(0, Math.min(1, -bounds.top / scrollable));
+  const continuous = progress * Math.max(0, projectData.length - 1);
+  const nextProject = Math.min(projectData.length - 1, Math.round(continuous));
   if (nextProject !== activeProject) paintProject(nextProject, true);
-  cards.forEach((card, i) => {
-    if (reduceMotion) {
-      card.style.removeProperty('transform');
-      card.style.removeProperty('opacity');
-      card.style.removeProperty('filter');
-      card.style.removeProperty('z-index');
-      card.style.removeProperty('pointer-events');
-      return;
-    }
-    const offset = i - continuous;
-    const depth = Math.abs(offset);
-    if (mobile) {
-      card.style.removeProperty('transform');
-      card.style.removeProperty('opacity');
-      card.style.removeProperty('filter');
-      card.style.removeProperty('z-index');
-      card.style.removeProperty('pointer-events');
-      return;
-    }
-    card.style.removeProperty('transform');
-    card.style.removeProperty('opacity');
-    card.style.removeProperty('filter');
-    card.style.removeProperty('z-index');
-    card.style.removeProperty('pointer-events');
-    const angle = offset * 86;
-    const scale = Math.max(.64, 1 - depth * .12);
-    const x = Math.sin(angle * Math.PI / 180) * 175;
-    const y = Math.cos(angle * Math.PI / 180) * 24;
-    card.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${y}px, ${-depth * 80}px) rotateZ(${offset * 2}deg) scale(${scale})`;
-  });
+  positionProjectCards(continuous);
 };
 const queueOrbitalPaint = () => { if (!raf) raf = requestAnimationFrame(orbitalPaint); };
 window.addEventListener('scroll', queueOrbitalPaint, { passive:true });
@@ -446,12 +441,38 @@ if (contactForm) {
   });
 }
 
-const tourVideos = [...document.querySelectorAll('video[autoplay]')];
-if (reduceMotion) tourVideos.forEach(video => video.pause());
-else if ('IntersectionObserver' in window) {
-  const videoObserver = new IntersectionObserver(entries => entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.play().catch(() => {});
-    else entry.target.pause();
-  }), { rootMargin:'120px 0px', threshold:.2 });
+const tourVideos = [...document.querySelectorAll('video[data-tour-video]')];
+const visibleTourVideos = new Map();
+const syncTourVideos = () => {
+  const preferredVideo = [...visibleTourVideos.entries()]
+    .filter(([video]) => {
+      const projectCard = video.closest('[data-project-card]');
+      return !projectCard || projectCard.classList.contains('is-active');
+    })
+    .sort((a, b) => b[1] - a[1])[0]?.[0];
+  tourVideos.forEach(video => {
+    const shouldPlay = !reduceMotion && !document.hidden && video === preferredVideo;
+    if (shouldPlay) {
+      if (video.preload === 'none') video.preload = 'auto';
+      if (video.paused) video.play().catch(() => {});
+    } else if (!video.paused) {
+      video.pause();
+    }
+  });
+};
+
+if ('IntersectionObserver' in window && !reduceMotion) {
+  const videoObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) visibleTourVideos.set(entry.target, entry.intersectionRatio);
+      else visibleTourVideos.delete(entry.target);
+    });
+    syncTourVideos();
+  }, { rootMargin:'40px 0px', threshold:[.15,.35,.55,.75] });
   tourVideos.forEach(video => videoObserver.observe(video));
 }
+
+document.addEventListener('dtechlab:project-change', syncTourVideos);
+document.addEventListener('visibilitychange', syncTourVideos);
+tourVideos.forEach(video => video.addEventListener('canplay', syncTourVideos, { once:true }));
+syncTourVideos();
