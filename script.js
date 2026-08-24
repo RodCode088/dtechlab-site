@@ -125,22 +125,37 @@ let mobileTimer;
 const paintMobileCarousel = index => {
   mobileIndex = (index + mobileSlides.length) % mobileSlides.length;
   mobileSlides.forEach((slide, i) => {
-    slide.classList.toggle('is-active', i === mobileIndex);
+    const active = i === mobileIndex;
+    slide.classList.toggle('is-active', active);
     slide.classList.toggle('is-prev', i === (mobileIndex - 1 + mobileSlides.length) % mobileSlides.length);
     slide.classList.toggle('is-next', i === (mobileIndex + 1) % mobileSlides.length);
+    slide.setAttribute('aria-hidden', String(!active));
   });
   mobileProgress.forEach((bar, i) => bar.classList.toggle('is-active', i === mobileIndex));
 };
 const startMobileCarousel = () => {
-  if (reduceMotion || mobileSlides.length < 2) return;
+  window.clearInterval(mobileTimer);
+  if (reduceMotion || mobileSlides.length < 2 || isMobile()) return;
   mobileTimer = window.setInterval(() => paintMobileCarousel(mobileIndex + 1), 3300);
 };
 paintMobileCarousel(0);
 startMobileCarousel();
-document.querySelector('[data-mobile-carousel]')?.addEventListener('mouseenter', () => window.clearInterval(mobileTimer));
-document.querySelector('[data-mobile-carousel]')?.addEventListener('mouseleave', startMobileCarousel);
+const mobileCarousel = document.querySelector('[data-mobile-carousel]');
+mobileCarousel?.addEventListener('mouseenter', () => window.clearInterval(mobileTimer));
+mobileCarousel?.addEventListener('mouseleave', startMobileCarousel);
 document.querySelector('[data-mobile-prev]')?.addEventListener('click', () => { window.clearInterval(mobileTimer); paintMobileCarousel(mobileIndex - 1); });
 document.querySelector('[data-mobile-next]')?.addEventListener('click', () => { window.clearInterval(mobileTimer); paintMobileCarousel(mobileIndex + 1); });
+let mobileSwipeStartX = 0;
+mobileCarousel?.addEventListener('touchstart', event => {
+  mobileSwipeStartX = event.changedTouches[0]?.clientX || 0;
+  window.clearInterval(mobileTimer);
+}, { passive:true });
+mobileCarousel?.addEventListener('touchend', event => {
+  const distance = (event.changedTouches[0]?.clientX || 0) - mobileSwipeStartX;
+  if (Math.abs(distance) < 38) return;
+  paintMobileCarousel(mobileIndex + (distance < 0 ? 1 : -1));
+}, { passive:true });
+window.addEventListener('resize', startMobileCarousel, { passive:true });
 
 const showcase = document.querySelector('[data-project-showcase]');
 const projectSection = document.querySelector('[data-projects-section]');
