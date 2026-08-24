@@ -1,0 +1,14 @@
+html[data-theme='light'] {
+  --theme-elevation-0: #f5f1e8;
+  --theme-elevation-50: #eee9df;
+  --theme-elevation-100: #e4ded3;
+  --theme-elevation-800: #151a28;
+  --theme-elevation-900: #0e1320;
+  --theme-elevation-1000: #090d19;
+  --theme-success-500: #1649ff;
+}
+
+.nav__brand {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
