@@ -24,7 +24,8 @@ html{overflow-x:hidden;scroll-padding-top:120px}
 .tetris-title .tetris-letter{animation-name:tetrisBurst;animation-duration:1.15s;animation-timing-function:cubic-bezier(.16,1.15,.25,1)}
 .tetris-word{display:inline-block;white-space:nowrap}
 .tetris-title{contain:paint}
-.hero-line--accent{overflow:clip}
+.hero .display-title{max-width:none}
+.hero-line--accent{overflow:visible}
 .tetris-logo-letter{display:inline-flex;align-items:center;justify-content:center;width:.58em;height:.82em;vertical-align:-.1em}
 .tetris-logo-letter img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 8px rgba(91,106,255,.28))}
 @keyframes tetrisBurst{0%{opacity:0;transform:translate3d(var(--x),var(--y),0) rotate(var(--r)) scale(2.2);filter:blur(10px)}48%{opacity:1;transform:translate3d(0,-10px,0) rotate(-3deg) scale(.9);filter:blur(0)}72%{transform:translate3d(0,4px,0) rotate(2deg) scale(1.06)}100%{opacity:1;transform:translate3d(0,0,0) rotate(0) scale(1);filter:none}}
