@@ -249,6 +249,22 @@ const leadChatQuestions = [
   { key:'timeline', label:'¿Cuándo te gustaría tenerlo listo?', type:'select', options:['Lo antes posible','En 1–2 meses','En 3–6 meses','Todavía estoy explorando'] }
 ];
 
+const createLeadWhatsAppUrl = values => {
+  const lines = [
+    'Hola DTechLab. Acabo de enviar este proyecto desde dtechl.com.',
+    '',
+    `Nombre: ${values.name || ''}`,
+    `Correo: ${values.email || ''}`,
+    `WhatsApp: ${values.phone || ''}`,
+    `Negocio: ${values.business || ''}`,
+    `Sector: ${values.sector || ''}`,
+    `Proyecto: ${values.project || ''}`,
+    `Plazo: ${values.timeline || ''}`,
+    `Referencia: ${values.interest || ''}`
+  ];
+  return `https://wa.me/50769837286?text=${encodeURIComponent(lines.join('\n'))}`;
+};
+
 const createLeadChat = () => {
   const shell = document.createElement('div');
   shell.className = 'lead-chat';
@@ -267,7 +283,7 @@ const createLeadChat = () => {
         <div class="lead-chat__control"></div>
         <input class="lead-chat__honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <button class="lead-chat__send" type="submit">Continuar <span aria-hidden="true">→</span></button>
-        <p class="lead-chat__privacy">Al enviar, autorizas a DTechLab a contactarte sobre este proyecto.</p>
+        <p class="lead-chat__privacy">Al enviar, registramos tus datos y abrimos WhatsApp con el resumen para que confirmes el mensaje.</p>
       </form>
     </section>`;
   document.body.appendChild(shell);
@@ -395,6 +411,7 @@ const createLeadChat = () => {
       restart.textContent = 'Iniciar otra conversación';
       restart.addEventListener('click', () => { form.hidden = false; reset(); });
       messages.appendChild(restart);
+      window.location.assign(createLeadWhatsAppUrl({ ...lead, interest }));
     } catch (error) {
       addMessage('No pudimos completar el envío automático. Puedes enviarlo por correo con el botón de abajo.', 'bot');
       finishWithoutEndpoint();
@@ -447,7 +464,8 @@ if (contactForm) {
     try {
       await fetch(endpoint, { method:'POST', mode:'no-cors', headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body:JSON.stringify(payload) });
       contactForm.reset();
-      status.textContent = 'Gracias. Recibimos la información y te contactaremos pronto.';
+      status.textContent = 'Datos recibidos. Abriendo WhatsApp para confirmar el mensaje…';
+      window.location.assign(createLeadWhatsAppUrl(values));
     } catch (error) {
       status.textContent = 'No pudimos enviar automáticamente. Escríbenos a sales@dtechl.com.';
     } finally {
