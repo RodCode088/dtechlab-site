@@ -81,8 +81,10 @@ html{overflow-x:hidden;scroll-padding-top:120px}
 
 /* Crisp site tours */
 .browser-frame__screen{position:relative;overflow:hidden;aspect-ratio:16/9;background:#ecebe7;border:1px solid rgba(255,255,255,.1)}
-.browser-frame__screen video{display:block;width:100%;height:100%;object-fit:cover;background:#ecebe7;transform:translateZ(0);backface-visibility:hidden;will-change:transform;contain:paint}
+.browser-frame__screen video{display:block;width:100%;height:100%;object-fit:cover;background:#ecebe7}
 .project-card:not(.is-active) .browser-frame__screen video{visibility:hidden}
+.has-active-tour .site-noise{display:none}
+.has-active-tour .site-header.is-scrolled{background:rgba(11,11,13,.96);backdrop-filter:none}
 .browser-frame__screen>span{position:absolute;left:12px;bottom:12px;padding:8px 10px;background:rgba(11,11,13,.88);color:#fff;font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 8px 22px rgba(0,0,0,.2)}
 
 /* Mobile work shown as sharp, intentional product previews */

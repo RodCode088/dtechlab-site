@@ -483,6 +483,8 @@ const syncTourVideos = () => {
       return !projectCard || projectCard.classList.contains('is-active');
     })
     .sort((a, b) => b[1] - a[1])[0]?.[0];
+  const hasActiveTour = !reduceMotion && !document.hidden && Boolean(preferredVideo);
+  document.body.classList.toggle('has-active-tour', hasActiveTour);
   tourVideos.forEach(video => {
     const shouldPlay = !reduceMotion && !document.hidden && video === preferredVideo;
     if (shouldPlay) {
