@@ -1,4 +1,5 @@
 const SALES_EMAIL = 'sales@dtechl.com';
+const SHEET_ID = '1Jg3j150OwAAYP5HcUQ0yO6lbooypdr78UX5fdPpqkjs';
 const SHEET_NAME = 'Prospectos DTechLab';
 
 function doPost(event) {
@@ -10,10 +11,7 @@ function doPost(event) {
     const missing = required.filter(function (key) { return !String(payload[key] || '').trim(); });
     if (missing.length) return json_({ ok: false, error: 'Faltan campos requeridos.' });
 
-    const sheetId = PropertiesService.getScriptProperties().getProperty('SHEET_ID');
-    if (!sheetId) throw new Error('Falta la propiedad SHEET_ID en Apps Script.');
-
-    const spreadsheet = SpreadsheetApp.openById(sheetId);
+    const spreadsheet = SpreadsheetApp.openById(SHEET_ID);
     let sheet = spreadsheet.getSheetByName(SHEET_NAME);
     if (!sheet) {
       sheet = spreadsheet.insertSheet(SHEET_NAME);
