@@ -85,7 +85,6 @@ html{overflow-x:hidden;scroll-padding-top:120px}
 .project-card:not(.is-active) .browser-frame__screen video{visibility:hidden}
 .has-active-tour .site-noise{display:none}
 .has-active-tour .site-header.is-scrolled{background:rgba(11,11,13,.96);backdrop-filter:none}
-.browser-frame__screen>span{position:absolute;left:12px;bottom:12px;padding:8px 10px;background:rgba(11,11,13,.88);color:#fff;font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 8px 22px rgba(0,0,0,.2)}
 
 /* Mobile work shown as sharp, intentional product previews */
 .mobile-carousel{min-height:700px}
@@ -127,4 +126,4 @@ html{overflow-x:hidden;scroll-padding-top:120px}
   .contact__layout{grid-template-columns:1fr}.contact-form{padding:22px}.contact__channels{margin-top:50px}
   .lead-chat__avatar--launcher{width:34px;height:34px}.lead-chat__launcher>span{background:var(--ink)}
 }
-@media (max-width:480px){.browser-frame{padding:7px 7px 10px}.browser-frame__bar{height:20px}.browser-frame__screen>span{left:8px;bottom:8px;padding:6px 8px;font-size:7px}.mobile-carousel{min-height:650px}.mobile-carousel__track{height:585px}.phone-card{width:min(270px,76vw)}.mobile-carousel__controls{bottom:0}.contact-strip{font-size:8px}}
+@media (max-width:480px){.browser-frame{padding:7px 7px 10px}.browser-frame__bar{height:20px}.mobile-carousel{min-height:650px}.mobile-carousel__track{height:585px}.phone-card{width:min(270px,76vw)}.mobile-carousel__controls{bottom:0}.contact-strip{font-size:8px}}
