@@ -62,7 +62,7 @@ document.addEventListener('pointerdown', event => {
   nav?.querySelectorAll('.nav-dropdown[open]').forEach(dropdown => dropdown.removeAttribute('open'));
 });
 window.addEventListener('hashchange', closeMenu);
-window.addEventListener('resize', () => { if (window.innerWidth > 800) closeMenu(); }, { passive:true });
+window.addEventListener('resize', () => { if (window.innerWidth > 1080) closeMenu(); }, { passive:true });
 
 const tetrisObserver = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
   entries.forEach(entry => {
