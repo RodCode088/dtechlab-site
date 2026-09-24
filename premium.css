@@ -472,7 +472,8 @@ a.client-logo:hover,a.client-logo:focus-visible{opacity:.78;filter:grayscale(1) 
   .site-header .brand-lockup,.home-rebuild .brand-lockup,.faq-page .brand-lockup{width:158px;height:54px}
   .site-header .brand-lockup img,.home-rebuild .brand-lockup img,.faq-page .brand-lockup img{width:158px}
   .menu-toggle{display:block}
-  .site-nav,.home-rebuild .site-nav{position:fixed;inset:110px 0 0;z-index:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:22px;overflow-y:auto;padding:52px var(--gutter) 70px;border-top:1px solid var(--line);background:var(--ink);font-family:var(--display);font-size:30px;letter-spacing:-.04em;white-space:normal;transform:translateX(100%);transition:transform .45s var(--ease)}
+  body.menu-open .site-header{background:var(--ink);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .site-nav,.home-rebuild .site-nav{position:absolute;inset:78px auto auto 0;z-index:1;display:flex;width:100vw;height:calc(100dvh - 110px);flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:22px;overflow-y:auto;overscroll-behavior:contain;padding:52px var(--gutter) max(70px,env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--ink);font-family:var(--display);font-size:30px;letter-spacing:-.04em;white-space:normal;transform:translateX(100%);transition:transform .45s var(--ease)}
   .site-nav.is-open{transform:none}
   .nav-dropdown{width:100%}
   .nav-dropdown summary{justify-content:space-between;width:100%;font-family:var(--display);font-size:30px;letter-spacing:-.04em}
@@ -485,11 +486,18 @@ a.client-logo:hover,a.client-logo:focus-visible{opacity:.78;filter:grayscale(1) 
 }
 
 @media (max-width:800px){
-  .site-nav,.home-rebuild .site-nav,.faq-page .site-nav,.pricing-page .site-nav,.portfolio-page .site-nav{top:110px}
-  .service-detail-hero{min-height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;padding:170px 0 36px}
+  .site-nav,.home-rebuild .site-nav,.faq-page .site-nav,.pricing-page .site-nav,.portfolio-page .site-nav{top:78px;height:calc(100dvh - 110px)}
+  .service-detail-hero{min-height:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;padding:148px 0 32px}
   .service-detail-hero .container{order:1}
-  .service-widget-stack,.service-widget-stack--content{position:relative;inset:auto;order:2;width:calc(100% - 36px);margin:30px auto 0;gap:8px}
-  .service-widget-stack span,.service-widget-stack--content span{width:100%;min-width:0;padding:12px 14px;transform:none!important}
+  .service-detail-hero h1{margin:8px 0 22px;font-size:clamp(42px,11.7vw,56px);line-height:.94;letter-spacing:-.06em}
+  .service-detail-hero--content h1 br{display:none}
+  .service-detail-hero .container>p:last-child{font-size:16px;line-height:1.55}
+  .service-detail-hero>figure,.service-detail-hero--content>figure{inset:255px -38% -4% 8%}
+  .service-widget-stack,.service-widget-stack--content{position:relative;inset:auto;order:2;width:calc(100% - 36px);margin:24px auto 0;gap:8px}
+  .service-widget-stack span,.service-widget-stack--content span{width:100%;min-width:0;padding:10px 13px;transform:none!important}
+  .pricing-builder__intro{margin-bottom:42px}
+  .pricing-builder__intro h2{font-size:clamp(40px,11vw,46px);line-height:.98;margin-bottom:20px}
+  .pricing-builder__intro>p:last-child{font-size:15px;line-height:1.6}
   .service-choice__grid{min-width:0;grid-template-columns:minmax(0,1fr)}
   .service-choice__grid>a{width:100%;min-width:0;grid-template-columns:46px minmax(0,1fr);gap:8px 16px;padding:24px 20px}
   .service-choice__grid h3,.service-choice__grid p,.service-choice__grid strong,.service-choice__grid ul,.service-choice__grid>a>b{min-width:0;grid-column:2;overflow-wrap:anywhere}
@@ -517,4 +525,8 @@ a.client-logo:hover,a.client-logo:focus-visible{opacity:.78;filter:grayscale(1) 
   .builder-plan__title b{font-size:28px}
   .service-choice__grid>a{padding:22px 16px}
   .service-choice h2{font-size:42px}
+  .site-nav,.home-rebuild .site-nav{gap:18px;padding-top:36px}
+  .nav-dropdown summary,.site-nav>a:not(.nav-contact){font-size:27px}
+  .service-detail-hero{padding-top:140px}
+  .service-detail-hero h1{font-size:40px}
 }

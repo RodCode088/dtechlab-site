@@ -41,12 +41,14 @@ window.addEventListener('scroll', setHeaderState, { passive:true });
 const closeMenu = () => {
   menuToggle?.setAttribute('aria-expanded', 'false');
   nav?.classList.remove('is-open');
+  document.body.classList.remove('menu-open');
   nav?.querySelectorAll('.nav-dropdown[open]').forEach(dropdown => dropdown.removeAttribute('open'));
 };
 menuToggle?.addEventListener('click', () => {
   const open = menuToggle.getAttribute('aria-expanded') === 'true';
   menuToggle.setAttribute('aria-expanded', String(!open));
   nav?.classList.toggle('is-open', !open);
+  document.body.classList.toggle('menu-open', !open);
 });
 nav?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 nav?.querySelectorAll('.nav-dropdown').forEach(dropdown => {
