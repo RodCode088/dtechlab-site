@@ -3,11 +3,13 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 if (!location.hash || location.hash === '#top') window.scrollTo(0, 0);
 
 const projectData = [
+  { title:'Carlos López & Asociados', type:'Auditoría y consultoría · Sitio corporativo', description:'Una presencia institucional que organiza un portafolio profesional amplio y convierte consultas complejas en conversaciones claras.', role:'Arquitectura, dirección visual, UX/UI, desarrollo e integraciones.', stack:'React · Formularios · WhatsApp · Asistente virtual', link:'https://carlos-lopez-asociados-web.pages.dev/' },
+  { title:'Gallo Creativo', type:'Estudio-taller · Sitio institucional', description:'Sitio institucional para un estudio-taller panameño: la web presenta su trabajo, disciplinas y contacto con una narrativa visual editorial.', role:'Dirección visual, diseño de interfaz y desarrollo web.', stack:'HTML · CSS · JavaScript · GSAP · Lenis', link:'https://gallocreativo.com/' },
+  { title:'Mono Solo Travel', type:'Turismo · Catálogo de experiencias', description:'Catálogo público de experiencias turísticas con reservas online, datos de contacto y confirmación por token.', role:'Diseño de interfaz y desarrollo de producto web.', stack:'JavaScript · CSS · Cloudflare Pages', link:'https://monosolotravel.com/' },
   { title:'Heritage Real Estate', type:'Luxury real estate · Plataforma comercial', description:'Experiencia premium para descubrir proyectos inmobiliarios en Panamá y convertir el interés en conversaciones calificadas.', role:'Dirección visual, experiencia, desarrollo e integraciones.', stack:'HTML · CSS · JavaScript · CMS · Automatizaciones', link:'https://heritagerealestatepa.com/' },
   { title:'Sommelier Nómada', type:'Hospitalidad · Servicios y eventos', description:'Sitio de autor para presentar catas, maridajes, eventos y asesoría gastronómica con una experiencia envolvente y sofisticada.', role:'Estrategia, dirección visual, diseño de interfaz y desarrollo web.', stack:'HTML · CSS · JavaScript · Animación · Automatizaciones', link:'https://sommeliernomada.com/' },
-  { title:'Gallo Creativo', type:'Estudio-taller · Sitio institucional', description:'Sitio institucional para un estudio-taller panameño: la web presenta su trabajo, disciplinas y contacto con una narrativa visual editorial.', role:'Dirección visual, diseño de interfaz y desarrollo web.', stack:'HTML · CSS · JavaScript · GSAP · Lenis', link:'https://gallocreativo.com/' },
   { title:'Taller D’Cars', type:'Servicios automotrices · Sitio comercial', description:'Sitio comercial para un centro especializado en diagnóstico y soluciones para transmisiones automáticas en Panamá.', role:'Arquitectura de información, interfaz y desarrollo frontend.', stack:'HTML · CSS · JavaScript', link:'https://tallerdcars.com/' },
-  { title:'Mono Solo Travel', type:'Turismo · Catálogo de experiencias', description:'Catálogo público de experiencias turísticas con reservas online, datos de contacto y confirmación por token.', role:'Diseño de interfaz y desarrollo de producto web.', stack:'JavaScript · CSS · Cloudflare Pages', link:'https://monosolotravel.com/' }
+  { title:'Tecnicars P&G', type:'Automotriz · Diagnóstico y transmisiones', description:'Una presencia digital de carácter técnico que presenta los servicios del taller y facilita consultas sobre el vehículo y sus síntomas.', role:'Arquitectura de información, diseño de interfaz y desarrollo web.', stack:'Diseño responsive · Formularios · WhatsApp', link:'https://tecnicarspg.com/' }
 ];
 
 const header = document.querySelector('[data-header]');
@@ -18,6 +20,20 @@ const isMobile = () => window.matchMedia('(max-width: 800px)').matches;
 document.addEventListener('keydown', event => { if (event.key === 'Tab') document.body.classList.add('keyboard-nav'); });
 document.addEventListener('pointerdown', () => document.body.classList.remove('keyboard-nav'), { passive:true });
 
+const revealTargets = [...document.querySelectorAll('[data-reveal]')];
+if ('IntersectionObserver' in window && !reduceMotion) {
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-revealed');
+      revealObserver.unobserve(entry.target);
+    });
+  }, { rootMargin:'0px 0px -8% 0px', threshold:.08 });
+  revealTargets.forEach(target => revealObserver.observe(target));
+} else {
+  revealTargets.forEach(target => target.classList.add('is-revealed'));
+}
+
 const setHeaderState = () => header?.classList.toggle('is-scrolled', window.scrollY > 28);
 setHeaderState();
 window.addEventListener('scroll', setHeaderState, { passive:true });
@@ -25,6 +41,7 @@ window.addEventListener('scroll', setHeaderState, { passive:true });
 const closeMenu = () => {
   menuToggle?.setAttribute('aria-expanded', 'false');
   nav?.classList.remove('is-open');
+  nav?.querySelectorAll('.nav-dropdown[open]').forEach(dropdown => dropdown.removeAttribute('open'));
 };
 menuToggle?.addEventListener('click', () => {
   const open = menuToggle.getAttribute('aria-expanded') === 'true';
@@ -32,6 +49,18 @@ menuToggle?.addEventListener('click', () => {
   nav?.classList.toggle('is-open', !open);
 });
 nav?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+nav?.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+  dropdown.addEventListener('toggle', () => {
+    if (!dropdown.open) return;
+    nav.querySelectorAll('.nav-dropdown[open]').forEach(other => {
+      if (other !== dropdown) other.removeAttribute('open');
+    });
+  });
+});
+document.addEventListener('pointerdown', event => {
+  if (event.target.closest('.nav-dropdown')) return;
+  nav?.querySelectorAll('.nav-dropdown[open]').forEach(dropdown => dropdown.removeAttribute('open'));
+});
 window.addEventListener('hashchange', closeMenu);
 window.addEventListener('resize', () => { if (window.innerWidth > 800) closeMenu(); }, { passive:true });
 
@@ -103,16 +132,21 @@ createTetrisLetters();
 const mobileSlides = [...document.querySelectorAll('[data-mobile-slide]')];
 const mobileProgress = [...document.querySelectorAll('.mobile-carousel__progress span')];
 const mobileMeta = [
+  ['Carlos López & Asociados', 'Auditoría, consultoría y servicios profesionales.'],
+  ['Gallo Creativo', 'Web institucional para un estudio-taller.'],
+  ['Mono Solo Travel', 'Experiencias y viajes por Panamá.'],
   ['Heritage Real Estate', 'Luxury real estate para invertir y vivir.'],
   ['Sommelier Nómada', 'Catas, hospitalidad y eventos con autoría.'],
-  ['Gallo Creativo', 'Web institucional para un estudio-taller.'],
   ['Taller D’Cars', 'Diagnóstico y servicios automotrices.'],
-  ['Mono Solo Travel', 'Experiencias y viajes por Panamá.']
+  ['Tecnicars P&G', 'Diagnóstico y transmisiones automáticas.']
 ];
 mobileSlides.forEach((slide, index) => {
   const caption = slide.querySelector('figcaption');
   const image = slide.querySelector('img');
-  if (image) image.loading = 'eager';
+  if (image) {
+    image.loading = index === 0 ? 'eager' : 'lazy';
+    image.decoding = 'async';
+  }
   if (!caption || !mobileMeta[index]) return;
   const title = document.createElement('strong');
   const description = document.createElement('small');
@@ -213,6 +247,10 @@ tabs.forEach(tab => tab.addEventListener('click', () => paintProject(Number(tab.
 const orbitalPaint = () => {
   raf = 0;
   if (!projectSection || !showcase) return;
+  if (isMobile()) {
+    positionProjectCards(activeProject);
+    return;
+  }
   const bounds = projectSection.getBoundingClientRect();
   const scrollable = Math.max(1, projectSection.offsetHeight - window.innerHeight);
   const progress = reduceMotion ? 0 : Math.max(0, Math.min(1, -bounds.top / scrollable));
@@ -259,6 +297,7 @@ const createLeadWhatsAppUrl = values => {
     `Negocio: ${values.business || ''}`,
     `Sector: ${values.sector || ''}`,
     `Proyecto: ${values.project || ''}`,
+    values.configuration ? `Configuración: ${values.configuration}` : '',
     `Plazo: ${values.timeline || ''}`,
     `Referencia: ${values.interest || ''}`
   ];
@@ -443,6 +482,14 @@ const createLeadChat = () => {
 
 createLeadChat();
 
+document.querySelectorAll('[data-plan-choice]').forEach(button => {
+  button.addEventListener('click', () => {
+    const form = document.querySelector('[data-pricing-form]');
+    const select = form?.querySelector('[name="project"]');
+    if (select) select.value = button.dataset.planChoice || '';
+  });
+});
+
 const contactForm = document.querySelector('[data-contact-form]');
 if (contactForm) {
   const status = contactForm.querySelector('[data-contact-form-status]');
@@ -451,10 +498,12 @@ if (contactForm) {
     event.preventDefault();
     if (!contactForm.reportValidity()) return;
     const values = Object.fromEntries(new FormData(contactForm).entries());
+    if (contactForm.dataset.project) values.project = contactForm.dataset.project;
+    if (contactForm.dataset.configuration) values.configuration = contactForm.dataset.configuration;
     const payload = { ...values, source:location.href, submittedAt:new Date().toISOString() };
     const endpoint = String(window.DTECHLAB_LEAD_ENDPOINT || '').trim();
     if (!endpoint) {
-      const body = [`Nombre: ${values.name}`, `Correo: ${values.email}`, `Negocio: ${values.business}`, `Proyecto: ${values.project}`].join('\n');
+      const body = [`Nombre: ${values.name}`, `Correo: ${values.email}`, values.phone ? `Teléfono: ${values.phone}` : '', `Negocio: ${values.business}`, `Proyecto: ${values.project}`, values.configuration ? `Configuración:\n${values.configuration}` : '', values.details ? `Detalles: ${values.details}` : ''].filter(Boolean).join('\n');
       location.href = `mailto:sales@dtechl.com?subject=${encodeURIComponent(`Nuevo proyecto · ${values.business}`)}&body=${encodeURIComponent(body)}`;
       status.textContent = 'Abrimos tu correo para completar el envío a sales@dtechl.com.';
       return;

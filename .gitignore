@@ -2,3 +2,13 @@ node_modules/
 dist/
 .codex/
 *.local
+.DS_Store
+**/.DS_Store
+.wrangler/
+.lead-sheet-build/
+outputs/
+tmp/
+cms/
+public/site-media/servicio-sitios-web-v2.png
+public/site-media/servicio-operacion-v2.png
+public/site-media/servicio-contenido-v2.png
